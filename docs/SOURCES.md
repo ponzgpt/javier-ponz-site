@@ -9,6 +9,10 @@ This register distinguishes self-reported material from external context. A clai
 - `https://github.com/ponzgpt/personal-site` — previous public source repository.
 - `https://github.com/ponzgpt/nous-open-application` — previous public source repository.
 
+## Design reference
+
+- NOUS Research Official Branding Booklet, first edition (retrieved 2026-09-04): https://nousresearch.com/wp-content/uploads/2024/03/NOUS-BRAND-BOOKLET-firstedition_1.pdf — visual reference only; not evidence of affiliation.
+
 ## External context
 
 - `https://nousresearch.com/careers` — official careers context. It does not prove any relationship between Javier and Nous.
