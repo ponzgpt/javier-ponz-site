@@ -1,8 +1,8 @@
 export const projects = [
   { title: 'Hermes PKM Toolkit', kind: 'toolkit', status: 'active', description: 'Personal knowledge-management tooling and durable workflows around agentic work.', url: 'https://github.com/ponzgpt/hermes-pkm-toolkit' },
   { title: 'Mental Models Toolkit', kind: 'reference', status: 'active', description: 'Structured models for decisions, risk and clearer thinking under uncertainty.', url: 'https://github.com/ponzgpt/mental-models-toolkit' },
-  { title: 'Memento Mori', kind: 'utility', status: 'active', description: 'A small tested desktop utility for keeping time visible and priorities sharp.', url: 'https://github.com/ponzgpt/memento-mori' },
-  { title: 'YouTube knowledge pipeline', kind: 'pipeline', status: 'active', description: 'A source-aware workflow for turning video material into inspectable knowledge.', url: 'https://github.com/ponzgpt/youtube-knowledge-pipeline' }
+  { title: 'Memento Mori', kind: 'web app', status: 'active', description: 'A Spanish-first web app turning life-expectancy data into perspective and one intentional action for today, live at memento.technoir.cloud.', url: 'https://github.com/ponzgpt/memento-mori' },
+  { title: 'Hermes Agent Site', kind: 'landing page', status: 'active', description: 'An unofficial landing page for Hermes Agent that behaves like the CLI it describes: real slash commands, six skins.', url: 'https://github.com/ponzgpt/hermes-agent-site' }
 ];
 
 export const timeline = [
