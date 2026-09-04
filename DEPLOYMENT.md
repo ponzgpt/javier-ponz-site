@@ -3,6 +3,7 @@
 ## Target
 
 - URL canónica: `https://javierponz.technoir.cloud`
+- Legacy URL: `https://nouscandidate.technoir.cloud` → permanent redirect to `/nous-application/`
 - Runtime: Astro static build + `nginx:1.27-alpine`
 - Edge: Hostinger VPS → Traefik/Dokploy → container port 80
 

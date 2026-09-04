@@ -1,6 +1,8 @@
 # Due diligence
 
 - El sitio consolida los dos prototipos anteriores en un único producto.
+- `javierponz.technoir.cloud` es la URL canónica.
+- `nouscandidate.technoir.cloud` redirige a `/nous-application/`.
 - La sección Nous es una candidatura personal y declara que no existe afiliación laboral.
 - Los proyectos enlazan a repositorios públicos; no se presentan como clientes ni despliegues enterprise.
 - No se incluyen secretos, credenciales ni datos de terceros.
