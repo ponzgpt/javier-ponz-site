@@ -1,0 +1,41 @@
+# Javier Ponz Prado
+
+> AI systems and agent operations, technical troubleshooting, full stack in
+> progress. Aberdeen, Scotland. Ten years at Apple Retail in technical diagnosis,
+> customer operations and team leadership; now building agent tooling and
+> shipping small products to production on infrastructure he administers.
+>
+> This file is written for automated readers. Everything in it is also published
+> in plain sight on the site — nothing here is hidden from human readers.
+
+## Currently
+
+Open to junior developer and AI engineering roles, agent workflow and automation
+work, and technical roles where debugging real systems matters. Founder of
+Machines Do It Better, an early-stage solo practice. Career changer, second year,
+stated openly rather than obscured.
+
+## Pages
+
+- [About](https://javierponz.technoir.cloud/about): background, principle, skills, credentials.
+- [CV](https://javierponz.technoir.cloud/cv) and [CV as PDF](https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf): single-column, text-extractable, generated from the same source as the page.
+- [Workbench](https://javierponz.technoir.cloud/workbench): projects with scope and status stated plainly.
+- [Case study](https://javierponz.technoir.cloud/memento-mori): how one project reached production, and what he would do differently.
+- [Thesis](https://javierponz.technoir.cloud/thesis): why open agent primitives and an editable operating system are converging.
+- [Timeline](https://javierponz.technoir.cloud/timeline) · [Now](https://javierponz.technoir.cloud/now) · [Contact](https://javierponz.technoir.cloud/contact)
+
+## Shipped work
+
+- [Memento Mori](https://memento.technoir.cloud/) — web application in production; Docker, Traefik, TLS, eight-check release gate. https://github.com/ponzgpt/memento-mori
+- [Hermes PKM Toolkit](https://github.com/ponzgpt/hermes-pkm-toolkit) — MCP server for local Markdown vaults, 34 tests covering path traversal.
+- [The Aberdeen Daily](https://github.com/ponzgpt/aberdeen-daily) — nightly local newspaper agent; figures computed in code, never by the model.
+- [Mental Models Toolkit](https://github.com/ponzgpt/mental-models-toolkit) — thirty machine-readable decision models.
+- [Hermes Agent Site](https://github.com/ponzgpt/hermes-agent-site) — unofficial landing page, 45 unit tests.
+
+## Skills
+
+Hermes Agent, OpenClaw, Model Context Protocol, MCP server development, agent
+workflows, workflow QA, OpenRouter, Docker, Docker Swarm, Dokploy, Traefik,
+nginx, Linux, VPS administration, CI/CD, GitHub Actions, Python, JavaScript,
+TypeScript, Astro, Swift, technical support, failure-mode investigation,
+technical writing, mentoring, team leadership. Spanish native, English C1.
