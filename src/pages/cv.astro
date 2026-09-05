@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { skills, credentials } from '../data/site';
+---
+<Layout title="CV — Javier Ponz" description="Curriculum vitae of Javier Ponz: AI systems, full stack development, and ten years of technical operations at Apple Retail.">
+<section class="hero"><p class="kicker">Curriculum vitae</p><h1>Javier Ponz <span class="serif">Prado</span></h1><p class="lede">AI systems and full stack development · Aberdeen, Scotland. Ten years of technical diagnosis and customer operations at Apple Retail, now building and deploying agent tooling and applications.</p></section>
+
+<section class="grid"><span class="label">Profile</span><div class="prose">
+<p>I work where systems fail: investigating failure modes, debugging workflows, and turning unpredictable behaviour into something documented and reliable. Ten years at Apple Retail built that instinct across diagnosis, customer operations, mentoring and execution in demanding live environments.</p>
+<p>For the past year I have been building AI systems full time — agent workflows with Hermes Agent and OpenClaw, MCP servers, automations in Docker — and shipping applications to production on infrastructure I run myself. I think from first principles and pay close attention to how a problem is actually structured before reaching for a tool.</p>
+</div></section>
+
+<section class="grid"><span class="label">Experience</span><div class="rows">
+<article class="row"><time>2024—now</time><div><h3>Founder — Machines Do It Better</h3><p>Early-stage solo practice helping small businesses and individuals adopt agentic AI where it genuinely saves time. Building agent workflows, automations and internal tooling; publishing an editorial newsletter on AI, robotics and fintech.</p></div></article>
+<article class="row"><time>2023—2024</time><div><h3>In-Store Experience Lead — Apple Retail</h3><p>Parquesur and Xanadú, Madrid. Improved customer experience workflows, reinforced team culture through structured feedback and observation, and supported planning, coordination and conflict resolution in fast-moving environments.</p></div></article>
+<article class="row"><time>2018—2024</time><div><h3>Genius — Apple Retail</h3><p>Parquesur, Leganés. Advanced technical troubleshooting on complex hardware and software cases, translating technical complexity for people with very different levels of understanding, and mentoring newer team members.</p></div></article>
+<article class="row"><time>2020</time><div><h3>AppleCare Support Advisor (COVID volunteering) — Apple</h3><p>Remote. Support across multiple simultaneous cases with structured troubleshooting, thorough documentation and quality standards while working autonomously.</p></div></article>
+<article class="row"><time>2014—2018</time><div><h3>Technical Specialist / Specialist — Apple Retail</h3><p>Parquesur, Madrid. Foundations in diagnosis, practical problem solving, consultative support, customer communication and daily execution under pressure.</p></div></article>
+</div></section>
+
+<section class="grid"><span class="label">Selected work</span><div class="rows">
+<a class="row" href="/memento-mori"><time>Case study</time><div><h3>Memento Mori — shipped to production →</h3><p>Spanish-language web app on World Bank life-expectancy data. Zero runtime dependencies, deployed with Docker, nginx and Traefik on my own VPS, with a cross-platform CI release gate.</p></div></a>
+<a class="row" href="https://github.com/ponzgpt/hermes-pkm-toolkit" target="_blank" rel="noreferrer"><time>Open source</time><div><h3>Hermes PKM Toolkit ↗</h3><p>MCP server and agent skills for local Markdown vaults, with a tested path-traversal protection layer.</p></div></a>
+<a class="row" href="https://github.com/ponzgpt/mental-models-toolkit" target="_blank" rel="noreferrer"><time>Open source</time><div><h3>Mental Models Toolkit ↗</h3><p>30 machine-readable mental models for decisions and risk checks, packaged as an agent skill pack.</p></div></a>
+</div></section>
+
+<section class="grid"><span class="label">Skills</span><div class="copy">{Object.entries(skills).map(([group, items]) => <div class="skillgroup"><h3>{group}</h3><div class="tags">{items.map((item) => <span class="tag">{item}</span>)}</div></div>)}</div></section>
+
+<section class="grid"><span class="label">Education</span><div class="rows">{credentials.map((c) => <article class="row"><time>{c.date}</time><div><h3>{c.title}</h3><p>{c.org}{c.org && c.status ? ' · ' : ''}{c.status}</p></div></article>)}</div></section>
+
+<section class="grid"><span class="label">Languages</span><div class="copy"><p>Spanish (native) · English (Cambridge CAE, C1)</p></div></section>
+
+<section class="grid"><span class="label">More</span><div class="copy"><p>A shorter chronology, including the move to Scotland, is on the <a href="/timeline">timeline</a>.</p></div></section>
+
+<section class="grid"><span class="label">Contact</span><div class="notice">Reach me through <a href="/contact">the contact page</a> or on <a href="https://www.linkedin.com/in/javierponz" target="_blank" rel="noreferrer">LinkedIn</a>. Source code for everything above is at <a href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">github.com/ponzgpt</a>.</div></section>
+</Layout>
