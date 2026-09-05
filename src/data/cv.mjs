@@ -1,0 +1,130 @@
+// Single source of truth for the CV.
+//
+// Consumed by two outputs:
+//   - src/pages/cv.astro          → the public web page (no phone number)
+//   - scripts/build-cv-pdf.mjs    → public/javier-ponz-prado-cv.pdf (full contact)
+//
+// Plain .mjs rather than .ts so the Node build script can import it directly.
+// Edit here; both outputs follow.
+
+export const person = {
+  name: 'Javier Ponz Prado',
+  headline: 'AI systems & agent operations · technical troubleshooting · full stack in progress',
+  location: 'Aberdeen, Scotland, United Kingdom',
+  // `private: true` fields are written into the PDF only, never rendered on the web page.
+  contact: [
+    { label: 'Email', value: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com' },
+    { label: 'Phone', value: '+34 691 347 651', href: 'tel:+34691347651', private: true },
+    { label: 'LinkedIn', value: 'linkedin.com/in/javierponz', href: 'https://www.linkedin.com/in/javierponz' },
+    { label: 'GitHub', value: 'github.com/ponzgpt', href: 'https://github.com/ponzgpt' },
+    { label: 'Site', value: 'javierponz.technoir.cloud', href: 'https://javierponz.technoir.cloud/' }
+  ]
+};
+
+export const profile = [
+  'Ten years at Apple Retail across diagnosis, customer operations and team leadership, now operating open agent systems daily and shipping small software to production.',
+  'Strongest where systems fail: investigating failure modes, debugging workflows, and writing down precisely which assumption broke. I work from first principles and pay close attention to how a problem is structured before reaching for a tool.',
+  'One conviction carries across every role I have held: leading is serving. The measure of a tool, like the measure of a lead, is whether the person depending on it ends up with more capacity than they started with.'
+];
+
+export const shipped = [
+  {
+    title: 'Memento Mori — web application, live in production',
+    when: '2026',
+    where: 'memento.technoir.cloud · Apache-2.0 · github.com/ponzgpt/memento-mori',
+    href: 'https://memento.technoir.cloud/',
+    body: 'Spanish-language perspective tool built on World Bank life-expectancy data. No accounts, no backend, no analytics; all computation runs in the browser. Deployed with Docker, nginx and Traefik on a VPS I administer, behind an eight-check release gate (unit tests, feature stories, lint, web smoke, installer and version-consistency checks) that refuses to publish on red. Cross-platform CI on Linux, macOS and Windows. Native macOS menu-bar companion written in Swift.'
+  },
+  {
+    title: 'Hermes PKM Toolkit — MCP server and agent skills',
+    when: '2026',
+    where: 'MIT · github.com/ponzgpt/hermes-pkm-toolkit',
+    href: 'https://github.com/ponzgpt/hermes-pkm-toolkit',
+    body: 'Model Context Protocol tools for operating local Markdown vaults safely, with a filesystem-safety layer and 34 tests covering path-traversal rejection, absolute-path neutralisation and delta detection. Found and fixed an unclosed file handle while writing the suite.'
+  },
+  {
+    title: 'The Aberdeen Daily — nightly local newspaper agent',
+    when: '2026',
+    where: 'MIT · github.com/ponzgpt/aberdeen-daily',
+    href: 'https://github.com/ponzgpt/aberdeen-daily',
+    body: 'Adapted from an open Hermes Agent project. A standard-library-only ingest desk pulls four verified local news feeds; data desks compute every figure in Python so the language model is never in a position to invent one. Editorial rules enforce original copy, attribution and linking.'
+  },
+  {
+    title: 'Mental Models Toolkit — agent skill pack',
+    when: '2026',
+    where: 'MIT · github.com/ponzgpt/mental-models-toolkit',
+    href: 'https://github.com/ponzgpt/mental-models-toolkit',
+    body: 'Thirty machine-readable decision and risk models, schema-validated in continuous integration, written to be read by an agent rather than by a person.'
+  }
+];
+
+export const experience = [
+  {
+    title: 'Founder — Machines Do It Better',
+    when: 'August 2024 — present',
+    where: 'Aberdeen, Scotland · independent',
+    body: 'Early-stage solo practice helping small businesses adopt agentic AI where it returns real time. Designing, deploying and stress-testing agents and automations in Docker and Dokploy with OpenRouter and Telegram; operational documentation and workflow QA. Editorial newsletter covering AI, robotics and fintech.'
+  },
+  {
+    title: 'In-Store Experience Lead — Apple Retail',
+    when: 'February 2023 — August 2024',
+    where: 'Parquesur and Xanadú, Madrid',
+    body: 'Ran floor experience across two stores: planning, resourcing, events, maintenance coordination and conflict resolution. Structured feedback and mentoring. Led by removing obstacles rather than issuing instructions.'
+  },
+  {
+    title: 'Genius — Apple Retail',
+    when: 'March 2018 — March 2020; August 2023 — February 2024',
+    where: 'Parquesur, Leganés, Madrid',
+    body: 'Advanced hardware and software diagnosis on complex cases. Translated technical complexity for people with very different levels of understanding, and brought newer technicians onto the bench.'
+  },
+  {
+    title: 'AppleCare Support Advisor — Apple',
+    when: 'March 2020 — June 2020',
+    where: 'Remote, Madrid · COVID volunteering',
+    body: 'Concurrent remote support cases under structured troubleshooting and documentation standards, working autonomously.'
+  },
+  {
+    title: 'Technical Specialist / Specialist — Apple Retail',
+    when: '2014 — 2018',
+    where: 'Parquesur, Madrid',
+    body: 'Foundations in diagnosis, consultative support, practical problem solving and execution under pressure.'
+  }
+];
+
+export const education = [
+  {
+    title: 'Specialist in Artificial Intelligence',
+    when: '2024 — 2026, in progress',
+    where: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)'
+  },
+  {
+    title: 'Full Stack AI Developer',
+    when: '2025 — 2026, in progress',
+    where: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)'
+  },
+  {
+    title: 'Industrial Engineering (Electronics and Automation)',
+    when: '80 ECTS completed, degree unfinished',
+    where: 'Universidad Politécnica de Madrid'
+  },
+  {
+    title: 'Apple Certified Mac Technician (ACMT); Apple Certified iOS Technician (ACiT)',
+    when: 'Certified',
+    where: 'Apple'
+  },
+  {
+    title: 'English — Cambridge Certificate in Advanced English (C1)',
+    when: 'Certified',
+    where: 'Cambridge Assessment'
+  }
+];
+
+// Flat groups, deliberately keyword-dense and plainly written: the first reader
+// of this document is likely to be software.
+export const skills = [
+  { group: 'Agents and AI', items: ['Hermes Agent', 'OpenClaw', 'Model Context Protocol (MCP)', 'MCP server development', 'agent workflows', 'workflow QA', 'OpenRouter', 'prompt and failure-trace debugging'] },
+  { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux', 'VPS administration', 'TLS / Let’s Encrypt', 'GitHub Actions', 'CI/CD', 'release gating'] },
+  { group: 'Development', items: ['JavaScript', 'TypeScript', 'Python', 'Astro', 'Swift', 'HTML', 'CSS', 'Git', 'unit testing', 'static site generation'] },
+  { group: 'Practice', items: ['Technical troubleshooting', 'failure-mode investigation', 'technical support', 'customer operations', 'technical writing and documentation', 'mentoring', 'team leadership'] },
+  { group: 'Languages', items: ['Spanish (native)', 'English (Cambridge CAE, C1)'] }
+];
