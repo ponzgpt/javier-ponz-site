@@ -24,6 +24,7 @@ export const person = {
 export const profile = [
   'Ten years at Apple Retail across diagnosis, customer operations and team leadership, now operating open agent systems daily and shipping small software to production.',
   'Strongest where systems fail: investigating failure modes, debugging workflows, and writing down precisely which assumption broke. I work from first principles and pay close attention to how a problem is structured before reaching for a tool.',
+  'I run local inference on my own hardware — llama.cpp serving a quantised open-weights model from an RTX 5090, exposed as an API and wired into Hermes — and I am building a self-hosted homelab on Proxmox. Privacy and data sovereignty are the point of that work, not a side effect of it.',
   'One conviction carries across every role I have held: leading is serving. The measure of a tool, like the measure of a lead, is whether the person depending on it ends up with more capacity than they started with.'
 ];
 
@@ -63,7 +64,7 @@ export const experience = [
     title: 'Founder — Machines Do It Better',
     when: 'August 2024 — present',
     where: 'Aberdeen, Scotland · independent',
-    body: 'Early-stage solo practice helping small businesses adopt agentic AI where it returns real time. Designing, deploying and stress-testing agents and automations in Docker and Dokploy with OpenRouter and Telegram; operational documentation and workflow QA. Editorial newsletter covering AI, robotics and fintech.'
+    body: 'An agent consultancy for individuals and small businesses, premised on privacy, data sovereignty and customisation to a specific use case rather than the deterministic workflow tooling most agencies sell. Designing, deploying and stress-testing agents and automations in Docker and Dokploy with OpenRouter and Telegram; operational documentation and workflow QA. No clients to date. Editorial newsletter covering AI, robotics and fintech.'
   },
   {
     title: 'In-Store Experience Lead — Apple Retail',
@@ -122,9 +123,10 @@ export const education = [
 // Flat groups, deliberately keyword-dense and plainly written: the first reader
 // of this document is likely to be software.
 export const skills = [
-  { group: 'Agents and AI', items: ['Hermes Agent', 'OpenClaw', 'Model Context Protocol (MCP)', 'MCP server development', 'agent workflows', 'workflow QA', 'OpenRouter', 'prompt and failure-trace debugging'] },
+  { group: 'Agents and AI', items: ['Hermes Agent', 'OpenClaw', 'Model Context Protocol (MCP)', 'MCP server development', 'agent workflows', 'workflow QA', 'OpenRouter', 'llama.cpp', 'Ollama', 'LM Studio', 'local inference on own GPU', 'prompt and failure-trace debugging'] },
   { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux', 'VPS administration', 'TLS / Let’s Encrypt', 'GitHub Actions', 'CI/CD', 'release gating'] },
   { group: 'Development', items: ['JavaScript', 'TypeScript', 'Python', 'Astro', 'Swift', 'HTML', 'CSS', 'Git', 'unit testing', 'static site generation'] },
   { group: 'Practice', items: ['Technical troubleshooting', 'failure-mode investigation', 'technical support', 'customer operations', 'technical writing and documentation', 'mentoring', 'team leadership'] },
+  { group: 'Currently learning', items: ['vLLM', 'Proxmox', 'NAS under a hypervisor', 'virtualisation', 'networking and Pi-hole', 'self-hosted homelab', 'Arch Linux', 'Fedora', 'Omarchy'] },
   { group: 'Languages', items: ['Spanish (native)', 'English (Cambridge CAE, C1)'] }
 ];
