@@ -85,7 +85,7 @@ export const experience = [
     body: 'Concurrent remote support cases under structured troubleshooting and documentation standards, working autonomously.'
   },
   {
-    title: 'Technical Specialist, then Specialist — Apple Retail',
+    title: 'Specialist, then Technical Specialist — Apple Retail',
     when: 'September 2014 — February 2018',
     where: 'Parquesur, Madrid',
     body: 'Foundations in diagnosis, consultative support, practical problem solving and execution under pressure.'

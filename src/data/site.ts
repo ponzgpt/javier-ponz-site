@@ -6,12 +6,12 @@ export const projects = [
 ];
 
 export const timeline = [
-  { date: '2014—2018', title: 'Specialist → Technical Specialist, Apple Retail', text: 'Parquesur, Madrid. Foundations in diagnosis, consultative support and daily execution under pressure.' },
-  { date: '2018—2024', title: 'Genius, Apple Retail', text: 'Advanced technical troubleshooting on complex cases, translating technical complexity for people with very different levels of understanding, and mentoring newer team members.' },
-  { date: '2020', title: 'AppleCare Support Advisor', text: 'Remote support during COVID, volunteering. Multiple simultaneous cases, structured troubleshooting, thorough documentation, working autonomously.' },
-  { date: '2023—2024', title: 'In-Store Experience Lead, Apple Retail', text: 'Parquesur and Xanadú. Customer experience workflows, team feedback and observation, planning, coordination and conflict resolution.' },
-  { date: '2024', title: 'Aberdeen, Scotland', text: 'Moved to the UK and started a deliberate transition into AI systems and full stack development.' },
-  { date: '2024—now', title: 'AI systems, automation, and building in public', text: 'Studying at URJC via Racks University, founding Machines Do It Better, and building agent tooling and small products that actually ship.' }
+  { date: 'Sep 2014 — Feb 2018', title: 'Specialist, then Technical Specialist · Apple Retail', text: 'Parquesur, Madrid. Foundations in diagnosis, consultative support and daily execution under pressure.' },
+  { date: 'Mar 2018 — Aug 2024', title: 'Genius · Apple Retail', text: 'Parquesur, Leganés. Six and a half years as the technical baseline of the store: advanced diagnosis on the cases nobody else had resolved, translating them for people with very different levels of understanding, and bringing newer technicians onto the bench.' },
+  { date: 'Mar — Jun 2020', title: 'AppleCare Support Advisor · Apple', text: 'Remote, during COVID, as a volunteer. Concurrent cases under structured troubleshooting and documentation standards, working without a floor around me.' },
+  { date: 'Feb — Aug 2023 · Feb — Aug 2024', title: 'Lead In-Store Experience · Apple Retail (secondment, twice)', text: 'Xanadú first, then Parquesur. Two seven-month leadership secondments taken while holding the Genius role: planning, resourcing, events, coordination and the situations that fit no procedure. Led by removing obstacles, then went back to the bench.' },
+  { date: 'Aug 2024', title: 'Aberdeen, Scotland', text: 'Moved to the UK and started a deliberate transition into AI systems and full stack development.' },
+  { date: 'Aug 2024 — now', title: 'AI systems, automation, and building in public', text: 'Studying at Universidad Rey Juan Carlos via Racks University, founding Machines Do It Better, running local inference on my own hardware, and shipping small products that reach production.' }
 ];
 
 export const skills = {
@@ -22,8 +22,8 @@ export const skills = {
 };
 
 export const credentials = [
-  { title: 'Specialist in Artificial Intelligence', org: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)', date: '2024—2026', status: 'in progress' },
-  { title: 'Full Stack AI Developer', org: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)', date: '2025—2026', status: 'in progress' },
+  { title: 'Specialist in Artificial Intelligence', org: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)', date: 'Oct 2024 — Dec 2026', status: 'in progress' },
+  { title: 'Full Stack AI Developer', org: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)', date: 'Sep 2025 — Dec 2026', status: 'in progress' },
   { title: 'Industrial Engineering (Electronics & Automation)', org: 'Universidad Politécnica de Madrid', date: '80 ECTS completed', status: 'degree not finished' },
   { title: 'Apple Certified Mac Technician (ACMT) · Apple Certified iOS Technician (ACiT)', org: 'Apple', date: '', status: 'certified' },
   { title: 'English — Cambridge CAE (C1)', org: 'Cambridge Assessment', date: '', status: 'certified' }
