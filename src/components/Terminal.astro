@@ -1,0 +1,311 @@
+---
+// An actual shell, not a picture of one. The commands read the same data files
+// the rest of the site renders from, so the terminal cannot drift out of date
+// with the pages beneath it.
+//
+// The seeded `neofetch` output is rendered server-side, so the page is complete
+// and readable at rest — with JavaScript off, or for a crawler, this is a
+// normal <pre> full of real text.
+import { projects, running, skills } from '../data/site';
+import { person, profile } from '../data/cv.mjs';
+import { skins } from '../data/skins.mjs';
+
+const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
+     ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
+     ██║███████║██║   ██║██║█████╗  ██████╔╝
+██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
+╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
+ ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝
+██████╗  ██████╗ ███╗   ██╗███████╗
+██╔══██╗██╔═══██╗████╗  ██║╚══███╔╝
+██████╔╝██║   ██║██╔██╗ ██║  ███╔╝
+██╔═══╝ ██║   ██║██║╚██╗██║ ███╔╝
+██║     ╚██████╔╝██║ ╚████║███████╗
+╚═╝      ╚═════╝ ╚═╝  ╚═══╝╚══════╝`;
+
+const facts = [
+  ['OS', 'Arch Linux · Omarchy · Fedora'],
+  ['Host', 'ex-Apple Genius, ten years'],
+  ['Role', 'technical support · customer success'],
+  ['Uptime', 'two years on this stack'],
+  ['Shell', 'Hermes Agent'],
+  ['WM', 'Hyprland'],
+  ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
+  ['Deploy', 'Docker · Traefik · a VPS I administer'],
+  ['Terminal', 'you are in it'],
+  ['Open to', 'support and customer-facing roles, remote']
+];
+
+// Everything the client-side commands need, and nothing more.
+const data = {
+  name: person.name,
+  location: person.location,
+  headline: person.headline,
+  profile: profile[1],
+  projects: projects.map((p) => ({ t: p.title, k: p.kind, s: p.status, by: p.by, d: p.description, u: p.url })),
+  running: running.map((r) => ({ t: r.title, k: r.kind, by: r.by, d: r.description, u: r.url })),
+  skills: Object.entries(skills).map(([g, items]) => ({ g, items })),
+  contact: person.contact.filter((c) => !c.private).map((c) => ({ l: c.label, v: c.value, h: c.href })),
+  pages: [
+    ['about', '/about', 'experience and the transition'],
+    ['cv', '/cv', 'full curriculum vitae, and the PDF'],
+    ['workbench', '/workbench', 'what I run and what I built'],
+    ['case-study', '/memento-mori', 'shipping one thing to production'],
+    ['thesis', '/thesis', 'the malleable machine'],
+    ['now', '/now', 'what has my attention'],
+    ['contact', '/contact', 'how to reach me']
+  ],
+  skins: skins.map((s) => ({ id: s.id, name: s.name, note: s.note }))
+};
+---
+<section class="term-wrap" aria-labelledby="term-title">
+  <div class="win">
+    <div class="bar">
+      <span class="ws"><b>1</b><i></i><i></i></span>
+      <span class="wtitle" id="term-title">javier@aberdeen — ~/field-notes</span>
+      <span class="wstat"><span class="dot"></span>online</span>
+    </div>
+    <div class="term" id="term">
+      <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@aberdeen ~ <b>❯</b> neofetch</span>
+<span class="art">{banner}</span>
+<span class="who">{data.name} — {data.location}</span>
+{facts.map(([k, v]) => (<Fragment><span class="k">{k.padEnd(10)}</span><span class="v">{v}</span>{'\n'}</Fragment>))}
+<span class="hint">Type <b>help</b> for what this understands. Everything here is also a normal page — the links below work without it.</span>
+</pre>
+      <form class="line" id="term-form" autocomplete="off">
+        <label for="term-in">javier@aberdeen ~ <b>❯</b></label>
+        <input id="term-in" name="c" type="text" spellcheck="false" autocapitalize="off"
+               aria-describedby="term-title" placeholder="help" />
+      </form>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ data }}>
+(function () {
+  var out = document.getElementById('term-out');
+  var form = document.getElementById('term-form');
+  var input = document.getElementById('term-in');
+  if (!out || !form || !input) return;
+
+  var history = [], hpos = 0;
+  var pad = function (s, n) { return (s + '          ').slice(0, n); };
+
+  function write(text, cls) {
+    var el = document.createElement('span');
+    if (cls) el.className = cls;
+    el.textContent = text + '\n';
+    out.appendChild(el);
+  }
+  function link(label, href, note) {
+    var el = document.createElement('span');
+    var a = document.createElement('a');
+    a.href = href; a.textContent = label;
+    if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noreferrer'; }
+    el.appendChild(document.createTextNode('  '));
+    el.appendChild(a);
+    if (note) el.appendChild(document.createTextNode('  ' + note));
+    el.appendChild(document.createTextNode('\n'));
+    out.appendChild(el);
+  }
+
+  var commands = {
+    help: function () {
+      write('Commands:', 'k');
+      [['whoami', 'the short version'],
+       ['ls', 'pages on this site'],
+       ['open <page>', 'go to one of them'],
+       ['projects', 'what I built, and who wrote it'],
+       ['running', 'what I run every day'],
+       ['skills', 'grouped, with what I am still learning'],
+       ['cv', 'profile and the PDF'],
+       ['contact', 'email, GitHub, LinkedIn'],
+       ['skin [name]', 'change the look, or list the options'],
+       ['neofetch', 'the banner again'],
+       ['clear', 'wipe the scrollback']
+      ].forEach(function (c) { write('  ' + pad(c[0], 14) + c[1]); });
+    },
+    whoami: function () {
+      write(data.name + ' — ' + data.location, 'who');
+      write(data.headline, 'k');
+      write('');
+      write(data.profile);
+    },
+    ls: function () {
+      data.pages.forEach(function (p) { link(pad(p[0], 12) + p[2], p[1]); });
+    },
+    open: function (arg) {
+      var hit = data.pages.filter(function (p) { return p[0] === arg; })[0];
+      if (!hit) { write('open: no page named "' + (arg || '') + '". Try ls.', 'err'); return; }
+      write('opening /' + hit[0] + ' …');
+      setTimeout(function () { location.href = hit[1]; }, 220);
+    },
+    projects: function () {
+      data.projects.forEach(function (p) {
+        write('');
+        write(p.t + '  [' + p.s + ' · ' + p.k + ']', 'who');
+        write('  ' + p.by, 'k');
+        write('  ' + p.d);
+        link('source ↗', p.u);
+      });
+    },
+    running: function () {
+      data.running.forEach(function (r) {
+        write('');
+        write(r.t + '  [' + r.k + ']', 'who');
+        write('  ' + r.by, 'k');
+        write('  ' + r.d);
+        link('upstream ↗', r.u);
+      });
+    },
+    skills: function () {
+      data.skills.forEach(function (s) {
+        write('');
+        write(s.g, 'who');
+        write('  ' + s.items.join(', '));
+      });
+    },
+    cv: function () {
+      write(data.headline, 'who');
+      write('');
+      write(data.profile);
+      write('');
+      link('full CV →', '/cv');
+      link('download the PDF ↓', '/javier-ponz-prado-cv.pdf');
+    },
+    contact: function () {
+      data.contact.forEach(function (c) { link(pad(c.l, 10) + c.v, c.h); });
+    },
+    skin: function (arg) {
+      var ids = data.skins.map(function (s) { return s.id; });
+      if (!arg) {
+        write('Skins (current: ' + document.documentElement.dataset.skin + ')', 'k');
+        data.skins.forEach(function (s) { write('  ' + pad(s.id, 12) + s.name + ' — ' + s.note); });
+        write('');
+        write('  skin <name>   or use the picker in the header');
+        return;
+      }
+      if (ids.indexOf(arg) < 0) { write('skin: no skin called "' + arg + '"', 'err'); return; }
+      document.documentElement.dataset.skin = arg;
+      try { localStorage.setItem('jp-skin', arg); } catch (e) {}
+      var picker = document.getElementById('skinpicker');
+      if (picker) {
+        picker.querySelectorAll('[data-skin-set]').forEach(function (b) {
+          var on = b.dataset.skinSet === arg;
+          b.setAttribute('aria-checked', String(on));
+          if (on) document.getElementById('skin-name').textContent = b.querySelector('.sk-name').textContent;
+        });
+      }
+      write('skin → ' + arg);
+    },
+    neofetch: function () { location.reload(); },
+    clear: function () { out.textContent = ''; },
+    sudo: function () { write('Nice try. Leading is serving, not sudo.', 'err'); }
+  };
+
+  function run(raw) {
+    var parts = raw.trim().split(/\s+/);
+    var cmd = (parts.shift() || '').toLowerCase();
+    var arg = (parts.shift() || '').toLowerCase();
+    var el = document.createElement('span');
+    el.className = 'cmd';
+    el.textContent = 'javier@aberdeen ~ ❯ ' + raw + '\n';
+    out.appendChild(el);
+    if (!cmd) return;
+    if (commands[cmd]) commands[cmd](arg);
+    else write(cmd + ': command not found. Try help.', 'err');
+    write('');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var raw = input.value;
+    if (raw.trim()) { history.push(raw); hpos = history.length; }
+    input.value = '';
+    run(raw);
+    out.scrollTop = out.scrollHeight;
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowUp' && hpos > 0) { e.preventDefault(); input.value = history[--hpos]; }
+    else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (hpos < history.length - 1) input.value = history[++hpos];
+      else { hpos = history.length; input.value = ''; }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      var typed = input.value.trim();
+      var pool = typed.indexOf(' ') > -1
+        ? (typed.split(/\s+/)[0] === 'skin'
+            ? data.skins.map(function (s) { return 'skin ' + s.id; })
+            : data.pages.map(function (p) { return 'open ' + p[0]; }))
+        : Object.keys(commands);
+      var hits = pool.filter(function (c) { return c.indexOf(typed) === 0; });
+      if (hits.length === 1) input.value = hits[0] + ' ';
+      else if (hits.length > 1) { run(typed); write(hits.join('  ')); write(''); }
+    }
+  });
+})();
+</script>
+
+<style>
+  .term-wrap{padding:44px 0 8px}
+  .win{
+    border:2px solid var(--accent2);border-radius:10px;overflow:hidden;
+    background:color-mix(in srgb, var(--bg), #000 22%);
+  }
+  /* A bar in the shape of a Wayland status bar, not a macOS title bar:
+     workspace pills on the left, window title in the middle, status right. */
+  .bar{
+    display:flex;align-items:center;gap:14px;
+    padding:7px 12px;border-bottom:1px solid var(--line);
+    background:var(--surface);font-family:var(--font-display);font-size:11.5px;
+    color:var(--muted);letter-spacing:.04em;
+  }
+  .ws{display:flex;gap:6px;align-items:center}
+  .ws b{background:var(--accent);color:var(--bg);padding:0 6px;border-radius:3px;font-weight:700}
+  .ws i{width:6px;height:6px;border-radius:50%;border:1px solid var(--line);display:block}
+  .wtitle{flex:1;text-align:center;color:var(--fg);opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .wstat{display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .wstat .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+
+  .term{padding:16px 18px 14px;font-family:'Courier Prime','Courier New',monospace}
+  .out{
+    margin:0;white-space:pre-wrap;word-break:break-word;
+    font-size:13px;line-height:1.5;color:var(--fg);
+    max-height:min(64vh,560px);overflow:auto;scrollbar-width:thin;
+  }
+  .out .cmd{color:var(--muted)}
+  .out .cmd b{color:var(--accent);font-weight:700}
+  .out .art{
+    display:block;white-space:pre;font-size:min(2.5vw,17px);line-height:1;font-weight:700;
+    margin:6px 0 12px;overflow-x:auto;overflow-y:hidden;color:var(--accent);
+    background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 34%,var(--strong) 34%,var(--strong) 67%,var(--accent2) 67%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  @supports not (background-clip:text){.out .art{-webkit-text-fill-color:currentColor}}
+  .out .who{color:var(--accent);font-weight:700}
+  .out .k{color:var(--accent2)}
+  .out .v{color:var(--fg)}
+  .out .err{color:var(--muted)}
+  .out .hint{display:block;margin-top:14px;color:var(--muted)}
+  .out .hint b{color:var(--accent);font-weight:700}
+  .out a{color:var(--accent);text-decoration:underline;text-decoration-color:var(--accent2)}
+
+  .line{display:flex;align-items:baseline;gap:9px;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+  .line label{color:var(--muted);font-size:13px;white-space:nowrap}
+  .line label b{color:var(--accent)}
+  .line input{
+    flex:1;min-width:0;background:none;border:0;outline:none;
+    color:var(--fg);font:inherit;font-size:13px;caret-color:var(--accent);
+  }
+  .line input::placeholder{color:var(--muted);opacity:.7}
+  .line:focus-within{border-top-color:var(--accent2)}
+
+  @media (max-width:700px){
+    .term-wrap{padding-top:28px}
+    .wstat{display:none}
+    .wtitle{text-align:left}
+    .out{font-size:12px}
+  }
+</style>

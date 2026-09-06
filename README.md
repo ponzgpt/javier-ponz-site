@@ -22,10 +22,10 @@ en una piel concreta:
 
 | id | Nombre | De dónde salen los colores |
 |---|---|---|
-| `hermes` | Hermes | El skin `default` del CLI de Hermes Agent (`hermes_cli/skin_engine.py`) |
-| `omarchy` | Omarchy | Tokyo Night, el tema por defecto de Omarchy |
+| `hermes` | Caduceus | El skin `default` del CLI de Hermes Agent (`hermes_cli/skin_engine.py`) |
+| `omarchy` | Omakase | Tokyo Night, el tema por defecto de Omarchy |
 | `stormlight` | Stormlight | Original: luz de tormenta sobre noche de Roshar |
-| `halflife` | Half-Life | Naranja Valve sobre asfalto, ámbar del HUD del traje HEV |
+| `halflife` | HL | Naranja Valve sobre asfalto, ámbar del HUD del traje HEV |
 
 Ejemplo: <https://javierponz.technoir.cloud/?skin=omarchy>
 
@@ -36,8 +36,15 @@ estilos se deriva de ahí con `color-mix()`, así que añadir una piel es añadi
 objeto a [`src/data/skins.mjs`](src/data/skins.mjs) — sin CSS nuevo, sin
 componentes nuevos.
 
+Los nombres son referenciales, no literales: una piel que toma prestado un
+aspecto no debería además tomar prestado el nombre.
+
+Cada piel lleva además un `sprite` — un personaje en pixel art que cruza la
+pantalla de vez en cuando al hacer scroll. Se define como una rejilla de dígitos
+(`.` = vacío) y un mapa `ink` de dígito a color.
+
 1. Añade el objeto (`id`, `name`, `note`, `bg`, `fg`, `accent`, `accent2`,
-   `display`, `body`, y `scale` opcional).
+   `display`, `body`, `sprite`, y `scale` opcional).
 2. Si usa una tipografía que aún no se carga, añádela al `<link>` de Google
    Fonts en `src/layouts/Layout.astro`. Ya cargadas: Courier Prime, JetBrains
    Mono, Cormorant Garamond, Chakra Petch.
@@ -45,6 +52,18 @@ componentes nuevos.
    contra `bg`, y también el `--muted` derivado (`fg` mezclado un 28 % hacia
    `bg`). Ese último es la trampa — un gris de cuerpo que pasa sobre negro
    puede fallar sobre azul marino.
+4. Ejecuta `npm run check:skins`. Comprueba las tres cosas anteriores de forma
+   automática: claves obligatorias, rejilla rectangular con tinta para cada
+   dígito, y contraste de `fg`/`accent`/`accent2`/`--muted` contra `bg`.
+
+## La terminal
+
+La home no es una estética de terminal: es una terminal. Los comandos
+(`help`, `whoami`, `ls`, `open`, `projects`, `running`, `skills`, `cv`,
+`contact`, `skin`, `neofetch`, `clear`) leen los mismos ficheros de datos que
+renderizan las páginas, así que no pueden desincronizarse. La salida de
+`neofetch` se renderiza en el servidor, de modo que sin JavaScript la página
+sigue siendo un `<pre>` con texto real.
 
 ## Desarrollo
 

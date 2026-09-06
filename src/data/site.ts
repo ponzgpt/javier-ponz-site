@@ -34,7 +34,7 @@ export const running = [
     kind: 'local inference',
     status: 'daily',
     by: 'set up and maintained by me',
-    description: 'A quantised open-weights model served from this room as an API and wired into Hermes. Nothing in that loop leaves the house. I have also run Ollama and LM Studio.',
+    description: 'A dense Qwen3 27B, GGUF at Q6, served from this room as an API and wired into Hermes. Nothing in that loop leaves the house. I have also run Ollama and LM Studio.',
     url: 'https://github.com/ggml-org/llama.cpp'
   }
 ];
