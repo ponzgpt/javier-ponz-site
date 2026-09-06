@@ -1,24 +1,23 @@
 ---
 import { skins, defaultSkin, skinCss } from '../data/skins.mjs';
+import { locales, defaultLocale, href, t, ui } from '../data/i18n.mjs';
+import { bare } from '../data/routes.mjs';
 
-interface Props { title: string; description?: string }
-const { title, description = 'Javier Ponz — technology, service, agents and field notes.' } = Astro.props;
-const canonical = `https://javierponz.technoir.cloud${Astro.url.pathname}`;
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const nav = [
-  ['/about', 'about'],
-  ['/cv', 'cv'],
-  ['/workbench', 'workbench'],
-  ['/memento-mori', 'case-study'],
-  ['/thesis', 'thesis'],
-  ['/now', 'now'],
-  ['/contact', 'contact']
-];
+interface Props { title: string; description?: string; lang?: string }
+const { title, description = 'Javier Ponz — technology, service, agents and field notes.', lang = defaultLocale } = Astro.props;
+const site = 'https://javierponz.technoir.cloud';
+const canonical = `${site}${Astro.url.pathname}`;
+const here = bare(Astro.url.pathname);
+const path = href(here, lang).replace(/\/$/, '') || '/';
+const current = locales.find((l) => l.code === lang) ?? locales[0];
+const navPaths = ['/about', '/cv', '/workbench', '/memento-mori', '/thesis', '/now', '/contact'];
+const navLabels = t(ui.nav, lang);
+const nav: [string, string][] = navPaths.map((p, i) => [href(p, lang), navLabels[i]]);
 const ids = skins.map((s) => s.id);
 const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
 ---
 <!doctype html>
-<html lang="en" data-skin={defaultSkin}>
+<html lang={current.html} data-skin={defaultSkin}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,6 +25,8 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0E1216" />
   <link rel="canonical" href={canonical} />
+  {locales.map((l) => <link rel="alternate" hreflang={l.html} href={`${site}${href(here, l.code)}`} />)}
+  <link rel="alternate" hreflang="x-default" href={`${site}${here}`} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -56,15 +57,26 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main">{t(ui.skip, lang)}</a>
   <header class="site-header"><div class="shell nav">
-    <a class="brand" href="/"><span class="caret">&#10095;</span> javier-ponz <span>--field-notes</span></a>
+    <a class="brand" href={href('/', lang)}><span class="caret">&#10095;</span> javier-ponz <span>{t(ui.brandNote, lang)}</span></a>
     <div class="navright">
-      <nav aria-label="Primary">{nav.map(([href, name]) => (
-        <a href={href} aria-current={path === href ? 'page' : undefined}>{name}</a>
+      <nav aria-label="Primary">{nav.map(([to, name]) => (
+        <a href={to} aria-current={path === to ? 'page' : undefined}>{name}</a>
       ))}</nav>
+      <details class="skinpicker langpicker">
+        <summary aria-label={t(ui.langLabel, lang)}><span class="lg">{current.label}</span><span class="chev">&#9662;</span></summary>
+        <div class="skinmenu" role="menu">
+          {locales.map((l) => (
+            <a role="menuitemradio" aria-checked={l.code === lang} href={href(here, l.code)} hreflang={l.html} lang={l.html}>
+              <span class="sk-name">{l.label}</span>
+              <span class="sk-note">{l.name}</span>
+            </a>
+          ))}
+        </div>
+      </details>
       <details class="skinpicker" id="skinpicker">
-        <summary aria-label="Change the site's skin"><span class="sw"></span><span id="skin-name">{skins[0].name}</span><span class="chev">&#9662;</span></summary>
+        <summary aria-label={t(ui.skinLabel, lang)}><span class="sw"></span><span id="skin-name">{skins[0].name}</span><span class="chev">&#9662;</span></summary>
         <div class="skinmenu" role="menu">
           {skins.map((s) => (
             <button type="button" role="menuitemradio" data-skin-set={s.id} aria-checked={s.id === defaultSkin}>
@@ -79,8 +91,8 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   </div></header>
   <main id="main" class="shell"><slot /></main>
   <footer class="statusbar"><div class="shell sb">
-    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> aberdeen, scotland <span class="sep">&#9474;</span> open to work</span>
-    <span><a href="mailto:nerion89@gmail.com">email</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">github</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">linkedin</a> <span class="sep">&#9474;</span> <a href="https://nousresearch.technoir.cloud/">nous application</a></span>
+    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> {t(ui.status, lang)} <span class="sep">&#9474;</span> {t(ui.openToWork, lang)}</span>
+    <span><a href="mailto:nerion89@gmail.com">{t(ui.footerLinks, lang)[0]}</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">{t(ui.footerLinks, lang)[1]}</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">{t(ui.footerLinks, lang)[2]}</a> <span class="sep">&#9474;</span> <a href="https://nousresearch.technoir.cloud/">{t(ui.footerLinks, lang)[3]}</a></span>
   </div></footer>
 
   <script is:inline define:vars={{ sprites }}>
@@ -242,16 +254,18 @@ a:hover{color:var(--accent);text-decoration:underline}
   background:var(--raised);border:1px solid var(--line);padding:5px;
   display:flex;flex-direction:column;gap:2px;
 }
-.skinmenu button{
+.skinmenu a{text-decoration:none}
+.langpicker summary .lg{font-weight:700;color:var(--accent)}
+.skinmenu button,.skinmenu a{
   position:relative;display:grid;grid-template-columns:14px 1fr;gap:3px 10px;align-items:center;
   background:none;border:0;cursor:pointer;text-align:left;padding:9px 30px 9px 10px;
   color:var(--fg);font-family:inherit;font-size:13px;
 }
-.skinmenu button:hover{background:var(--surface)}
+.skinmenu button:hover,.skinmenu a:hover{background:var(--surface)}
 .skinmenu .sk-name{font-family:var(--font-display)}
 .skinmenu .sk-note{grid-column:2;font-size:11px;color:var(--muted);line-height:1.35}
-.skinmenu button[aria-checked="true"] .sk-name{color:var(--accent)}
-.skinmenu button[aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:11px;color:var(--accent);font-size:12px}
+.skinmenu button[aria-checked="true"] .sk-name,.skinmenu a[aria-checked="true"] .sk-name{color:var(--accent)}
+.skinmenu button[aria-checked="true"]::after,.skinmenu a[aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:11px;color:var(--accent);font-size:12px}
 
 /* the block banner, ramped from accent to accent2 */
 .banner{
@@ -288,8 +302,9 @@ a.card:hover h3{color:var(--accent)}
 .meta{font-family:var(--font-display);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .byline{color:var(--accent2);text-transform:none;letter-spacing:0}
 
-.rows{border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rows{border-top:1px solid var(--line);min-width:0}
+.row>*{min-width:0}
+.row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px;overflow-wrap:anywhere}
 .row h3{font-family:var(--font-display);color:var(--accent2);margin:0 0 6px;font-size:17px}
 .row time,.row span:last-child{color:var(--muted)}
 a.row:hover{background:var(--surface)}
@@ -298,7 +313,7 @@ a.row:hover h3{color:var(--accent)}
 .notice{border:1px solid var(--accent);background:var(--surface);padding:22px;font-size:17px;max-width:760px}
 
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.tag{font-family:var(--font-display);font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--accent2)}
+.tag{font-family:var(--font-display);font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--accent2);overflow-wrap:anywhere}
 .skillgroup{margin:0 0 28px}
 .skillgroup h3{font-family:var(--font-display);font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0;color:var(--accent2)}
 

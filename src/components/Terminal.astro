@@ -6,9 +6,14 @@
 // The seeded `neofetch` output is rendered server-side, so the page is complete
 // and readable at rest — with JavaScript off, or for a crawler, this is a
 // normal <pre> full of real text.
-import { projects, running, skills } from '../data/site';
-import { person, profile } from '../data/cv.mjs';
+import { projects, running, skillsFor } from '../data/site';
+import { person, cvFor } from '../data/cv.mjs';
 import { skins } from '../data/skins.mjs';
+import { ui, t, href, locales, pick } from '../data/i18n.mjs';
+
+const { lang = 'en' } = Astro.props;
+const cv = cvFor(lang);
+const bareHere = '/';
 
 const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
@@ -23,59 +28,51 @@ const banner = `     ██╗ █████╗ ██╗   ██╗██╗
 ██║     ╚██████╔╝██║ ╚████║███████╗
 ╚═╝      ╚═════╝ ╚═╝  ╚═══╝╚══════╝`;
 
-const facts = [
-  ['OS', 'Arch Linux · Omarchy · Fedora'],
-  ['Host', 'ex-Apple Genius, ten years'],
-  ['Role', 'technical support · customer success'],
-  ['Uptime', 'two years on this stack'],
-  ['Shell', 'Hermes Agent'],
-  ['WM', 'Hyprland'],
-  ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
-  ['Deploy', 'Docker · Traefik · a VPS I administer'],
-  ['Terminal', 'you are in it'],
-  ['Open to', 'support and customer-facing roles, remote']
-];
+const facts = t(ui.term.facts, lang);
+
+// A CJK glyph occupies two cells in a monospace grid but is one JS character,
+// so padEnd() alone leaves the column ragged. Pad by display width instead.
+const cells = (str) => [...str].reduce((n, ch) => n + (/[\u1100-\u115F\u2E80-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFF60\uFFE0-\uFFE6]/.test(ch) ? 2 : 1), 0);
+const padCells = (str, width) => str + ' '.repeat(Math.max(1, width - cells(str)));
+const KEYW = Math.max(...facts.map(([k]) => cells(k))) + 2;
 
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const factsHtml = facts
-  .map(([k, v]) => `<span class="k">${esc(k.padEnd(10))}</span><span class="v">${esc(v)}</span>`)
+  .map(([k, v]) => `<span class="k">${esc(padCells(k, KEYW))}</span><span class="v">${esc(v)}</span>`)
   .join('\n');
 
 // Everything the client-side commands need, and nothing more.
 const data = {
   name: person.name,
-  location: person.location,
-  headline: person.headline,
-  profile: profile[1],
-  projects: projects.map((p) => ({ t: p.title, k: p.kind, s: p.status, by: p.by, d: p.description, u: p.url })),
-  running: running.map((r) => ({ t: r.title, k: r.kind, by: r.by, d: r.description, u: r.url })),
-  skills: Object.entries(skills).map(([g, items]) => ({ g, items })),
+  location: cv.location,
+  headline: cv.headline,
+  profile: cv.profile[1],
+  projects: projects.map((x) => pick(x, lang)).map((x) => ({ t: x.title, k: x.kind, s: x.status, by: x.by, d: x.description, u: x.url })),
+  running: running.map((x) => pick(x, lang)).map((x) => ({ t: x.title, k: x.kind, by: x.by, d: x.description, u: x.url })),
+  skills: skillsFor(lang).map((g) => ({ g: g.group, items: g.items })),
   contact: person.contact.filter((c) => !c.private).map((c) => ({ l: c.label, v: c.value, h: c.href })),
-  pages: [
-    ['about', '/about', 'experience and the transition'],
-    ['cv', '/cv', 'full curriculum vitae, and the PDF'],
-    ['workbench', '/workbench', 'what I run and what I built'],
-    ['case-study', '/memento-mori', 'shipping one thing to production'],
-    ['thesis', '/thesis', 'the malleable machine'],
-    ['now', '/now', 'what has my attention'],
-    ['contact', '/contact', 'how to reach me']
-  ],
-  skins: skins.map((s) => ({ id: s.id, name: s.name, note: s.note }))
+  pages: t(ui.pages, lang).map(([name, path, note]) => [name, href(path, lang), note]),
+  cvPath: '/javier-ponz-prado-cv.pdf',
+  skins: skins.map((x) => ({ id: x.id, name: x.name, note: x.note })),
+  langs: locales.map((l) => ({ code: l.code, label: l.label, name: l.name, url: href(bareHere, l.code) })),
+  lang,
+  help: t(ui.term.help, lang),
+  s: Object.fromEntries(Object.entries(ui.term.strings).map(([k, v]) => [k, t(v, lang)]))
 };
 ---
 <section class="term-wrap" aria-labelledby="term-title">
   <div class="win">
     <div class="bar">
       <span class="ws"><b>1</b><i></i><i></i></span>
-      <span class="wtitle" id="term-title">javier@aberdeen — ~/field-notes</span>
-      <span class="wstat"><span class="dot"></span>online</span>
+      <span class="wtitle" id="term-title">{t(ui.term.title, lang)}</span>
+      <span class="wstat"><span class="dot"></span>{t(ui.term.online, lang)}</span>
     </div>
     <div class="term" id="term">
       <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@aberdeen ~ <b>❯</b> neofetch</span>
 <span class="art">{banner}</span>
 <span class="who">{data.name} — {data.location}</span>
 <Fragment set:html={factsHtml} />
-<span class="hint">Type <b>help</b> for what this understands. Everything here is also a normal page — the links below work without it.</span>
+<span class="hint" set:html={t(ui.term.hint, lang)} />
 </pre>
       <form class="line" id="term-form" autocomplete="off">
         <label for="term-in">javier@aberdeen ~ <b>❯</b></label>
@@ -116,19 +113,8 @@ const data = {
 
   var commands = {
     help: function () {
-      write('Commands:', 'k');
-      [['whoami', 'the short version'],
-       ['ls', 'pages on this site'],
-       ['open <page>', 'go to one of them'],
-       ['projects', 'what I built, and who wrote it'],
-       ['running', 'what I run every day'],
-       ['skills', 'grouped, with what I am still learning'],
-       ['cv', 'profile and the PDF'],
-       ['contact', 'email, GitHub, LinkedIn'],
-       ['skin [name]', 'change the look, or list the options'],
-       ['neofetch', 'the banner again'],
-       ['clear', 'wipe the scrollback']
-      ].forEach(function (c) { write('  ' + pad(c[0], 14) + c[1]); });
+      write(data.s.commands, 'k');
+      data.help.forEach(function (c) { write('  ' + pad(c[0], 16) + c[1]); });
     },
     whoami: function () {
       write(data.name + ' — ' + data.location, 'who');
@@ -141,8 +127,8 @@ const data = {
     },
     open: function (arg) {
       var hit = data.pages.filter(function (p) { return p[0] === arg; })[0];
-      if (!hit) { write('open: no page named "' + (arg || '') + '". Try ls.', 'err'); return; }
-      write('opening /' + hit[0] + ' …');
+      if (!hit) { write(data.s.noPage + '"' + (arg || '') + '"' + data.s.tryLs, 'err'); return; }
+      write(data.s.opening + hit[1] + ' …');
       setTimeout(function () { location.href = hit[1]; }, 220);
     },
     projects: function () {
@@ -151,7 +137,7 @@ const data = {
         write(p.t + '  [' + p.s + ' · ' + p.k + ']', 'who');
         write('  ' + p.by, 'k');
         write('  ' + p.d);
-        link('source ↗', p.u);
+        link(data.s.source, p.u);
       });
     },
     running: function () {
@@ -160,7 +146,7 @@ const data = {
         write(r.t + '  [' + r.k + ']', 'who');
         write('  ' + r.by, 'k');
         write('  ' + r.d);
-        link('upstream ↗', r.u);
+        link(data.s.upstream, r.u);
       });
     },
     skills: function () {
@@ -175,8 +161,8 @@ const data = {
       write('');
       write(data.profile);
       write('');
-      link('full CV →', '/cv');
-      link('download the PDF ↓', '/javier-ponz-prado-cv.pdf');
+      link(data.s.fullCv, data.pages.filter(function (x) { return x[0] === 'cv'; })[0][1]);
+      link(data.s.dlPdf, data.cvPath);
     },
     contact: function () {
       data.contact.forEach(function (c) { link(pad(c.l, 10) + c.v, c.h); });
@@ -184,13 +170,13 @@ const data = {
     skin: function (arg) {
       var ids = data.skins.map(function (s) { return s.id; });
       if (!arg) {
-        write('Skins (current: ' + document.documentElement.dataset.skin + ')', 'k');
+        write(data.s.skinsCurrent + document.documentElement.dataset.skin + ')', 'k');
         data.skins.forEach(function (s) { write('  ' + pad(s.id, 12) + s.name + ' — ' + s.note); });
         write('');
-        write('  skin <name>   or use the picker in the header');
+        write(data.s.skinsHint);
         return;
       }
-      if (ids.indexOf(arg) < 0) { write('skin: no skin called "' + arg + '"', 'err'); return; }
+      if (ids.indexOf(arg) < 0) { write(data.s.noSkin + '"' + arg + '"', 'err'); return; }
       document.documentElement.dataset.skin = arg;
       try { localStorage.setItem('jp-skin', arg); } catch (e) {}
       var picker = document.getElementById('skinpicker');
@@ -205,7 +191,18 @@ const data = {
     },
     neofetch: function () { location.reload(); },
     clear: function () { out.textContent = ''; },
-    sudo: function () { write('Nice try. Leading is serving, not sudo.', 'err'); }
+    lang: function (arg) {
+      if (!arg) {
+        write(data.s.langsCurrent + data.lang + ')', 'k');
+        data.langs.forEach(function (l) { write('  ' + pad(l.code, 8) + l.label + ' — ' + l.name); });
+        return;
+      }
+      var hit = data.langs.filter(function (l) { return l.code === arg; })[0];
+      if (!hit) { write(data.s.noLang + '"' + arg + '"', 'err'); return; }
+      write(data.s.opening + hit.url + ' …');
+      setTimeout(function () { location.href = hit.url; }, 220);
+    },
+    sudo: function () { write(data.s.sudo, 'err'); }
   };
 
   function run(raw) {
@@ -242,8 +239,10 @@ const data = {
       var typed = input.value.trim();
       var pool = typed.indexOf(' ') > -1
         ? (typed.split(/\s+/)[0] === 'skin'
-            ? data.skins.map(function (s) { return 'skin ' + s.id; })
-            : data.pages.map(function (p) { return 'open ' + p[0]; }))
+            ? data.skins.map(function (x) { return 'skin ' + x.id; })
+            : typed.split(/\s+/)[0] === 'lang'
+            ? data.langs.map(function (l) { return 'lang ' + l.code; })
+            : data.pages.map(function (x) { return 'open ' + x[0]; }))
         : Object.keys(commands);
       var hits = pool.filter(function (c) { return c.indexOf(typed) === 0; });
       if (hits.length === 1) input.value = hits[0] + ' ';
