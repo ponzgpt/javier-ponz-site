@@ -1,4 +1,6 @@
 ---
+import { skins, defaultSkin, skinCss } from '../data/skins.mjs';
+
 interface Props { title: string; description?: string }
 const { title, description = 'Javier Ponz — technology, service, agents and field notes.' } = Astro.props;
 const canonical = `https://javierponz.technoir.cloud${Astro.url.pathname}`;
@@ -12,15 +14,16 @@ const nav = [
   ['/now', 'now'],
   ['/contact', 'contact']
 ];
+const ids = skins.map((s) => s.id);
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-skin={defaultSkin}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#0d0d12" />
+  <meta name="theme-color" content="#0E1216" />
   <link rel="canonical" href={canonical} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -33,141 +36,226 @@ const nav = [
   <meta name="twitter:image" content="https://javierponz.technoir.cloud/og.jpg" />
   <title>{title}</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Chakra+Petch:wght@500;700&display=swap" />
+  <script is:inline define:vars={{ ids, defaultSkin }}>
+    /* Apply the chosen skin before first paint, so the page never shows the
+       default and then repaints into the chosen one. The [data-skin] blocks are
+       already in the stylesheet, so setting the attribute is the whole job.
+       ?skin=<id> wins over the saved value and is then remembered, which is how
+       you send someone a link that opens in a particular skin. */
+    var chosen = null;
+    try {
+      var q = new URLSearchParams(location.search).get('skin');
+      if (ids.indexOf(q) > -1) { chosen = q; localStorage.setItem('jp-skin', q); }
+      else { var s = localStorage.getItem('jp-skin'); if (ids.indexOf(s) > -1) chosen = s; }
+    } catch (e) { /* private mode or blocked storage: the default is fine */ }
+    document.documentElement.dataset.skin = chosen || defaultSkin;
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header"><div class="shell nav">
     <a class="brand" href="/"><span class="caret">&#10095;</span> javier-ponz <span>--field-notes</span></a>
-    <nav aria-label="Primary">{nav.map(([href, name]) => (
-      <a href={href} aria-current={path === href ? 'page' : undefined}>{name}</a>
-    ))}</nav>
+    <div class="navright">
+      <nav aria-label="Primary">{nav.map(([href, name]) => (
+        <a href={href} aria-current={path === href ? 'page' : undefined}>{name}</a>
+      ))}</nav>
+      <details class="skinpicker" id="skinpicker">
+        <summary aria-label="Change the site's skin"><span class="sw"></span><span id="skin-name">{skins[0].name}</span><span class="chev">&#9662;</span></summary>
+        <div class="skinmenu" role="menu">
+          {skins.map((s) => (
+            <button type="button" role="menuitemradio" data-skin-set={s.id} aria-checked={s.id === defaultSkin}>
+              <span class="sw" style={`background:${s.accent};box-shadow:inset 0 0 0 1px ${s.accent2}`}></span>
+              <span class="sk-name">{s.name}</span>
+              <span class="sk-note">{s.note}</span>
+            </button>
+          ))}
+        </div>
+      </details>
+    </div>
   </div></header>
   <main id="main" class="shell"><slot /></main>
   <footer class="statusbar"><div class="shell sb">
     <span><b>javier-ponz</b> <span class="sep">&#9474;</span> aberdeen, scotland <span class="sep">&#9474;</span> open to work</span>
     <span><a href="mailto:nerion89@gmail.com">email</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">github</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">linkedin</a> <span class="sep">&#9474;</span> <a href="https://nousresearch.technoir.cloud/">nous application</a></span>
   </div></footer>
+
+  <script is:inline>
+    (function () {
+      var picker = document.getElementById('skinpicker');
+      if (!picker) return;
+      var label = document.getElementById('skin-name');
+      var buttons = picker.querySelectorAll('[data-skin-set]');
+      function paint(id) {
+        document.documentElement.dataset.skin = id;
+        buttons.forEach(function (b) {
+          var on = b.dataset.skinSet === id;
+          b.setAttribute('aria-checked', String(on));
+          if (on && label) label.textContent = b.querySelector('.sk-name').textContent;
+        });
+      }
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var id = b.dataset.skinSet;
+          paint(id);
+          try { localStorage.setItem('jp-skin', id); } catch (e) {}
+          picker.open = false;
+        });
+      });
+      paint(document.documentElement.dataset.skin || 'hermes');
+      document.addEventListener('click', function (e) {
+        if (picker.open && !picker.contains(e.target)) picker.open = false;
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && picker.open) { picker.open = false; picker.querySelector('summary').focus(); }
+      });
+    })();
+  </script>
 </body>
 </html>
-<style is:global>
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
 
-/* Palette lifted verbatim from the Hermes CLI's built-in "default" skin
-   (hermes_cli/skin_engine.py, _BUILTIN_SKINS["default"]) so the site reads as
-   the same tool, not an impression of it. Token names kept for traceability.
-   Every pairing below was checked against WCAG AA on #0d0d12; the dimmest,
-   --muted, sits at 4.58:1, which is why nothing smaller than body text uses it. */
+<style is:global set:html={skinCss()}></style>
+
+<style is:global>
+/* Everything below is written against six tokens — --bg --fg --accent --accent2
+   --font-display --font-body — which src/data/skins.mjs sets per skin. Nothing
+   here names a colour directly, so adding a skin needs no CSS at all.
+   --muted is --fg mixed 28% toward --bg: the lightest mix that still clears
+   4.5:1 on all four grounds, Tokyo Night being the tight one. */
 :root{
-  --paper:#0d0d12;      /* ground */
-  --ink:#FFF8DC;        /* banner_text / prompt — body copy, never gold */
-  --gold:#FFD700;       /* banner_title, response_border */
-  --amber:#FFBF00;      /* banner_accent, ui_accent, ui_tool */
-  --bronze:#CD7F32;     /* banner_border, input_rule */
-  --dim:#B8860B;        /* banner_dim */
-  --label:#DAA520;      /* ui_label, session_label */
-  --muted:#8A7A4A;      /* status_bar_dim */
-  --statusbg:#1a1a2e;   /* status_bar_bg */
-  --statustext:#C0C0C0; /* status_bar_text */
-  --line:#3a3320;
-  --wash:#15151f;
+  --surface:  color-mix(in srgb, var(--bg), var(--fg) 5%);
+  --raised:   color-mix(in srgb, var(--bg), var(--fg) 9%);
+  --line:     color-mix(in srgb, var(--bg), var(--fg) 16%);
+  --muted:    color-mix(in srgb, var(--fg) 72%, var(--bg));
+  --strong:   color-mix(in srgb, var(--accent), #fff 8%);
   --max:1120px;
 }
 *{box-sizing:border-box}
-html{background:var(--paper);color:var(--ink);font-family:'Courier Prime','Courier New',monospace;scroll-behavior:smooth}
-body{margin:0;line-height:1.6}
-a{color:inherit;text-decoration-color:var(--bronze);text-underline-offset:3px}
-a:hover{color:var(--gold);text-decoration:underline}
-::selection{background:#3a3a55;color:var(--ink)}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+html{background:var(--bg);color:var(--fg);font-family:var(--font-body);scroll-behavior:smooth}
+body{margin:0;line-height:1.6;font-size:calc(15.5px * var(--scale,1));background:var(--bg)}
+a{color:inherit;text-decoration-color:var(--accent2);text-underline-offset:3px}
+a:hover{color:var(--accent);text-decoration:underline}
+::selection{background:color-mix(in srgb, var(--accent) 30%, var(--bg));color:var(--fg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .shell{width:min(calc(100% - 44px),var(--max));margin:auto}
 
 /* header as a shell prompt */
-.site-header{border-bottom:1px solid var(--line);background:var(--paper)}
-.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:25px}
-.brand{font-weight:700;letter-spacing:.02em;text-decoration:none;color:var(--gold)}
+.site-header{border-bottom:1px solid var(--line);background:var(--bg)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.navright{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.02em;text-decoration:none;color:var(--accent)}
 .brand:hover{text-decoration:none}
-.brand .caret{color:var(--amber)}
-.brand span:not(.caret){font-size:11px;color:var(--dim);font-weight:400}
+.brand .caret{color:var(--accent2)}
+.brand span:not(.caret){font-size:11px;color:var(--muted);font-weight:400}
 .nav nav{display:flex;gap:18px;flex-wrap:wrap}
-.nav nav a{font-size:12px;text-decoration:none;color:var(--muted)}
-.nav nav a:hover{color:var(--gold)}
-.nav nav a[aria-current="page"]{color:var(--amber)}
-.nav nav a[aria-current="page"]::before{content:"\2022 ";color:var(--amber)}
+.nav nav a{font-family:var(--font-display);font-size:12px;text-decoration:none;color:var(--muted)}
+.nav nav a:hover{color:var(--accent)}
+.nav nav a[aria-current="page"]{color:var(--accent2)}
+.nav nav a[aria-current="page"]::before{content:"\2022 ";color:var(--accent2)}
 .skip{position:absolute;left:-999px}
-.skip:focus{left:12px;top:12px;background:var(--gold);color:var(--paper);padding:8px;z-index:4}
+.skip:focus{left:12px;top:12px;background:var(--accent);color:var(--bg);padding:8px;z-index:4}
 
-/* the block banner, in the CLI's gold-to-bronze ramp */
+/* skin picker — <details> so the disclosure and its keyboard behaviour are native */
+.skinpicker{position:relative}
+.skinpicker summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;
+  border:1px solid var(--line);padding:6px 11px;font-size:12px;color:var(--muted);
+  font-family:var(--font-display);white-space:nowrap;
+}
+.skinpicker summary::-webkit-details-marker{display:none}
+.skinpicker summary:hover{border-color:var(--accent2);color:var(--fg)}
+.skinpicker .chev{font-size:9px;color:var(--muted)}
+.sw{width:11px;height:11px;flex:none;border-radius:2px;background:var(--accent);box-shadow:inset 0 0 0 1px var(--accent2)}
+.skinmenu{
+  position:absolute;right:0;top:calc(100% + 7px);z-index:30;min-width:246px;
+  background:var(--raised);border:1px solid var(--line);padding:5px;
+  display:flex;flex-direction:column;gap:2px;
+}
+.skinmenu button{
+  position:relative;display:grid;grid-template-columns:14px 1fr;gap:3px 10px;align-items:center;
+  background:none;border:0;cursor:pointer;text-align:left;padding:9px 30px 9px 10px;
+  color:var(--fg);font-family:inherit;font-size:13px;
+}
+.skinmenu button:hover{background:var(--surface)}
+.skinmenu .sk-name{font-family:var(--font-display)}
+.skinmenu .sk-note{grid-column:2;font-size:11px;color:var(--muted);line-height:1.35}
+.skinmenu button[aria-checked="true"] .sk-name{color:var(--accent)}
+.skinmenu button[aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:11px;color:var(--accent);font-size:12px}
+
+/* the block banner, ramped from accent to accent2 */
 .banner{
-  display:block;margin:14px 0 4px;line-height:1;font-weight:700;white-space:pre;overflow-x:auto;overflow-y:hidden;
-  font-size:min(2.9vw,24px);
-  color:var(--gold);
-  background:linear-gradient(180deg,#FFD700 0%,#FFD700 34%,#FFBF00 34%,#FFBF00 67%,#CD7F32 67%);
+  display:block;margin:14px 0 4px;line-height:1;font-weight:700;white-space:pre;
+  overflow-x:auto;overflow-y:hidden;
+  font-size:min(2.9vw,24px);font-family:'Courier Prime','Courier New',monospace;
+  color:var(--accent);
+  background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 34%,var(--strong) 34%,var(--strong) 67%,var(--accent2) 67%);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 @supports not (background-clip:text){.banner{-webkit-text-fill-color:currentColor}}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-.kicker,.label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
-.label::before{content:"\25CF ";color:var(--amber)}
+.kicker,.label{font-family:var(--font-display);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2)}
+.label::before{content:"\25CF ";color:var(--accent)}
 .hero{padding:76px 0 70px;max-width:900px}
-.hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.06;letter-spacing:-.03em;margin:20px 0 26px;font-weight:700;color:var(--gold)}
-.tagline{font-size:clamp(22px,3.2vw,32px);line-height:1.2;letter-spacing:-.02em;margin:26px 0 24px;font-weight:700;color:var(--ink)}
-.serif{font:inherit;color:var(--amber);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--bronze)}
-.lede{font-size:19px;max-width:700px}
+.hero h1{font-family:var(--font-display);font-size:clamp(34px,5.4vw,58px);line-height:1.06;letter-spacing:-.03em;margin:20px 0 26px;font-weight:700;color:var(--accent)}
+.tagline{font-family:var(--font-display);font-size:clamp(22px,3.2vw,32px);line-height:1.2;letter-spacing:-.02em;margin:26px 0 24px;font-weight:700;color:var(--fg)}
+.serif{font:inherit;color:var(--accent2);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--accent2)}
+.lede{font-size:calc(19px * var(--scale,1));max-width:700px}
 .grid{display:grid;grid-template-columns:190px 1fr;gap:60px;border-top:1px solid var(--line);padding:64px 0}
-.grid h2{font-size:29px;line-height:1.1;letter-spacing:-.03em;margin:0 0 24px;color:var(--gold)}
-.copy{max-width:760px;font-size:16px}
+.grid h2{font-family:var(--font-display);font-size:clamp(26px,3.6vw,32px);line-height:1.1;letter-spacing:-.03em;margin:0 0 24px;color:var(--accent)}
+.copy{max-width:760px;font-size:calc(16px * var(--scale,1))}
 .copy p{margin:0 0 18px}
 
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{background:var(--wash);border:1px solid var(--line);padding:22px;min-height:170px}
+.card{background:var(--surface);border:1px solid var(--line);padding:22px;min-height:170px}
 a.card,a.row{text-decoration:none}
-a.card:hover{border-color:var(--bronze);background:#1b1b26}
-a.card:hover h3{color:var(--gold)}
-.card h3{font-size:19px;line-height:1.15;margin:20px 0 8px;color:var(--amber)}
-.card p{font-size:14px;color:var(--ink);margin:0;opacity:.85}
-.byline{color:var(--dim);text-transform:none;letter-spacing:0}
-.meta{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+a.card:hover{border-color:var(--accent2);background:var(--raised)}
+a.card:hover h3{color:var(--accent)}
+.card h3{font-family:var(--font-display);font-size:19px;line-height:1.15;margin:20px 0 8px;color:var(--accent2)}
+.card p{font-size:14px;color:var(--fg);margin:0;opacity:.85}
+.meta{font-family:var(--font-display);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.byline{color:var(--accent2);text-transform:none;letter-spacing:0}
 
 .rows{border-top:1px solid var(--line)}
 .row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}
-.row h3{color:var(--amber);margin:0 0 6px;font-size:17px}
+.row h3{font-family:var(--font-display);color:var(--accent2);margin:0 0 6px;font-size:17px}
 .row time,.row span:last-child{color:var(--muted)}
-a.row:hover{background:var(--wash)}
-a.row:hover h3{color:var(--gold)}
+a.row:hover{background:var(--surface)}
+a.row:hover h3{color:var(--accent)}
 
-/* response box: the CLI draws these in gold */
-.notice{border:1px solid var(--gold);background:var(--wash);padding:22px;font-size:17px;max-width:760px}
+.notice{border:1px solid var(--accent);background:var(--surface);padding:22px;font-size:17px;max-width:760px}
 
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.tag{font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--label)}
+.tag{font-family:var(--font-display);font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--accent2)}
 .skillgroup{margin:0 0 28px}
-.skillgroup h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0;color:var(--label)}
+.skillgroup h3{font-family:var(--font-display);font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0;color:var(--accent2)}
 
-.prose{max-width:760px;font-size:16px}
-.prose h2{font-size:26px;line-height:1.12;letter-spacing:-.03em;margin:38px 0 16px;color:var(--gold)}
-.prose h3{font-size:17px;margin:28px 0 10px;color:var(--amber)}
+.prose{max-width:760px;font-size:calc(16px * var(--scale,1))}
+.prose h2{font-family:var(--font-display);font-size:26px;line-height:1.12;letter-spacing:-.03em;margin:38px 0 16px;color:var(--accent)}
+.prose h3{font-family:var(--font-display);font-size:17px;margin:28px 0 10px;color:var(--accent2)}
 .prose p,.prose li{margin:0 0 16px}
 .prose ul{padding-left:20px}
-.prose li::marker{color:var(--bronze)}
-.prose code{background:var(--wash);border:1px solid var(--line);padding:2px 6px;font-size:14px;color:var(--amber)}
+.prose li::marker{color:var(--accent2)}
+.prose code{font-family:'Courier Prime','Courier New',monospace;background:var(--surface);border:1px solid var(--line);padding:2px 6px;font-size:14px;color:var(--accent2)}
 
 .shot{margin:0 0 34px}
 .shot img{width:100%;height:auto;display:block;border:1px solid var(--line)}
 .shot a:hover{background:none}
-.shot figcaption{font-size:12px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}
+.shot figcaption{font-family:var(--font-display);font-size:12px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}
 
-/* status bar, the way the TUI carries one along the bottom */
-.statusbar{background:var(--statusbg);border-top:1px solid var(--line);margin-top:20px}
-.sb{padding:12px 0;color:var(--statustext);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px}
-.sb b{color:var(--gold);font-weight:700}
-.sb .sep{color:var(--bronze)}
-.sb a{color:var(--statustext);text-decoration:none}
-.sb a:hover{color:var(--gold);text-decoration:underline}
+.statusbar{background:var(--surface);border-top:1px solid var(--line);margin-top:20px}
+.sb{padding:12px 0;color:var(--muted);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--font-display);font-size:12px}
+.sb b{color:var(--accent);font-weight:700}
+.sb .sep{color:var(--accent2)}
+.sb a{color:var(--muted);text-decoration:none}
+.sb a:hover{color:var(--accent);text-decoration:underline}
 
-@media(max-width:760px){
-  .nav{align-items:flex-start;flex-direction:column;padding:18px 0}
+@media(max-width:900px){
+  .nav{align-items:flex-start;flex-direction:column;padding:18px 0;gap:14px}
+  .navright{width:100%;justify-content:space-between;align-items:flex-start}
   .nav nav{gap:12px}
   .hero{padding:52px 0}
   .grid{display:block;padding:48px 0}
