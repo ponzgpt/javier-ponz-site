@@ -15,6 +15,7 @@ const nav = [
   ['/contact', 'contact']
 ];
 const ids = skins.map((s) => s.id);
+const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
 ---
 <!doctype html>
 <html lang="en" data-skin={defaultSkin}>
@@ -81,6 +82,74 @@ const ids = skins.map((s) => s.id);
     <span><b>javier-ponz</b> <span class="sep">&#9474;</span> aberdeen, scotland <span class="sep">&#9474;</span> open to work</span>
     <span><a href="mailto:nerion89@gmail.com">email</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">github</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">linkedin</a> <span class="sep">&#9474;</span> <a href="https://nousresearch.technoir.cloud/">nous application</a></span>
   </div></footer>
+
+  <script is:inline define:vars={{ sprites }}>
+    /* Each skin has a pixel character that crosses the screen occasionally
+       while you scroll. Built as SVG rects from the grid in skins.mjs, animated
+       with a single CSS transform so it stays on the compositor, and skipped
+       entirely for anyone who asked for reduced motion. */
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (reduce.matches) return;
+
+      var CELL = 4, last = 0, flying = false;
+
+      function build(id) {
+        var s = sprites[id];
+        if (!s) return null;
+        var w = s.grid[0].length, h = s.grid.length;
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+        svg.setAttribute('width', w * CELL);
+        svg.setAttribute('height', h * CELL);
+        svg.setAttribute('shape-rendering', 'crispEdges');
+        svg.setAttribute('aria-hidden', 'true');
+        for (var y = 0; y < h; y++) {
+          for (var x = 0; x < w; x++) {
+            var ch = s.grid[y][x];
+            if (ch === '.') continue;
+            var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            r.setAttribute('x', x); r.setAttribute('y', y);
+            r.setAttribute('width', 1); r.setAttribute('height', 1);
+            r.setAttribute('fill', s.ink[ch]);
+            svg.appendChild(r);
+          }
+        }
+        return svg;
+      }
+
+      function fly() {
+        if (flying) return;
+        var svg = build(document.documentElement.dataset.skin);
+        if (!svg) return;
+        flying = true;
+        var wrap = document.createElement('div');
+        wrap.className = 'spren';
+        wrap.style.top = (12 + Math.random() * 62) + 'vh';
+        wrap.style.setProperty('--dur', (5.5 + Math.random() * 2.5) + 's');
+        wrap.style.setProperty('--bob', (14 + Math.random() * 22) + 'px');
+        wrap.appendChild(svg);
+        document.body.appendChild(wrap);
+        wrap.addEventListener('animationend', function (e) {
+          if (e.animationName !== 'spren-cross') return;
+          wrap.remove(); flying = false;
+        });
+      }
+
+      var ticking = false;
+      addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var now = Date.now();
+          if (now - last < 16000) return;
+          last = now;
+          fly();
+        });
+      }, { passive: true });
+    })();
+  </script>
 
   <script is:inline>
     (function () {
@@ -266,5 +335,23 @@ a.row:hover h3{color:var(--accent)}
   .sb{display:block}
   .sb span{display:block;margin-bottom:6px}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* the skin's pixel character, crossing the screen */
+.spren{
+  position:fixed;left:0;z-index:1;pointer-events:none;
+  will-change:transform;
+  animation:spren-cross var(--dur,6s) linear forwards, spren-bob 1.6s ease-in-out infinite alternate;
+}
+.spren svg{display:block;filter:drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent))}
+@keyframes spren-cross{
+  from{transform:translateX(-90px)}
+  to{transform:translateX(calc(100vw + 90px))}
+}
+@keyframes spren-bob{
+  from{margin-top:calc(var(--bob,18px) * -1)}
+  to{margin-top:var(--bob,18px)}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .spren{display:none}
+}
 </style>

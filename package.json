@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "cv:pdf": "node scripts/build-cv-pdf.mjs"
+    "cv:pdf": "node scripts/build-cv-pdf.mjs",
+    "check:skins": "node scripts/check-skins.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
