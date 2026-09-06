@@ -67,16 +67,16 @@ export const experience = [
     body: 'An agent consultancy for individuals and small businesses, premised on privacy, data sovereignty and customisation to a specific use case rather than the deterministic workflow tooling most agencies sell. Designing, deploying and stress-testing agents and automations in Docker and Dokploy with OpenRouter and Telegram; operational documentation and workflow QA. No clients to date. Editorial newsletter covering AI, robotics and fintech.'
   },
   {
-    title: 'In-Store Experience Lead — Apple Retail',
-    when: 'February 2023 — August 2024',
-    where: 'Parquesur and Xanadú, Madrid',
-    body: 'Ran floor experience across two stores: planning, resourcing, events, maintenance coordination and conflict resolution. Structured feedback and mentoring. Led by removing obstacles rather than issuing instructions.'
+    title: 'Lead In-Store Experience — Apple Retail (secondment, twice)',
+    when: 'February — August 2023; February — August 2024',
+    where: 'Xanadú (Arroyomolinos), then Parquesur (Leganés), Madrid',
+    body: 'Two seven-month leadership secondments taken while holding the Genius role. Ran floor experience for the store: planning, resourcing, events, maintenance coordination, structured feedback and the situations that fit no procedure. Led by removing obstacles rather than issuing instructions.'
   },
   {
     title: 'Genius — Apple Retail',
-    when: 'March 2018 — March 2020; August 2023 — February 2024',
+    when: 'March 2018 — August 2024',
     where: 'Parquesur, Leganés, Madrid',
-    body: 'Advanced hardware and software diagnosis on complex cases. Translated technical complexity for people with very different levels of understanding, and brought newer technicians onto the bench.'
+    body: 'Six and a half years as the technical baseline of the store: advanced hardware and software diagnosis on the cases nobody else had resolved, translating them for people with very different levels of understanding, and bringing newer technicians onto the bench. The two leadership secondments above sit inside this run.'
   },
   {
     title: 'AppleCare Support Advisor — Apple',
@@ -85,8 +85,8 @@ export const experience = [
     body: 'Concurrent remote support cases under structured troubleshooting and documentation standards, working autonomously.'
   },
   {
-    title: 'Technical Specialist / Specialist — Apple Retail',
-    when: '2014 — 2018',
+    title: 'Technical Specialist, then Specialist — Apple Retail',
+    when: 'September 2014 — February 2018',
     where: 'Parquesur, Madrid',
     body: 'Foundations in diagnosis, consultative support, practical problem solving and execution under pressure.'
   }
@@ -95,18 +95,18 @@ export const experience = [
 export const education = [
   {
     title: 'Specialist in Artificial Intelligence',
-    when: '2024 — 2026, in progress',
+    when: 'October 2024 — December 2026, in progress',
     where: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)'
   },
   {
     title: 'Full Stack AI Developer',
-    when: '2025 — 2026, in progress',
+    when: 'September 2025 — December 2026, in progress',
     where: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)'
   },
   {
     title: 'Industrial Engineering (Electronics and Automation)',
     when: '80 ECTS completed, degree unfinished',
-    where: 'Universidad Politécnica de Madrid'
+    where: 'Universidad Politécnica de Madrid · 2008 — 2013'
   },
   {
     title: 'Apple Certified Mac Technician (ACMT); Apple Certified iOS Technician (ACiT)',
