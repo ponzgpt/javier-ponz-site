@@ -1,0 +1,32 @@
+---
+// Hero plus a list of labelled sections — the shape every prose page on this
+// site already had. Keeping it in one place means a page file is now just its
+// data lookup, and a translator never touches markup.
+import { href } from '../data/i18n.mjs';
+import { expand } from '../data/routes.mjs';
+
+const { p, lang } = Astro.props;
+const ex = (h) => expand(h, lang, href);
+---
+<section class="hero">
+  <p class="kicker">{p.kicker}</p>
+  <h1>{p.h1}<span class="serif">{p.serif}</span>{p.h1end}</h1>
+  <p class="lede">{p.lede}</p>
+</section>
+{(p.sections ?? []).map((s) => (
+  <section class="grid">
+    <span class="label">{s.label}</span>
+    <div class={s.cls} set:html={ex(s.html)} />
+  </section>
+))}
+<slot />
+{p.related && (
+  <section class="grid">
+    <span class="label">{p.relatedLabel}</span>
+    <div class="cards">{p.related.map((c) => (
+      <a class="card" href={ex(c.href)} target={c.ext ? '_blank' : null} rel={c.ext ? 'noreferrer' : null}>
+        <span class="meta">{c.meta}</span><h3>{c.h3}</h3><p>{c.p}</p>
+      </a>
+    ))}</div>
+  </section>
+)}

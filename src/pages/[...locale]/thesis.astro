@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Page from '../../components/Page.astro';
+import { pages } from '../../data/pages.mjs';
+import { localePaths } from '../../data/routes.mjs';
+export const getStaticPaths = localePaths;
+const lang = Astro.params.locale ?? 'en';
+const p = pages.thesis[lang];
+---
+<Layout title={p.title} description={p.desc} lang={lang}><Page p={p} lang={lang} /></Layout>

@@ -13,6 +13,40 @@ Una única referencia pública para el perfil profesional, proyectos, aprendizaj
 - `/nous-application` — candidatura personal a Nous Research.
 - `/contact` — contacto.
 
+## Idiomas
+
+El sitio se construye en tres idiomas, cada uno como rutas reales:
+
+| Código | Ruta | `<html lang>` |
+|---|---|---|
+| `en` | `/` | `en-US` |
+| `es` | `/es/` | `es-ES` |
+| `zh` | `/zh/` | `zh-Hans` |
+
+No es un intercambio de texto en el navegador: son 30 páginas estáticas con su
+propio HTML, sus `hreflang` y su contenido rastreable. Eso importa aquí porque
+el primer lector de este sitio suele ser un filtro ATS o un agente, y una
+traducción aplicada con JavaScript es invisible para ambos. El selector de la
+cabecera son enlaces normales a la URL traducida.
+
+El español es peninsular y evita anglicismos a propósito. El chino es simplificado.
+
+### Dónde vive el texto
+
+- `src/data/i18n.mjs` — idiomas, cromo compartido (navegación, pie, terminal).
+- `src/data/pages.mjs` — la prosa de cada página, un bloque por idioma.
+- `src/data/site.ts` y `src/data/cv.mjs` — los datos, con capas `es` y `zh` que
+  solo contienen los campos que cambian; `pick()` las funde sobre el inglés.
+
+El PDF del CV se mantiene **solo en inglés** a propósito: es el documento que
+las empresas reenvían, y una única versión canónica mantiene limpio ese rastro.
+
+### Añadir un idioma
+
+1. Añade el código a `locales` en `src/data/i18n.mjs`.
+2. Añade su columna a `ui`, a `pages.mjs` y a las capas de `site.ts` y `cv.mjs`.
+3. `npm run check:i18n` te dirá exactamente qué falta.
+
 ## Skins
 
 El site tiene cuatro pieles seleccionables desde el header. Se guardan en

@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { pages } from '../../data/pages.mjs';
+import { person, cvFor, contactLabels } from '../../data/cv.mjs';
+import { localePaths, expand } from '../../data/routes.mjs';
+import { href } from '../../data/i18n.mjs';
+export const getStaticPaths = localePaths;
+const lang = Astro.params.locale ?? 'en';
+const p = pages.cv[lang];
+const cv = cvFor(lang);
+const labels = contactLabels[lang] ?? {};
+
+// The PDF is generated from the English base by `npm run cv:pdf`, so the page
+// and the document cannot drift. Contact entries marked private (the phone
+// number) go into the PDF only, never onto this page.
+const publicContact = person.contact.filter((c) => !c.private);
+
+// Structured data: the first reader of a CV is now often software.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.name,
+  jobTitle: cv.headline,
+  description: cv.profile[0],
+  email: 'nerion89@gmail.com',
+  address: { '@type': 'PostalAddress', addressLocality: 'Aberdeen', addressCountry: 'GB' },
+  url: 'https://javierponz.technoir.cloud/',
+  sameAs: ['https://github.com/ponzgpt', 'https://www.linkedin.com/in/javierponz'],
+  knowsLanguage: ['es', 'en'],
+  knowsAbout: cv.skills.flatMap((s) => s.items),
+  alumniOf: cv.education.map((e) => ({ '@type': 'Organization', name: e.where })),
+  worksFor: { '@type': 'Organization', name: 'Machines Do It Better' }
+};
+---
+<Layout title={p.title} description={p.desc} lang={lang}>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+
+<section class="hero"><p class="kicker">{p.kicker}</p><h1>{person.name.split(' ').slice(0,2).join(' ')} <span class="serif">{person.name.split(' ')[2]}</span></h1><p class="lede">{cv.headline} · {cv.location}.</p>
+<p><a class="dl" href="/javier-ponz-prado-cv.pdf" download>{p.download}</a></p>
+</section>
+
+<section class="grid"><span class="label">{p.profile}</span><div class="prose">
+{cv.profile.map((para) => <p>{para}</p>)}
+</div></section>
+
+<section class="grid"><span class="label">{p.selected}</span><div class="rows">
+{cv.shipped.map((e) => <article class="row"><time>{e.when}</time><div><h3>{e.href ? <a href={e.href} target="_blank" rel="noreferrer">{e.title} ↗</a> : e.title}</h3><p class="meta-line">{e.where}</p><p>{e.body}</p></div></article>)}
+</div></section>
+
+<section class="grid"><span class="label">{p.experience}</span><div class="rows">
+{cv.experience.map((e) => <article class="row"><time>{e.when}</time><div><h3>{e.title}</h3><p class="meta-line">{e.where}</p><p>{e.body}</p></div></article>)}
+</div></section>
+
+<section class="grid"><span class="label">{p.education}</span><div class="rows">
+{cv.education.map((e) => <article class="row"><time>{e.when}</time><div><h3>{e.title}</h3><p class="meta-line">{e.where}</p></div></article>)}
+</div></section>
+
+<section class="grid"><span class="label">{p.skills}</span><div class="copy">
+{cv.skills.map((s) => <div class="skillgroup"><h3>{s.group}</h3><div class="tags">{s.items.map((i) => <span class="tag">{i}</span>)}</div></div>)}
+</div></section>
+
+<section class="grid"><span class="label">{p.contact}</span><div class="rows">
+{publicContact.map((c) => <a class="row" href={c.href} target={c.href.startsWith('http') ? '_blank' : null} rel="noreferrer"><time>{labels[c.label] ?? c.label}</time><div><h3>{c.value}</h3></div></a>)}
+</div></section>
+
+<section class="grid"><span class="label">{p.more}</span><div class="copy"><p set:html={expand(p.moreText, lang, href)} /></div></section>
+</Layout>
+
+<style>
+  .dl{display:inline-block;border:2px solid var(--accent);color:var(--accent);padding:10px 18px;text-decoration:none;font-weight:700;margin-top:6px}
+  .dl:hover{background:var(--accent);color:var(--bg);text-decoration:none}
+  .meta-line{font-size:13px;color:var(--muted);margin:0 0 8px;overflow-wrap:anywhere}
+</style>

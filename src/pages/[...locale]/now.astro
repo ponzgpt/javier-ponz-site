@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { pages } from '../../data/pages.mjs';
+import { localePaths, expand } from '../../data/routes.mjs';
+import { href } from '../../data/i18n.mjs';
+export const getStaticPaths = localePaths;
+const lang = Astro.params.locale ?? 'en';
+const p = pages.now[lang];
+---
+<Layout title={p.title} description={p.desc} lang={lang}>
+  <section class="hero"><p class="kicker">{p.kicker}</p><h1>{p.h1}<span class="serif">{p.serif}</span>{p.h1end}</h1><p class="lede">{p.lede}</p></section>
+  <section class="grid"><span class="label">{p.focusLabel}</span><div class="cards">
+    {p.cards.map((c) => <article class="card"><span class="meta">{c.meta}</span><h3 set:html={c.h3} /><p>{c.p}</p></article>)}
+  </div></section>
+  <section class="grid"><span class="label">{p.studyLabel}</span><div class="copy"><h2>{p.studyH2}</h2><p>{p.study}</p></div></section>
+  <section class="grid"><span class="label">{p.openLabel}</span><div class="notice" set:html={expand(p.open, lang, href)} /></section>
+</Layout>
