@@ -36,6 +36,11 @@ const facts = [
   ['Open to', 'support and customer-facing roles, remote']
 ];
 
+const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const factsHtml = facts
+  .map(([k, v]) => `<span class="k">${esc(k.padEnd(10))}</span><span class="v">${esc(v)}</span>`)
+  .join('\n');
+
 // Everything the client-side commands need, and nothing more.
 const data = {
   name: person.name,
@@ -69,7 +74,7 @@ const data = {
       <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@aberdeen ~ <b>❯</b> neofetch</span>
 <span class="art">{banner}</span>
 <span class="who">{data.name} — {data.location}</span>
-{facts.map(([k, v]) => (<Fragment><span class="k">{k.padEnd(10)}</span><span class="v">{v}</span>{'\n'}</Fragment>))}
+<Fragment set:html={factsHtml} />
 <span class="hint">Type <b>help</b> for what this understands. Everything here is also a normal page — the links below work without it.</span>
 </pre>
       <form class="line" id="term-form" autocomplete="off">
