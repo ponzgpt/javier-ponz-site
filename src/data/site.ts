@@ -1,8 +1,12 @@
+// `by` states authorship explicitly. Three of these were specified by me and
+// written by an agent, or forked from someone else's work, and a page headed
+// "things I am making" has to say so rather than let the reader assume.
 export const projects = [
-  { title: 'Memento Mori', kind: 'web app', status: 'shipped', description: 'A Spanish-first web app turning life-expectancy data into perspective and one intentional action for today. Live in production on my own VPS.', url: 'https://github.com/ponzgpt/memento-mori', live: 'https://memento.technoir.cloud/' },
-  { title: 'Hermes PKM Toolkit', kind: 'MCP tools', status: 'active', description: 'MCP server and agent skills for working safely with local Markdown vaults, with path-traversal protection and a tested filesystem layer.', url: 'https://github.com/ponzgpt/hermes-pkm-toolkit' },
-  { title: 'Mental Models Toolkit', kind: 'skill pack', status: 'active', description: '30 machine-readable mental models for decisions and risk checks, packaged as an agent skill pack.', url: 'https://github.com/ponzgpt/mental-models-toolkit' },
-  { title: 'Hermes Agent Site', kind: 'landing page', status: 'shipped', description: 'An unofficial landing page for Hermes Agent that behaves like the CLI it describes: real slash-command palette, six skins, zero build step.', url: 'https://github.com/ponzgpt/hermes-agent-site' }
+  { title: 'Memento Mori', kind: 'web app', status: 'shipped', by: 'written & deployed by me', description: 'A Spanish-first web app turning life-expectancy data into perspective and one intentional action for today. Live in production on my own VPS.', url: 'https://github.com/ponzgpt/memento-mori', live: 'https://memento.technoir.cloud/' },
+  { title: 'Hermes PKM Toolkit', kind: 'MCP tools', status: 'active', by: 'specified by me, agent-written', description: 'MCP server and agent skills for working safely with local Markdown vaults, with path-traversal protection and a tested filesystem layer.', url: 'https://github.com/ponzgpt/hermes-pkm-toolkit' },
+  { title: 'Mental Models Toolkit', kind: 'skill pack', status: 'active', by: 'models mine, agent-packaged', description: '30 machine-readable mental models for decisions and risk checks, packaged as an agent skill pack.', url: 'https://github.com/ponzgpt/mental-models-toolkit' },
+  { title: 'Hermes Agent Site', kind: 'landing page', status: 'shipped', by: 'written & deployed by me', description: 'An unofficial landing page for Hermes Agent that behaves like the CLI it describes: real slash-command palette, six skins, zero build step.', url: 'https://github.com/ponzgpt/hermes-agent-site' },
+  { title: 'The Aberdeen Daily', kind: 'news agent', status: 'active', by: 'fork of vaelkeep/hermes-paper-agent, adapted by me', description: 'A nightly local paper for Aberdeen. Data desks compute every figure in Python so the model is never in a position to invent one. The architecture is upstream; my contribution is the city, the feeds and the editorial rules.', url: 'https://github.com/ponzgpt/aberdeen-daily' }
 ];
 
 export const timeline = [

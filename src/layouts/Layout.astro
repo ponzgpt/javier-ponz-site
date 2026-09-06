@@ -1,14 +1,26 @@
 ---
-interface Props { title: string; description?: string; dark?: boolean }
-const { title, description = 'Javier Ponz — technology, service, agents and field notes.', dark = false } = Astro.props;
+interface Props { title: string; description?: string }
+const { title, description = 'Javier Ponz — technology, service, agents and field notes.' } = Astro.props;
 const canonical = `https://javierponz.technoir.cloud${Astro.url.pathname}`;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  ['/about', 'about'],
+  ['/cv', 'cv'],
+  ['/workbench', 'workbench'],
+  ['/memento-mori', 'case-study'],
+  ['/thesis', 'thesis'],
+  ['/now', 'now'],
+  ['/contact', 'contact']
+];
 ---
 <!doctype html>
-<html lang="en" class={dark ? 'dark' : ''}>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0d0d12" />
   <link rel="canonical" href={canonical} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -25,16 +37,146 @@ const canonical = `https://javierponz.technoir.cloud${Astro.url.pathname}`;
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header"><div class="shell nav">
-    <a class="brand" href="/">JAVIER PONZ <span>/ FIELD NOTES</span></a>
-    <nav aria-label="Primary"><a href="/about">About</a><a href="/cv">CV</a><a href="/workbench">Workbench</a><a href="/memento-mori">Case study</a><a href="/thesis">Thesis</a><a href="/now">Now</a><a href="/contact">Contact</a></nav>
+    <a class="brand" href="/"><span class="caret">&#10095;</span> javier-ponz <span>--field-notes</span></a>
+    <nav aria-label="Primary">{nav.map(([href, name]) => (
+      <a href={href} aria-current={path === href ? 'page' : undefined}>{name}</a>
+    ))}</nav>
   </div></header>
   <main id="main" class="shell"><slot /></main>
-  <footer class="shell footer"><span>JAVIER PONZ · ABERDEEN / MADRID</span><span><a href="mailto:nerion89@gmail.com">Email</a> · <a href="https://github.com/ponzgpt">GitHub</a> · <a href="https://www.linkedin.com/in/javierponz">LinkedIn</a> · <a href="https://nousresearch.technoir.cloud/">Nous application</a></span></footer>
+  <footer class="statusbar"><div class="shell sb">
+    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> aberdeen, scotland <span class="sep">&#9474;</span> open to work</span>
+    <span><a href="mailto:nerion89@gmail.com">email</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">github</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">linkedin</a> <span class="sep">&#9474;</span> <a href="https://nousresearch.technoir.cloud/">nous application</a></span>
+  </div></footer>
 </body>
 </html>
 <style is:global>
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
-:root{--paper:#f7f7f3;--ink:#090909;--muted:#555;--line:#151515;--wash:#e9e9e3;--max:1120px}*{box-sizing:border-box}html{background:var(--paper);color:var(--ink);font-family:'Courier Prime','Courier New',monospace;scroll-behavior:smooth}body{margin:0;line-height:1.55}a{color:inherit}a:hover{background:var(--ink);color:var(--paper)}.shell{width:min(calc(100% - 44px),var(--max));margin:auto}.site-header{border-bottom:1px solid var(--line)}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{font-weight:700;letter-spacing:.02em;text-decoration:none}.brand span{font-size:11px;color:var(--muted);font-weight:400}.nav nav{display:flex;gap:20px;flex-wrap:wrap}.nav nav a{font-size:12px;text-decoration:none;color:var(--muted)}.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;background:var(--ink);color:var(--paper);padding:8px;z-index:4}.kicker,.label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.hero{padding:100px 0 90px;max-width:900px}.hero h1{font-size:clamp(48px,8vw,96px);line-height:.94;letter-spacing:-.07em;margin:20px 0 28px;font-weight:700}.serif{font:inherit;font-style:italic;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}.lede{font-size:20px;max-width:700px}.grid{display:grid;grid-template-columns:190px 1fr;gap:60px;border-top:1px solid var(--line);padding:70px 0}.grid h2{font-size:32px;line-height:1.05;letter-spacing:-.05em;margin:0 0 25px}.copy{max-width:750px;font-size:17px}.copy p{margin:0 0 18px}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.card{background:var(--paper);padding:24px;min-height:180px}a.card,a.row{text-decoration:none}a.card:hover,a.row:hover{background:var(--ink);color:var(--paper)}a.card:hover .meta,a.card:hover p,a.row:hover time,a.row:hover p{color:var(--paper)}.card h3{font-size:21px;line-height:1.1;margin:22px 0 8px}.card p{font-size:14px;color:var(--muted);margin:0}.meta{font-size:11px;color:var(--muted);text-transform:uppercase}.rows{border-top:1px solid var(--ink)}.row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}.row time,.row span:last-child{color:var(--muted)}.notice{border-left:3px solid var(--ink);background:var(--wash);padding:25px;font-size:20px;max-width:750px}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.tag{font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--muted)}.skillgroup{margin:0 0 28px}.skillgroup h3{font-size:15px;letter-spacing:.06em;text-transform:uppercase;margin:0}.prose{max-width:750px;font-size:17px}.prose h2{font-size:28px;line-height:1.1;letter-spacing:-.04em;margin:38px 0 16px}.prose h3{font-size:18px;margin:28px 0 10px}.prose p,.prose li{margin:0 0 16px}.prose ul{padding-left:20px}.prose code{background:var(--wash);padding:2px 6px;font-size:14px}.shot{margin:0 0 34px}.shot img{width:100%;height:auto;display:block;border:1px solid var(--line)}.shot a:hover{background:none}.shot figcaption{font-size:12px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}.footer{border-top:1px solid var(--line);padding:25px 0 40px;color:var(--muted);display:flex;justify-content:space-between;font-size:12px}.footer a{color:var(--ink)}.dark{--paper:#090909;--ink:#f7f7f3;--muted:#aaa;--line:#f7f7f3;--wash:#181818}.dark .site-header,.dark .footer{border-color:var(--line)}.dark a:hover{background:var(--paper);color:var(--ink)}.dark .card{background:var(--paper);color:var(--ink)}.dark .notice{background:var(--wash)}
-@media(max-width:760px){.nav{align-items:flex-start;flex-direction:column;padding:20px 0}.nav nav{gap:12px}.hero{padding:65px 0}.grid{display:block;padding:55px 0}.label{margin-bottom:20px;display:block}.cards{grid-template-columns:1fr}.row{grid-template-columns:90px 1fr}.row span:last-child{display:none}.footer{display:block}.footer span{display:block;margin-bottom:8px}}
+
+/* Palette lifted verbatim from the Hermes CLI's built-in "default" skin
+   (hermes_cli/skin_engine.py, _BUILTIN_SKINS["default"]) so the site reads as
+   the same tool, not an impression of it. Token names kept for traceability.
+   Every pairing below was checked against WCAG AA on #0d0d12; the dimmest,
+   --muted, sits at 4.58:1, which is why nothing smaller than body text uses it. */
+:root{
+  --paper:#0d0d12;      /* ground */
+  --ink:#FFF8DC;        /* banner_text / prompt — body copy, never gold */
+  --gold:#FFD700;       /* banner_title, response_border */
+  --amber:#FFBF00;      /* banner_accent, ui_accent, ui_tool */
+  --bronze:#CD7F32;     /* banner_border, input_rule */
+  --dim:#B8860B;        /* banner_dim */
+  --label:#DAA520;      /* ui_label, session_label */
+  --muted:#8A7A4A;      /* status_bar_dim */
+  --statusbg:#1a1a2e;   /* status_bar_bg */
+  --statustext:#C0C0C0; /* status_bar_text */
+  --line:#3a3320;
+  --wash:#15151f;
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{background:var(--paper);color:var(--ink);font-family:'Courier Prime','Courier New',monospace;scroll-behavior:smooth}
+body{margin:0;line-height:1.6}
+a{color:inherit;text-decoration-color:var(--bronze);text-underline-offset:3px}
+a:hover{color:var(--gold);text-decoration:underline}
+::selection{background:#3a3a55;color:var(--ink)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.shell{width:min(calc(100% - 44px),var(--max));margin:auto}
+
+/* header as a shell prompt */
+.site-header{border-bottom:1px solid var(--line);background:var(--paper)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.brand{font-weight:700;letter-spacing:.02em;text-decoration:none;color:var(--gold)}
+.brand:hover{text-decoration:none}
+.brand .caret{color:var(--amber)}
+.brand span:not(.caret){font-size:11px;color:var(--dim);font-weight:400}
+.nav nav{display:flex;gap:18px;flex-wrap:wrap}
+.nav nav a{font-size:12px;text-decoration:none;color:var(--muted)}
+.nav nav a:hover{color:var(--gold)}
+.nav nav a[aria-current="page"]{color:var(--amber)}
+.nav nav a[aria-current="page"]::before{content:"\2022 ";color:var(--amber)}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:12px;top:12px;background:var(--gold);color:var(--paper);padding:8px;z-index:4}
+
+/* the block banner, in the CLI's gold-to-bronze ramp */
+.banner{
+  display:block;margin:14px 0 4px;line-height:1;font-weight:700;white-space:pre;overflow-x:auto;overflow-y:hidden;
+  font-size:min(2.9vw,24px);
+  color:var(--gold);
+  background:linear-gradient(180deg,#FFD700 0%,#FFD700 34%,#FFBF00 34%,#FFBF00 67%,#CD7F32 67%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+@supports not (background-clip:text){.banner{-webkit-text-fill-color:currentColor}}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.kicker,.label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
+.label::before{content:"\25CF ";color:var(--amber)}
+.hero{padding:76px 0 70px;max-width:900px}
+.hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.06;letter-spacing:-.03em;margin:20px 0 26px;font-weight:700;color:var(--gold)}
+.tagline{font-size:clamp(22px,3.2vw,32px);line-height:1.2;letter-spacing:-.02em;margin:26px 0 24px;font-weight:700;color:var(--ink)}
+.serif{font:inherit;color:var(--amber);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--bronze)}
+.lede{font-size:19px;max-width:700px}
+.grid{display:grid;grid-template-columns:190px 1fr;gap:60px;border-top:1px solid var(--line);padding:64px 0}
+.grid h2{font-size:29px;line-height:1.1;letter-spacing:-.03em;margin:0 0 24px;color:var(--gold)}
+.copy{max-width:760px;font-size:16px}
+.copy p{margin:0 0 18px}
+
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:var(--wash);border:1px solid var(--line);padding:22px;min-height:170px}
+a.card,a.row{text-decoration:none}
+a.card:hover{border-color:var(--bronze);background:#1b1b26}
+a.card:hover h3{color:var(--gold)}
+.card h3{font-size:19px;line-height:1.15;margin:20px 0 8px;color:var(--amber)}
+.card p{font-size:14px;color:var(--ink);margin:0;opacity:.85}
+.byline{color:var(--dim);text-transform:none;letter-spacing:0}
+.meta{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}
+.row h3{color:var(--amber);margin:0 0 6px;font-size:17px}
+.row time,.row span:last-child{color:var(--muted)}
+a.row:hover{background:var(--wash)}
+a.row:hover h3{color:var(--gold)}
+
+/* response box: the CLI draws these in gold */
+.notice{border:1px solid var(--gold);background:var(--wash);padding:22px;font-size:17px;max-width:760px}
+
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--label)}
+.skillgroup{margin:0 0 28px}
+.skillgroup h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0;color:var(--label)}
+
+.prose{max-width:760px;font-size:16px}
+.prose h2{font-size:26px;line-height:1.12;letter-spacing:-.03em;margin:38px 0 16px;color:var(--gold)}
+.prose h3{font-size:17px;margin:28px 0 10px;color:var(--amber)}
+.prose p,.prose li{margin:0 0 16px}
+.prose ul{padding-left:20px}
+.prose li::marker{color:var(--bronze)}
+.prose code{background:var(--wash);border:1px solid var(--line);padding:2px 6px;font-size:14px;color:var(--amber)}
+
+.shot{margin:0 0 34px}
+.shot img{width:100%;height:auto;display:block;border:1px solid var(--line)}
+.shot a:hover{background:none}
+.shot figcaption{font-size:12px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}
+
+/* status bar, the way the TUI carries one along the bottom */
+.statusbar{background:var(--statusbg);border-top:1px solid var(--line);margin-top:20px}
+.sb{padding:12px 0;color:var(--statustext);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px}
+.sb b{color:var(--gold);font-weight:700}
+.sb .sep{color:var(--bronze)}
+.sb a{color:var(--statustext);text-decoration:none}
+.sb a:hover{color:var(--gold);text-decoration:underline}
+
+@media(max-width:760px){
+  .nav{align-items:flex-start;flex-direction:column;padding:18px 0}
+  .nav nav{gap:12px}
+  .hero{padding:52px 0}
+  .grid{display:block;padding:48px 0}
+  .label{margin-bottom:18px;display:block}
+  .cards{grid-template-columns:1fr}
+  .row{grid-template-columns:90px 1fr}
+  .row span:last-child{display:none}
+  .sb{display:block}
+  .sb span{display:block;margin-bottom:6px}
+}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
