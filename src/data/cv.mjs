@@ -39,23 +39,23 @@ export const shipped = [
   {
     title: 'Hermes PKM Toolkit — MCP server and agent skills',
     when: '2026',
-    where: 'MIT · github.com/ponzgpt/hermes-pkm-toolkit',
+    where: 'MIT · specified by me, implemented by an agent · github.com/ponzgpt/hermes-pkm-toolkit',
     href: 'https://github.com/ponzgpt/hermes-pkm-toolkit',
-    body: 'Model Context Protocol tools for operating local Markdown vaults safely, with a filesystem-safety layer and 34 tests covering path-traversal rejection, absolute-path neutralisation and delta detection. Found and fixed an unclosed file handle while writing the suite.'
-  },
-  {
-    title: 'The Aberdeen Daily — nightly local newspaper agent',
-    when: '2026',
-    where: 'MIT · github.com/ponzgpt/aberdeen-daily',
-    href: 'https://github.com/ponzgpt/aberdeen-daily',
-    body: 'Adapted from an open Hermes Agent project. A standard-library-only ingest desk pulls four verified local news feeds; data desks compute every figure in Python so the language model is never in a position to invent one. Editorial rules enforce original copy, attribution and linking.'
+    body: 'Model Context Protocol tools for operating local Markdown vaults safely, with a filesystem-safety layer and tests covering path-traversal rejection and absolute-path neutralisation. I wrote the specification and the safety requirements; Hermes Agent produced the implementation from them. Listed because directing an agent to a usable result is the skill I am practising, not as code I could walk through line by line.'
   },
   {
     title: 'Mental Models Toolkit — agent skill pack',
     when: '2026',
-    where: 'MIT · github.com/ponzgpt/mental-models-toolkit',
+    where: 'MIT · models mine, packaging agent-generated · github.com/ponzgpt/mental-models-toolkit',
     href: 'https://github.com/ponzgpt/mental-models-toolkit',
-    body: 'Thirty machine-readable decision and risk models, schema-validated in continuous integration, written to be read by an agent rather than by a person.'
+    body: 'Thirty machine-readable decision and risk models, schema-validated in continuous integration, written to be read by an agent rather than by a person. The selection and the models are my work.'
+  },
+  {
+    title: 'The Aberdeen Daily — nightly local newspaper agent',
+    when: '2026',
+    where: 'MIT · fork of vaelkeep/hermes-paper-agent · github.com/ponzgpt/aberdeen-daily',
+    href: 'https://github.com/ponzgpt/aberdeen-daily',
+    body: 'An open Hermes Agent project adapted to my city: local feed sources, editorial rules and city-specific configuration. The architecture is upstream, not mine — one commit of seventeen is my own.'
   }
 ];
 
