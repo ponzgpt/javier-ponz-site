@@ -9,7 +9,7 @@
 
 export const person = {
   name: 'Javier Ponz Prado',
-  headline: 'AI systems & agent operations · technical troubleshooting · full stack in progress',
+  headline: 'Technical support & customer success · agent operations · technical troubleshooting',
   location: 'Aberdeen, Scotland, United Kingdom',
   // `private: true` fields are written into the PDF only, never rendered on the web page.
   contact: [
@@ -22,9 +22,10 @@ export const person = {
 };
 
 export const profile = [
-  'Ten years at Apple Retail across diagnosis, customer operations and team leadership, now operating open agent systems daily and shipping small software to production.',
-  'Strongest where systems fail: investigating failure modes, debugging workflows, and writing down precisely which assumption broke. I work from first principles and pay close attention to how a problem is structured before reaching for a tool.',
-  'I run local inference on my own hardware — llama.cpp serving a quantised open-weights model from an RTX 5090, exposed as an API and wired into Hermes — and I am building a self-hosted homelab on Proxmox. Privacy and data sovereignty are the point of that work, not a side effect of it.',
+  'Ten years at Apple Retail across technical diagnosis, consultative selling, remote support and team leadership, now operating open agent systems daily and shipping small software to production.',
+  'The job I am best at is being the human between people and their machines: translating between what the engineer means, what the sale promised, and what the person actually has on their screen. Most support failures are a translation failure rather than a technical one.',
+  'Strongest where systems fail — investigating failure modes, debugging workflows, and writing down precisely which assumption broke. I have been building and overclocking PCs since I was a teenager, which is where the interest in what hardware can actually do came from, long before I had an argument for it.',
+  'I run local inference on my own hardware — llama.cpp serving a quantised open-weights model from an RTX 5090, exposed as an API and wired into Hermes Agent — on Arch, Fedora and Omarchy, and I am building a self-hosted homelab on Proxmox. After a decade inside a closed platform I am deliberately unwinding that: off Google services, learning OSINT, GrapheneOS next. Privacy and data sovereignty are the point of the work, not a side effect of it.',
   'One conviction carries across every role I have held: leading is serving. The measure of a tool, like the measure of a lead, is whether the person depending on it ends up with more capacity than they started with.'
 ];
 
@@ -124,9 +125,9 @@ export const education = [
 // of this document is likely to be software.
 export const skills = [
   { group: 'Agents and AI', items: ['Hermes Agent', 'OpenClaw', 'Model Context Protocol (MCP)', 'MCP server development', 'agent workflows', 'workflow QA', 'OpenRouter', 'llama.cpp', 'Ollama', 'LM Studio', 'local inference on own GPU', 'prompt and failure-trace debugging'] },
-  { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux', 'VPS administration', 'TLS / Let’s Encrypt', 'GitHub Actions', 'CI/CD', 'release gating'] },
+  { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux — Arch, Fedora, Omarchy', 'VPS administration', 'TLS / Let’s Encrypt', 'GitHub Actions', 'CI/CD', 'release gating', 'PC building and overclocking'] },
   { group: 'Development', items: ['JavaScript', 'TypeScript', 'Python', 'Astro', 'Swift', 'HTML', 'CSS', 'Git', 'unit testing', 'static site generation'] },
-  { group: 'Practice', items: ['Technical troubleshooting', 'failure-mode investigation', 'technical support', 'customer operations', 'technical writing and documentation', 'mentoring', 'team leadership'] },
-  { group: 'Currently learning', items: ['vLLM', 'Proxmox', 'NAS under a hypervisor', 'virtualisation', 'networking and Pi-hole', 'self-hosted homelab', 'Arch Linux', 'Fedora', 'Omarchy'] },
+  { group: 'Practice', items: ['Technical support', 'customer success', 'customer-facing technical work', 'technical troubleshooting', 'failure-mode investigation', 'customer operations', 'consultative selling', 'technical writing and documentation', 'de-escalation', 'mentoring', 'team leadership'] },
+  { group: 'Currently learning', items: ['vLLM', 'Proxmox', 'NAS under a hypervisor', 'virtualisation', 'networking and Pi-hole', 'self-hosted homelab', 'OSINT', 'GrapheneOS', 'de-Googling'] },
   { group: 'Languages', items: ['Spanish (native)', 'English (Cambridge CAE, C1)'] }
 ];

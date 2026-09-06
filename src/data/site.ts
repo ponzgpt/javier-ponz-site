@@ -9,6 +9,36 @@ export const projects = [
   { title: 'The Aberdeen Daily', kind: 'news agent', status: 'active', by: 'fork of vaelkeep/hermes-paper-agent, adapted by me', description: 'A nightly local paper for Aberdeen. Data desks compute every figure in Python so the model is never in a position to invent one. The architecture is upstream; my contribution is the city, the feeds and the editorial rules.', url: 'https://github.com/ponzgpt/aberdeen-daily' }
 ];
 
+// Things I run every day but did not write. Kept separate from `projects` for
+// the same reason `projects` carries a `by` field: operating something and
+// authoring it are different claims.
+export const running = [
+  {
+    title: 'Hermes Agent',
+    kind: 'agent harness',
+    status: 'daily',
+    by: 'Nous Research · I operate it',
+    description: 'Scheduled workflows, automations and agents with permission to touch real files. Skills are Markdown I can edit, tools are servers I can read. Wired to a model served from my own GPU.',
+    url: 'https://github.com/NousResearch/hermes-agent'
+  },
+  {
+    title: 'Omarchy',
+    kind: 'operating system',
+    status: 'daily',
+    by: 'Basecamp / DHH · I run it',
+    description: 'My daily driver alongside Arch and Fedora. A desktop that expects to be edited rather than tolerated, and the other half of the argument in my thesis: the machine has to be shapeable before an agent can do much with it.',
+    url: 'https://omarchy.org'
+  },
+  {
+    title: 'llama.cpp on an RTX 5090',
+    kind: 'local inference',
+    status: 'daily',
+    by: 'set up and maintained by me',
+    description: 'A quantised open-weights model served from this room as an API and wired into Hermes. Nothing in that loop leaves the house. I have also run Ollama and LM Studio.',
+    url: 'https://github.com/ggml-org/llama.cpp'
+  }
+];
+
 export const timeline = [
   { date: 'Sep 2014 — Feb 2018', title: 'Specialist, then Technical Specialist · Apple Retail', text: 'Parquesur, Madrid. Foundations in diagnosis, consultative support and daily execution under pressure.' },
   { date: 'Mar 2018 — Aug 2024', title: 'Genius · Apple Retail', text: 'Parquesur, Leganés. Six and a half years as the technical baseline of the store: advanced diagnosis on the cases nobody else had resolved, translating them for people with very different levels of understanding, and bringing newer technicians onto the bench.' },
@@ -19,10 +49,11 @@ export const timeline = [
 ];
 
 export const skills = {
-  'Agents & AI tooling': ['OpenClaw', 'Hermes Agent', 'MCP servers', 'OpenRouter', 'agent workflows', 'prompt and workflow QA'],
-  'Infrastructure & deployment': ['Docker', 'Dokploy', 'Traefik', 'nginx', 'VPS (Hostinger, Hetzner)', 'GitHub Actions', 'Linux (growing)'],
+  'Agents & AI tooling': ['Hermes Agent', 'OpenClaw', 'MCP servers', 'OpenRouter', 'llama.cpp', 'local inference on own GPU', 'agent workflows', 'prompt and workflow QA'],
+  'Infrastructure & deployment': ['Docker', 'Dokploy', 'Traefik', 'nginx', 'VPS (Hostinger, Hetzner)', 'GitHub Actions', 'Linux — Arch, Fedora, Omarchy', 'PC building & overclocking'],
   'Development': ['JavaScript / TypeScript', 'Astro', 'Python', 'Swift (menu bar app)', 'HTML / CSS', 'Git'],
-  'Practice': ['Technical troubleshooting', 'Failure-mode investigation', 'Structured documentation', 'Testing and release gates', 'Customer operations', 'Mentoring']
+  'Practice': ['Technical support', 'Customer success', 'Technical troubleshooting', 'Failure-mode investigation', 'Structured documentation', 'Testing and release gates', 'Customer operations', 'Mentoring', 'Team leadership'],
+  'Learning now': ['vLLM', 'Proxmox', 'self-hosted homelab', 'OSINT', 'GrapheneOS', 'de-Googling']
 };
 
 export const credentials = [
