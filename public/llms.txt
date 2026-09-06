@@ -32,6 +32,14 @@ stated openly rather than obscured.
 - [Mental Models Toolkit](https://github.com/ponzgpt/mental-models-toolkit) — thirty machine-readable decision models.
 - [Hermes Agent Site](https://github.com/ponzgpt/hermes-agent-site) — unofficial landing page, 45 unit tests.
 
+## Runs locally
+
+llama.cpp serving a quantised open-weights model from an RTX 5090 on his own
+machine, exposed as an API and wired into Hermes Agent. Has also run Ollama and
+LM Studio. Separately, and marked as learning rather than capability: vLLM, and
+a self-hosted homelab on Proxmox with a NAS, virtualisation, networking and
+Pi-hole.
+
 ## Skills
 
 Hermes Agent, OpenClaw, Model Context Protocol, MCP server development, agent
