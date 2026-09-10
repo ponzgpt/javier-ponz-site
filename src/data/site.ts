@@ -8,6 +8,15 @@
 // "things I am making" has to say so rather than let the reader assume.
 export const projects = [
   {
+    title: '0TH Hermes', kind: 'onboarding guide', status: 'active', by: 'specified by me, agent-written',
+    description: 'An opinionated shortest path to a working Hermes Agent. Installing it is one line; what stops people is the next hour — 1,900 docs, three setup modes, twenty providers and no obvious default. A guide that decides for you, plus a script that reads your machine and names the one next step.',
+    url: 'https://github.com/ponzgpt/0th-hermes',
+    es: { kind: 'guía de puesta en marcha', status: 'activo', by: 'especificado por mí, escrito por un agente',
+      description: 'El camino más corto y con criterio hasta tener Hermes Agent funcionando. Instalarlo es una línea; lo que atasca a la gente es la hora siguiente: 1.900 documentos, tres modos de configuración, veinte proveedores y ningún valor por defecto evidente. Una guía que decide por ti, más un script que lee el estado de tu máquina y nombra el único paso siguiente.' },
+    zh: { kind: '上手指南', status: '进行中', by: '由我定规格，智能体编写',
+      description: '一条有主张的最短路径，让 Hermes Agent 真正跑起来。安装只要一行；卡住人的是接下来那一小时——一千九百篇文档、三种配置模式、二十来个模型提供方，而且没有明显的默认选项。一份替你做决定的指南，外加一个读取本机状态、只告诉你下一步该做什么的脚本。' }
+  },
+  {
     title: 'Memento Mori', kind: 'web app', status: 'shipped', by: 'written & deployed by me',
     description: 'A Spanish-first web app turning life-expectancy data into perspective and one intentional action for today. Live in production on my own VPS.',
     url: 'https://github.com/ponzgpt/memento-mori', live: 'https://memento.technoir.cloud/',
