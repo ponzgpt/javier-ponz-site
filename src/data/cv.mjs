@@ -31,11 +31,11 @@ export const profile = [
 
 export const shipped = [
   {
-    title: 'Memento Mori — web application, live in production',
+    title: 'Memento Mori — native widget + web demo, live in production',
     when: '2026',
     where: 'memento.technoir.cloud · Apache-2.0 · github.com/ponzgpt/memento-mori',
     href: 'https://memento.technoir.cloud/',
-    body: 'Spanish-language perspective tool built on World Bank life-expectancy data. No accounts, no backend, no analytics; all computation runs in the browser. Deployed with Docker, nginx and Traefik on a VPS I administer, behind an eight-check release gate (unit tests, feature stories, lint, web smoke, installer and version-consistency checks) that refuses to publish on red. Cross-platform CI on Linux, macOS and Windows. Native macOS menu-bar companion written in Swift.'
+    body: 'Native menu-bar/Waybar widget is the product; this is its bilingual web demo (English default, Spanish toggle), running the same World Bank life-expectancy model plus six lifestyle factors. No accounts, no backend, no analytics — all computation in the browser. Docker, nginx and Traefik on a VPS I administer, behind an eight-check release gate that refuses to publish on red. Cross-platform CI on Linux, macOS and Windows.'
   },
   {
     title: 'Hermes PKM Toolkit — MCP server and agent skills',
@@ -167,8 +167,8 @@ export const profileI18n = {
 /** Overlays for the entries above, indexed the same way as the arrays. */
 export const shippedI18n = {
   es: [
-    { title: 'Memento Mori — aplicación web, en producción', where: 'memento.technoir.cloud · Apache-2.0 · github.com/ponzgpt/memento-mori',
-      body: 'Herramienta de perspectiva en español construida sobre datos de esperanza de vida del Banco Mundial. Sin cuentas, sin servidor, sin analítica; todo el cálculo ocurre en el navegador. Desplegada con Docker, nginx y Traefik en un VPS que administro yo, detrás de una puerta de publicación de ocho comprobaciones (pruebas unitarias, historias de usuario, análisis de estilo, prueba de humo web, instalador y coherencia de versiones) que se niega a publicar en rojo. Integración continua en Linux, macOS y Windows. Aplicación complementaria nativa para la barra de menús de macOS escrita en Swift.' },
+    { title: 'Memento Mori — widget nativo + demo web, en producción', where: 'memento.technoir.cloud · Apache-2.0 · github.com/ponzgpt/memento-mori',
+      body: 'El widget nativo de barra de menús/Waybar es el producto; esto es su demo web bilingüe (inglés por defecto, español conmutable), con el mismo modelo de esperanza de vida del Banco Mundial más seis factores de estilo de vida. Sin cuentas, sin servidor, sin analítica: todo el cálculo ocurre en el navegador. Docker, nginx y Traefik en un VPS que administro yo, detrás de una puerta de publicación de ocho comprobaciones que se niega a publicar en rojo. Integración continua en Linux, macOS y Windows.' },
     { title: 'Hermes PKM Toolkit — servidor MCP y habilidades de agente', where: 'MIT · especificado por mí, implementado por un agente · github.com/ponzgpt/hermes-pkm-toolkit',
       body: 'Herramientas de Model Context Protocol para operar con seguridad sobre carpetas locales de Markdown, con una capa de seguridad de ficheros y pruebas que cubren el rechazo de recorrido de rutas y la neutralización de rutas absolutas. Yo escribí la especificación y los requisitos de seguridad; Hermes Agent produjo la implementación a partir de ellos. Lo incluyo porque dirigir a un agente hasta un resultado utilizable es la habilidad que estoy practicando, no como código que pueda recorrer línea a línea.' },
     { title: 'Mental Models Toolkit — paquete de habilidades', where: 'MIT · los modelos son míos, el empaquetado lo generó un agente · github.com/ponzgpt/mental-models-toolkit',
@@ -177,8 +177,8 @@ export const shippedI18n = {
       body: 'Un proyecto abierto de Hermes Agent adaptado a mi ciudad: fuentes locales, normas editoriales y configuración específica. La arquitectura viene del original, no es mía: uno de diecisiete commits es mío.' }
   ],
   zh: [
-    { title: 'Memento Mori — Web 应用，运行于生产环境', where: 'memento.technoir.cloud · Apache-2.0 · github.com/ponzgpt/memento-mori',
-      body: '一个基于世界银行预期寿命数据的西班牙语视角工具。没有账号、没有后端、没有分析；所有计算都在浏览器中完成。使用 Docker、nginx 与 Traefik 部署在我自己管理的 VPS 上，前面有一道八项检查的发布关卡（单元测试、功能故事、代码风格、Web 冒烟、安装程序与版本一致性），任何一项红灯就拒绝发布。在 Linux、macOS 与 Windows 上做跨平台 CI。另有一个用 Swift 写的 macOS 菜单栏原生伴随应用。' },
+    { title: 'Memento Mori — 原生挂件 + 网页演示，运行于生产环境', where: 'memento.technoir.cloud · Apache-2.0 · github.com/ponzgpt/memento-mori',
+      body: '原生菜单栏 / Waybar 挂件才是产品；这是它的双语网页演示（默认英语，可切换西班牙语），跑着同一套世界银行预期寿命模型，外加六项生活方式因素。没有账号、没有后端、没有分析——所有计算都在浏览器中完成。使用 Docker、nginx 与 Traefik 部署在我自己管理的 VPS 上，前面有一道八项检查的发布关卡，任何一项红灯就拒绝发布。在 Linux、macOS 与 Windows 上做跨平台 CI。' },
     { title: 'Hermes PKM Toolkit — MCP 服务器与智能体技能', where: 'MIT · 由我定规格，智能体实现 · github.com/ponzgpt/hermes-pkm-toolkit',
       body: '一套 Model Context Protocol 工具，用于安全地操作本地 Markdown 库，带文件系统安全层，并有覆盖路径穿越拒绝与绝对路径中和的测试。规格与安全要求由我编写，实现由 Hermes Agent 依此产出。我把它列出来，是因为"把智能体引导到一个可用的结果"正是我在练的能力，而不是把它当作我能逐行讲解的代码。' },
     { title: 'Mental Models Toolkit — 智能体技能包', where: 'MIT · 模型是我的，打包由智能体生成 · github.com/ponzgpt/mental-models-toolkit',

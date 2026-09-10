@@ -13,10 +13,10 @@ const proj = projects.map((r) => pick(r, lang));
 <Layout title={p.title} description={p.desc} lang={lang}>
   <section class="hero"><p class="kicker">{p.kicker}</p><h1>{p.h1}<span class="serif">{p.serif}</span>{p.h1end}</h1><p class="lede">{p.lede}</p></section>
   <section class="grid"><span class="label">{p.runningLabel}</span><div class="cards">
-    {run.map((r) => <a class="card" href={r.url} target="_blank" rel="noreferrer"><span class="meta">{r.status} · {r.kind}<br />{r.by}</span><h3>{r.title} ↗</h3><p>{r.description}</p></a>)}
+    {run.map((r) => <a class="card" href={r.url} target="_blank" rel="noreferrer"><span class="card-icon" aria-hidden="true">{r.icon}</span><span class="meta">{r.status} · {r.kind}<br />{r.by}</span><h3>{r.title} ↗</h3><p>{r.description}</p></a>)}
   </div></section>
   <section class="grid"><span class="label">{p.projectsLabel}</span><div class="cards">
-    {proj.map((r) => <a class="card" href={r.url} target="_blank" rel="noreferrer"><span class="meta">{r.status} · {r.kind}<br />{r.by}</span><h3>{r.title} ↗</h3><p>{r.description}</p></a>)}
+    {proj.map((r) => <a class="card" href={r.url} target="_blank" rel="noreferrer"><span class="card-icon" aria-hidden="true">{r.icon}</span><span class="meta">{r.status} · {r.kind}<br />{r.by}</span><h3>{r.title} ↗</h3><p>{r.description}</p></a>)}
   </div></section>
   <section class="grid"><span class="label">{p.productionLabel}</span><div class="copy">
     <figure class="shot"><a href="https://memento.technoir.cloud/" target="_blank" rel="noreferrer"><img src="/shots/memento-mori.jpg" alt="Memento Mori" width="1200" height="833" loading="lazy" /></a><figcaption>{p.cap1}</figcaption></figure>

@@ -32,7 +32,9 @@ export const pages = {
         { label: 'Now', cls: 'copy', html: '<h2>Technical support and open systems</h2>' + P(
           'Since moving to Aberdeen I have been working with AI systems full time: agent workflows with Hermes Agent, MCP servers, automations in Docker, local inference on my own GPU, and applications deployed on my own VPS with Traefik and TLS. I am strongest where systems fail — investigating failure modes, debugging workflows, turning unpredictable behaviour into something documented and reliable.',
           'It is the same job as before, aimed at a different surface. A person stuck on a machine and a machine stuck on a task both need someone willing to find the real fault and write down what it was. <a href="{thesis}">My thesis</a> is that the tools worth building are the ones that hand control back to the person using them.',
-          'I am early in this career and deliberately public about it: every project has source code, tests and a stated scope, and says plainly which parts I wrote. I would rather be judged on what I have shipped than on how I describe myself.') }
+          'I am early in this career and deliberately public about it: every project has source code, tests and a stated scope, and says plainly which parts I wrote. I would rather be judged on what I have shipped than on how I describe myself.') },
+        { label: 'Outside work', cls: 'prose', html: P(
+          'PC building and overclocking since I was a teenager, well before I had a professional reason for it. The same instinct runs the homelab I am building now — Proxmox, GrapheneOS, de-Googling — and picked the Half-Life aesthetic on the rest of this profile: I like taking a sealed thing apart and understanding it, whether that thing is a computer or a platform.') }
       ],
       skillsLabel: 'Skills', credentialsLabel: 'Credentials', shortLabel: 'In short',
       short: 'Good technical work leaves people with more clarity and more control than they had before. That is the whole standard.'
@@ -56,7 +58,9 @@ export const pages = {
         { label: 'Ahora', cls: 'copy', html: '<h2>Soporte técnico y sistemas abiertos</h2>' + P(
           'Desde que me mudé a Aberdeen trabajo a tiempo completo con sistemas de IA: flujos con agentes sobre Hermes Agent, servidores MCP, automatizaciones en Docker, inferencia local en mi propia GPU y aplicaciones desplegadas en un VPS mío con Traefik y TLS. Donde mejor rindo es allí donde los sistemas fallan: investigar modos de fallo, depurar flujos y convertir un comportamiento impredecible en algo documentado y fiable.',
           'Es el mismo trabajo de antes apuntando a otra superficie. Una persona atascada con una máquina y una máquina atascada con una tarea necesitan lo mismo: alguien dispuesto a encontrar el fallo real y dejarlo por escrito. <a href="{thesis}">Mi tesis</a> es que las herramientas que merecen construirse son las que devuelven el control a quien las usa.',
-          'Llevo poco en esta carrera y lo hago público a propósito: cada proyecto tiene código, pruebas y un alcance declarado, y dice con claridad qué partes escribí yo. Prefiero que me juzguen por lo que he entregado antes que por cómo me describo.') }
+          'Llevo poco en esta carrera y lo hago público a propósito: cada proyecto tiene código, pruebas y un alcance declarado, y dice con claridad qué partes escribí yo. Prefiero que me juzguen por lo que he entregado antes que por cómo me describo.') },
+        { label: 'Fuera del trabajo', cls: 'prose', html: P(
+          'Monto y hago overclocking de PCs desde adolescente, mucho antes de tener una razón profesional para ello. El mismo instinto mueve el homelab que estoy montando ahora —Proxmox, GrapheneOS, salir de Google— y eligió la estética de Half-Life en el resto de este perfil: me gusta abrir algo cerrado y entenderlo, sea un ordenador o una plataforma.') }
       ],
       skillsLabel: 'Competencias', credentialsLabel: 'Titulaciones', shortLabel: 'En resumen',
       short: 'Un buen trabajo técnico deja a las personas con más claridad y más control del que tenían antes. Ese es todo el criterio.'
@@ -80,7 +84,9 @@ export const pages = {
         { label: '现在', cls: 'copy', html: '<h2>技术支持与开放系统</h2>' + P(
           '搬到阿伯丁之后，我全职投入 AI 系统：基于 Hermes Agent 的智能体工作流、MCP 服务器、Docker 中的自动化、自有 GPU 上的本地推理，以及部署在自己 VPS 上、由 Traefik 与 TLS 托管的应用。我最擅长的地方正是系统出错之处——排查故障模式、调试工作流，把不可预测的行为变成有文档、可依赖的东西。',
           '这和以前是同一份工作，只是对准了另一个界面。卡在机器前的人和卡在任务上的机器，需要的是同一件事：有人愿意找出真正的故障并把它写下来。<a href="{thesis}">我的论点</a>是，值得做的工具，是那些把控制权交还给使用者的工具。',
-          '我在这条路上还很年轻，并且刻意公开这一点：每个项目都有源码、测试和明确的范围，并且清楚说明哪些部分是我写的。我宁愿被自己交付过的东西评判，而不是被我如何描述自己评判。') }
+          '我在这条路上还很年轻，并且刻意公开这一点：每个项目都有源码、测试和明确的范围，并且清楚说明哪些部分是我写的。我宁愿被自己交付过的东西评判，而不是被我如何描述自己评判。') },
+        { label: '工作之外', cls: 'prose', html: P(
+          '从十几岁起就在装机和超频，早在有职业理由之前就开始了。现在正在搭建的家庭实验室——Proxmox、GrapheneOS、去谷歌化——也是同一种本能，我这份档案其余部分的 Half-Life 美学也是这么选的：我喜欢把一个封闭的东西拆开、弄明白，不管那是一台电脑，还是一个平台。') }
       ],
       skillsLabel: '技能', credentialsLabel: '资历', shortLabel: '一句话',
       short: '好的技术工作，会让人比之前更清楚、也更有掌控感。这就是全部标准。'
@@ -239,10 +245,11 @@ export const pages = {
       lede: 'Email is best for context. GitHub is best for the work. LinkedIn is best for professional history.',
       coordsLabel: 'Coordinates',
       rows: [
-        { time: 'Email', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'For potential work, collaboration or a considered question.' },
-        { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Projects, experiments and the source trail.' },
-        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Professional context and public connections.' }
-      ]
+        { time: 'Email', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'For potential work, collaboration or a considered question.', copy: 'nerion89@gmail.com' },
+        { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Projects, experiments and the source trail.', copy: 'https://github.com/ponzgpt' },
+        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Professional context and public connections.', copy: 'https://www.linkedin.com/in/javierponz' }
+      ],
+      copyLabel: 'Copy', copiedLabel: 'Copied', copyFailedLabel: 'Copy failed'
     },
     es: {
       title: 'Contacto — Javier Ponz',
@@ -251,10 +258,11 @@ export const pages = {
       lede: 'El correo es lo mejor para dar contexto. GitHub, para ver el trabajo. LinkedIn, para la trayectoria profesional.',
       coordsLabel: 'Coordenadas',
       rows: [
-        { time: 'Correo', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'Para un puesto, una colaboración o una pregunta pensada.' },
-        { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Proyectos, experimentos y el rastro del código.' },
-        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Contexto profesional y contactos públicos.' }
-      ]
+        { time: 'Correo', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'Para un puesto, una colaboración o una pregunta pensada.', copy: 'nerion89@gmail.com' },
+        { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Proyectos, experimentos y el rastro del código.', copy: 'https://github.com/ponzgpt' },
+        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Contexto profesional y contactos públicos.', copy: 'https://www.linkedin.com/in/javierponz' }
+      ],
+      copyLabel: 'Copiar', copiedLabel: 'Copiado', copyFailedLabel: 'No se pudo copiar'
     },
     zh: {
       title: '联系 — Javier Ponz',
@@ -263,10 +271,11 @@ export const pages = {
       lede: '要交代来龙去脉，用邮件最好。要看作品，去 GitHub。要看职业履历，去 LinkedIn。',
       coordsLabel: '坐标',
       rows: [
-        { time: '邮件', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: '关于工作机会、合作，或一个认真想过的问题。' },
-        { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: '项目、实验，以及源码的痕迹。' },
-        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: '职业背景与公开人脉。' }
-      ]
+        { time: '邮件', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: '关于工作机会、合作，或一个认真想过的问题。', copy: 'nerion89@gmail.com' },
+        { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: '项目、实验，以及源码的痕迹。', copy: 'https://github.com/ponzgpt' },
+        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: '职业背景与公开人脉。', copy: 'https://www.linkedin.com/in/javierponz' }
+      ],
+      copyLabel: '复制', copiedLabel: '已复制', copyFailedLabel: '复制失败'
     }
   },
 
@@ -470,7 +479,7 @@ export const pages = {
       title: 'Case study: shipping Memento Mori — Javier Ponz',
       desc: 'How Memento Mori went from an idea to a verified production deployment: the decisions, the trade-offs and what I would do differently.',
       kicker: 'Case study', h1: 'Getting a small app to ', serif: 'production', h1end: '.',
-      lede: 'Memento Mori is a Spanish-language web app that turns population life-expectancy data into perspective and one intentional action for today. This is how it got from an idea to something running on a real domain, with real release gates.',
+      lede: 'Memento Mori\'s native widget is the product; this web app is its demo, running the exact same life-expectancy model in a browser. This case study is about how the web side got from an idea to something running on a real domain, with real release gates.',
       appLabel: 'The app', caption: 'The landing view at memento.technoir.cloud',
       linksLabel: 'Links',
       links: [
@@ -482,7 +491,7 @@ export const pages = {
           'People know time is finite, but the idea stays abstract, and abstract limits are easy to postpone around. The loud task wins, the meaningful conversation moves to next month, and one ordinary day feels interchangeable with any other.',
           'I wanted something that made the limit legible without pretending to predict anything about a specific person. That constraint — <em>useful without overclaiming</em> — drove most of the decisions that followed.') },
         { label: 'What it does', cls: 'prose', html: P(
-          'You enter a birth date and a country reference. The app shows a central horizon drawn from World Bank life-expectancy data, with an explicit seven-year margin on each side, remaining years, weeks and days, and a 100-year life grid. Then it asks for one concrete intention for today.',
+          'You enter a birth date, a country of birth (and a current country and the age you moved, if it differs), and six lifestyle factors — the same ones the native widget asks for. The app shows a central horizon drawn from World Bank life-expectancy data, with an explicit seven-year margin on each side, remaining years, weeks and days, and a 100-year life grid. Then it asks for one concrete intention for today.',
           'The uncertainty is deliberately visible. A single confident date would have been easier to build and would have been a lie.') },
         { label: 'Decisions', cls: 'prose', html:
           '<h3>No backend, no accounts, no analytics</h3>' + P('The birth date and the intention never leave the browser. Everything is in local storage; the server only sees ordinary requests for static files. This removed an entire category of work — auth, a database, a privacy policy with teeth — and it was the right call for a tool that handles something this personal. The copy-to-clipboard summary deliberately excludes the birth date.') +
@@ -493,7 +502,7 @@ export const pages = {
           'The version check exists because I drifted once — the package version, the release manifest and the changelog disagreed, and I only noticed by accident. Making that a failing check rather than a habit was the fix.',
           'The same gate runs in GitHub Actions on Linux, macOS and Windows, so a green local run is not the only evidence.') },
         { label: 'What I would do differently', cls: 'prose', html:
-          '<ul><li><strong>Deploy earlier.</strong> The first real deployment surfaced things that local preview never would have. I should have put an ugly version on the domain in week one and iterated against the real thing.</li><li><strong>Decide the product boundary sooner.</strong> The project started as a status-bar widget and became a web app. Both versions exist in the repository\'s history. The pivot was correct, but I carried the widget framing longer than the evidence supported.</li><li><strong>Write the honest scope note first.</strong> The current README states plainly what the app is not — not medical, actuarial, or a prediction about an individual. Writing that early would have made several design decisions obvious instead of arriving at them by iteration.</li></ul>' }
+          '<ul><li><strong>Deploy earlier.</strong> The first real deployment surfaced things that local preview never would have. I should have put an ugly version on the domain in week one and iterated against the real thing.</li><li><strong>Decide the product boundary once, and write down why.</strong> The project moved from a status-bar widget to a web app, then back — the widget is the product now, and this web app is its demo. Both moves made sense given what I knew at the time, but each one meant real rework. Next time I would fix the criteria for which surface is primary early, and revisit it on purpose, not rediscover it under deploy pressure.</li><li><strong>Write the honest scope note first.</strong> The current README states plainly what the app is not — not medical, actuarial, or a prediction about an individual. Writing that early would have made several design decisions obvious instead of arriving at them by iteration.</li></ul>' }
       ],
       scopeLabel: 'Scope note',
       scope: 'This is a personal project. It is a reflective aid built on population averages, not medical, legal, actuarial or mental-health advice, and it makes no claim about any individual.'
@@ -502,7 +511,7 @@ export const pages = {
       title: 'Caso práctico: entregar Memento Mori — Javier Ponz',
       desc: 'Cómo Memento Mori pasó de idea a un despliegue verificado en producción: las decisiones, las renuncias y qué haría distinto.',
       kicker: 'Caso práctico', h1: 'Llevar una aplicación pequeña a ', serif: 'producción', h1end: '.',
-      lede: 'Memento Mori es una aplicación web en español que convierte datos de esperanza de vida poblacional en perspectiva y en una acción concreta para hoy. Esto es cómo pasó de idea a algo funcionando en un dominio real, con puertas de publicación reales.',
+      lede: 'El widget nativo de Memento Mori es el producto; esta aplicación web es su demo, con el mismo modelo de esperanza de vida funcionando en el navegador. Este caso práctico trata de cómo la parte web pasó de idea a algo funcionando en un dominio real, con puertas de publicación reales.',
       appLabel: 'La aplicación', caption: 'La vista inicial en memento.technoir.cloud',
       linksLabel: 'Enlaces',
       links: [
@@ -514,7 +523,7 @@ export const pages = {
           'La gente sabe que el tiempo es finito, pero la idea se queda abstracta, y con los límites abstractos es fácil ir dando largas. Gana la tarea que grita, la conversación importante se pasa al mes que viene, y un día corriente parece intercambiable con cualquier otro.',
           'Quería algo que hiciera legible ese límite sin fingir que predice nada sobre una persona concreta. Esa restricción —<em>útil sin prometer de más</em>— guio casi todas las decisiones siguientes.') },
         { label: 'Qué hace', cls: 'prose', html: P(
-          'Introduces una fecha de nacimiento y un país de referencia. La aplicación muestra un horizonte central calculado con datos de esperanza de vida del Banco Mundial, con un margen explícito de siete años a cada lado, los años, semanas y días restantes, y una cuadrícula de cien años de vida. Después te pide una intención concreta para hoy.',
+          'Introduces una fecha de nacimiento, un país de nacimiento (y, si difiere, el país de residencia actual y la edad a la que te mudaste), y seis factores de estilo de vida: los mismos que pide el widget nativo. La aplicación muestra un horizonte central calculado con datos de esperanza de vida del Banco Mundial, con un margen explícito de siete años a cada lado, los años, semanas y días restantes, y una cuadrícula de cien años de vida. Después te pide una intención concreta para hoy.',
           'La incertidumbre se ve a propósito. Una única fecha rotunda habría sido más fácil de construir y habría sido mentira.') },
         { label: 'Decisiones', cls: 'prose', html:
           '<h3>Sin servidor, sin cuentas, sin analítica</h3>' + P('La fecha de nacimiento y la intención no salen nunca del navegador. Todo vive en el almacenamiento local; el servidor solo ve peticiones normales de ficheros estáticos. Eso eliminó una categoría entera de trabajo —autenticación, base de datos, una política de privacidad con consecuencias— y era la decisión correcta para una herramienta que maneja algo tan personal. El resumen que se copia al portapapeles excluye la fecha de nacimiento a propósito.') +
@@ -525,7 +534,7 @@ export const pages = {
           'La comprobación de versiones existe porque una vez se me descoordinaron: la versión del paquete, el manifiesto de publicación y el registro de cambios decían cosas distintas, y me di cuenta de casualidad. Convertir eso en una comprobación que falla, en vez de en una costumbre, fue el arreglo.',
           'La misma puerta se ejecuta en GitHub Actions sobre Linux, macOS y Windows, así que una ejecución local en verde no es la única prueba.') },
         { label: 'Qué haría distinto', cls: 'prose', html:
-          '<ul><li><strong>Desplegar antes.</strong> El primer despliegue real sacó a la luz cosas que la vista previa local no habría mostrado nunca. Debería haber puesto una versión fea en el dominio la primera semana e ir iterando contra lo real.</li><li><strong>Decidir antes el límite del producto.</strong> El proyecto empezó como un widget de barra de estado y acabó siendo una aplicación web. Las dos versiones están en el historial del repositorio. El giro fue correcto, pero arrastré el planteamiento de widget más tiempo del que las pruebas justificaban.</li><li><strong>Escribir primero la nota de alcance honesta.</strong> El README actual dice sin rodeos lo que la aplicación no es: ni médica, ni actuarial, ni una predicción sobre nadie en concreto. Haber escrito eso pronto habría hecho evidentes varias decisiones de diseño a las que llegué iterando.</li></ul>' }
+          '<ul><li><strong>Desplegar antes.</strong> El primer despliegue real sacó a la luz cosas que la vista previa local no habría mostrado nunca. Debería haber puesto una versión fea en el dominio la primera semana e ir iterando contra lo real.</li><li><strong>Decidir el límite del producto una vez, y dejar escrito el porqué.</strong> El proyecto pasó de widget de barra de estado a aplicación web, y después volvió: ahora el widget es el producto y esta web es su demo. Los dos giros tenían sentido con lo que sabía en cada momento, pero cada uno costó rehacer trabajo de verdad. La próxima vez fijaría pronto el criterio de qué superficie es la principal, y lo revisaría a propósito, no bajo presión de despliegue.</li><li><strong>Escribir primero la nota de alcance honesta.</strong> El README actual dice sin rodeos lo que la aplicación no es: ni médica, ni actuarial, ni una predicción sobre nadie en concreto. Haber escrito eso pronto habría hecho evidentes varias decisiones de diseño a las que llegué iterando.</li></ul>' }
       ],
       scopeLabel: 'Nota de alcance',
       scope: 'Es un proyecto personal. Es una ayuda para la reflexión construida sobre medias poblacionales; no es consejo médico, jurídico, actuarial ni de salud mental, y no afirma nada sobre ninguna persona concreta.'
@@ -534,7 +543,7 @@ export const pages = {
       title: '案例：把 Memento Mori 送上线 — Javier Ponz',
       desc: 'Memento Mori 如何从一个想法走到经过验证的生产部署：决策、取舍，以及我会怎样重做。',
       kicker: '案例', h1: '把一个小应用送上', serif: '生产环境', h1end: '。',
-      lede: 'Memento Mori 是一个西班牙语 Web 应用，它把人口预期寿命数据转化为一种视角，以及今天的一个具体行动。以下是它如何从想法变成跑在真实域名上、并带有真实发布关卡的东西。',
+      lede: 'Memento Mori 的原生挂件才是真正的产品；这个网页应用是它的演示，跑着同一套预期寿命模型。这篇案例讲的是网页这一侧如何从一个想法，变成跑在真实域名上、带着真实发布关卡的东西。',
       appLabel: '应用', caption: 'memento.technoir.cloud 的首屏',
       linksLabel: '链接',
       links: [
@@ -546,7 +555,7 @@ export const pages = {
           '人们知道时间有限，但这个念头始终抽象，而抽象的界限很容易被绕过去拖延。吵闹的任务赢了，重要的谈话推到下个月，某个平常的一天感觉和任何一天都可以互换。',
           '我想要一个能让这条界限变得可读的东西，同时不假装能预测任何具体的人。这条约束——<em>有用但不夸口</em>——决定了之后大部分的选择。') },
         { label: '它做什么', cls: 'prose', html: P(
-          '你输入出生日期和一个国家参照。应用会显示一条依据世界银行预期寿命数据画出的中心线，两侧各有明确标出的七年误差区间，剩余的年、周、天数，以及一张百年人生网格。然后它请你为今天写下一个具体的意图。',
+          '你输入出生日期、出生国家（如果现居国家不同，还要填现居国家和搬去的年龄），以及六项生活方式因素——和原生挂件问的一样。应用会显示一条依据世界银行预期寿命数据画出的中心线，两侧各有明确标出的七年误差区间，剩余的年、周、天数，以及一张百年人生网格。然后它请你为今天写下一个具体的意图。',
           '不确定性是刻意可见的。给出一个笃定的日期会更好做，也会是谎言。') },
         { label: '决策', cls: 'prose', html:
           '<h3>没有后端、没有账号、没有分析</h3>' + P('出生日期和意图从不离开浏览器。一切都在本地存储里；服务器只看到对静态文件的普通请求。这去掉了一整类工作——鉴权、数据库、一份真有约束力的隐私政策——对一个处理如此私人之事的工具来说，这是正确的决定。复制到剪贴板的摘要刻意不含出生日期。') +
@@ -557,7 +566,7 @@ export const pages = {
           '版本检查之所以存在，是因为我曾经漂移过一次：包版本、发布清单和更新日志各说各话，而我是偶然才发现的。把它变成一项会失败的检查，而不是一个习惯，就是修复方案。',
           '同一道关卡在 GitHub Actions 上于 Linux、macOS 和 Windows 运行，所以本地一次绿灯并不是唯一的证据。') },
         { label: '我会怎样重做', cls: 'prose', html:
-          '<ul><li><strong>更早部署。</strong> 第一次真实部署暴露出的问题，本地预览永远不会暴露。我应该在第一周就把一个丑陋的版本放到域名上，对着真实环境迭代。</li><li><strong>更早确定产品边界。</strong> 这个项目从状态栏小组件起步，最后成了 Web 应用。两个版本都留在仓库历史里。转向是对的，但我抱着"小组件"这个框架的时间，超出了证据支持的长度。</li><li><strong>先写好那份诚实的范围说明。</strong> 现在的 README 直白地写明这个应用不是什么——不是医疗、不是精算，也不是对某个人的预测。早点写下来，本可以让几个设计决定变得显而易见，而不是靠迭代才摸到。</li></ul>' }
+          '<ul><li><strong>更早部署。</strong> 第一次真实部署暴露出的问题，本地预览永远不会暴露。我应该在第一周就把一个丑陋的版本放到域名上，对着真实环境迭代。</li><li><strong>把产品边界定一次，并写下理由。</strong> 这个项目从状态栏小组件走到 Web 应用，然后又走了回去：现在挂件是产品，这个网页是它的演示。两次转向在当时都说得通，但每一次都意味着真实的返工。下一次我会早点定下"哪个界面是主要的"这个判断标准，主动去重新审视它，而不是在部署压力下才发现问题。</li><li><strong>先写好那份诚实的范围说明。</strong> 现在的 README 直白地写明这个应用不是什么——不是医疗、不是精算，也不是对某个人的预测。早点写下来，本可以让几个设计决定变得显而易见，而不是靠迭代才摸到。</li></ul>' }
       ],
       scopeLabel: '范围说明',
       scope: '这是一个个人项目。它是一件基于人口平均值的反思辅助工具，不构成医疗、法律、精算或心理健康建议，也不对任何个人做出断言。'

@@ -293,10 +293,16 @@ a:hover{color:var(--accent);text-decoration:underline}
 .copy p{margin:0 0 18px}
 
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);padding:22px;min-height:170px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);padding:22px;min-height:170px}
 a.card,a.row{text-decoration:none}
 a.card:hover{border-color:var(--accent2);background:var(--raised)}
 a.card:hover h3{color:var(--accent)}
+.card-icon{
+  position:absolute;top:16px;right:16px;display:grid;place-items:center;
+  width:30px;height:30px;border:1px solid var(--line);color:var(--accent2);
+  font-family:var(--font-display);font-size:15px;line-height:1;
+}
+a.card:hover .card-icon{border-color:var(--accent2);color:var(--accent)}
 .card h3{font-family:var(--font-display);font-size:19px;line-height:1.15;margin:20px 0 8px;color:var(--accent2)}
 .card p{font-size:14px;color:var(--fg);margin:0;opacity:.85}
 .meta{font-family:var(--font-display);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
@@ -304,11 +310,24 @@ a.card:hover h3{color:var(--accent)}
 
 .rows{border-top:1px solid var(--line);min-width:0}
 .row>*{min-width:0}
-.row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px;overflow-wrap:anywhere}
+.row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px;overflow-wrap:anywhere;align-items:start}
 .row h3{font-family:var(--font-display);color:var(--accent2);margin:0 0 6px;font-size:17px}
 .row time,.row span:last-child{color:var(--muted)}
 a.row:hover{background:var(--surface)}
 a.row:hover h3{color:var(--accent)}
+/* contact.astro: the row itself is a plain div now, with a link (laid out via
+   display:contents so it doesn't break the 3-column grid) plus a sibling
+   copy button in the third column — a link can't contain another button. */
+.row-link{display:contents;text-decoration:none;color:inherit}
+.row-link:hover h3{color:var(--accent)}
+.copy-btn{
+  justify-self:end;align-self:center;height:30px;padding:0 12px;
+  background:none;border:1px solid var(--line);color:var(--muted);
+  font-family:var(--font-display);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;
+}
+.copy-btn:hover{border-color:var(--accent2);color:var(--accent2)}
+.copy-btn:disabled{border-color:var(--accent);color:var(--accent);cursor:default}
 
 .notice{border:1px solid var(--accent);background:var(--surface);padding:22px;font-size:17px;max-width:760px}
 

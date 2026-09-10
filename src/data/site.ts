@@ -8,7 +8,7 @@
 // "things I am making" has to say so rather than let the reader assume.
 export const projects = [
   {
-    title: '0TH Hermes', kind: 'onboarding guide', status: 'active', by: 'specified by me, agent-written',
+    title: '0TH Hermes', icon: '➤', kind: 'onboarding guide', status: 'active', by: 'specified by me, agent-written',
     description: 'An opinionated shortest path to a working Hermes Agent. Installing it is one line; what stops people is the next hour — 1,900 docs, three setup modes, twenty providers and no obvious default. A guide that decides for you, plus a script that reads your machine and names the one next step.',
     url: 'https://github.com/ponzgpt/0th-hermes',
     es: { kind: 'guía de puesta en marcha', status: 'activo', by: 'especificado por mí, escrito por un agente',
@@ -17,16 +17,16 @@ export const projects = [
       description: '一条有主张的最短路径，让 Hermes Agent 真正跑起来。安装只要一行；卡住人的是接下来那一小时——一千九百篇文档、三种配置模式、二十来个模型提供方，而且没有明显的默认选项。一份替你做决定的指南，外加一个读取本机状态、只告诉你下一步该做什么的脚本。' }
   },
   {
-    title: 'Memento Mori', kind: 'web app', status: 'shipped', by: 'written & deployed by me',
-    description: 'A Spanish-first web app turning life-expectancy data into perspective and one intentional action for today. Live in production on my own VPS.',
+    title: 'Memento Mori', icon: '▣', kind: 'web app', status: 'shipped', by: 'written & deployed by me',
+    description: 'The web demo of the Memento Mori widget: same life-expectancy model, birth country, lifestyle factors and all, tried in a browser before you install it. Live in production on my own VPS.',
     url: 'https://github.com/ponzgpt/memento-mori', live: 'https://memento.technoir.cloud/',
     es: { kind: 'aplicación web', status: 'entregado', by: 'escrita y desplegada por mí',
-      description: 'Una aplicación web pensada en español que convierte datos de esperanza de vida en perspectiva y en una acción concreta para hoy. En producción sobre un VPS mío.' },
+      description: 'La demo web del widget Memento Mori: el mismo modelo de esperanza de vida, con país de nacimiento y factores de estilo de vida incluidos, para probarlo en el navegador antes de instalarlo. En producción sobre un VPS mío.' },
     zh: { kind: 'Web 应用', status: '已交付', by: '由我编写并部署',
-      description: '一个以西班牙语为先的 Web 应用，把预期寿命数据转化为一种视角，以及今天的一个具体行动。已在我自己的 VPS 上运行。' }
+      description: 'Memento Mori 挂件的网页演示版：同一套预期寿命模型，出生国家和生活方式因素都在，先在浏览器里试用，再决定要不要安装。已在我自己的 VPS 上运行。' }
   },
   {
-    title: 'Hermes PKM Toolkit', kind: 'MCP tools', status: 'active', by: 'specified by me, agent-written',
+    title: 'Hermes PKM Toolkit', icon: '⌁', kind: 'MCP tools', status: 'active', by: 'specified by me, agent-written',
     description: 'MCP server and agent skills for working safely with local Markdown vaults, with path-traversal protection and a tested filesystem layer.',
     url: 'https://github.com/ponzgpt/hermes-pkm-toolkit',
     es: { kind: 'herramientas MCP', status: 'activo', by: 'especificado por mí, escrito por un agente',
@@ -35,7 +35,7 @@ export const projects = [
       description: '用于安全操作本地 Markdown 库的 MCP 服务器与智能体技能，带路径穿越防护和经过测试的文件系统层。' }
   },
   {
-    title: 'Mental Models Toolkit', kind: 'skill pack', status: 'active', by: 'models mine, agent-packaged',
+    title: 'Mental Models Toolkit', icon: '▤', kind: 'skill pack', status: 'active', by: 'models mine, agent-packaged',
     description: '30 machine-readable mental models for decisions and risk checks, packaged as an agent skill pack.',
     url: 'https://github.com/ponzgpt/mental-models-toolkit',
     es: { kind: 'paquete de habilidades', status: 'activo', by: 'los modelos son míos, el empaquetado no',
@@ -44,7 +44,7 @@ export const projects = [
       description: '三十个机器可读的思维模型，用于决策与风险检查，打包成智能体技能包。' }
   },
   {
-    title: 'Hermes Agent Site', kind: 'landing page', status: 'shipped', by: 'written & deployed by me',
+    title: 'Hermes Agent Site', icon: '◈', kind: 'landing page', status: 'shipped', by: 'written & deployed by me',
     description: 'An unofficial landing page for Hermes Agent that behaves like the CLI it describes: real slash-command palette, six skins, zero build step.',
     url: 'https://github.com/ponzgpt/hermes-agent-site',
     es: { kind: 'página de aterrizaje', status: 'entregado', by: 'escrita y desplegada por mí',
@@ -53,7 +53,7 @@ export const projects = [
       description: '一个非官方的 Hermes Agent 着陆页，它的行为就像它所描述的 CLI：真实的斜杠命令面板、六套外观、零构建步骤。' }
   },
   {
-    title: 'The Aberdeen Daily', kind: 'news agent', status: 'active', by: 'fork of vaelkeep/hermes-paper-agent, adapted by me',
+    title: 'The Aberdeen Daily', icon: '▦', kind: 'news agent', status: 'active', by: 'fork of vaelkeep/hermes-paper-agent, adapted by me',
     description: 'A nightly local paper for Aberdeen. Data desks compute every figure in Python so the model is never in a position to invent one. The architecture is upstream; my contribution is the city, the feeds and the editorial rules.',
     url: 'https://github.com/ponzgpt/aberdeen-daily',
     es: { kind: 'agente de noticias', status: 'activo', by: 'bifurcación de vaelkeep/hermes-paper-agent, adaptada por mí',
@@ -68,7 +68,7 @@ export const projects = [
 // authoring it are different claims.
 export const running = [
   {
-    title: 'Hermes Agent', kind: 'agent harness', status: 'daily', by: 'Nous Research · I operate it',
+    title: 'Hermes Agent', icon: '◉', kind: 'agent harness', status: 'daily', by: 'Nous Research · I operate it',
     description: 'Scheduled workflows, automations and agents with permission to touch real files. Skills are Markdown I can edit, tools are servers I can read. Wired to a model served from my own GPU.',
     url: 'https://github.com/NousResearch/hermes-agent',
     es: { kind: 'armazón de agentes', status: 'a diario', by: 'de Nous Research · yo lo uso',
@@ -77,7 +77,7 @@ export const running = [
       description: '定时工作流、自动化，以及有权限操作真实文件的智能体。技能是我能编辑的 Markdown，工具是我能读懂的服务。接到一个由我自己 GPU 提供的模型上。' }
   },
   {
-    title: 'Omarchy', kind: 'operating system', status: 'daily', by: 'Basecamp / DHH · I run it',
+    title: 'Omarchy', icon: '⌘', kind: 'operating system', status: 'daily', by: 'Basecamp / DHH · I run it',
     description: 'My daily driver alongside Arch and Fedora. A desktop that expects to be edited rather than tolerated, and the other half of the argument in my thesis: the machine has to be shapeable before an agent can do much with it.',
     url: 'https://omarchy.org',
     es: { kind: 'sistema operativo', status: 'a diario', by: 'de Basecamp / DHH · yo lo uso',
@@ -86,7 +86,7 @@ export const running = [
       description: '我的主力系统，与 Arch 和 Fedora 并用。一个期待被编辑而不是被忍受的桌面，也是我论点的另一半：机器得先可塑，智能体才谈得上做事。' }
   },
   {
-    title: 'llama.cpp on an RTX 5090', kind: 'local inference', status: 'daily', by: 'set up and maintained by me',
+    title: 'llama.cpp on an RTX 5090', icon: '▧', kind: 'local inference', status: 'daily', by: 'set up and maintained by me',
     description: 'A dense Qwen3 27B, GGUF at Q6, served from this room as an API and wired into Hermes. Nothing in that loop leaves the house. I have also run Ollama and LM Studio.',
     url: 'https://github.com/ggml-org/llama.cpp',
     es: { kind: 'inferencia local', status: 'a diario', by: 'montado y mantenido por mí',
