@@ -30,7 +30,7 @@ export const pages = {
           'Thousands of people arrived angry, confused, or holding a dead machine with their only copy of something on it. That is where I learned that the technical answer and the useful answer are not always the same sentence.',
           'As a lead I ran operations across two stores — opening and closing, events, resourcing, maintenance, and supporting teams when a situation did not fit any procedure. Leading there meant clearing obstacles, not issuing instructions.') },
         { label: 'Now', cls: 'copy', html: '<h2>Technical support and open systems</h2>' + P(
-          'Since moving to Aberdeen I have been working with AI systems full time: agent workflows with Hermes Agent, MCP servers, automations in Docker, local inference on my own GPU, and applications deployed on my own VPS with Traefik and TLS. I am strongest where systems fail — investigating failure modes, debugging workflows, turning unpredictable behaviour into something documented and reliable.',
+          'Since moving from Madrid to Aberdeen I have been working with AI systems full time: agent workflows with Hermes Agent, MCP servers, automations in Docker, local inference on my own GPU, and applications deployed on my own VPS with Traefik and TLS. I am strongest where systems fail — investigating failure modes, debugging workflows, turning unpredictable behaviour into something documented and reliable.',
           'It is the same job as before, aimed at a different surface. A person stuck on a machine and a machine stuck on a task both need someone willing to find the real fault and write down what it was. <a href="{thesis}">My thesis</a> is that the tools worth building are the ones that hand control back to the person using them.',
           'I am early in this career and deliberately public about it: every project has source code, tests and a stated scope, and says plainly which parts I wrote. I would rather be judged on what I have shipped than on how I describe myself.') },
         { label: 'Outside work', cls: 'prose', html: P(
@@ -56,7 +56,7 @@ export const pages = {
           'Llegaban miles de personas enfadadas, desorientadas o con un equipo muerto que guardaba la única copia de algo. Ahí aprendí que la respuesta técnica y la respuesta útil no siempre son la misma frase.',
           'Como responsable llevé la operación de dos tiendas: aperturas y cierres, eventos, recursos, mantenimiento y apoyo al equipo cuando la situación no encajaba en ningún procedimiento. Liderar allí consistía en despejar obstáculos, no en dar instrucciones.') },
         { label: 'Ahora', cls: 'copy', html: '<h2>Soporte técnico y sistemas abiertos</h2>' + P(
-          'Desde que me mudé a Aberdeen trabajo a tiempo completo con sistemas de IA: flujos con agentes sobre Hermes Agent, servidores MCP, automatizaciones en Docker, inferencia local en mi propia GPU y aplicaciones desplegadas en un VPS mío con Traefik y TLS. Donde mejor rindo es allí donde los sistemas fallan: investigar modos de fallo, depurar flujos y convertir un comportamiento impredecible en algo documentado y fiable.',
+          'Desde que me mudé de Madrid a Aberdeen trabajo a tiempo completo con sistemas de IA: flujos con agentes sobre Hermes Agent, servidores MCP, automatizaciones en Docker, inferencia local en mi propia GPU y aplicaciones desplegadas en un VPS mío con Traefik y TLS. Donde mejor rindo es allí donde los sistemas fallan: investigar modos de fallo, depurar flujos y convertir un comportamiento impredecible en algo documentado y fiable.',
           'Es el mismo trabajo de antes apuntando a otra superficie. Una persona atascada con una máquina y una máquina atascada con una tarea necesitan lo mismo: alguien dispuesto a encontrar el fallo real y dejarlo por escrito. <a href="{thesis}">Mi tesis</a> es que las herramientas que merecen construirse son las que devuelven el control a quien las usa.',
           'Llevo poco en esta carrera y lo hago público a propósito: cada proyecto tiene código, pruebas y un alcance declarado, y dice con claridad qué partes escribí yo. Prefiero que me juzguen por lo que he entregado antes que por cómo me describo.') },
         { label: 'Fuera del trabajo', cls: 'prose', html: P(
@@ -82,7 +82,7 @@ export const pages = {
           '成千上万的人带着愤怒、困惑，或者一台装着某样东西唯一副本的死机走进来。就是在那里我学到，技术上正确的回答和真正有用的回答，未必是同一句话。',
           '当主管时我负责两家门店的运营：开关店、活动、排班、维护，以及在情况不符合任何流程时支持团队。在那里，领导意味着清除障碍，而不是下达指令。') },
         { label: '现在', cls: 'copy', html: '<h2>技术支持与开放系统</h2>' + P(
-          '搬到阿伯丁之后，我全职投入 AI 系统：基于 Hermes Agent 的智能体工作流、MCP 服务器、Docker 中的自动化、自有 GPU 上的本地推理，以及部署在自己 VPS 上、由 Traefik 与 TLS 托管的应用。我最擅长的地方正是系统出错之处——排查故障模式、调试工作流，把不可预测的行为变成有文档、可依赖的东西。',
+          '从马德里搬到阿伯丁之后，我全职投入 AI 系统：基于 Hermes Agent 的智能体工作流、MCP 服务器、Docker 中的自动化、自有 GPU 上的本地推理，以及部署在自己 VPS 上、由 Traefik 与 TLS 托管的应用。我最擅长的地方正是系统出错之处——排查故障模式、调试工作流，把不可预测的行为变成有文档、可依赖的东西。',
           '这和以前是同一份工作，只是对准了另一个界面。卡在机器前的人和卡在任务上的机器，需要的是同一件事：有人愿意找出真正的故障并把它写下来。<a href="{thesis}">我的论点</a>是，值得做的工具，是那些把控制权交还给使用者的工具。',
           '我在这条路上还很年轻，并且刻意公开这一点：每个项目都有源码、测试和明确的范围，并且清楚说明哪些部分是我写的。我宁愿被自己交付过的东西评判，而不是被我如何描述自己评判。') },
         { label: '工作之外', cls: 'prose', html: P(
@@ -249,7 +249,11 @@ export const pages = {
         { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Projects, experiments and the source trail.', copy: 'https://github.com/ponzgpt' },
         { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Professional context and public connections.', copy: 'https://www.linkedin.com/in/javierponz' }
       ],
-      copyLabel: 'Copy', copiedLabel: 'Copied', copyFailedLabel: 'Copy failed'
+      copyLabel: 'Copy', copiedLabel: 'Copied', copyFailedLabel: 'Copy failed',
+      availabilityLabel: 'Availability',
+      availability: `<h2>Open to the right role, starting now.</h2>
+        <p>I work independently at the moment, so there is no notice period between a conversation and a start date. What I am looking for is technical support, customer-facing engineering or agent operations — work where the job is to find the real fault and leave the person with more control than they had before.</p>
+        <p>I am in Aberdeen, Scotland, by way of Madrid, and I keep UK hours. Remote suits me and I am set up for it, I travel without fuss, and I would consider relocating if the move made sense for my partner as much as for me.</p>`
     },
     es: {
       title: 'Contacto — Javier Ponz',
@@ -262,7 +266,11 @@ export const pages = {
         { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Proyectos, experimentos y el rastro del código.', copy: 'https://github.com/ponzgpt' },
         { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Contexto profesional y contactos públicos.', copy: 'https://www.linkedin.com/in/javierponz' }
       ],
-      copyLabel: 'Copiar', copiedLabel: 'Copiado', copyFailedLabel: 'No se pudo copiar'
+      copyLabel: 'Copiar', copiedLabel: 'Copiado', copyFailedLabel: 'No se pudo copiar',
+      availabilityLabel: 'Disponibilidad',
+      availability: `<h2>Disponible para el puesto adecuado, desde ya.</h2>
+        <p>Ahora mismo trabajo por mi cuenta, así que no hay preaviso entre una conversación y una fecha de incorporación. Lo que busco es soporte técnico, ingeniería de cara al cliente u operación de agentes: trabajo en el que la tarea es encontrar el fallo de verdad y dejar a la persona con más control del que tenía antes.</p>
+        <p>Estoy en Aberdeen, Escocia, pasando por Madrid, y llevo horario del Reino Unido. El remoto me encaja y estoy montado para ello, viajo sin problema, y me plantearía mudarme si la mudanza tuviera sentido para mi pareja tanto como para mí.</p>`
     },
     zh: {
       title: '联系 — Javier Ponz',
@@ -275,7 +283,11 @@ export const pages = {
         { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: '项目、实验，以及源码的痕迹。', copy: 'https://github.com/ponzgpt' },
         { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: '职业背景与公开人脉。', copy: 'https://www.linkedin.com/in/javierponz' }
       ],
-      copyLabel: '复制', copiedLabel: '已复制', copyFailedLabel: '复制失败'
+      copyLabel: '复制', copiedLabel: '已复制', copyFailedLabel: '复制失败',
+      availabilityLabel: '可到岗情况',
+      availability: `<h2>只要岗位合适，随时可以开始。</h2>
+        <p>我目前独立工作，所以从谈完到入职之间没有需要走的通知期。我想找的是技术支持、面向客户的工程，或者智能体运维——这类工作的任务，是找出真正的故障，并让对方比之前更能掌控自己的机器。</p>
+        <p>我人在苏格兰阿伯丁，来自马德里，按英国时间工作。远程适合我，我也已经配置好了；出差没问题；如果这次搬迁对我的伴侣和对我同样说得通，我也会认真考虑搬过去。</p>`
     }
   },
 

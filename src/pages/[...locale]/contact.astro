@@ -16,6 +16,7 @@ const p = pages.contact[lang];
       </div>
     ))}
   </div></section>
+  <section class="grid"><span class="label">{p.availabilityLabel}</span><div class="copy" set:html={p.availability} /></section>
   <script is:inline>
     document.addEventListener('click', function (e) {
       const btn = e.target.closest('.copy-btn');
