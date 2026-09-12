@@ -22,7 +22,7 @@ export const person = {
 };
 
 export const profile = [
-  'Ten years at Apple Retail across technical diagnosis, consultative selling, remote support and team leadership, now operating open agent systems daily and shipping small software to production.',
+  'Ten years at Apple Retail across hands-on hardware repair, technical diagnosis, consultative selling, remote support and team leadership, now operating open agent systems daily and shipping small software to production.',
   'The job I am best at is being the human between people and their machines: translating between what the engineer means, what the sale promised, and what the person actually has on their screen. Most support failures are a translation failure rather than a technical one.',
   'Strongest where systems fail — investigating failure modes, debugging workflows, and writing down precisely which assumption broke. I have been building and overclocking PCs since I was a teenager, which is where the interest in what hardware can actually do came from, long before I had an argument for it.',
   'I run local inference on my own hardware — llama.cpp serving a dense Qwen3 27B (GGUF, Q6) from an RTX 5090, exposed as an API and wired into Hermes Agent — on Arch, Fedora and Omarchy, and I am building a self-hosted homelab on Proxmox. After a decade inside a closed platform I am deliberately unwinding that: off Google services, learning OSINT, GrapheneOS next. Privacy and data sovereignty are the point of the work, not a side effect of it.',
@@ -149,14 +149,14 @@ export const locationI18n = {
 
 export const profileI18n = {
   es: [
-    'Diez años en Apple Retail entre diagnóstico técnico, venta consultiva, soporte remoto y dirección de equipos; ahora opero sistemas de agentes abiertos a diario y entrego software pequeño a producción.',
+    'Diez años en Apple Retail entre reparación de hardware, diagnóstico técnico, venta consultiva, soporte remoto y dirección de equipos; ahora opero sistemas de agentes abiertos a diario y entrego software pequeño a producción.',
     'En lo que mejor soy es en hacer de intermediario entre las personas y sus máquinas: traducir entre lo que quiere decir el ingeniero, lo que prometió la venta y lo que la persona tiene de verdad en su pantalla. La mayoría de los fallos de soporte son fallos de traducción, no fallos técnicos.',
     'Rindo mejor donde los sistemas fallan: investigar modos de fallo, depurar flujos y dejar por escrito exactamente qué supuesto se rompió. Monto y hago overclocking a ordenadores desde adolescente, que es de donde viene el interés por lo que el hardware puede dar de sí, mucho antes de tener un argumento para ello.',
     'Ejecuto inferencia local en mi propio equipo —llama.cpp sirviendo un Qwen3 27B denso, en GGUF a Q6, desde una RTX 5090, expuesto como API y conectado a Hermes Agent— sobre Arch, Fedora y Omarchy, y estoy montando un homelab autoalojado con Proxmox. Tras una década dentro de una plataforma cerrada, la estoy desmontando a propósito: fuera de los servicios de Google, aprendiendo OSINT y con GrapheneOS como siguiente paso. La privacidad y la soberanía de los datos son el objetivo del trabajo, no un efecto secundario.',
     'Una convicción atraviesa todos los puestos que he tenido: liderar es servir. La medida de una herramienta, como la de un responsable, es si la persona que depende de ella acaba con más capacidad de la que tenía.'
   ],
   zh: [
-    '在 Apple Retail 的十年，横跨技术诊断、顾问式销售、远程支持与团队管理；现在每天操作开放的智能体系统，并把小型软件交付到生产环境。',
+    '在 Apple Retail 的十年，横跨硬件维修、技术诊断、顾问式销售、远程支持与团队管理；现在每天操作开放的智能体系统，并把小型软件交付到生产环境。',
     '我最擅长的是做人与机器之间的那个人：在工程师的意思、销售的承诺，以及这个人屏幕上真正显示的东西之间做翻译。大多数支持失败是翻译失败，而不是技术失败。',
     '我最强的地方正是系统出错之处——排查故障模式、调试工作流，并把究竟是哪一个假设破了写清楚。我从少年时代就开始装机和超频，对硬件究竟能榨出什么的兴趣正是从那里来的，远早于我为此找到任何理由。',
     '我在自己的硬件上跑本地推理——llama.cpp 在 RTX 5090 上提供一个稠密的 Qwen3 27B（GGUF，Q6），以 API 暴露并接入 Hermes Agent——系统是 Arch、Fedora 与 Omarchy，同时在用 Proxmox 搭建自托管家庭实验室。在一个封闭平台里待了十年之后，我在有意识地把它拆开：离开谷歌服务、学习 OSINT，下一步是 GrapheneOS。隐私与数据自主是这项工作的目的，不是副产品。',

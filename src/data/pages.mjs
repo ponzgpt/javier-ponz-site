@@ -26,7 +26,7 @@ export const pages = {
           '<strong>Leading teams.</strong> Removing what is in their way. As a lead the job was never to be the most capable person in the room; it was to make the room work — resources, cover, conflict handled early, credit pointed at whoever earned it.',
           'Service is not the soft edge of technical work. It is the part that decides whether the technical work reaches anyone.') },
         { label: 'Experience', cls: 'copy', html: '<h2>Apple Retail · 2014—2024</h2>' + P(
-          'Ten years and five roles: Specialist, Technical Specialist, AppleCare Advisor, Genius, then In-Store Experience Lead across Parquesur and Xanadú in Madrid. The through line was diagnosis under pressure — find the real fault fast, explain it in terms the person in front of you actually cares about, and keep their trust while doing it.',
+          'Ten years and five roles: Specialist, Technical Specialist, AppleCare Advisor, Genius, then In-Store Experience Lead across Parquesur and Xanadú in Madrid — plenty of it hands inside a machine, including older Macs well past warranty. The through line was diagnosis under pressure — find the real fault fast, explain it in terms the person in front of you actually cares about, and keep their trust while doing it.',
           'Thousands of people arrived angry, confused, or holding a dead machine with their only copy of something on it. That is where I learned that the technical answer and the useful answer are not always the same sentence.',
           'As a lead I ran operations across two stores — opening and closing, events, resourcing, maintenance, and supporting teams when a situation did not fit any procedure. Leading there meant clearing obstacles, not issuing instructions.') },
         { label: 'Now', cls: 'copy', html: '<h2>Technical support and open systems</h2>' + P(
@@ -52,7 +52,7 @@ export const pages = {
           '<strong>Liderar equipos.</strong> Quitar lo que les estorba. Como responsable, el trabajo nunca fue ser el más capaz de la sala; era hacer que la sala funcionara: recursos, cobertura, conflictos atajados pronto y el mérito señalando a quien se lo ganó.',
           'El servicio no es el borde blando del trabajo técnico. Es la parte que decide si ese trabajo llega a alguien.') },
         { label: 'Experiencia', cls: 'copy', html: '<h2>Apple Retail · 2014—2024</h2>' + P(
-          'Diez años y cinco puestos: Specialist, Technical Specialist, asesor de AppleCare, Genius y, después, responsable de experiencia en tienda en Parquesur y Xanadú, en Madrid. El hilo común fue diagnosticar bajo presión: encontrar el fallo real rápido, explicarlo en los términos que de verdad le importan a quien tienes delante, y no perder su confianza por el camino.',
+          'Diez años y cinco puestos: Specialist, Technical Specialist, asesor de AppleCare, Genius y, después, responsable de experiencia en tienda en Parquesur y Xanadú, en Madrid — buena parte con las manos dentro de la máquina, incluidos muchos Mac ya fuera de garantía. El hilo común fue diagnosticar bajo presión: encontrar el fallo real rápido, explicarlo en los términos que de verdad le importan a quien tienes delante, y no perder su confianza por el camino.',
           'Llegaban miles de personas enfadadas, desorientadas o con un equipo muerto que guardaba la única copia de algo. Ahí aprendí que la respuesta técnica y la respuesta útil no siempre son la misma frase.',
           'Como responsable llevé la operación de dos tiendas: aperturas y cierres, eventos, recursos, mantenimiento y apoyo al equipo cuando la situación no encajaba en ningún procedimiento. Liderar allí consistía en despejar obstáculos, no en dar instrucciones.') },
         { label: 'Ahora', cls: 'copy', html: '<h2>Soporte técnico y sistemas abiertos</h2>' + P(
@@ -78,7 +78,7 @@ export const pages = {
           '<strong>领导团队。</strong> 搬开挡在他们前面的东西。做主管时，工作从来不是当屋子里最能干的人，而是让这间屋子运转起来——资源、掩护、尽早处理的冲突，以及把功劳指向真正挣到它的人。',
           '服务不是技术工作柔软的边缘。它决定了这份技术工作究竟有没有抵达任何人。') },
         { label: '经历', cls: 'copy', html: '<h2>Apple Retail · 2014—2024</h2>' + P(
-          '十年，五个岗位：Specialist、Technical Specialist、AppleCare 顾问、Genius，之后是马德里 Parquesur 与 Xanadú 两家店的店内体验主管。贯穿始终的是高压下的诊断——快速找到真正的故障，用眼前这个人真正在意的说法解释清楚，并且在整个过程中不失去他的信任。',
+          '十年，五个岗位：Specialist、Technical Specialist、AppleCare 顾问、Genius，之后是马德里 Parquesur 与 Xanadú 两家店的店内体验主管——很多时候是双手伸进机器里，包括不少早已过保的 Mac。贯穿始终的是高压下的诊断——快速找到真正的故障，用眼前这个人真正在意的说法解释清楚，并且在整个过程中不失去他的信任。',
           '成千上万的人带着愤怒、困惑，或者一台装着某样东西唯一副本的死机走进来。就是在那里我学到，技术上正确的回答和真正有用的回答，未必是同一句话。',
           '当主管时我负责两家门店的运营：开关店、活动、排班、维护，以及在情况不符合任何流程时支持团队。在那里，领导意味着清除障碍，而不是下达指令。') },
         { label: '现在', cls: 'copy', html: '<h2>技术支持与开放系统</h2>' + P(
