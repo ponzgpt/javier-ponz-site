@@ -53,8 +53,9 @@ for (const s of skins) {
     }
   }
 
-  // contrast, including the derived --muted
+  // contrast, including the derived --muted and any optional rainbow hues
   const checks = { fg: s.fg, accent: s.accent, accent2: s.accent2, muted: mix(s.fg, s.bg, 0.28) };
+  (s.rainbow ?? []).forEach((hex, i) => { checks[`rainbow[${i}]`] = hex; });
   for (const [name, hex] of Object.entries(checks)) {
     const r = ratio(hex, s.bg);
     if (r < 4.5) {

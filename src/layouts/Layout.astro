@@ -332,6 +332,15 @@ a.row:hover h3{color:var(--accent)}
 
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .tag{font-family:var(--font-display);font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--accent2);overflow-wrap:anywhere}
+/* Cycles through a skin's --rainbow-1..7 (skins.mjs); a skin with no
+   `rainbow` array gets accent2 in every slot, so this is a no-op for it. */
+.tag:nth-of-type(7n+1){color:var(--rainbow-1)}
+.tag:nth-of-type(7n+2){color:var(--rainbow-2)}
+.tag:nth-of-type(7n+3){color:var(--rainbow-3)}
+.tag:nth-of-type(7n+4){color:var(--rainbow-4)}
+.tag:nth-of-type(7n+5){color:var(--rainbow-5)}
+.tag:nth-of-type(7n+6){color:var(--rainbow-6)}
+.tag:nth-of-type(7n){color:var(--rainbow-7)}
 .skillgroup{margin:0 0 28px}
 .skillgroup h3{font-family:var(--font-display);font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0;color:var(--accent2)}
 

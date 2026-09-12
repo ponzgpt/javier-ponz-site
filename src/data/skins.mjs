@@ -59,6 +59,11 @@ export const skins = [
     fg: '#a9b1d6',
     accent: '#7aa2f7',
     accent2: '#9ece6a',
+    // Optional: the rest of that same colors.toml, for spots with several
+    // items side by side (currently just .tag) where one accent reads as
+    // flat. Not part of the 4-token contract — a skin with no `rainbow`
+    // just gets accent2 repeated, so this is opt-in for skins that want it.
+    rainbow: ['#f7768e', '#eb927b', '#e0af68', '#9ece6a', '#449dab', '#7aa2f7', '#ad8ee6'],
     display: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace",
     body: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace"
   },
@@ -148,11 +153,22 @@ export const skins = [
 
 export const defaultSkin = skins[0].id;
 
+// Fixed slot count so the CSS that consumes --rainbow-N (Layout.astro) can be
+// written once as literal :nth-of-type rules. A skin with no `rainbow` gets
+// accent2 in every slot, which is the same flat look as before it existed.
+const RAINBOW_SLOTS = 7;
+
 /** The [data-skin] blocks, generated so the data file stays the only source. */
 export function skinCss() {
-  const vars = (s) =>
-    `--bg:${s.bg};--fg:${s.fg};--accent:${s.accent};--accent2:${s.accent2};` +
-    `--font-display:${s.display};--font-body:${s.body};--scale:${s.scale ?? 1}`;
+  const vars = (s) => {
+    const rainbow = s.rainbow ?? [s.accent2];
+    const rainbowVars = Array.from(
+      { length: RAINBOW_SLOTS },
+      (_, i) => `--rainbow-${i + 1}:${rainbow[i % rainbow.length]}`
+    ).join(';');
+    return `--bg:${s.bg};--fg:${s.fg};--accent:${s.accent};--accent2:${s.accent2};` +
+      `--font-display:${s.display};--font-body:${s.body};--scale:${s.scale ?? 1};${rainbowVars}`;
+  };
   return [
     `:root{${vars(skins[0])}}`,
     ...skins.map((s) => `[data-skin="${s.id}"]{${vars(s)}}`)
