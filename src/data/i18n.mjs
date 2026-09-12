@@ -73,38 +73,41 @@ export const ui = {
       en: [
         ['OS', 'Omarchy BTW'],
         ['Host', 'Hermes Agent'],
-        ['Role', 'technical support · customer success'],
+        ['Kernel', 'leading-is-serving 10.0-lts'],
         ['Uptime', 'two years on this stack'],
-        ['Shell', 'Quickshell'],
-        ['WM', 'Hyprland'],
-        ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
-        ['Deploy', 'Docker · Traefik · a VPS I administer'],
+        ['Packages', 'whatever ships (git)'],
+        ['Shell', 'fzf'],
+        ['Resolution', '20/20 — translated for humans'],
         ['Terminal', 'you are in it'],
-        ['Open to', 'support and customer-facing roles, remote']
+        ['CPU', 'Human (1) @ full attention'],
+        ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
+        ['Memory', '10 years / always more to learn']
       ],
       es: [
         ['SO', 'Omarchy BTW'],
         ['Origen', 'Hermes Agent'],
-        ['Puesto', 'soporte técnico · atención al cliente'],
+        ['Núcleo', 'liderar-es-servir 10.0-lts'],
         ['Activo', 'dos años con esta pila'],
-        ['Shell', 'Quickshell'],
-        ['WM', 'Hyprland'],
-        ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
-        ['Despliegue', 'Docker · Traefik · un VPS que administro yo'],
+        ['Paquetes', 'lo que llega a producción (git)'],
+        ['Shell', 'fzf'],
+        ['Resolución', '20/20 — traducido para humanos'],
         ['Terminal', 'estás dentro de ella'],
-        ['Busco', 'soporte y trato con clientes, en remoto']
+        ['CPU', 'Humano (1) @ atención plena'],
+        ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
+        ['Memoria', '10 años / siempre queda más por aprender']
       ],
       zh: [
         ['系统', 'Omarchy BTW'],
         ['出身', 'Hermes Agent'],
-        ['方向', '技术支持 · 客户成功'],
+        ['内核', '领导即服务 10.0-lts'],
         ['运行', '接触这套技术栈两年'],
-        ['Shell', 'Quickshell'],
-        ['窗口管理', 'Hyprland'],
-        ['显卡', 'RTX 5090 — llama.cpp，Qwen3 27B GGUF Q6'],
-        ['部署', 'Docker · Traefik · 自己维护的 VPS'],
+        ['软件包', '交付上线的 (git)'],
+        ['Shell', 'fzf'],
+        ['分辨率', '20/20——翻译给普通人看'],
         ['终端', '你正在用它'],
-        ['求职', '技术支持与客户面向岗位，远程']
+        ['CPU', '人类 (1) @ 全神贯注'],
+        ['显卡', 'RTX 5090 — llama.cpp，Qwen3 27B GGUF Q6'],
+        ['内存', '十年 / 还有很多要学']
       ]
     },
     help: {
