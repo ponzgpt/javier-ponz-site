@@ -1,19 +1,15 @@
 ---
-// An actual shell, not a picture of one. The commands read the same data files
-// the rest of the site renders from, so the terminal cannot drift out of date
-// with the pages beneath it.
+// An actual shell, not a picture of one. The commands read the same data
+// files the rest of the site renders from, so the terminal cannot drift out
+// of date with the sections beneath it.
 //
-// The seeded `neofetch` output is rendered server-side, so the page is complete
-// and readable at rest — with JavaScript off, or for a crawler, this is a
-// normal <pre> full of real text.
-import { projects, running, skillsFor } from '../data/site';
-import { person, cvFor } from '../data/cv.mjs';
+// The seeded `fastfetch` output is rendered server-side, so the page is
+// complete and readable at rest — with JavaScript off, or for a crawler,
+// this is a normal <pre> full of real text.
+import { projects, running, skillGroups } from '../data/site';
+import { person, profile } from '../data/cv.mjs';
 import { skins } from '../data/skins.mjs';
-import { ui, t, href, locales, pick } from '../data/i18n.mjs';
-
-const { lang = 'en' } = Astro.props;
-const cv = cvFor(lang);
-const bareHere = '/';
+import { ui } from '../data/ui.mjs';
 
 const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
@@ -28,51 +24,65 @@ const banner = `     ██╗ █████╗ ██╗   ██╗██╗
 ██║     ╚██████╔╝██║ ╚████║███████╗
 ╚═╝      ╚═════╝ ╚═╝  ╚═══╝╚══════╝`;
 
-const facts = t(ui.term.facts, lang);
+// Omarchy Quattro ships fastfetch, not neofetch, with output boxed into
+// titled sections (etc/fastfetch/config.jsonc in omacom/omarchy) — a plain
+// top/bottom border per box, a tree-branch prefix per row ("│ ├" for a
+// middle row, "└ └" for the last), first row flush with no prefix.
+const BOX_WIDTH = 54;
+const boxTop = (title) => {
+  const rem = Math.max(0, BOX_WIDTH - title.length);
+  const l = Math.floor(rem / 2);
+  return '┌' + '─'.repeat(l) + title + '─'.repeat(rem - l) + '┐';
+};
+const boxBottom = '└' + '─'.repeat(BOX_WIDTH) + '┘';
 
-// A CJK glyph occupies two cells in a monospace grid but is one JS character,
-// so padEnd() alone leaves the column ragged. Pad by display width instead.
-const cells = (str) => [...str].reduce((n, ch) => n + (/[\u1100-\u115F\u2E80-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFF60\uFFE0-\uFFE6]/.test(ch) ? 2 : 1), 0);
-const padCells = (str, width) => str + ' '.repeat(Math.max(1, width - cells(str)));
-const KEYW = Math.max(...facts.map(([k]) => cells(k))) + 2;
-
+const groups = ui.term.factGroups.map((g) => ({
+  ...g,
+  rows: g.rows.map(([k, v], i) => [
+    (i === 0 ? '' : i === g.rows.length - 1 ? '└ └' : '│ ├') + k,
+    v
+  ])
+}));
+const KEYW = Math.max(...groups.flatMap((g) => g.rows.map(([k]) => k.length))) + 2;
+const pad = (s, w) => s + ' '.repeat(Math.max(1, w - s.length));
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const factsHtml = facts
-  .map(([k, v]) => `<span class="k">${esc(padCells(k, KEYW))}</span><span class="v">${esc(v)}</span>`)
-  .join('\n');
+
+const factsHtml = groups.map((g) => [
+  `<span class="box">${esc(boxTop(g.title))}</span>`,
+  g.rows.map(([k, v]) => `<span class="k" style="color:var(--${g.color})">${esc(pad(k, KEYW))}</span><span class="v">${esc(v)}</span>`).join('\n'),
+  `<span class="box">${esc(boxBottom)}</span>`
+].join('\n')).join('\n\n');
 
 // Everything the client-side commands need, and nothing more.
 const data = {
   name: person.name,
-  location: cv.location,
-  headline: cv.headline,
-  profile: cv.profile[1],
-  projects: projects.map((x) => pick(x, lang)).map((x) => ({ t: x.title, k: x.kind, s: x.status, by: x.by, d: x.description, u: x.url })),
-  running: running.map((x) => pick(x, lang)).map((x) => ({ t: x.title, k: x.kind, by: x.by, d: x.description, u: x.url })),
-  skills: skillsFor(lang).map((g) => ({ g: g.group, items: g.items })),
+  location: person.location,
+  headline: person.headline,
+  profile: profile[1],
+  projects: projects.map((x) => ({ t: x.title, k: x.kind, s: x.status, by: x.by, d: x.description, u: x.url })),
+  running: running.map((x) => ({ t: x.title, k: x.kind, by: x.by, d: x.description, u: x.url })),
+  skills: skillGroups.map((g) => ({ g: g.name, items: g.items })),
   contact: person.contact.filter((c) => !c.private).map((c) => ({ l: c.label, v: c.value, h: c.href })),
-  pages: t(ui.pages, lang).map(([name, path, note]) => [name, href(path, lang), note]),
+  pages: ui.pages,
   cvPath: '/javier-ponz-prado-cv.pdf',
   skins: skins.map((x) => ({ id: x.id, name: x.name, note: x.note })),
-  langs: locales.map((l) => ({ code: l.code, label: l.label, name: l.name, url: href(bareHere, l.code) })),
-  lang,
-  help: t(ui.term.help, lang),
-  s: Object.fromEntries(Object.entries(ui.term.strings).map(([k, v]) => [k, t(v, lang)]))
+  help: ui.term.help,
+  s: ui.term.strings
 };
 ---
 <section class="term-wrap" aria-labelledby="term-title">
   <div class="win">
     <div class="bar">
       <span class="ws"><b>1</b><i></i><i></i></span>
-      <span class="wtitle" id="term-title">{t(ui.term.title, lang)}</span>
-      <span class="wstat"><span class="dot"></span>{t(ui.term.online, lang)}</span>
+      <span class="wtitle" id="term-title">{ui.term.title}</span>
+      <span class="wstat"><span class="dot"></span>{ui.term.online}</span>
     </div>
     <div class="term" id="term">
-      <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@aberdeen ~ <b>❯</b> neofetch</span>
+      <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@aberdeen ~ <b>❯</b> fastfetch</span>
 <span class="art">{banner}</span>
 <span class="who">{data.name} — {data.location}</span>
 <Fragment set:html={factsHtml} />
-<span class="hint" set:html={t(ui.term.hint, lang)} />
+<span class="hint" set:html={ui.term.hint} />
 </pre>
       <form class="line" id="term-form" autocomplete="off">
         <label for="term-in">javier@aberdeen ~ <b>❯</b></label>
@@ -188,19 +198,8 @@ const data = {
       }
       write('skin → ' + arg);
     },
-    neofetch: function () { location.reload(); },
+    fastfetch: function () { location.reload(); },
     clear: function () { out.textContent = ''; },
-    lang: function (arg) {
-      if (!arg) {
-        write(data.s.langsCurrent + data.lang + ')', 'k');
-        data.langs.forEach(function (l) { write('  ' + pad(l.code, 8) + l.label + ' — ' + l.name); });
-        return;
-      }
-      var hit = data.langs.filter(function (l) { return l.code === arg; })[0];
-      if (!hit) { write(data.s.noLang + '"' + arg + '"', 'err'); return; }
-      write(data.s.opening + hit.url + ' …');
-      setTimeout(function () { location.href = hit.url; }, 220);
-    },
     sudo: function () { write(data.s.sudo, 'err'); }
   };
 
@@ -239,8 +238,6 @@ const data = {
       var pool = typed.indexOf(' ') > -1
         ? (typed.split(/\s+/)[0] === 'skin'
             ? data.skins.map(function (x) { return 'skin ' + x.id; })
-            : typed.split(/\s+/)[0] === 'lang'
-            ? data.langs.map(function (l) { return 'lang ' + l.code; })
             : data.pages.map(function (x) { return 'open ' + x[0]; }))
         : Object.keys(commands);
       var hits = pool.filter(function (c) { return c.indexOf(typed) === 0; });
@@ -290,6 +287,7 @@ const data = {
   .out .who{color:var(--accent);font-weight:700}
   .out .k{color:var(--accent2)}
   .out .v{color:var(--fg)}
+  .out .box{color:var(--muted)}
   .out .err{color:var(--muted)}
   .out .hint{display:block;margin-top:14px;color:var(--muted)}
   .out .hint b{color:var(--accent);font-weight:700}
