@@ -42,7 +42,6 @@ export const ui = {
     es: ['perfil', 'cv', 'taller', 'caso', 'tesis', 'ahora', 'contacto'],
     zh: ['关于', '简历', '工作台', '案例', '论点', '现在', '联系']
   },
-  brandNote: { en: '--field-notes', es: '--cuaderno-de-campo', zh: '--实地笔记' },
   skip: { en: 'Skip to content', es: 'Saltar al contenido', zh: '跳到正文' },
   skinLabel: { en: "Change the site's skin", es: 'Cambiar el aspecto del sitio', zh: '切换外观' },
   langLabel: { en: 'Change language', es: 'Cambiar de idioma', zh: '切换语言' },
@@ -72,11 +71,11 @@ export const ui = {
     },
     facts: {
       en: [
-        ['OS', 'Arch Linux · Omarchy · Fedora'],
-        ['Host', 'ex-Apple Genius, ten years'],
+        ['OS', 'Omarchy BTW'],
+        ['Host', 'Hermes Agent'],
         ['Role', 'technical support · customer success'],
         ['Uptime', 'two years on this stack'],
-        ['Shell', 'Hermes Agent'],
+        ['Shell', 'Quickshell'],
         ['WM', 'Hyprland'],
         ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
         ['Deploy', 'Docker · Traefik · a VPS I administer'],
@@ -84,11 +83,11 @@ export const ui = {
         ['Open to', 'support and customer-facing roles, remote']
       ],
       es: [
-        ['SO', 'Arch Linux · Omarchy · Fedora'],
-        ['Origen', 'ex-Genius de Apple, diez años'],
+        ['SO', 'Omarchy BTW'],
+        ['Origen', 'Hermes Agent'],
         ['Puesto', 'soporte técnico · atención al cliente'],
         ['Activo', 'dos años con esta pila'],
-        ['Shell', 'Hermes Agent'],
+        ['Shell', 'Quickshell'],
         ['WM', 'Hyprland'],
         ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
         ['Despliegue', 'Docker · Traefik · un VPS que administro yo'],
@@ -96,11 +95,11 @@ export const ui = {
         ['Busco', 'soporte y trato con clientes, en remoto']
       ],
       zh: [
-        ['系统', 'Arch Linux · Omarchy · Fedora'],
-        ['出身', '前苹果 Genius，十年'],
+        ['系统', 'Omarchy BTW'],
+        ['出身', 'Hermes Agent'],
         ['方向', '技术支持 · 客户成功'],
         ['运行', '接触这套技术栈两年'],
-        ['Shell', 'Hermes Agent'],
+        ['Shell', 'Quickshell'],
         ['窗口管理', 'Hyprland'],
         ['显卡', 'RTX 5090 — llama.cpp，Qwen3 27B GGUF Q6'],
         ['部署', 'Docker · Traefik · 自己维护的 VPS'],
