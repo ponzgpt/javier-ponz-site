@@ -28,6 +28,32 @@
 
 export const skins = [
   {
+    id: 'omarchy',
+    name: 'Omakase',
+    note: 'Tokyo Night, the Omarchy default',
+    sprite: {
+      // A chef's hat. Omakase is "I leave it up to you" — the chef chooses,
+      // which is the whole argument for an opinionated distribution.
+      ink: { 1: 'var(--fg)', 2: 'var(--accent)' },
+      grid: [
+        '..11.11...',
+        '.111111111',
+        '1111111111',
+        '.111111111',
+        '..2222222.',
+        '..2222222.'
+      ]
+    },
+    // Omarchy's own tokyo-night theme, themes/tokyo-night/colors.toml in
+    // omacom/omarchy — background/foreground/accent/green, verbatim.
+    bg: '#1a1b26',
+    fg: '#a9b1d6',
+    accent: '#7aa2f7',
+    accent2: '#9ece6a',
+    display: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace",
+    body: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace"
+  },
+  {
     id: 'hermes',
     name: 'Caduceus',
     note: 'The Hermes Agent CLI',
@@ -56,31 +82,6 @@ export const skins = [
     accent2: '#CD7F32',  // banner_border, input_rule
     display: "'Courier Prime','Courier New',Courier,monospace",
     body: "'Courier Prime','Courier New',Courier,monospace"
-  },
-  {
-    id: 'omarchy',
-    name: 'Omakase',
-    note: 'Tokyo Night, the Omarchy default',
-    sprite: {
-      // A chef's hat. Omakase is "I leave it up to you" — the chef chooses,
-      // which is the whole argument for an opinionated distribution.
-      ink: { 1: 'var(--fg)', 2: 'var(--accent)' },
-      grid: [
-        '..11.11...',
-        '.111111111',
-        '1111111111',
-        '.111111111',
-        '..2222222.',
-        '..2222222.'
-      ]
-    },
-    // From the Omarchy site's own :root — --bg --fg --accent --green.
-    bg: '#1a1b26',
-    fg: '#a9b1d6',
-    accent: '#7aa2f7',
-    accent2: '#9ece6a',
-    display: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace",
-    body: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace"
   },
   {
     id: 'stormlight',
