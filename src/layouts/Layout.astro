@@ -4,7 +4,7 @@ import { locales, defaultLocale, href, t, ui } from '../data/i18n.mjs';
 import { bare } from '../data/routes.mjs';
 
 interface Props { title: string; description?: string; lang?: string }
-const { title, description = 'Javier Ponz — technology, service, agents and field notes.', lang = defaultLocale } = Astro.props;
+const { title, description = 'Javier Ponz — technology, service and agents.', lang = defaultLocale } = Astro.props;
 const site = 'https://javierponz.technoir.cloud';
 const canonical = `${site}${Astro.url.pathname}`;
 const here = bare(Astro.url.pathname);

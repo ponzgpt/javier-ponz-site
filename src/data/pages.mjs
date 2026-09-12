@@ -347,7 +347,7 @@ export const pages = {
   home: {
     en: {
       title: 'Javier Ponz — technical support & agent operations',
-      desc: 'Javier Ponz — technology, service, agents and field notes.',
+      desc: 'Javier Ponz — technology, service and agents.',
       kicker: 'Aberdeen, Scotland',
       tagline: 'I build agent tooling and small products that ', taglineSerif: 'actually ship', taglineEnd: '.',
       lede: 'Ten years diagnosing hard technical problems for people at Apple Retail, now building AI systems and full stack applications — deployed, tested, and running in production. Same job, different surface.',
@@ -367,7 +367,7 @@ export const pages = {
     },
     es: {
       title: 'Javier Ponz — soporte técnico y operación de agentes',
-      desc: 'Javier Ponz — tecnología, servicio, agentes y notas de campo.',
+      desc: 'Javier Ponz — tecnología, servicio y agentes.',
       kicker: 'Aberdeen, Escocia',
       tagline: 'Construyo herramientas de agentes y productos pequeños que ', taglineSerif: 'llegan a producción', taglineEnd: '.',
       lede: 'Diez años diagnosticando problemas técnicos difíciles para personas en Apple Retail; ahora construyo sistemas de IA y aplicaciones full stack, desplegados, probados y funcionando en producción. El mismo trabajo, otra superficie.',
@@ -387,7 +387,7 @@ export const pages = {
     },
     zh: {
       title: 'Javier Ponz — 技术支持与智能体运维',
-      desc: 'Javier Ponz — 技术、服务、智能体与实地笔记。',
+      desc: 'Javier Ponz — 技术、服务与智能体。',
       kicker: '苏格兰，阿伯丁',
       tagline: '我做智能体工具，以及真的能', taglineSerif: '交付上线', taglineEnd: '的小产品。',
       lede: '在 Apple Retail 为人们诊断了十年棘手的技术问题，现在构建 AI 系统与全栈应用——已部署、经过测试、跑在生产环境里。同一份工作，换了一个界面。',
