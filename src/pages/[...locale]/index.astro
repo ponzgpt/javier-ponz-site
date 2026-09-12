@@ -1,6 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Terminal from '../../components/Terminal.astro';
+import AboutSection from '../../components/sections/AboutSection.astro';
+import TimelineSection from '../../components/sections/TimelineSection.astro';
+import AgentsSection from '../../components/sections/AgentsSection.astro';
+import ProjectsSection from '../../components/sections/ProjectsSection.astro';
+import ThesisSection from '../../components/sections/ThesisSection.astro';
+import NowSection from '../../components/sections/NowSection.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
 import { pages } from '../../data/pages.mjs';
 import { projects } from '../../data/site';
 import { localePaths, expand } from '../../data/routes.mjs';
@@ -28,4 +35,12 @@ const ex = (h) => expand(h, lang, href);
   <section class="grid"><span class="label">{p.workLabel}</span><div class="rows">
     {proj.map((r) => <a class="row" href={r.url} target="_blank" rel="noreferrer"><time>{r.kind}<br /><span class="byline">{r.by}</span></time><div><h3>{r.title} ↗</h3><p>{r.description}</p></div></a>)}
   </div></section>
+
+  <AboutSection lang={lang} />
+  <TimelineSection lang={lang} />
+  <AgentsSection lang={lang} />
+  <ProjectsSection lang={lang} />
+  <ThesisSection lang={lang} />
+  <NowSection lang={lang} />
+  <ContactSection lang={lang} />
 </Layout>

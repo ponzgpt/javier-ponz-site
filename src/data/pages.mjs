@@ -298,11 +298,16 @@ export const pages = {
       desc: 'What Javier Ponz is working on and paying attention to right now.',
       kicker: 'Now', h1: 'What has my ', serif: 'attention', h1end: '.',
       lede: 'This page is a snapshot, not a promise. It changes as the work changes.',
+      obsessions: [
+        { label: 'Omarchy', html: P(
+          'My daily driver, alongside Arch and Fedora. Omarchy is a desktop that expects to be edited rather than tolerated — plain configuration you are meant to change, distributed as an opinionated default rather than something locked. It is the other half of my thesis: <a href="{thesis}">the machine has to be shapeable</a> before an agent can do much with it. A system made of editable files is a system an agent can actually operate.') },
+        { label: 'Hermes Agent', html: P(
+          'The agent harness I operate daily, built by Nous Research, not by me. Scheduled workflows, automations and agents with permission to touch real files, wired to a model I serve myself from my own GPU. Its whole design is primitives instead of products: a skill is a Markdown file, a tool is a small server you can read. When something goes wrong you can see where, because there is a where.') }
+      ],
       focusLabel: 'Current focus',
       cards: [
-        { meta: '01', h3: 'Hermes & Omarchy', p: 'The two things I am obsessed with. An agent harness whose skills are files I can edit, and a desktop that expects to be edited rather than tolerated. They are converging on the same machine from opposite ends.' },
-        { meta: '02', h3: 'Owning the stack', p: 'Local inference on my own GPU, a Proxmox homelab, moving off Google services, reading up on OSINT, GrapheneOS next. Slow, occasionally inconvenient, not stopping.' },
-        { meta: '03', h3: 'Machines Do It Better', p: 'An early-stage solo practice helping small businesses and individuals adopt agentic AI where it genuinely saves time. No clients yet; that is the bet, stated as a bet.' }
+        { meta: '01', h3: 'Owning the stack', p: 'Local inference on my own GPU, a Proxmox homelab, moving off Google services, reading up on OSINT, GrapheneOS next. Slow, occasionally inconvenient, not stopping.' },
+        { meta: '02', h3: 'Machines Do It Better', p: 'An early-stage solo practice helping small businesses and individuals adopt agentic AI where it genuinely saves time. No clients yet; that is the bet, stated as a bet.' }
       ],
       studyLabel: 'Studying', studyH2: 'Depth before theatre.',
       study: 'Artificial Intelligence and Full Stack development at Universidad Rey Juan Carlos, via Racks University. Alongside it: evaluation, web applications, APIs, Docker, and the discipline of making claims that survive inspection.',
@@ -314,11 +319,16 @@ export const pages = {
       desc: 'En qué trabaja y a qué presta atención Javier Ponz ahora mismo.',
       kicker: 'Ahora', h1: 'Qué me tiene ', serif: 'ocupado', h1end: '.',
       lede: 'Esta página es una instantánea, no una promesa. Cambia según cambia el trabajo.',
+      obsessions: [
+        { label: 'Omarchy', html: P(
+          'Mi sistema principal, junto a Arch y Fedora. Omarchy es un escritorio que espera que lo edites en vez de que lo aguantes: configuración en texto plano que se supone que vas a cambiar, distribuida como un valor por defecto con criterio en vez de como algo cerrado. Es la otra mitad de mi tesis: <a href="{thesis}">la máquina tiene que ser moldeable</a> antes de que un agente pueda hacer gran cosa con ella. Un sistema hecho de ficheros editables es un sistema que un agente puede operar de verdad.') },
+        { label: 'Hermes Agent', html: P(
+          'El armazón de agentes que uso a diario, hecho por Nous Research, no por mí. Flujos programados, automatizaciones y agentes con permiso para tocar ficheros reales, conectados a un modelo que sirvo yo mismo desde mi propia GPU. Todo su diseño va de primitivos en vez de productos: una habilidad es un fichero Markdown, una herramienta es un servidor pequeño que puedes leer. Cuando algo falla puedes ver dónde, porque hay un dónde.') }
+      ],
       focusLabel: 'Foco actual',
       cards: [
-        { meta: '01', h3: 'Hermes y Omarchy', p: 'Mis dos obsesiones actuales. Un armazón de agentes cuyas habilidades son ficheros que puedo editar, y un escritorio que espera que lo edites en vez de que lo aguantes. Están convergiendo en la misma máquina desde extremos opuestos.' },
-        { meta: '02', h3: 'Ser dueño de la pila', p: 'Inferencia local en mi propia GPU, un homelab con Proxmox, salir de los servicios de Google, aprender OSINT y, después, GrapheneOS. Lento, a ratos incómodo, y no pienso parar.' },
-        { meta: '03', h3: 'Machines Do It Better', p: 'Una práctica en solitario, en fase temprana, para ayudar a pequeñas empresas y particulares a adoptar IA con agentes allí donde de verdad ahorra tiempo. Todavía sin clientes; esa es la apuesta, dicha como apuesta.' }
+        { meta: '01', h3: 'Ser dueño de la pila', p: 'Inferencia local en mi propia GPU, un homelab con Proxmox, salir de los servicios de Google, aprender OSINT y, después, GrapheneOS. Lento, a ratos incómodo, y no pienso parar.' },
+        { meta: '02', h3: 'Machines Do It Better', p: 'Una práctica en solitario, en fase temprana, para ayudar a pequeñas empresas y particulares a adoptar IA con agentes allí donde de verdad ahorra tiempo. Todavía sin clientes; esa es la apuesta, dicha como apuesta.' }
       ],
       studyLabel: 'Estudios', studyH2: 'Profundidad antes que espectáculo.',
       study: 'Inteligencia Artificial y desarrollo Full Stack en la Universidad Rey Juan Carlos, a través de Racks University. En paralelo: evaluación, aplicaciones web, API, Docker y la disciplina de hacer afirmaciones que aguanten una comprobación.',
@@ -330,11 +340,16 @@ export const pages = {
       desc: 'Javier Ponz 当下在做什么、在关注什么。',
       kicker: '现在', h1: '什么占据了我的', serif: '注意力', h1end: '。',
       lede: '这一页是快照，不是承诺。工作变了，它就会变。',
+      obsessions: [
+        { label: 'Omarchy', html: P(
+          '我的主力系统，与 Arch 和 Fedora 并用。Omarchy 是一个期待被编辑而不是被忍受的桌面——纯文本配置，预期你会去改它，以有主张的默认值发布，而不是锁死的成品。这是我论点的另一半：<a href="{thesis}">机器得先可塑</a>，智能体才谈得上做事。由可编辑文件构成的系统，才是智能体真正能操作的系统。') },
+        { label: 'Hermes Agent', html: P(
+          '我每天在用的智能体框架，由 Nous Research 制作，不是我写的。定时工作流、自动化，以及有权限操作真实文件的智能体，接到一个由我自己 GPU 提供的模型上。它整个设计理念是原语而非产品：技能是一个 Markdown 文件，工具是一个你读得懂的小服务。出问题时你能看见在哪里出的，因为确实存在"哪里"。') }
+      ],
       focusLabel: '当前重心',
       cards: [
-        { meta: '01', h3: 'Hermes 与 Omarchy', p: '我目前着迷的两样东西。一个智能体框架，它的技能就是我能直接编辑的文件；一个桌面系统，它期待你去改它，而不是忍受它。它们正从相反的两端汇向同一台机器。' },
-        { meta: '02', h3: '把技术栈握在自己手里', p: '在自己的 GPU 上做本地推理，用 Proxmox 搭家庭实验室，逐步离开谷歌服务，学习 OSINT，下一步是 GrapheneOS。慢，偶尔不方便，但不会停。' },
-        { meta: '03', h3: 'Machines Do It Better', p: '一家处于早期阶段的个人工作室，帮助小企业和个人在真正能省时间的地方引入智能体。目前还没有客户；这是一个赌注，我把它当赌注说出来。' }
+        { meta: '01', h3: '把技术栈握在自己手里', p: '在自己的 GPU 上做本地推理，用 Proxmox 搭家庭实验室，逐步离开谷歌服务，学习 OSINT，下一步是 GrapheneOS。慢，偶尔不方便，但不会停。' },
+        { meta: '02', h3: 'Machines Do It Better', p: '一家处于早期阶段的个人工作室，帮助小企业和个人在真正能省时间的地方引入智能体。目前还没有客户；这是一个赌注，我把它当赌注说出来。' }
       ],
       studyLabel: '在学', studyH2: '先有深度，再谈排场。',
       study: '在胡安卡洛斯国王大学（Universidad Rey Juan Carlos）通过 Racks University 学习人工智能与全栈开发。同时在学：评测、Web 应用、API、Docker，以及"让自己的说法经得起核查"这项纪律。',
@@ -407,98 +422,29 @@ export const pages = {
     }
   },
 
-  /* ─────────────────────────────────────────────────────── workbench ── */
-  workbench: {
+  /* ───────────────────────────────────────────────────────── projects ── */
+  // Merges the old standalone Workbench and Memento Mori case-study pages
+  // into one section: running/shipped cards, then the case study as a
+  // subsection (its own #case-study anchor) instead of a separate page.
+  projects: {
     en: {
-      title: 'Workbench — Javier Ponz',
-      desc: 'Projects, repositories and shipped work by Javier Ponz, with scope and status stated plainly.',
-      kicker: 'Workbench', h1: 'Things I am ', serif: 'making', h1end: '.',
+      title: 'Projects — Javier Ponz',
+      desc: 'Projects, repositories and shipped work by Javier Ponz, including a full case study on shipping one of them to production.',
+      kicker: 'Projects', h1: 'Things I am ', serif: 'making', h1end: '.',
       lede: 'What I run every day, and what I have made. The two are listed separately on purpose, and each project says who wrote it.',
-      runningLabel: 'Running daily', projectsLabel: 'Projects', productionLabel: 'In production',
-      cap1: 'Memento Mori — live at memento.technoir.cloud',
+      runningLabel: 'Running daily', projectsLabel: 'Shipped', productionLabel: 'In production',
       cap2: 'Hermes Agent Site — one of six selectable skins',
-      deepLabel: 'Deep dive', deepH2: 'How one of them got shipped.',
-      deep: 'Memento Mori went from an idea to a live deployment with release gates, cross-platform CI and an immutable-image rollback path. <a href="{memento}">Read the case study →</a>',
       scopeLabel: 'Scope note',
-      scope: 'These are personal projects and learning artefacts, built and maintained by me. They are not client deliverables.'
-    },
-    es: {
-      title: 'Taller — Javier Ponz',
-      desc: 'Proyectos, repositorios y trabajo entregado por Javier Ponz, con el alcance y el estado dichos sin adornos.',
-      kicker: 'Taller', h1: 'Cosas que estoy ', serif: 'haciendo', h1end: '.',
-      lede: 'Lo que uso a diario y lo que he hecho. Van en listas separadas a propósito, y cada proyecto dice quién lo escribió.',
-      runningLabel: 'Uso diario', projectsLabel: 'Proyectos', productionLabel: 'En producción',
-      cap1: 'Memento Mori — en línea en memento.technoir.cloud',
-      cap2: 'Hermes Agent Site — uno de sus seis aspectos seleccionables',
-      deepLabel: 'En detalle', deepH2: 'Cómo se entregó uno de ellos.',
-      deep: 'Memento Mori pasó de idea a despliegue en línea con puertas de publicación, integración continua multiplataforma y una vía de reversión por imagen inmutable. <a href="{memento}">Lee el caso práctico →</a>',
-      scopeLabel: 'Nota de alcance',
-      scope: 'Son proyectos personales y material de aprendizaje, construidos y mantenidos por mí. No son entregas para clientes.'
-    },
-    zh: {
-      title: '工作台 — Javier Ponz',
-      desc: 'Javier Ponz 的项目、仓库与已交付的工作，范围与状态直说。',
-      kicker: '工作台', h1: '我正在', serif: '做', h1end: '的东西。',
-      lede: '我每天在用什么，以及我做过什么。两者刻意分开列出，并且每个项目都说明是谁写的。',
-      runningLabel: '每天在用', projectsLabel: '项目', productionLabel: '生产环境',
-      cap1: 'Memento Mori — 线上地址 memento.technoir.cloud',
-      cap2: 'Hermes Agent Site — 六套可选外观之一',
-      deepLabel: '深入一例', deepH2: '其中一个是怎么交付的。',
-      deep: 'Memento Mori 从一个想法走到线上部署，带有发布关卡、跨平台 CI，以及基于不可变镜像的回滚路径。<a href="{memento}">阅读案例 →</a>',
-      scopeLabel: '范围说明',
-      scope: '这些是个人项目与学习产物，由我构建和维护，不是交付给客户的成果。'
-    }
-  },
-
-  /* ──────────────────────────────────────────────────────── timeline ── */
-  timeline: {
-    en: { title: 'Timeline — Javier Ponz', desc: 'A concise chronology of Javier Ponz.', kicker: 'Timeline', h1: 'A work in ', serif: 'progress', h1end: '.', lede: 'A deliberately concise chronology. The current chapter is still being written.', label: 'Chronology' },
-    es: { title: 'Cronología — Javier Ponz', desc: 'Una cronología breve de Javier Ponz.', kicker: 'Cronología', h1: 'Un trabajo ', serif: 'en curso', h1end: '.', lede: 'Una cronología deliberadamente breve. El capítulo actual todavía se está escribiendo.', label: 'Cronología' },
-    zh: { title: '时间线 — Javier Ponz', desc: 'Javier Ponz 的简明年表。', kicker: '时间线', h1: '一件', serif: '仍在进行', h1end: '的工作。', lede: '一份刻意保持简短的年表。当前这一章还在写。', label: '年表' }
-  },
-
-  /* ────────────────────────────────────────────────────────────── cv ── */
-  cv: {
-    en: {
-      title: 'CV — Javier Ponz',
-      desc: 'Curriculum vitae of Javier Ponz Prado: technical support, customer success and agent operations, and ten years of technical service at Apple Retail.',
-      kicker: 'Curriculum vitae', download: '↓ Download CV (PDF)',
-      profile: 'Profile', selected: 'Selected work', experience: 'Experience',
-      education: 'Education', skills: 'Skills', contact: 'Contact', more: 'More',
-      moreText: 'A shorter chronology is on the <a href="{timeline}">timeline</a>. The PDF above is generated from the same source as this page, so the two never disagree. The PDF is in English, as the document employers usually forward.'
-    },
-    es: {
-      title: 'CV — Javier Ponz',
-      desc: 'Currículum de Javier Ponz Prado: soporte técnico, atención al cliente y operación de agentes, además de diez años de servicio técnico en Apple Retail.',
-      kicker: 'Currículum', download: '↓ Descargar el CV (PDF)',
-      profile: 'Perfil', selected: 'Trabajo seleccionado', experience: 'Experiencia',
-      education: 'Formación', skills: 'Competencias', contact: 'Contacto', more: 'Más',
-      moreText: 'Hay una cronología más breve en la <a href="{timeline}">línea de tiempo</a>. El PDF de arriba se genera desde la misma fuente que esta página, así que nunca se contradicen. El PDF está en inglés, que es el documento que las empresas suelen reenviar.'
-    },
-    zh: {
-      title: '简历 — Javier Ponz',
-      desc: 'Javier Ponz Prado 的简历：技术支持、客户成功与智能体运维，以及在 Apple Retail 的十年技术服务经历。',
-      kicker: '简历', download: '↓ 下载简历（PDF）',
-      profile: '简介', selected: '精选作品', experience: '工作经历',
-      education: '教育与证书', skills: '技能', contact: '联系方式', more: '更多',
-      moreText: '在<a href="{timeline}">时间线</a>上有一份更简短的年表。上面的 PDF 与本页由同一份数据生成，因此两者永远不会互相矛盾。PDF 为英文版，因为这是雇主通常转发的文件。'
-    }
-  },
-
-  /* ──────────────────────────────────────────────────── memento-mori ── */
-  memento: {
-    en: {
-      title: 'Case study: shipping Memento Mori — Javier Ponz',
-      desc: 'How Memento Mori went from an idea to a verified production deployment: the decisions, the trade-offs and what I would do differently.',
-      kicker: 'Case study', h1: 'Getting a small app to ', serif: 'production', h1end: '.',
-      lede: 'Memento Mori\'s native widget is the product; this web app is its demo, running the exact same life-expectancy model in a browser. This case study is about how the web side got from an idea to something running on a real domain, with real release gates.',
-      appLabel: 'The app', caption: 'The landing view at memento.technoir.cloud',
-      linksLabel: 'Links',
-      links: [
+      scope: 'These are personal projects and learning artefacts, built and maintained by me. They are not client deliverables.',
+      caseStudyLabel: 'Case study: Memento Mori', caseStudyH2: 'Getting a small app to production.',
+      caseStudyLede: 'Memento Mori\'s native widget is the product; this web app is its demo, running the exact same life-expectancy model in a browser. This case study is about how the web side got from an idea to something running on a real domain, with real release gates.',
+      caseStudyAppLabel: 'The app', caseStudyCaption: 'The landing view at memento.technoir.cloud',
+      caseStudyLinksLabel: 'Links',
+      caseStudyLinks: [
         { time: 'Live', h3: 'memento.technoir.cloud ↗', href: 'https://memento.technoir.cloud/', p: 'The deployed application.' },
         { time: 'Source', h3: 'github.com/ponzgpt/memento-mori ↗', href: 'https://github.com/ponzgpt/memento-mori', p: 'Apache-2.0, with the release tooling described below.' }
       ],
-      sections: [
+      caseStudySections: [
         { label: 'The problem', cls: 'prose', html: P(
           'People know time is finite, but the idea stays abstract, and abstract limits are easy to postpone around. The loud task wins, the meaningful conversation moves to next month, and one ordinary day feels interchangeable with any other.',
           'I wanted something that made the limit legible without pretending to predict anything about a specific person. That constraint — <em>useful without overclaiming</em> — drove most of the decisions that followed.') },
@@ -516,21 +462,27 @@ export const pages = {
         { label: 'What I would do differently', cls: 'prose', html:
           '<ul><li><strong>Deploy earlier.</strong> The first real deployment surfaced things that local preview never would have. I should have put an ugly version on the domain in week one and iterated against the real thing.</li><li><strong>Decide the product boundary once, and write down why.</strong> The project moved from a status-bar widget to a web app, then back — the widget is the product now, and this web app is its demo. Both moves made sense given what I knew at the time, but each one meant real rework. Next time I would fix the criteria for which surface is primary early, and revisit it on purpose, not rediscover it under deploy pressure.</li><li><strong>Write the honest scope note first.</strong> The current README states plainly what the app is not — not medical, actuarial, or a prediction about an individual. Writing that early would have made several design decisions obvious instead of arriving at them by iteration.</li></ul>' }
       ],
-      scopeLabel: 'Scope note',
-      scope: 'This is a personal project. It is a reflective aid built on population averages, not medical, legal, actuarial or mental-health advice, and it makes no claim about any individual.'
+      caseStudyScopeLabel: 'Scope note',
+      caseStudyScope: 'This is a personal project. It is a reflective aid built on population averages, not medical, legal, actuarial or mental-health advice, and it makes no claim about any individual.'
     },
     es: {
-      title: 'Caso práctico: entregar Memento Mori — Javier Ponz',
-      desc: 'Cómo Memento Mori pasó de idea a un despliegue verificado en producción: las decisiones, las renuncias y qué haría distinto.',
-      kicker: 'Caso práctico', h1: 'Llevar una aplicación pequeña a ', serif: 'producción', h1end: '.',
-      lede: 'El widget nativo de Memento Mori es el producto; esta aplicación web es su demo, con el mismo modelo de esperanza de vida funcionando en el navegador. Este caso práctico trata de cómo la parte web pasó de idea a algo funcionando en un dominio real, con puertas de publicación reales.',
-      appLabel: 'La aplicación', caption: 'La vista inicial en memento.technoir.cloud',
-      linksLabel: 'Enlaces',
-      links: [
+      title: 'Proyectos — Javier Ponz',
+      desc: 'Proyectos, repositorios y trabajo entregado por Javier Ponz, con un caso práctico completo sobre cómo llevó uno de ellos a producción.',
+      kicker: 'Proyectos', h1: 'Cosas que estoy ', serif: 'haciendo', h1end: '.',
+      lede: 'Lo que uso a diario y lo que he hecho. Van en listas separadas a propósito, y cada proyecto dice quién lo escribió.',
+      runningLabel: 'Uso diario', projectsLabel: 'Entregado', productionLabel: 'En producción',
+      cap2: 'Hermes Agent Site — uno de sus seis aspectos seleccionables',
+      scopeLabel: 'Nota de alcance',
+      scope: 'Son proyectos personales y material de aprendizaje, construidos y mantenidos por mí. No son entregas para clientes.',
+      caseStudyLabel: 'Caso práctico: Memento Mori', caseStudyH2: 'Llevar una aplicación pequeña a producción.',
+      caseStudyLede: 'El widget nativo de Memento Mori es el producto; esta aplicación web es su demo, con el mismo modelo de esperanza de vida funcionando en el navegador. Este caso práctico trata de cómo la parte web pasó de idea a algo funcionando en un dominio real, con puertas de publicación reales.',
+      caseStudyAppLabel: 'La aplicación', caseStudyCaption: 'La vista inicial en memento.technoir.cloud',
+      caseStudyLinksLabel: 'Enlaces',
+      caseStudyLinks: [
         { time: 'En línea', h3: 'memento.technoir.cloud ↗', href: 'https://memento.technoir.cloud/', p: 'La aplicación desplegada.' },
         { time: 'Código', h3: 'github.com/ponzgpt/memento-mori ↗', href: 'https://github.com/ponzgpt/memento-mori', p: 'Apache-2.0, con las herramientas de publicación descritas abajo.' }
       ],
-      sections: [
+      caseStudySections: [
         { label: 'El problema', cls: 'prose', html: P(
           'La gente sabe que el tiempo es finito, pero la idea se queda abstracta, y con los límites abstractos es fácil ir dando largas. Gana la tarea que grita, la conversación importante se pasa al mes que viene, y un día corriente parece intercambiable con cualquier otro.',
           'Quería algo que hiciera legible ese límite sin fingir que predice nada sobre una persona concreta. Esa restricción —<em>útil sin prometer de más</em>— guio casi todas las decisiones siguientes.') },
@@ -548,21 +500,27 @@ export const pages = {
         { label: 'Qué haría distinto', cls: 'prose', html:
           '<ul><li><strong>Desplegar antes.</strong> El primer despliegue real sacó a la luz cosas que la vista previa local no habría mostrado nunca. Debería haber puesto una versión fea en el dominio la primera semana e ir iterando contra lo real.</li><li><strong>Decidir el límite del producto una vez, y dejar escrito el porqué.</strong> El proyecto pasó de widget de barra de estado a aplicación web, y después volvió: ahora el widget es el producto y esta web es su demo. Los dos giros tenían sentido con lo que sabía en cada momento, pero cada uno costó rehacer trabajo de verdad. La próxima vez fijaría pronto el criterio de qué superficie es la principal, y lo revisaría a propósito, no bajo presión de despliegue.</li><li><strong>Escribir primero la nota de alcance honesta.</strong> El README actual dice sin rodeos lo que la aplicación no es: ni médica, ni actuarial, ni una predicción sobre nadie en concreto. Haber escrito eso pronto habría hecho evidentes varias decisiones de diseño a las que llegué iterando.</li></ul>' }
       ],
-      scopeLabel: 'Nota de alcance',
-      scope: 'Es un proyecto personal. Es una ayuda para la reflexión construida sobre medias poblacionales; no es consejo médico, jurídico, actuarial ni de salud mental, y no afirma nada sobre ninguna persona concreta.'
+      caseStudyScopeLabel: 'Nota de alcance',
+      caseStudyScope: 'Es un proyecto personal. Es una ayuda para la reflexión construida sobre medias poblacionales; no es consejo médico, jurídico, actuarial ni de salud mental, y no afirma nada sobre ninguna persona concreta.'
     },
     zh: {
-      title: '案例：把 Memento Mori 送上线 — Javier Ponz',
-      desc: 'Memento Mori 如何从一个想法走到经过验证的生产部署：决策、取舍，以及我会怎样重做。',
-      kicker: '案例', h1: '把一个小应用送上', serif: '生产环境', h1end: '。',
-      lede: 'Memento Mori 的原生挂件才是真正的产品；这个网页应用是它的演示，跑着同一套预期寿命模型。这篇案例讲的是网页这一侧如何从一个想法，变成跑在真实域名上、带着真实发布关卡的东西。',
-      appLabel: '应用', caption: 'memento.technoir.cloud 的首屏',
-      linksLabel: '链接',
-      links: [
+      title: '项目 — Javier Ponz',
+      desc: 'Javier Ponz 的项目、仓库与已交付的工作，附带一篇关于把其中一个送上生产环境的完整案例。',
+      kicker: '项目', h1: '我正在', serif: '做', h1end: '的东西。',
+      lede: '我每天在用什么，以及我做过什么。两者刻意分开列出，并且每个项目都说明是谁写的。',
+      runningLabel: '每天在用', projectsLabel: '已交付', productionLabel: '生产环境',
+      cap2: 'Hermes Agent Site — 六套可选外观之一',
+      scopeLabel: '范围说明',
+      scope: '这些是个人项目与学习产物，由我构建和维护，不是交付给客户的成果。',
+      caseStudyLabel: '案例：Memento Mori', caseStudyH2: '把一个小应用送上生产环境。',
+      caseStudyLede: 'Memento Mori 的原生挂件才是真正的产品；这个网页应用是它的演示，跑着同一套预期寿命模型。这篇案例讲的是网页这一侧如何从一个想法，变成跑在真实域名上、带着真实发布关卡的东西。',
+      caseStudyAppLabel: '应用', caseStudyCaption: 'memento.technoir.cloud 的首屏',
+      caseStudyLinksLabel: '链接',
+      caseStudyLinks: [
         { time: '线上', h3: 'memento.technoir.cloud ↗', href: 'https://memento.technoir.cloud/', p: '已部署的应用。' },
         { time: '源码', h3: 'github.com/ponzgpt/memento-mori ↗', href: 'https://github.com/ponzgpt/memento-mori', p: 'Apache-2.0，包含下文描述的发布工具。' }
       ],
-      sections: [
+      caseStudySections: [
         { label: '问题', cls: 'prose', html: P(
           '人们知道时间有限，但这个念头始终抽象，而抽象的界限很容易被绕过去拖延。吵闹的任务赢了，重要的谈话推到下个月，某个平常的一天感觉和任何一天都可以互换。',
           '我想要一个能让这条界限变得可读的东西，同时不假装能预测任何具体的人。这条约束——<em>有用但不夸口</em>——决定了之后大部分的选择。') },
@@ -580,8 +538,38 @@ export const pages = {
         { label: '我会怎样重做', cls: 'prose', html:
           '<ul><li><strong>更早部署。</strong> 第一次真实部署暴露出的问题，本地预览永远不会暴露。我应该在第一周就把一个丑陋的版本放到域名上，对着真实环境迭代。</li><li><strong>把产品边界定一次，并写下理由。</strong> 这个项目从状态栏小组件走到 Web 应用，然后又走了回去：现在挂件是产品，这个网页是它的演示。两次转向在当时都说得通，但每一次都意味着真实的返工。下一次我会早点定下"哪个界面是主要的"这个判断标准，主动去重新审视它，而不是在部署压力下才发现问题。</li><li><strong>先写好那份诚实的范围说明。</strong> 现在的 README 直白地写明这个应用不是什么——不是医疗、不是精算，也不是对某个人的预测。早点写下来，本可以让几个设计决定变得显而易见，而不是靠迭代才摸到。</li></ul>' }
       ],
-      scopeLabel: '范围说明',
-      scope: '这是一个个人项目。它是一件基于人口平均值的反思辅助工具，不构成医疗、法律、精算或心理健康建议，也不对任何个人做出断言。'
+      caseStudyScopeLabel: '范围说明',
+      caseStudyScope: '这是一个个人项目。它是一件基于人口平均值的反思辅助工具，不构成医疗、法律、精算或心理健康建议，也不对任何个人做出断言。'
     }
-  }
+  },
+
+  /* ──────────────────────────────────────────────────────── timeline ── */
+  timeline: {
+    en: { title: 'Timeline — Javier Ponz', desc: 'A concise chronology of Javier Ponz.', kicker: 'Timeline', h1: 'A work in ', serif: 'progress', h1end: '.', lede: 'A deliberately concise chronology. The current chapter is still being written.', label: 'Chronology' },
+    es: { title: 'Cronología — Javier Ponz', desc: 'Una cronología breve de Javier Ponz.', kicker: 'Cronología', h1: 'Un trabajo ', serif: 'en curso', h1end: '.', lede: 'Una cronología deliberadamente breve. El capítulo actual todavía se está escribiendo.', label: 'Cronología' },
+    zh: { title: '时间线 — Javier Ponz', desc: 'Javier Ponz 的简明年表。', kicker: '时间线', h1: '一件', serif: '仍在进行', h1end: '的工作。', lede: '一份刻意保持简短的年表。当前这一章还在写。', label: '年表' }
+  },
+
+  /* ────────────────────────────────────────────────────────────── cv ── */
+  // Trimmed to just what the Contact section's CV disclosure needs — there
+  // is no standalone CV page anymore. title/desc are unused (index.astro's
+  // own head wins) but kept since check-i18n.mjs expects every block to
+  // carry them.
+  cv: {
+    en: {
+      title: 'CV — Javier Ponz',
+      desc: 'Curriculum vitae of Javier Ponz Prado: technical support, customer success and agent operations, and ten years of technical service at Apple Retail.',
+      kicker: 'Curriculum vitae', download: '↓ Download CV (PDF)'
+    },
+    es: {
+      title: 'CV — Javier Ponz',
+      desc: 'Currículum de Javier Ponz Prado: soporte técnico, atención al cliente y operación de agentes, además de diez años de servicio técnico en Apple Retail.',
+      kicker: 'Currículum', download: '↓ Descargar el CV (PDF)'
+    },
+    zh: {
+      title: '简历 — Javier Ponz',
+      desc: 'Javier Ponz Prado 的简历：技术支持、客户成功与智能体运维，以及在 Apple Retail 的十年技术服务经历。',
+      kicker: '简历', download: '↓ 下载简历（PDF）'
+    }
+  },
 };
