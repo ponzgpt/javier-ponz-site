@@ -32,16 +32,25 @@ export const skins = [
     name: 'Omakase',
     note: 'Tokyo Night, the Omarchy default',
     sprite: {
-      // A chef's hat. Omakase is "I leave it up to you" — the chef chooses,
-      // which is the whole argument for an opinionated distribution.
-      ink: { 1: 'var(--fg)', 2: 'var(--accent)' },
+      // The Omarchy icon itself (icon.png in omacom/omarchy), traced to a grid
+      // by sampling its pixels — a single-stroke maze/spiral square. Its own
+      // green is #9ece6a, which is exactly this skin's accent2, so the sprite
+      // needs no colour of its own beyond that token.
+      ink: { 1: 'var(--accent2)' },
       grid: [
-        '..11.11...',
-        '.111111111',
-        '1111111111',
-        '.111111111',
-        '..2222222.',
-        '..2222222.'
+        '1111111111111',
+        '1.....1.....1',
+        '1.11111...1.1',
+        '1.1.......1.1',
+        '1.1.......1.1',
+        '1.1.......1.1',
+        '111.......1.1',
+        '1.1.......1.1',
+        '1.1.......1.1',
+        '1.1.......1.1',
+        '1.111111111.1',
+        '1.....1.....1',
+        '1111111.11111'
       ]
     },
     // Omarchy's own tokyo-night theme, themes/tokyo-night/colors.toml in
