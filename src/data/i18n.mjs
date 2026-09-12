@@ -59,9 +59,9 @@ export const ui = {
   // terminal
   term: {
     title: {
-      en: 'javier@aberdeen — ~/field-notes',
-      es: 'javier@aberdeen — ~/cuaderno-de-campo',
-      zh: 'javier@aberdeen — ~/实地笔记'
+      en: 'javier@aberdeen — ~',
+      es: 'javier@aberdeen — ~',
+      zh: 'javier@aberdeen — ~'
     },
     online: { en: 'online', es: 'en línea', zh: '在线' },
     hint: {
