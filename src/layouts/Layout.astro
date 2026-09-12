@@ -185,7 +185,7 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
           picker.open = false;
         });
       });
-      paint(document.documentElement.dataset.skin || 'hermes');
+      paint(document.documentElement.dataset.skin || 'omarchy');
       document.addEventListener('click', function (e) {
         if (picker.open && !picker.contains(e.target)) picker.open = false;
       });
