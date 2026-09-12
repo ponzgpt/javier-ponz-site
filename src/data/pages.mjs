@@ -241,8 +241,8 @@ export const pages = {
     en: {
       title: 'Contact — Javier Ponz',
       desc: 'How to reach Javier Ponz: email, GitHub, LinkedIn.',
-      kicker: 'Contact', h1: 'Make it a ', serif: 'thoughtful', h1end: ' message.',
-      lede: 'Email is best for context. GitHub is best for the work. LinkedIn is best for professional history.',
+      kicker: 'Contact', h1: 'Three ways to reach ', serif: 'me', h1end: '.',
+      lede: 'Pick whichever fits — each one below says what it is for.',
       coordsLabel: 'Coordinates',
       rows: [
         { time: 'Email', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'For potential work, collaboration or a considered question.', copy: 'nerion89@gmail.com' },
@@ -258,8 +258,8 @@ export const pages = {
     es: {
       title: 'Contacto — Javier Ponz',
       desc: 'Cómo localizar a Javier Ponz: correo, GitHub, LinkedIn.',
-      kicker: 'Contacto', h1: 'Que sea un mensaje ', serif: 'meditado', h1end: '.',
-      lede: 'El correo es lo mejor para dar contexto. GitHub, para ver el trabajo. LinkedIn, para la trayectoria profesional.',
+      kicker: 'Contacto', h1: 'Tres formas de ', serif: 'contactar', h1end: '.',
+      lede: 'Elige la que mejor encaje: cada una explica abajo para qué sirve.',
       coordsLabel: 'Coordenadas',
       rows: [
         { time: 'Correo', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'Para un puesto, una colaboración o una pregunta pensada.', copy: 'nerion89@gmail.com' },
@@ -275,8 +275,8 @@ export const pages = {
     zh: {
       title: '联系 — Javier Ponz',
       desc: '如何联系 Javier Ponz：邮件、GitHub、LinkedIn。',
-      kicker: '联系', h1: '写一封', serif: '想过的', h1end: '信。',
-      lede: '要交代来龙去脉，用邮件最好。要看作品，去 GitHub。要看职业履历，去 LinkedIn。',
+      kicker: '联系', h1: '联系我的', serif: '三种方式', h1end: '。',
+      lede: '挑最合适的那种——下面每一种都写明了用途。',
       coordsLabel: '坐标',
       rows: [
         { time: '邮件', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: '关于工作机会、合作，或一个认真想过的问题。', copy: 'nerion89@gmail.com' },
