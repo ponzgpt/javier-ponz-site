@@ -8,9 +8,9 @@ const { title, description = 'Javier Ponz — technology, service and agents.', 
 const site = 'https://javierponz.technoir.cloud';
 const canonical = `${site}${Astro.url.pathname}`;
 const here = bare(Astro.url.pathname);
-const path = href(here, lang).replace(/\/$/, '') || '/';
 const current = locales.find((l) => l.code === lang) ?? locales[0];
-const navPaths = ['/about', '/cv', '/workbench', '/memento-mori', '/thesis', '/now', '/contact'];
+// Anchors into the single long page, not routes — see data/routes.mjs TOKENS.
+const navPaths = ['#about', '#projects', '#thesis', '#now', '#contact'];
 const navLabels = t(ui.nav, lang);
 const nav: [string, string][] = navPaths.map((p, i) => [href(p, lang), navLabels[i]]);
 const ids = skins.map((s) => s.id);
@@ -62,7 +62,7 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
     <a class="brand" href={href('/', lang)}><span class="caret">&#10095;</span> javier-ponz</a>
     <div class="navright">
       <nav aria-label="Primary">{nav.map(([to, name]) => (
-        <a href={to} aria-current={path === to ? 'page' : undefined}>{name}</a>
+        <a href={to}>{name}</a>
       ))}</nav>
       <details class="skinpicker langpicker">
         <summary aria-label={t(ui.langLabel, lang)}><span class="lg">{current.label}</span><span class="chev">&#9662;</span></summary>
@@ -232,8 +232,6 @@ a:hover{color:var(--accent);text-decoration:underline}
 .nav nav{display:flex;gap:18px;flex-wrap:wrap}
 .nav nav a{font-family:var(--font-display);font-size:12px;text-decoration:none;color:var(--muted)}
 .nav nav a:hover{color:var(--accent)}
-.nav nav a[aria-current="page"]{color:var(--accent2)}
-.nav nav a[aria-current="page"]::before{content:"\2022 ";color:var(--accent2)}
 .skip{position:absolute;left:-999px}
 .skip:focus{left:12px;top:12px;background:var(--accent);color:var(--bg);padding:8px;z-index:4}
 

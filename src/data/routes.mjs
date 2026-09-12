@@ -15,10 +15,13 @@ export function bare(pathname) {
 
 // Page copy uses {about}, {thesis} … placeholders instead of hard-coded hrefs,
 // so a link written once resolves to the right locale on all three builds.
+// Everything except `home` and `cv` is now an anchor into the single long
+// page rather than a route — href() (i18n.mjs) passes anchors through
+// unprefixed, so these still resolve correctly per locale.
 const TOKENS = {
-  about: '/about', thesis: '/thesis', agents: '/agents', workbench: '/workbench',
-  memento: '/memento-mori', contact: '/contact', timeline: '/timeline',
-  cv: '/cv', now: '/now', home: '/'
+  about: '#about', thesis: '#thesis', agents: '#agents', workbench: '#projects',
+  memento: '#case-study', contact: '#contact', timeline: '#timeline',
+  cv: '/javier-ponz-prado-cv.pdf', now: '#now', home: '/'
 };
 
 export function expand(html, lang, href) {

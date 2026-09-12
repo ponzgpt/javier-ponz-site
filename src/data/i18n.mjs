@@ -24,8 +24,11 @@ export const locales = [
 export const defaultLocale = 'en';
 export const codes = locales.map((l) => l.code);
 
-/** Prefix a site-absolute path with the locale directory. */
+/** Prefix a site-absolute path with the locale directory. An anchor or a
+ * static file (has an extension) is the same target regardless of locale,
+ * so it passes through unprefixed. */
 export function href(path, lang) {
+  if (path.startsWith('#') || /\.[a-z0-9]+$/i.test(path)) return path;
   const p = path.startsWith('/') ? path.slice(1) : path;
   return lang === defaultLocale ? `/${p}` : `/${lang}/${p}`;
 }
@@ -38,9 +41,9 @@ export function pick(item, lang) {
 /** ui.<key>[lang] — chrome that appears on more than one page. */
 export const ui = {
   nav: {
-    en: ['about', 'cv', 'workbench', 'case-study', 'thesis', 'now', 'contact'],
-    es: ['perfil', 'cv', 'taller', 'caso', 'tesis', 'ahora', 'contacto'],
-    zh: ['关于', '简历', '工作台', '案例', '论点', '现在', '联系']
+    en: ['about', 'projects', 'thesis', 'now', 'contact'],
+    es: ['perfil', 'proyectos', 'tesis', 'ahora', 'contacto'],
+    zh: ['关于', '项目', '论点', '现在', '联系']
   },
   skip: { en: 'Skip to content', es: 'Saltar al contenido', zh: '跳到正文' },
   skinLabel: { en: "Change the site's skin", es: 'Cambiar el aspecto del sitio', zh: '切换外观' },
@@ -162,7 +165,6 @@ export const ui = {
       opening: { en: 'opening ', es: 'abriendo ', zh: '正在打开 ' },
       source: { en: 'source ↗', es: 'código ↗', zh: '源码 ↗' },
       upstream: { en: 'upstream ↗', es: 'proyecto original ↗', zh: '上游项目 ↗' },
-      fullCv: { en: 'full CV →', es: 'CV completo →', zh: '完整简历 →' },
       dlPdf: { en: 'download the PDF ↓', es: 'descargar el PDF ↓', zh: '下载 PDF ↓' },
       skinsCurrent: { en: 'Skins (current: ', es: 'Aspectos (actual: ', zh: '外观（当前：' },
       skinsHint: { en: '  skin <name>   or use the picker in the header', es: '  skin <nombre>   o usa el selector de la cabecera', zh: '  skin <名称>   或使用页首的选择器' },
@@ -175,31 +177,31 @@ export const ui = {
   // page names used by `ls` and `open`
   pages: {
     en: [
-      ['about', '/about', 'experience and the transition'],
-      ['cv', '/cv', 'full curriculum vitae, and the PDF'],
-      ['workbench', '/workbench', 'what I run and what I built'],
-      ['case-study', '/memento-mori', 'shipping one thing to production'],
-      ['thesis', '/thesis', 'the malleable machine'],
-      ['now', '/now', 'what has my attention'],
-      ['contact', '/contact', 'how to reach me']
+      ['about', '#about', 'experience and the transition'],
+      ['timeline', '#timeline', 'a concise chronology'],
+      ['agents', '#agents', 'the working notebook'],
+      ['projects', '#projects', 'what I run, what I built, and the case study'],
+      ['thesis', '#thesis', 'the malleable machine'],
+      ['now', '#now', 'what has my attention'],
+      ['contact', '#contact', 'how to reach me']
     ],
     es: [
-      ['about', '/about', 'experiencia y el cambio de rumbo'],
-      ['cv', '/cv', 'currículum completo, y el PDF'],
-      ['workbench', '/workbench', 'lo que uso y lo que he hecho'],
-      ['case-study', '/memento-mori', 'llevar una cosa a producción'],
-      ['thesis', '/thesis', 'la máquina moldeable'],
-      ['now', '/now', 'qué me ocupa ahora'],
-      ['contact', '/contact', 'cómo localizarme']
+      ['about', '#about', 'experiencia y el cambio de rumbo'],
+      ['timeline', '#timeline', 'una cronología breve'],
+      ['agents', '#agents', 'el cuaderno de trabajo'],
+      ['projects', '#projects', 'lo que uso, lo que he hecho, y el caso práctico'],
+      ['thesis', '#thesis', 'la máquina moldeable'],
+      ['now', '#now', 'qué me ocupa ahora'],
+      ['contact', '#contact', 'cómo localizarme']
     ],
     zh: [
-      ['about', '/about', '经历与转向'],
-      ['cv', '/cv', '完整简历与 PDF'],
-      ['workbench', '/workbench', '我用什么，我做了什么'],
-      ['case-study', '/memento-mori', '把一件东西送上生产环境'],
-      ['thesis', '/thesis', '可塑的机器'],
-      ['now', '/now', '当下的关注'],
-      ['contact', '/contact', '如何联系我']
+      ['about', '#about', '经历与转向'],
+      ['timeline', '#timeline', '简明年表'],
+      ['agents', '#agents', '工作笔记'],
+      ['projects', '#projects', '我用什么、我做了什么，以及案例'],
+      ['thesis', '#thesis', '可塑的机器'],
+      ['now', '#now', '当下的关注'],
+      ['contact', '#contact', '如何联系我']
     ]
   }
 };

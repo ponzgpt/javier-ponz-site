@@ -1,0 +1,8 @@
+---
+import Page from '../Page.astro';
+import { pages } from '../../data/pages.mjs';
+
+const { lang } = Astro.props;
+const p = pages.thesis[lang];
+---
+<Page p={p} lang={lang} id="thesis" />
