@@ -53,6 +53,12 @@ const factsHtml = groups.map((g) => [
   `<span class="box">${esc(boxBottom)}</span>`
 ].join('\n')).join('\n\n');
 
+// Logo on the left, facts on the right — like fastfetch itself. Built as one
+// string with no whitespace between the two <span> children so nothing sits
+// between them as a stray text node inside the flex row.
+const ffHtml = `<span class="ff"><span class="art">${banner}</span>`
+  + `<span class="ffinfo"><span class="who">${esc(person.name)} — ${esc(person.location)}</span>\n${factsHtml}</span></span>`;
+
 // Everything the client-side commands need, and nothing more.
 const data = {
   name: person.name,
@@ -79,9 +85,7 @@ const data = {
     </div>
     <div class="term" id="term">
       <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@aberdeen ~ <b>❯</b> fastfetch</span>
-<span class="art">{banner}</span>
-<span class="who">{data.name} — {data.location}</span>
-<Fragment set:html={factsHtml} />
+<Fragment set:html={ffHtml} />
 <span class="hint" set:html={ui.term.hint} />
 </pre>
       <form class="line" id="term-form" autocomplete="off">
@@ -248,7 +252,11 @@ const data = {
 })();
 </script>
 
-<style>
+<style is:global>
+  /* Global rather than Astro-scoped: .art/.k/.v/.box/.ff/.ffinfo are all
+     generated server-side as raw HTML (set:html) for the seeded fastfetch
+     output, so they never carry Astro's scoping attribute — scoped rules
+     would silently fail to match them. */
   .term-wrap{padding:44px 0 8px}
   .win{
     border:2px solid var(--accent2);border-radius:10px;overflow:hidden;
@@ -277,13 +285,16 @@ const data = {
   }
   .out .cmd{color:var(--muted)}
   .out .cmd b{color:var(--accent);font-weight:700}
+  /* logo left, fastfetch-style facts right — real fastfetch's own layout */
+  .out .ff{display:flex;align-items:flex-start;gap:28px;margin:6px 0 12px}
   .out .art{
-    display:block;white-space:pre;font-size:min(2.5vw,17px);line-height:1;font-weight:700;
-    margin:6px 0 12px;overflow-x:auto;overflow-y:hidden;color:var(--accent);
+    display:block;flex:none;white-space:pre;font-size:min(1.7vw,17px);line-height:1;font-weight:700;
+    margin:0;overflow-x:auto;overflow-y:hidden;color:var(--accent);
     background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 34%,var(--strong) 34%,var(--strong) 67%,var(--accent2) 67%);
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   }
   @supports not (background-clip:text){.out .art{-webkit-text-fill-color:currentColor}}
+  .out .ffinfo{display:block;flex:1;min-width:0}
   .out .who{color:var(--accent);font-weight:700}
   .out .k{color:var(--accent2)}
   .out .v{color:var(--fg)}
@@ -303,6 +314,10 @@ const data = {
   .line input::placeholder{color:var(--muted);opacity:.7}
   .line:focus-within{border-top-color:var(--accent2)}
 
+  @media (max-width:860px){
+    .out .ff{flex-direction:column;gap:10px}
+    .out .art{font-size:min(2.5vw,17px)}
+  }
   @media (max-width:700px){
     .term-wrap{padding-top:28px}
     .wstat{display:none}
