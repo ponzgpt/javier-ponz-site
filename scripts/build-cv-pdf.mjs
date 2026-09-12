@@ -2,8 +2,8 @@
 /**
  * Generates public/javier-ponz-prado-cv.pdf from src/data/cv.mjs.
  *
- * The web page at /cv and this PDF read from the same module, so the two
- * cannot drift apart. The only difference is that entries marked
+ * The Contact section's CV disclosure and this PDF read from the same
+ * module, so the two cannot drift apart. The only difference is that entries marked
  * `private: true` (the phone number) are written here and never rendered
  * on the public page.
  *

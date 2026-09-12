@@ -1,30 +1,12 @@
-// One getStaticPaths for every page: English at /, the rest under /<code>/.
-// A rest parameter of undefined renders at the root, which is why the default
-// locale gets no prefix and existing links keep working.
-import { codes, defaultLocale } from './i18n.mjs';
-
-export function localePaths() {
-  return codes.map((c) => ({ params: { locale: c === defaultLocale ? undefined : c } }));
-}
-
-/** Strip the locale prefix off a pathname, so /es/about → /about. */
-export function bare(pathname) {
-  const m = pathname.match(/^\/(es|zh)(\/|$)/);
-  return m ? pathname.slice(m[1].length + 1) || '/' : pathname;
-}
-
-// Page copy uses {about}, {thesis} … placeholders instead of hard-coded hrefs,
-// so a link written once resolves to the right locale on all three builds.
-// Everything except `home` and `cv` is now an anchor into the single long
-// page rather than a route — href() (i18n.mjs) passes anchors through
-// unprefixed, so these still resolve correctly per locale.
+// Page copy uses {about}, {thoughts} … placeholders instead of hard-coded
+// hrefs. Everything is an anchor into the single long page now, except
+// `home` (the page root) and `cv` (the static PDF).
 const TOKENS = {
-  about: '#about', thesis: '#thesis', agents: '#agents', workbench: '#projects',
+  about: '#about', thoughts: '#thoughts', agents: '#agents', workbench: '#projects',
   memento: '#case-study', contact: '#contact', timeline: '#timeline',
   cv: '/javier-ponz-prado-cv.pdf', now: '#now', home: '/'
 };
 
-export function expand(html, lang, href) {
-  return String(html).replace(/\{(\w+)\}/g, (m, k) =>
-    TOKENS[k] ? href(TOKENS[k], lang) : m);
+export function expand(html) {
+  return String(html).replace(/\{(\w+)\}/g, (m, k) => TOKENS[k] ?? m);
 }

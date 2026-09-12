@@ -1,15 +1,13 @@
 ---
 // The CV disclosure reuses the header's <details> pattern (Layout.astro's
-// skin/language pickers) rather than inventing a new popover component —
-// same native disclosure, same .skinpicker/.skinmenu classes, just placed
-// here instead of the header now that there is no standalone /cv page.
+// skin picker) rather than inventing a new popover component — same native
+// disclosure, same .skinpicker/.skinmenu classes, just placed here instead
+// of the header now that there is no standalone /cv page.
 import { pages } from '../../data/pages.mjs';
-import { person, cvFor } from '../../data/cv.mjs';
+import { person, profile } from '../../data/cv.mjs';
 
-const { lang } = Astro.props;
-const p = pages.contact[lang];
-const cvLabels = pages.cv[lang];
-const cv = cvFor(lang);
+const p = pages.contact;
+const cvLabels = pages.cv;
 ---
 <section class="hero" id="contact">
   <p class="kicker">{p.kicker}</p>
@@ -26,9 +24,9 @@ const cv = cvFor(lang);
 </div></section>
 <section class="grid"><span class="label">{cvLabels.kicker}</span><div class="copy">
   <details class="skinpicker cvpicker">
-    <summary aria-label={cvLabels.kicker}><span class="sw"></span><span>{cv.headline}</span><span class="chev">&#9662;</span></summary>
+    <summary aria-label={cvLabels.kicker}><span class="sw"></span><span>{person.headline}</span><span class="chev">&#9662;</span></summary>
     <div class="skinmenu cvmenu" role="menu">
-      <p class="cv-blurb">{cv.profile[0]}</p>
+      <p class="cv-blurb">{profile[0]}</p>
       <a class="dl" href="/javier-ponz-prado-cv.pdf" download>{cvLabels.download}</a>
     </div>
   </details>

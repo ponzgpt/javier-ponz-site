@@ -1,12 +1,10 @@
 ---
-// Hero plus a list of labelled sections — the shape every prose page on this
-// site already had. Keeping it in one place means a page file is now just its
-// data lookup, and a translator never touches markup.
-import { href } from '../data/i18n.mjs';
+// Hero plus a list of labelled sections — the shape every prose section on
+// this site shares. Keeping it in one place means a section file is just
+// its data lookup.
 import { expand } from '../data/routes.mjs';
 
-const { p, lang, id } = Astro.props;
-const ex = (h) => expand(h, lang, href);
+const { p, id } = Astro.props;
 ---
 <section class="hero" id={id}>
   <p class="kicker">{p.kicker}</p>
@@ -16,7 +14,7 @@ const ex = (h) => expand(h, lang, href);
 {(p.sections ?? []).map((s) => (
   <section class="grid">
     <span class="label">{s.label}</span>
-    <div class={s.cls} set:html={ex(s.html)} />
+    <div class={s.cls} set:html={expand(s.html)} />
   </section>
 ))}
 <slot />
@@ -24,7 +22,7 @@ const ex = (h) => expand(h, lang, href);
   <section class="grid">
     <span class="label">{p.relatedLabel}</span>
     <div class="cards">{p.related.map((c) => (
-      <a class="card" href={ex(c.href)} target={c.ext ? '_blank' : null} rel={c.ext ? 'noreferrer' : null}>
+      <a class="card" href={expand(c.href)} target={c.ext ? '_blank' : null} rel={c.ext ? 'noreferrer' : null}>
         <span class="meta">{c.meta}</span><h3>{c.h3}</h3><p>{c.p}</p>
       </a>
     ))}</div>

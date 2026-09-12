@@ -1,23 +1,19 @@
 ---
 import { skins, defaultSkin, skinCss } from '../data/skins.mjs';
-import { locales, defaultLocale, href, t, ui } from '../data/i18n.mjs';
-import { bare } from '../data/routes.mjs';
+import { ui } from '../data/ui.mjs';
 
-interface Props { title: string; description?: string; lang?: string }
-const { title, description = 'Javier Ponz — technology, service and agents.', lang = defaultLocale } = Astro.props;
+interface Props { title: string; description?: string }
+const { title, description = 'Javier Ponz — technology, service and agents.' } = Astro.props;
 const site = 'https://javierponz.technoir.cloud';
-const canonical = `${site}${Astro.url.pathname}`;
-const here = bare(Astro.url.pathname);
-const current = locales.find((l) => l.code === lang) ?? locales[0];
+const canonical = site;
 // Anchors into the single long page, not routes — see data/routes.mjs TOKENS.
-const navPaths = ['#about', '#projects', '#thesis', '#now', '#contact'];
-const navLabels = t(ui.nav, lang);
-const nav: [string, string][] = navPaths.map((p, i) => [href(p, lang), navLabels[i]]);
+const navPaths = ['#about', '#projects', '#thoughts', '#now', '#contact'];
+const nav: [string, string][] = navPaths.map((p, i) => [p, ui.nav[i]]);
 const ids = skins.map((s) => s.id);
 const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
 ---
 <!doctype html>
-<html lang={current.html} data-skin={defaultSkin}>
+<html lang="en-US" data-skin={defaultSkin}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,8 +21,6 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0E1216" />
   <link rel="canonical" href={canonical} />
-  {locales.map((l) => <link rel="alternate" hreflang={l.html} href={`${site}${href(here, l.code)}`} />)}
-  <link rel="alternate" hreflang="x-default" href={`${site}${here}`} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -57,26 +51,15 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">{t(ui.skip, lang)}</a>
+  <a class="skip" href="#main">{ui.skip}</a>
   <header class="site-header"><div class="shell nav">
-    <a class="brand" href={href('/', lang)}><span class="caret">&#10095;</span> javier-ponz</a>
+    <a class="brand" href="/"><span class="caret">&#10095;</span> javier-ponz</a>
     <div class="navright">
       <nav aria-label="Primary">{nav.map(([to, name]) => (
         <a href={to}>{name}</a>
       ))}</nav>
-      <details class="skinpicker langpicker">
-        <summary aria-label={t(ui.langLabel, lang)}><span class="lg">{current.label}</span><span class="chev">&#9662;</span></summary>
-        <div class="skinmenu" role="menu">
-          {locales.map((l) => (
-            <a role="menuitemradio" aria-checked={l.code === lang} href={href(here, l.code)} hreflang={l.html} lang={l.html}>
-              <span class="sk-name">{l.label}</span>
-              <span class="sk-note">{l.name}</span>
-            </a>
-          ))}
-        </div>
-      </details>
       <details class="skinpicker" id="skinpicker">
-        <summary aria-label={t(ui.skinLabel, lang)}><span class="sw"></span><span id="skin-name">{skins[0].name}</span><span class="chev">&#9662;</span></summary>
+        <summary aria-label={ui.skinLabel}><span class="sw"></span><span id="skin-name">{skins[0].name}</span><span class="chev">&#9662;</span></summary>
         <div class="skinmenu" role="menu">
           {skins.map((s) => (
             <button type="button" role="menuitemradio" data-skin-set={s.id} aria-checked={s.id === defaultSkin}>
@@ -91,8 +74,8 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   </div></header>
   <main id="main" class="shell"><slot /></main>
   <footer class="statusbar"><div class="shell sb">
-    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> {t(ui.status, lang)} <span class="sep">&#9474;</span> {t(ui.openToWork, lang)}</span>
-    <span><a href="mailto:nerion89@gmail.com">{t(ui.footerLinks, lang)[0]}</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">{t(ui.footerLinks, lang)[1]}</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">{t(ui.footerLinks, lang)[2]}</a> <span class="sep">&#9474;</span> <a href="https://nousresearch.technoir.cloud/">{t(ui.footerLinks, lang)[3]}</a></span>
+    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> {ui.status} <span class="sep">&#9474;</span> {ui.openToWork}</span>
+    <span><a href="mailto:nerion89@gmail.com">{ui.footerLinks[0]}</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">{ui.footerLinks[1]}</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">{ui.footerLinks[2]}</a> <span class="sep">&#9474;</span> <a href="https://nousresearch.technoir.cloud/">{ui.footerLinks[3]}</a></span>
   </div></footer>
 
   <script is:inline define:vars={{ sprites }}>
@@ -252,7 +235,6 @@ a:hover{color:var(--accent);text-decoration:underline}
   display:flex;flex-direction:column;gap:2px;
 }
 .skinmenu a{text-decoration:none}
-.langpicker summary .lg{font-weight:700;color:var(--accent)}
 .skinmenu button,.skinmenu a{
   position:relative;display:grid;grid-template-columns:14px 1fr;gap:3px 10px;align-items:center;
   background:none;border:0;cursor:pointer;text-align:left;padding:9px 30px 9px 10px;
