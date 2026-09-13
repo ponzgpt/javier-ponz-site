@@ -160,6 +160,27 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   </script>
 
   <script is:inline>
+    /* Sticky header: hides on scroll-down, slides back in on scroll-up, so
+       it never blocks content but is one scroll-up away wherever you are. */
+    (function () {
+      var header = document.querySelector('.site-header');
+      if (!header) return;
+      var lastY = window.scrollY, ticking = false;
+      addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var y = window.scrollY;
+          if (y > lastY && y > header.offsetHeight) header.classList.add('hide');
+          else header.classList.remove('hide');
+          lastY = y;
+        });
+      }, { passive: true });
+    })();
+  </script>
+
+  <script is:inline>
     (function () {
       var picker = document.getElementById('skinpicker');
       if (!picker) return;
@@ -178,6 +199,11 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
           var id = b.dataset.skinSet;
           paint(id);
           try { localStorage.setItem('jp-skin', id); } catch (e) {}
+          // Reflect the choice in the URL too, so copying the address bar
+          // shares this skin instead of whoever opens it defaulting to Omakase.
+          var url = new URL(location.href);
+          url.searchParams.set('skin', id);
+          history.replaceState(null, '', url);
           picker.open = false;
         });
       });
@@ -219,7 +245,14 @@ a:hover{color:var(--accent);text-decoration:underline}
 .shell{width:min(calc(100% - 44px),var(--max));margin:auto}
 
 /* header as a shell prompt */
-.site-header{border-bottom:1px solid var(--line);background:var(--bg)}
+/* Sticky, but hides on scroll-down and slides back in on scroll-up (.hide,
+   toggled below) — the page is long now, so the header stays reachable
+   without permanently eating screen space. */
+.site-header{
+  position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:var(--bg);
+  transform:translateY(0);transition:transform .25s ease;
+}
+.site-header.hide{transform:translateY(-100%)}
 .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}
 .navright{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .brand{font-family:var(--font-display);font-weight:700;letter-spacing:.02em;text-decoration:none;color:var(--accent)}
