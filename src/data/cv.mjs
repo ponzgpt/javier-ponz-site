@@ -8,7 +8,7 @@
 // Edit here; both outputs follow.
 
 export const person = {
-  name: 'Javier Ponz Prado',
+  name: 'Javier Ponz',
   headline: 'Technical support & customer success · agent operations · technical troubleshooting',
   location: 'Aberdeen, Scotland, United Kingdom',
   // `private: true` fields are written into the PDF only, never rendered on the web page.

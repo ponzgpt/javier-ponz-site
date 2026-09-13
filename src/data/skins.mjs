@@ -22,9 +22,8 @@
 // each digit indexing `ink`. Kept as strings because that is the cheapest thing
 // to read, diff and edit by hand.
 //
-// Names are referential rather than literal — Caduceus for the Hermes CLI,
-// Omakase for Omarchy, HL for Half-Life — because a skin that borrows a look
-// should not also borrow the name.
+// Omakase stays referential (Omarchy's own name for its default look); the
+// other three are named plainly after what they borrow a look from.
 
 export const skins = [
   {
@@ -69,7 +68,7 @@ export const skins = [
   },
   {
     id: 'hermes',
-    name: 'Caduceus',
+    name: 'Hermes',
     note: 'The Hermes Agent CLI',
     sprite: {
       // The caduceus — wings, staff, twined snakes. The Hermes CLI draws one in
@@ -125,7 +124,7 @@ export const skins = [
   },
   {
     id: 'halflife',
-    name: 'HL',
+    name: 'Black Mesa',
     note: 'Black Mesa, 1998',
     sprite: {
       // Headcrab. Four legs, two eyes, a very bad attitude.
