@@ -35,6 +35,20 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Chakra+Petch:wght@500;700&display=swap" />
+  <script is:inline>
+    /* A stale #section in the URL (an earlier nav click, browser history, an
+       address-bar autocomplete) makes the browser jump straight past the
+       home view on load — before any of our own JS runs. Force the top on
+       every fresh load instead; in-page nav clicks still scroll normally
+       afterwards, since that's a later, user-initiated navigation. */
+    if (location.hash) {
+      history.scrollRestoration = 'manual';
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      addEventListener('load', function () {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      });
+    }
+  </script>
   <script is:inline define:vars={{ ids, defaultSkin }}>
     /* Apply the chosen skin before first paint, so the page never shows the
        default and then repaints into the chosen one. The [data-skin] blocks are
