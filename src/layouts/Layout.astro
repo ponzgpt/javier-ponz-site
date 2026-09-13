@@ -1,19 +1,23 @@
 ---
 import { skins, defaultSkin, skinCss } from '../data/skins.mjs';
 import { ui } from '../data/ui.mjs';
+import { locales, localeHome } from '../data/i18n.mjs';
 
-interface Props { title: string; description?: string }
-const { title, description = 'Javier Ponz — technology, service and agents.' } = Astro.props;
+interface Props { title: string; description?: string; lang?: string }
+const { title, description = 'Javier Ponz — technology, service and agents.', lang = 'en' } = Astro.props;
+const t = ui[lang];
+const locale = locales.find((l) => l.code === lang) ?? locales[0];
 const site = 'https://javierponz.technoir.cloud';
-const canonical = site;
+const canonical = site + localeHome(lang);
 // Anchors into the single long page, not routes — see data/routes.mjs TOKENS.
+// Anchors are identical on every locale, so nav hrefs need no lang-prefixing.
 const navPaths = ['#about', '#projects', '#thoughts', '#now', '#contact'];
-const nav: [string, string][] = navPaths.map((p, i) => [p, ui.nav[i]]);
+const nav: [string, string][] = navPaths.map((p, i) => [p, t.nav[i]]);
 const ids = skins.map((s) => s.id);
 const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
 ---
 <!doctype html>
-<html lang="en-US" data-skin={defaultSkin}>
+<html lang={locale.html} data-skin={defaultSkin}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,10 +25,15 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0E1216" />
   <link rel="canonical" href={canonical} />
+  {locales.map((l) => (
+    <link rel="alternate" hreflang={l.code} href={site + localeHome(l.code)} />
+  ))}
+  <link rel="alternate" hreflang="x-default" href={site + '/'} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content={locale.html.replace('-', '_')} />
   <meta property="og:image" content="https://javierponz.technoir.cloud/og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -65,30 +74,73 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">{ui.skip}</a>
-  <header class="site-header"><div class="shell nav">
-    <a class="brand" href="/"><span class="caret">&#10095;</span> javier-ponz</a>
-    <div class="navright">
-      <nav aria-label="Primary">{nav.map(([to, name]) => (
+  <a class="skip" href="#main">{t.skip}</a>
+  <header class="site-header" id="site-header">
+    <div class="shell navbar">
+      <a class="brand" href={localeHome(lang)}><span class="caret" aria-hidden="true">&#10095;</span><span class="word">javier-ponz</span></a>
+
+      <nav aria-label="Primary" class="nav-links">{nav.map(([to, name]) => (
         <a href={to}>{name}</a>
       ))}</nav>
-      <details class="skinpicker" id="skinpicker">
-        <summary aria-label={ui.skinLabel}><span class="sw"></span><span id="skin-name">{skins[0].name}</span><span class="chev">&#9662;</span></summary>
-        <div class="skinmenu" role="menu">
-          {skins.map((s) => (
-            <button type="button" role="menuitemradio" data-skin-set={s.id} aria-checked={s.id === defaultSkin}>
-              <span class="sw" style={`background:${s.accent};box-shadow:inset 0 0 0 1px ${s.accent2}`}></span>
-              <span class="sk-name">{s.name}</span>
-            </button>
-          ))}
-        </div>
-      </details>
+
+      <div class="nav-actions">
+        <details class="icon-picker" id="skinpicker">
+          <summary class="icon-btn" aria-label={t.skinLabel} title={t.skinLabel}>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="9" cy="10" r="1.3" fill="currentColor" />
+              <circle cx="15" cy="10" r="1.3" fill="currentColor" />
+              <circle cx="12" cy="15" r="1.3" fill="currentColor" />
+            </svg>
+          </summary>
+          <div class="icon-panel skinmenu" role="menu">
+            {skins.map((s) => (
+              <button type="button" role="menuitemradio" data-skin-set={s.id} aria-checked={s.id === defaultSkin}>
+                <span class="sw" style={`background:${s.accent};box-shadow:inset 0 0 0 1px ${s.accent2}`}></span>
+                <span class="sk-name">{s.name}</span>
+              </button>
+            ))}
+          </div>
+        </details>
+
+        <details class="icon-picker" id="langpicker">
+          <summary class="icon-btn" aria-label={t.langLabel} title={t.langLabel}>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5" />
+              <path d="M3.5 12h17M12 3.5c2.2 2.3 3.5 5.2 3.5 8.5s-1.3 6.2-3.5 8.5c-2.2-2.3-3.5-5.2-3.5-8.5S9.8 5.8 12 3.5Z" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </summary>
+          <div class="icon-panel langmenu" role="menu">
+            {locales.map((l) => (
+              <a class="lang-opt" role="menuitemradio" aria-checked={l.code === lang} href={localeHome(l.code)}>
+                <span class="lang-code">{l.label}</span><span class="lang-name">{l.name}</span>
+              </a>
+            ))}
+          </div>
+        </details>
+
+        <a class="icon-btn" href="https://github.com/ponzgpt" target="_blank" rel="noreferrer" aria-label={t.githubLabel} title={t.githubLabel}>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" />
+          </svg>
+        </a>
+
+        <button type="button" class="icon-btn nav-toggle" id="navToggle" aria-label={t.menuLabel} aria-expanded="false" aria-controls="mobileNav">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
     </div>
-  </div></header>
+
+    <nav aria-label="Primary (mobile)" class="mobile-nav" id="mobileNav" hidden>
+      {nav.map(([to, name]) => <a href={to}>{name}</a>)}
+    </nav>
+  </header>
   <main id="main" class="shell"><slot /></main>
   <footer class="statusbar"><div class="shell sb">
-    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> {ui.status} <span class="sep">&#9474;</span> {ui.openToWork}</span>
-    <span><a href="mailto:nerion89@gmail.com">{ui.footerLinks[0]}</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">{ui.footerLinks[1]}</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">{ui.footerLinks[2]}</a></span>
+    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> {t.status} <span class="sep">&#9474;</span> {t.openToWork}</span>
+    <span><a href="mailto:nerion89@gmail.com">{t.footerLinks[0]}</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">{t.footerLinks[1]}</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">{t.footerLinks[2]}</a></span>
   </div></footer>
 
   <script is:inline define:vars={{ sprites }}>
@@ -160,23 +212,34 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   </script>
 
   <script is:inline>
-    /* Sticky header: hides on scroll-down, slides back in on scroll-up, so
-       it never blocks content but is one scroll-up away wherever you are. */
+    /* Omarchy-style header: always visible (the page is long, and every
+       anchor lives behind this nav), background fades in from transparent to
+       a blurred surface tint once you've scrolled a little, instead of
+       hiding on scroll-down. */
     (function () {
-      var header = document.querySelector('.site-header');
+      var header = document.getElementById('site-header');
       if (!header) return;
-      var lastY = window.scrollY, ticking = false;
-      addEventListener('scroll', function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          ticking = false;
-          var y = window.scrollY;
-          if (y > lastY && y > header.offsetHeight) header.classList.add('hide');
-          else header.classList.remove('hide');
-          lastY = y;
-        });
-      }, { passive: true });
+      function update() {
+        if (window.scrollY > 24) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      }
+      update();
+      addEventListener('scroll', update, { passive: true });
+    })();
+  </script>
+
+  <script is:inline>
+    /* Mobile nav: a hamburger toggles a stacked link list under the bar.
+       Closes itself after a link is clicked (anchors don't navigate away). */
+    (function () {
+      var btn = document.getElementById('navToggle');
+      var panel = document.getElementById('mobileNav');
+      if (!btn || !panel) return;
+      function close() { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+      function open() { panel.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
+      btn.addEventListener('click', function () { panel.hidden ? open() : close(); });
+      panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { close(); btn.focus(); } });
     })();
   </script>
 
@@ -184,15 +247,10 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
     (function () {
       var picker = document.getElementById('skinpicker');
       if (!picker) return;
-      var label = document.getElementById('skin-name');
       var buttons = picker.querySelectorAll('[data-skin-set]');
       function paint(id) {
         document.documentElement.dataset.skin = id;
-        buttons.forEach(function (b) {
-          var on = b.dataset.skinSet === id;
-          b.setAttribute('aria-checked', String(on));
-          if (on && label) label.textContent = b.querySelector('.sk-name').textContent;
-        });
+        buttons.forEach(function (b) { b.setAttribute('aria-checked', String(b.dataset.skinSet === id)); });
       }
       buttons.forEach(function (b) {
         b.addEventListener('click', function () {
@@ -208,6 +266,25 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
         });
       });
       paint(document.documentElement.dataset.skin || 'omarchy');
+      document.addEventListener('click', function (e) {
+        if (picker.open && !picker.contains(e.target)) picker.open = false;
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && picker.open) { picker.open = false; picker.querySelector('summary').focus(); }
+      });
+    })();
+  </script>
+
+  <script is:inline>
+    /* Language picker is plain <a> links to the other locale's home route —
+       no client state to sync, just close it after a click or click-outside,
+       same as the skin picker's disclosure behaviour. */
+    (function () {
+      var picker = document.getElementById('langpicker');
+      if (!picker) return;
+      picker.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { picker.open = false; });
+      });
       document.addEventListener('click', function (e) {
         if (picker.open && !picker.contains(e.target)) picker.open = false;
       });
@@ -244,51 +321,72 @@ a:hover{color:var(--accent);text-decoration:underline}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .shell{width:min(calc(100% - 44px),var(--max));margin:auto}
 
-/* header as a shell prompt */
-/* Sticky, but hides on scroll-down and slides back in on scroll-up (.hide,
-   toggled below) — the page is long now, so the header stays reachable
-   without permanently eating screen space. */
+/* header, in Omarchy's own shape: always sticky, transparent over the hero,
+   a blurred surface tint once scrolled (.scrolled, toggled by the script
+   above) instead of hiding on scroll-down — the nav stays one glance away
+   on a page this long. */
 .site-header{
-  position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:var(--bg);
-  transform:translateY(0);transition:transform .25s ease;
+  position:sticky;top:0;z-index:20;
+  background:transparent;border-bottom:1px solid transparent;
+  transition:background-color .2s ease,border-color .2s ease;
 }
-.site-header.hide{transform:translateY(-100%)}
-.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}
-.navright{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.02em;text-decoration:none;color:var(--accent)}
+.site-header.scrolled{
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom-color:var(--line);
+}
+.navbar{min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:2px;font-family:var(--font-display);font-weight:700;letter-spacing:.02em;text-decoration:none;color:var(--accent);flex:none}
 .brand:hover{text-decoration:none}
 .brand .caret{color:var(--accent2)}
-.nav nav{display:flex;gap:18px;flex-wrap:wrap}
-.nav nav a{font-family:var(--font-display);font-size:12px;text-decoration:none;color:var(--muted)}
-.nav nav a:hover{color:var(--accent)}
+.nav-links{display:flex;gap:2px;flex:1}
+.nav-links a{
+  font-family:var(--font-display);font-size:12px;text-decoration:none;color:var(--muted);
+  padding:8px 12px;border-radius:9px;transition:background-color .15s ease,color .15s ease;
+}
+.nav-links a:hover{background:var(--surface);color:var(--fg);text-decoration:none}
+.nav-actions{display:flex;align-items:center;gap:4px;flex:none}
 .skip{position:absolute;left:-999px}
 .skip:focus{left:12px;top:12px;background:var(--accent);color:var(--bg);padding:8px;z-index:4}
 
-/* skin picker — <details> so the disclosure and its keyboard behaviour are native */
-.skinpicker{position:relative}
-.skinpicker summary{
-  list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;
-  border:1px solid var(--line);padding:6px 11px;font-size:12px;color:var(--muted);
-  font-family:var(--font-display);white-space:nowrap;
+/* rounded icon buttons — the omarchy.org nav's defining shape */
+.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+  width:36px;height:36px;border-radius:9px;border:0;background:none;color:var(--muted);
+  cursor:pointer;transition:background-color .15s ease,color .15s ease;
 }
-.skinpicker summary::-webkit-details-marker{display:none}
-.skinpicker summary:hover{border-color:var(--accent2);color:var(--fg)}
-.skinpicker .chev{font-size:9px;color:var(--muted)}
-.sw{width:11px;height:11px;flex:none;border-radius:2px;background:var(--accent);box-shadow:inset 0 0 0 1px var(--accent2)}
-.skinmenu{
-  position:absolute;right:0;top:calc(100% + 7px);z-index:30;min-width:246px;
-  background:var(--raised);border:1px solid var(--line);padding:5px;
-  display:flex;flex-direction:column;gap:2px;
+.icon-btn svg{width:19px;height:19px}
+.icon-btn:hover{background:var(--surface);color:var(--fg)}
+.icon-btn[aria-expanded="true"]{background:var(--surface);color:var(--fg)}
+.nav-toggle{display:none}
+
+/* icon-triggered popovers — <details> so the disclosure and its keyboard
+   behaviour are native. Shared by the theme and language pickers. */
+.icon-picker{position:relative}
+.icon-picker summary{list-style:none}
+.icon-picker summary::-webkit-details-marker{display:none}
+.icon-panel{
+  position:absolute;right:0;top:calc(100% + 8px);z-index:30;min-width:210px;
+  background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:5px;
+  display:flex;flex-direction:column;gap:1px;
 }
-.skinmenu button{
+.icon-panel button,.icon-panel .lang-opt{
   position:relative;display:flex;align-items:center;gap:10px;
-  background:none;border:0;cursor:pointer;text-align:left;padding:9px 30px 9px 10px;
-  color:var(--fg);font-family:inherit;font-size:13px;
+  background:none;border:0;border-radius:8px;cursor:pointer;text-align:left;padding:9px 30px 9px 10px;
+  color:var(--fg);font-family:inherit;font-size:13px;text-decoration:none;
 }
-.skinmenu button:hover{background:var(--surface)}
-.skinmenu .sk-name{font-family:var(--font-display)}
-.skinmenu button[aria-checked="true"] .sk-name{color:var(--accent)}
-.skinmenu button[aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:12px}
+.icon-panel button:hover,.icon-panel .lang-opt:hover{background:var(--surface);text-decoration:none}
+.sw{width:11px;height:11px;flex:none;border-radius:2px;background:var(--accent);box-shadow:inset 0 0 0 1px var(--accent2)}
+.icon-panel .sk-name,.icon-panel .lang-name{font-family:var(--font-display)}
+.icon-panel [aria-checked="true"] .sk-name,
+.icon-panel [aria-checked="true"] .lang-name{color:var(--accent)}
+.icon-panel [aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:12px}
+.lang-code{font-family:var(--font-display);font-weight:700;width:22px;flex:none;color:var(--accent2)}
+
+/* mobile nav — a stacked list under the bar, toggled by the hamburger */
+.mobile-nav{flex-direction:column;padding:4px 0 16px;border-top:1px solid var(--line)}
+.mobile-nav a{padding:12px 4px;font-family:var(--font-display);font-size:14px;color:var(--fg);text-decoration:none}
+.mobile-nav[hidden]{display:none}
 
 /* the block banner, ramped from accent to accent2 */
 .banner{
@@ -388,10 +486,19 @@ a.row:hover h3{color:var(--accent)}
 .sb a{color:var(--muted);text-decoration:none}
 .sb a:hover{color:var(--accent);text-decoration:underline}
 
+@media(max-width:760px){
+  .nav-links{display:none}
+  .nav-toggle{display:inline-flex}
+  .mobile-nav:not([hidden]){display:flex}
+  .navbar{min-height:56px}
+}
+/* Below ~420px, brand + four icon buttons no longer both fit on one row —
+   drop the wordmark and keep just the caret, same as the mobile nav already
+   trims down to a hamburger. */
+@media(max-width:420px){
+  .brand .word{display:none}
+}
 @media(max-width:900px){
-  .nav{align-items:flex-start;flex-direction:column;padding:18px 0;gap:14px}
-  .navright{width:100%;justify-content:space-between;align-items:flex-start}
-  .nav nav{gap:12px}
   .hero{padding:52px 0}
   .grid{display:block;padding:48px 0}
   .label{margin-bottom:18px;display:block}

@@ -2,6 +2,7 @@
 import Page from '../Page.astro';
 import { pages } from '../../data/pages.mjs';
 
-const p = pages.thoughts;
+const { lang = 'en' } = Astro.props;
+const p = pages.thoughts[lang];
 ---
 <Page p={p} id="thoughts" />

@@ -4,10 +4,13 @@
 // disclosure, same .skinpicker/.skinmenu classes, just placed here instead
 // of the header now that there is no standalone /cv page.
 import { pages } from '../../data/pages.mjs';
-import { person, profile } from '../../data/cv.mjs';
+import { person, profile, personEs, profileEs } from '../../data/cv.mjs';
 
-const p = pages.contact;
-const cvLabels = pages.cv;
+const { lang = 'en' } = Astro.props;
+const p = pages.contact[lang];
+const cvLabels = pages.cv[lang];
+const headline = lang === 'en' ? person.headline : personEs.headline;
+const blurb = lang === 'en' ? profile[0] : profileEs[0];
 ---
 <section class="hero" id="contact">
   <p class="kicker">{p.kicker}</p>
@@ -24,9 +27,9 @@ const cvLabels = pages.cv;
 </div></section>
 <section class="grid"><span class="label">{cvLabels.kicker}</span><div class="copy">
   <details class="skinpicker cvpicker">
-    <summary aria-label={cvLabels.kicker}><span class="sw"></span><span>{person.headline}</span><span class="chev">&#9662;</span></summary>
+    <summary aria-label={cvLabels.kicker}><span class="sw"></span><span>{headline}</span><span class="chev">&#9662;</span></summary>
     <div class="skinmenu cvmenu" role="menu">
-      <p class="cv-blurb">{profile[0]}</p>
+      <p class="cv-blurb">{blurb}</p>
       <a class="dl" href="/javier-ponz-prado-cv.pdf" download>{cvLabels.download}</a>
     </div>
   </details>

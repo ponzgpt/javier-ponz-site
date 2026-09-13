@@ -18,21 +18,37 @@ sección antigua es ahora un `id` con el que navegar por ancla:
 `src/data/routes.mjs` centraliza esos anchors: la prosa usa placeholders como
 `{about}` o `{now}` en vez de rutas escritas a mano.
 
-## Idioma
+## Idiomas
 
-El sitio es solo en inglés. Hubo una versión con inglés/español/chino como
-rutas reales; el sistema de idiomas se retiró (queda en el historial de git si
-hace falta recuperarlo) y `src/data/ui.mjs`, `pages.mjs`, `site.ts` y `cv.mjs`
-son ahora objetos planos, un único idioma, sin capas.
+Inglés en `/`, español en `/es/` — dos rutas reales, cada una su propio
+`<html lang>`, su `hreflang` y su contenido rastreable, no un selector que
+cambia texto en el navegador. `src/components/HomePage.astro` es la página
+entera parametrizada por `lang`; `src/pages/index.astro` y
+`src/pages/es/index.astro` son envoltorios de una línea alrededor de ella.
 
 ### Dónde vive el texto
 
-- `src/data/ui.mjs` — cromo compartido (navegación, pie, terminal).
-- `src/data/pages.mjs` — la prosa de cada sección.
-- `src/data/site.ts` y `src/data/cv.mjs` — los datos (proyectos, CV, timeline).
+- `src/data/ui.mjs` y `src/data/pages.mjs` — un objeto `{ en, es }` por
+  bloque de texto; los componentes leen `ui[lang]` / `pages.<sección>[lang]`.
+- `src/data/site.ts` — proyectos, timeline, competencias y titulaciones en
+  inglés, con una capa `es` opcional por registro que solo nombra los campos
+  que cambian; `pick(item, lang)` (`src/data/i18n.mjs`) la funde sobre el
+  inglés.
+- `src/data/cv.mjs` — el CV en inglés (única fuente del PDF, ver abajo), más
+  `personEs`/`profileEs` con las dos líneas que sí aparecen en la página en
+  español.
 
-El PDF del CV se genera desde `src/data/cv.mjs` (`npm run cv:pdf`), así que el
-disclosure de Contact y el PDF no pueden desincronizarse.
+### Añadir un idioma
+
+1. Añádelo a `locales` en `src/data/i18n.mjs`.
+2. Traduce `ui.mjs` y `pages.mjs` (un bloque completo, no hay atajo: es prosa).
+3. Añade capas `es`-equivalentes donde haga falta en `site.ts`/`cv.mjs`.
+4. Crea `src/pages/<code>/index.astro` con `<HomePage lang="<code>" />`.
+
+El PDF del CV se mantiene **solo en inglés** a propósito: es el documento que
+las empresas reenvían, y una única versión canónica mantiene limpio ese
+rastro — se genera desde `src/data/cv.mjs` (`npm run cv:pdf`), y esa es la
+única pieza de `cv.mjs` que el idioma no toca.
 
 ## Skins
 
@@ -81,10 +97,10 @@ pantalla de vez en cuando al hacer scroll. Se define como una rejilla de dígito
 
 La home no es una estética de terminal: es una terminal. Los comandos
 (`help`, `whoami`, `ls`, `open`, `projects`, `running`, `skills`, `cv`,
-`contact`, `skin`, `neofetch`, `clear`) leen los mismos ficheros de datos que
-renderizan las páginas, así que no pueden desincronizarse. La salida de
-`neofetch` se renderiza en el servidor, de modo que sin JavaScript la página
-sigue siendo un `<pre>` con texto real.
+`contact`, `skin`, `lang`, `fastfetch`, `clear`) leen los mismos ficheros de
+datos que renderizan las páginas, así que no pueden desincronizarse. La
+salida de `fastfetch` se renderiza en el servidor, de modo que sin JavaScript
+la página sigue siendo un `<pre>` con texto real.
 
 ## Desarrollo
 

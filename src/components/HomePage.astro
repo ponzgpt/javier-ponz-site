@@ -1,0 +1,47 @@
+---
+// The whole one-page site, parametrized by `lang` — src/pages/index.astro
+// and src/pages/es/index.astro are both thin wrappers around this.
+import Layout from '../layouts/Layout.astro';
+import Terminal from './Terminal.astro';
+import AboutSection from './sections/AboutSection.astro';
+import TimelineSection from './sections/TimelineSection.astro';
+import AgentsSection from './sections/AgentsSection.astro';
+import ProjectsSection from './sections/ProjectsSection.astro';
+import ThoughtsSection from './sections/ThoughtsSection.astro';
+import NowSection from './sections/NowSection.astro';
+import ContactSection from './sections/ContactSection.astro';
+import { pages } from '../data/pages.mjs';
+import { projects } from '../data/site';
+import { expand } from '../data/routes.mjs';
+import { pick } from '../data/i18n.mjs';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.home[lang];
+const proj = projects.slice(0, 3).map((r) => pick(r, lang));
+---
+<Layout title={p.title} description={p.desc} lang={lang}>
+  <Terminal lang={lang} />
+  <section class="hero"><p class="kicker">{p.kicker}</p>
+    <h1 class="sr-only">Javier Ponz</h1>
+    <p class="tagline">{p.tagline}<span class="serif">{p.taglineSerif}</span>{p.taglineEnd}</p>
+    <p class="lede">{p.lede}</p></section>
+  <section class="grid"><span class="label">{p.overviewLabel}</span><div class="copy">
+    <h2>{p.overviewH2}</h2>
+    <Fragment set:html={expand(p.overview)} />
+    <div class="tags">{p.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+  </div></section>
+  <section class="grid"><span class="label">{p.exploreLabel}</span><div class="cards">
+    {p.cards.map((c) => <a class="card" href={expand(c.href)}><span class="meta">{c.meta}</span><h3>{c.h3}</h3><p>{c.p}</p></a>)}
+  </div></section>
+  <section class="grid"><span class="label">{p.workLabel}</span><div class="rows">
+    {proj.map((r) => <a class="row" href={r.url} target="_blank" rel="noreferrer"><time>{r.kind}<br /><span class="byline">{r.by}</span></time><div><h3>{r.title} ↗</h3><p>{r.description}</p></div></a>)}
+  </div></section>
+
+  <AboutSection lang={lang} />
+  <TimelineSection lang={lang} />
+  <AgentsSection lang={lang} />
+  <ProjectsSection lang={lang} />
+  <ThoughtsSection lang={lang} />
+  <NowSection lang={lang} />
+  <ContactSection lang={lang} />
+</Layout>
