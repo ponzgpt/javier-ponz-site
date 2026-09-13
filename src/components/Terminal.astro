@@ -84,12 +84,12 @@ const data = {
       <span class="wstat"><span class="dot"></span>{ui.term.online}</span>
     </div>
     <div class="term" id="term">
-      <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@aberdeen ~ <b>❯</b> fastfetch</span>
+      <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">jpp ~ <b>❯</b> fastfetch</span>
 <Fragment set:html={ffHtml} />
 <span class="hint" set:html={ui.term.hint} />
 </pre>
       <form class="line" id="term-form" autocomplete="off">
-        <label for="term-in">javier@aberdeen ~ <b>❯</b></label>
+        <label for="term-in">jpp ~ <b>❯</b></label>
         <input id="term-in" name="c" type="text" spellcheck="false" autocapitalize="off"
                aria-describedby="term-title" placeholder="help" />
       </form>
@@ -213,7 +213,7 @@ const data = {
     var arg = (parts.shift() || '').toLowerCase();
     var el = document.createElement('span');
     el.className = 'cmd';
-    el.textContent = 'javier@aberdeen ~ ❯ ' + raw + '\n';
+    el.textContent = 'jpp ~ ❯ ' + raw + '\n';
     out.appendChild(el);
     if (!cmd) return;
     if (commands[cmd]) commands[cmd](arg);

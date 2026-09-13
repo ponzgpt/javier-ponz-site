@@ -12,7 +12,7 @@ export const ui = {
   footerLinks: ['email', 'github', 'linkedin', 'nous application'],
   // terminal
   term: {
-    title: 'javier@aberdeen — ~',
+    title: 'jpp — ~',
     online: 'online',
     hint: 'Type <b>help</b> for what this understands. Everything here is also a normal page — the links below work without it.',
     // fastfetch-style groups — Omarchy Quattro ships fastfetch, not neofetch,

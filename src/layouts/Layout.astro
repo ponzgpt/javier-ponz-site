@@ -79,7 +79,6 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
             <button type="button" role="menuitemradio" data-skin-set={s.id} aria-checked={s.id === defaultSkin}>
               <span class="sw" style={`background:${s.accent};box-shadow:inset 0 0 0 1px ${s.accent2}`}></span>
               <span class="sk-name">{s.name}</span>
-              <span class="sk-note">{s.note}</span>
             </button>
           ))}
         </div>
@@ -248,17 +247,15 @@ a:hover{color:var(--accent);text-decoration:underline}
   background:var(--raised);border:1px solid var(--line);padding:5px;
   display:flex;flex-direction:column;gap:2px;
 }
-.skinmenu a{text-decoration:none}
-.skinmenu button,.skinmenu a{
-  position:relative;display:grid;grid-template-columns:14px 1fr;gap:3px 10px;align-items:center;
+.skinmenu button{
+  position:relative;display:flex;align-items:center;gap:10px;
   background:none;border:0;cursor:pointer;text-align:left;padding:9px 30px 9px 10px;
   color:var(--fg);font-family:inherit;font-size:13px;
 }
-.skinmenu button:hover,.skinmenu a:hover{background:var(--surface)}
+.skinmenu button:hover{background:var(--surface)}
 .skinmenu .sk-name{font-family:var(--font-display)}
-.skinmenu .sk-note{grid-column:2;font-size:11px;color:var(--muted);line-height:1.35}
-.skinmenu button[aria-checked="true"] .sk-name,.skinmenu a[aria-checked="true"] .sk-name{color:var(--accent)}
-.skinmenu button[aria-checked="true"]::after,.skinmenu a[aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:11px;color:var(--accent);font-size:12px}
+.skinmenu button[aria-checked="true"] .sk-name{color:var(--accent)}
+.skinmenu button[aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:12px}
 
 /* the block banner, ramped from accent to accent2 */
 .banner{
