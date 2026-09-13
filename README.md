@@ -2,50 +2,37 @@
 
 Una única referencia pública para el perfil profesional, proyectos, aprendizaje, notas e intereses de Javier Ponz.
 
-## Rutas
+## Estructura
 
-- `/` — overview.
-- `/about` — experiencia y transición.
-- `/timeline` — cronología.
-- `/workbench` — proyectos.
-- `/now` — foco actual.
-- `/agents` — laboratorio de agentes.
-- `/nous-application` — candidatura personal a Nous Research.
-- `/contact` — contacto.
+Una sola página larga (`src/pages/index.astro`), no rutas separadas. Cada
+sección antigua es ahora un `id` con el que navegar por ancla:
 
-## Idiomas
+- `#about` — experiencia y transición.
+- `#timeline` — cronología.
+- `#agents` — laboratorio de agentes.
+- `#projects` / `#case-study` — proyectos y el caso Memento Mori.
+- `#thoughts` — la tesis.
+- `#now` — foco actual.
+- `#contact` — contacto.
 
-El sitio se construye en tres idiomas, cada uno como rutas reales:
+`src/data/routes.mjs` centraliza esos anchors: la prosa usa placeholders como
+`{about}` o `{now}` en vez de rutas escritas a mano.
 
-| Código | Ruta | `<html lang>` |
-|---|---|---|
-| `en` | `/` | `en-US` |
-| `es` | `/es/` | `es-ES` |
-| `zh` | `/zh/` | `zh-Hans` |
+## Idioma
 
-No es un intercambio de texto en el navegador: son 30 páginas estáticas con su
-propio HTML, sus `hreflang` y su contenido rastreable. Eso importa aquí porque
-el primer lector de este sitio suele ser un filtro ATS o un agente, y una
-traducción aplicada con JavaScript es invisible para ambos. El selector de la
-cabecera son enlaces normales a la URL traducida.
-
-El español es peninsular y evita anglicismos a propósito. El chino es simplificado.
+El sitio es solo en inglés. Hubo una versión con inglés/español/chino como
+rutas reales; el sistema de idiomas se retiró (queda en el historial de git si
+hace falta recuperarlo) y `src/data/ui.mjs`, `pages.mjs`, `site.ts` y `cv.mjs`
+son ahora objetos planos, un único idioma, sin capas.
 
 ### Dónde vive el texto
 
-- `src/data/i18n.mjs` — idiomas, cromo compartido (navegación, pie, terminal).
-- `src/data/pages.mjs` — la prosa de cada página, un bloque por idioma.
-- `src/data/site.ts` y `src/data/cv.mjs` — los datos, con capas `es` y `zh` que
-  solo contienen los campos que cambian; `pick()` las funde sobre el inglés.
+- `src/data/ui.mjs` — cromo compartido (navegación, pie, terminal).
+- `src/data/pages.mjs` — la prosa de cada sección.
+- `src/data/site.ts` y `src/data/cv.mjs` — los datos (proyectos, CV, timeline).
 
-El PDF del CV se mantiene **solo en inglés** a propósito: es el documento que
-las empresas reenvían, y una única versión canónica mantiene limpio ese rastro.
-
-### Añadir un idioma
-
-1. Añade el código a `locales` en `src/data/i18n.mjs`.
-2. Añade su columna a `ui`, a `pages.mjs` y a las capas de `site.ts` y `cv.mjs`.
-3. `npm run check:i18n` te dirá exactamente qué falta.
+El PDF del CV se genera desde `src/data/cv.mjs` (`npm run cv:pdf`), así que el
+disclosure de Contact y el PDF no pueden desincronizarse.
 
 ## Skins
 

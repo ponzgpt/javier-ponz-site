@@ -25,7 +25,7 @@ export const profile = [
   'Ten years at Apple Retail across hands-on hardware repair, technical diagnosis, consultative selling and team leadership, now operating open agent systems daily and shipping small software to production.',
   'Best at being the human between people and their machines: translating what the engineer means, what the sale promised, and what the person actually has on their screen. Most support failures are translation failures, not technical ones.',
   'Strongest where systems fail — investigating failure modes, debugging workflows, writing down precisely which assumption broke. Building and overclocking PCs since I was a teenager is where that interest in hardware started.',
-  'I run local inference on my own hardware — llama.cpp serving a dense Qwen3 27B (GGUF, Q6) from an RTX 5090, wired into Hermes Agent — on Arch, Fedora and Omarchy, and I am building a self-hosted homelab on Proxmox. Deliberately unwinding a decade inside a closed platform: off Google, learning OSINT, GrapheneOS next. Privacy and data sovereignty are the point, not a side effect.',
+  'Local inference is my own infrastructure project: two machines meant to serve a quantised open-weights model behind an API, wired into Hermes Agent — currently offline while I rebuild the hardware. Daily driver is Arch, Fedora and Omarchy, and a self-hosted homelab on Proxmox is taking shape alongside it. Deliberately unwinding a decade inside a closed platform: off Google, learning OSINT, GrapheneOS next. Privacy and data sovereignty are the point, not a side effect.',
   'One conviction across every role: leading is serving. A tool, like a lead, is measured by whether the person depending on it ends up with more capacity than they started with.'
 ];
 

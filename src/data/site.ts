@@ -42,18 +42,13 @@ export const projects = [
 export const running = [
   {
     title: 'Hermes Agent', icon: '◉', kind: 'agent harness', status: 'daily', by: 'Nous Research · I operate it',
-    description: 'Scheduled workflows, automations and agents with permission to touch real files. Skills are Markdown I can edit, tools are servers I can read. Wired to a model served from my own GPU.',
+    description: 'Scheduled workflows, automations and agents with permission to touch real files. Skills are Markdown I can edit, tools are servers I can read.',
     url: 'https://github.com/NousResearch/hermes-agent'
   },
   {
     title: 'Omarchy', icon: '⌘', kind: 'operating system', status: 'daily', by: 'Basecamp / DHH · I run it',
     description: 'My daily driver alongside Arch and Fedora. A desktop that expects to be edited rather than tolerated, and the other half of the argument in my thesis: the machine has to be shapeable before an agent can do much with it.',
     url: 'https://omarchy.org'
-  },
-  {
-    title: 'llama.cpp on an RTX 5090', icon: '▧', kind: 'local inference', status: 'daily', by: 'set up and maintained by me',
-    description: 'A dense Qwen3 27B, GGUF at Q6, served from this room as an API and wired into Hermes. Nothing in that loop leaves the house. I have also run Ollama and LM Studio.',
-    url: 'https://github.com/ggml-org/llama.cpp'
   }
 ];
 
