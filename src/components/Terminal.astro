@@ -192,6 +192,9 @@ const data = {
       if (ids.indexOf(arg) < 0) { write(data.s.noSkin + '"' + arg + '"', 'err'); return; }
       document.documentElement.dataset.skin = arg;
       try { localStorage.setItem('jp-skin', arg); } catch (e) {}
+      var url = new URL(location.href);
+      url.searchParams.set('skin', arg);
+      history.replaceState(null, '', url);
       var picker = document.getElementById('skinpicker');
       if (picker) {
         picker.querySelectorAll('[data-skin-set]').forEach(function (b) {
