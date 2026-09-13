@@ -21,6 +21,21 @@ export const person = {
   ]
 };
 
+// The web page (Contact's CV disclosure, the terminal's whoami/cv commands)
+// only ever reads person.headline/location and profile[0]/profile[1] — the
+// rest of this file (shipped/experience/education/skills, profile[2..4])
+// feeds only build-cv-pdf.mjs, and that PDF stays English-only on purpose
+// (see README). So only those four strings get a Spanish counterpart.
+export const personEs = {
+  headline: 'Soporte técnico y customer success · operaciones con agentes · resolución de incidencias técnicas',
+  location: 'Aberdeen, Escocia, Reino Unido'
+};
+
+export const profileEs = [
+  'Diez años en Apple Retail entre reparación práctica de hardware, diagnóstico técnico, venta consultiva y liderazgo de equipos; ahora opero a diario sistemas de agentes abiertos y publico software pequeño en producción.',
+  'Se me da mejor ser la persona entre la gente y sus máquinas: traducir lo que quiere decir el ingeniero, lo que prometió la venta, y lo que la persona realmente tiene en la pantalla. La mayoría de los fallos de soporte son fallos de traducción, no técnicos.'
+];
+
 export const profile = [
   'Ten years at Apple Retail across hands-on hardware repair, technical diagnosis, consultative selling and team leadership, now operating open agent systems daily and shipping small software to production.',
   'Best at being the human between people and their machines: translating what the engineer means, what the sale promised, and what the person actually has on their screen. Most support failures are translation failures, not technical ones.',

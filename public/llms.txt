@@ -19,9 +19,11 @@ stated openly rather than obscured.
 
 One long page at https://javierponz.technoir.cloud/, not separate routes —
 `#about`, `#timeline`, `#agents`, `#projects`, `#case-study`, `#thoughts`,
-`#now` and `#contact` are anchors into it. The CV is at
-https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf, generated from the
-same data as the Contact section.
+`#now` and `#contact` are anchors into it. Also published in Spanish, as a
+full translation rather than a browser-side swap, at
+https://javierponz.technoir.cloud/es/. The CV is at
+https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf (English only),
+generated from the same data as the Contact section.
 
 ## Shipped work
 

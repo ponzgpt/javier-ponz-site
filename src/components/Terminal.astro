@@ -7,9 +7,18 @@
 // complete and readable at rest — with JavaScript off, or for a crawler,
 // this is a normal <pre> full of real text.
 import { projects, running, skillGroups } from '../data/site';
-import { person, profile } from '../data/cv.mjs';
+import { person, profile, personEs, profileEs } from '../data/cv.mjs';
 import { skins } from '../data/skins.mjs';
 import { ui } from '../data/ui.mjs';
+import { locales, pick } from '../data/i18n.mjs';
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const name = person.name;
+const location = lang === 'en' ? person.location : personEs.location;
+const headline = lang === 'en' ? person.headline : personEs.headline;
+const profileLine = lang === 'en' ? profile[1] : profileEs[1];
+const CONTACT_LABEL_ES = { Email: 'Correo', Phone: 'Teléfono', Site: 'Sitio' };
 
 const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
@@ -36,7 +45,7 @@ const boxTop = (title) => {
 };
 const boxBottom = '└' + '─'.repeat(BOX_WIDTH) + '┘';
 
-const groups = ui.term.factGroups.map((g) => ({
+const groups = t.term.factGroups.map((g) => ({
   ...g,
   rows: g.rows.map(([k, v], i) => [
     (i === 0 ? '' : i === g.rows.length - 1 ? '└ └' : '│ ├') + k,
@@ -57,36 +66,36 @@ const factsHtml = groups.map((g) => [
 // string with no whitespace between the two <span> children so nothing sits
 // between them as a stray text node inside the flex row.
 const ffHtml = `<span class="ff"><span class="art">${banner}</span>`
-  + `<span class="ffinfo"><span class="who">${esc(person.name)} — ${esc(person.location)}</span>\n${factsHtml}</span></span>`;
+  + `<span class="ffinfo"><span class="who">${esc(name)} — ${esc(location)}</span>\n${factsHtml}</span></span>`;
 
 // Everything the client-side commands need, and nothing more.
 const data = {
-  name: person.name,
-  location: person.location,
-  headline: person.headline,
-  profile: profile[1],
-  projects: projects.map((x) => ({ t: x.title, k: x.kind, s: x.status, by: x.by, d: x.description, u: x.url })),
-  running: running.map((x) => ({ t: x.title, k: x.kind, by: x.by, d: x.description, u: x.url })),
-  skills: skillGroups.map((g) => ({ g: g.name, items: g.items })),
-  contact: person.contact.filter((c) => !c.private).map((c) => ({ l: c.label, v: c.value, h: c.href })),
-  pages: ui.pages,
+  name, location, headline,
+  profile: profileLine,
+  projects: projects.map((x) => pick(x, lang)).map((x) => ({ t: x.title, k: x.kind, s: x.status, by: x.by, d: x.description, u: x.url })),
+  running: running.map((x) => pick(x, lang)).map((x) => ({ t: x.title, k: x.kind, by: x.by, d: x.description, u: x.url })),
+  skills: skillGroups.map((g) => pick(g, lang)).map((g) => ({ g: g.name, items: g.items })),
+  contact: person.contact.filter((c) => !c.private).map((c) => ({ l: lang === 'es' ? (CONTACT_LABEL_ES[c.label] ?? c.label) : c.label, v: c.value, h: c.href })),
+  pages: t.pages,
   cvPath: '/javier-ponz-prado-cv.pdf',
   skins: skins.map((x) => ({ id: x.id, name: x.name, note: x.note })),
-  help: ui.term.help,
-  s: ui.term.strings
+  langs: locales.map((l) => ({ id: l.code, name: l.name, home: l.code === 'en' ? '/' : `/${l.code}/` })),
+  curLang: lang,
+  help: t.term.help,
+  s: t.term.strings
 };
 ---
 <section class="term-wrap" aria-labelledby="term-title">
   <div class="win">
     <div class="bar">
       <span class="ws"><b>1</b><i></i><i></i></span>
-      <span class="wtitle" id="term-title">{ui.term.title}</span>
-      <span class="wstat"><span class="dot"></span>{ui.term.online}</span>
+      <span class="wtitle" id="term-title">{t.term.title}</span>
+      <span class="wstat"><span class="dot"></span>{t.term.online}</span>
     </div>
     <div class="term" id="term">
       <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">jpp ~ <b>❯</b> fastfetch</span>
 <Fragment set:html={ffHtml} />
-<span class="hint" set:html={ui.term.hint} />
+<span class="hint" set:html={t.term.hint} />
 </pre>
       <form class="line" id="term-form" autocomplete="off">
         <label for="term-in">jpp ~ <b>❯</b></label>
@@ -198,12 +207,27 @@ const data = {
       var picker = document.getElementById('skinpicker');
       if (picker) {
         picker.querySelectorAll('[data-skin-set]').forEach(function (b) {
-          var on = b.dataset.skinSet === arg;
-          b.setAttribute('aria-checked', String(on));
-          if (on) document.getElementById('skin-name').textContent = b.querySelector('.sk-name').textContent;
+          b.setAttribute('aria-checked', String(b.dataset.skinSet === arg));
         });
       }
       write('skin → ' + arg);
+    },
+    lang: function (arg) {
+      var ids = data.langs.map(function (l) { return l.id; });
+      if (!arg) {
+        write(data.s.langsCurrent + data.curLang + ')', 'k');
+        data.langs.forEach(function (l) { write('  ' + pad(l.id, 12) + l.name); });
+        write('');
+        write(data.s.langsHint);
+        return;
+      }
+      if (ids.indexOf(arg) < 0) { write(data.s.noLang + '"' + arg + '"', 'err'); return; }
+      var hit = data.langs.filter(function (l) { return l.id === arg; })[0];
+      var url = new URL(hit.home, location.origin);
+      var curSkin = new URL(location.href).searchParams.get('skin');
+      if (curSkin) url.searchParams.set('skin', curSkin);
+      write('lang → ' + arg + ' …');
+      setTimeout(function () { location.href = url.toString(); }, 220);
     },
     fastfetch: function () { location.reload(); },
     clear: function () { out.textContent = ''; },
@@ -242,10 +266,13 @@ const data = {
     } else if (e.key === 'Tab') {
       e.preventDefault();
       var typed = input.value.trim();
+      var head = typed.split(/\s+/)[0];
       var pool = typed.indexOf(' ') > -1
-        ? (typed.split(/\s+/)[0] === 'skin'
+        ? (head === 'skin'
             ? data.skins.map(function (x) { return 'skin ' + x.id; })
-            : data.pages.map(function (x) { return 'open ' + x[0]; }))
+            : head === 'lang'
+              ? data.langs.map(function (x) { return 'lang ' + x.id; })
+              : data.pages.map(function (x) { return 'open ' + x[0]; }))
         : Object.keys(commands);
       var hits = pool.filter(function (c) { return c.indexOf(typed) === 0; });
       if (hits.length === 1) input.value = hits[0] + ' ';
