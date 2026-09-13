@@ -9,46 +9,34 @@ export const ui = {
   skinLabel: "Change the site's skin",
   status: 'aberdeen, scotland',
   openToWork: 'open to work',
-  footerLinks: ['email', 'github', 'linkedin', 'nous application'],
+  footerLinks: ['email', 'github', 'linkedin'],
   // terminal
   term: {
     title: 'jpp — ~',
     online: 'online',
     hint: 'Type <b>help</b> for what this understands. Everything here is also a normal page — the links below work without it.',
-    // fastfetch-style groups — Omarchy Quattro ships fastfetch, not neofetch,
-    // with output boxed into titled sections (see etc/fastfetch/config.jsonc
-    // in omacom/omarchy). Same shape here, Javier's own values.
+    // Real fastfetch module vocabulary and order (OS/Host/Kernel/Uptime/
+    // Packages/Shell/Display/WM/Theme/Terminal/CPU/GPU/Memory) — one box,
+    // titled like fastfetch's own "user@host" separator rather than an
+    // invented category heading. The humour is in the values, not the labels.
     factGroups: [
       {
-        title: 'Hardware',
+        title: 'jpp@aberdeen',
         color: 'accent2',
         rows: [
-          ['PC', 'Aberdeen, Scotland'],
-          ['CPU', 'Human (1) @ full attention'],
-          ['GPU', 'RTX 5090 — llama.cpp, Qwen3 27B GGUF Q6'],
-          ['Memory', '10 years / always more to learn']
-        ]
-      },
-      {
-        title: 'Software',
-        color: 'accent',
-        rows: [
-          ['OS', 'Omarchy BTW'],
+          ['OS', 'Omarchy'],
+          ['Host', 'Genius Bar, Madrid → homelab, Aberdeen'],
           ['Kernel', 'leading-is-serving 10.0-lts'],
-          ['WM', 'Hyprland'],
-          ['Terminal', 'you are in it'],
-          ['Shell', 'fzf'],
+          ['Uptime', '35 years, still compiling'],
           ['Packages', 'whatever ships (git)'],
-          ['Theme', 'Tokyo Night (Omakase)']
-        ]
-      },
-      {
-        title: 'Uptime / Update',
-        color: 'rainbow-7',
-        rows: [
-          ['OS Age', 'since Aug 2024'],
-          ['Uptime', 'two years on this stack'],
-          ['Update', 'open to support & customer-facing roles']
+          ['Shell', 'fzf'],
+          ['Display', '27" external, plenty of screen time'],
+          ['WM', 'Hyprland'],
+          ['Theme', 'Tokyo Night (Omakase)'],
+          ['Terminal', 'you are in it'],
+          ['CPU', 'Human (1) @ full attention'],
+          ['GPU', '2 × local inference rigs — currently paused'],
+          ['Memory', '10 years / always more to learn']
         ]
       }
     ],

@@ -1,8 +1,8 @@
 # Javier Ponz Prado
 
-> AI systems and agent operations, technical troubleshooting, full stack in
-> progress. Aberdeen, Scotland. Ten years at Apple Retail in technical diagnosis,
-> customer operations and team leadership; now building agent tooling and
+> Technical support, customer-facing engineering and agent operations. Aberdeen,
+> Scotland. Ten years at Apple Retail in hardware repair, technical diagnosis,
+> consultative selling and team leadership; now building agent tooling and
 > shipping small products to production on infrastructure he administers.
 >
 > This file is written for automated readers. Everything in it is also published
@@ -10,40 +10,51 @@
 
 ## Currently
 
-Open to junior developer and AI engineering roles, agent workflow and automation
-work, and technical roles where debugging real systems matters. Founder of
-Machines Do It Better, an early-stage solo practice. Career changer, second year,
+Open to technical support, customer success and customer-facing roles, plus
+junior developer and agent-operations work. Founder of Machines Do It Better,
+an early-stage solo practice — no clients yet. Career changer, second year,
 stated openly rather than obscured.
 
-## Pages
+## The site
 
-- [About](https://javierponz.technoir.cloud/about): background, principle, skills, credentials.
-- [CV](https://javierponz.technoir.cloud/cv) and [CV as PDF](https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf): single-column, text-extractable, generated from the same source as the page.
-- [Workbench](https://javierponz.technoir.cloud/workbench): projects with scope and status stated plainly.
-- [Case study](https://javierponz.technoir.cloud/memento-mori): how one project reached production, and what he would do differently.
-- [Thesis](https://javierponz.technoir.cloud/thesis): why open agent primitives and an editable operating system are converging.
-- [Timeline](https://javierponz.technoir.cloud/timeline) · [Now](https://javierponz.technoir.cloud/now) · [Contact](https://javierponz.technoir.cloud/contact)
+One long page at https://javierponz.technoir.cloud/, not separate routes —
+`#about`, `#timeline`, `#agents`, `#projects`, `#case-study`, `#thoughts`,
+`#now` and `#contact` are anchors into it. The CV is at
+https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf, generated from the
+same data as the Contact section.
 
 ## Shipped work
 
-- [Memento Mori](https://memento.technoir.cloud/) — web application in production; Docker, Traefik, TLS, eight-check release gate. https://github.com/ponzgpt/memento-mori
-- [Hermes PKM Toolkit](https://github.com/ponzgpt/hermes-pkm-toolkit) — MCP server for local Markdown vaults, 34 tests covering path traversal.
-- [The Aberdeen Daily](https://github.com/ponzgpt/aberdeen-daily) — nightly local newspaper agent; figures computed in code, never by the model.
-- [Mental Models Toolkit](https://github.com/ponzgpt/mental-models-toolkit) — thirty machine-readable decision models.
-- [Hermes Agent Site](https://github.com/ponzgpt/hermes-agent-site) — unofficial landing page, 45 unit tests.
+- Memento Mori — web application in production; Docker, Traefik, TLS, an
+  eight-check release gate. https://memento.technoir.cloud/ ·
+  https://github.com/ponzgpt/memento-mori
+- Hermes PKM Toolkit — MCP server for local Markdown vaults, tested against
+  path traversal. https://github.com/ponzgpt/hermes-pkm-toolkit
+- The Aberdeen Daily — nightly local newspaper agent; figures computed in
+  code, never by the model. Fork of vaelkeep/hermes-paper-agent.
+  https://github.com/ponzgpt/aberdeen-daily
+- Mental Models Toolkit — thirty machine-readable decision models.
+  https://github.com/ponzgpt/mental-models-toolkit
+- Hermes Agent Site — unofficial landing page for Hermes Agent.
+  https://github.com/ponzgpt/hermes-agent-site
+- 0TH Hermes — onboarding guide and setup script for Hermes Agent.
+  https://github.com/ponzgpt/0th-hermes
 
-## Runs locally
+## Runs daily, did not write
 
-llama.cpp serving a quantised open-weights model from an RTX 5090 on his own
-machine, exposed as an API and wired into Hermes Agent. Has also run Ollama and
-LM Studio. Separately, and marked as learning rather than capability: vLLM, and
-a self-hosted homelab on Proxmox with a NAS, virtualisation, networking and
-Pi-hole.
+Hermes Agent (Nous Research) and Omarchy (Basecamp/DHH) — operated daily, not
+authored. Local inference is a separate, ongoing infrastructure project: two
+machines meant to serve an open-weights model behind an API, currently offline
+while the hardware is rebuilt. Also building a self-hosted homelab on Proxmox,
+and unwinding a decade inside a closed platform (off Google, OSINT,
+GrapheneOS next).
 
 ## Skills
 
-Hermes Agent, OpenClaw, Model Context Protocol, MCP server development, agent
+Hermes Agent, Model Context Protocol, MCP server development, agent
 workflows, workflow QA, OpenRouter, Docker, Docker Swarm, Dokploy, Traefik,
-nginx, Linux, VPS administration, CI/CD, GitHub Actions, Python, JavaScript,
-TypeScript, Astro, Swift, technical support, failure-mode investigation,
-technical writing, mentoring, team leadership. Spanish native, English C1.
+nginx, Linux (Arch, Fedora, Omarchy), VPS administration, CI/CD, GitHub
+Actions, Python, JavaScript, TypeScript, Astro, technical support, technical
+troubleshooting, failure-mode investigation, technical writing, mentoring,
+team leadership. Studying AI and Full Stack development at Universidad Rey
+Juan Carlos via Racks University (in progress). Spanish native, English C1.

@@ -12,12 +12,12 @@ This site is independent. It does not use the NOUS wordmark, illustrations, prop
 - Courier-style monospace as the editorial voice;
 - manifesto-like hierarchy: large direct headlines, compact uppercase labels and generous negative space;
 - thin rules and rectangular structures instead of gradients, soft cards or decorative shadows;
-- restrained inversion for the `/nous-application` page, preserving its status as a personal application rather than a Nous property;
+- restrained inversion for the separate Nous Research application site (not part of this repo), preserving its status as a personal application rather than a Nous property;
 - a single accent through typography (italic/underline), not a copied brand colour system.
 
 ## Deliberate differences
 
-- the identity is **JAVIER PONZ / FIELD NOTES**, not NOUS;
+- the identity is **JAVIER PONZ**, not NOUS;
 - no NOUS logo, slogan, character illustration or brand asset is reproduced;
 - content remains personal, factual and explicit about gaps;
 - accessibility and responsive behavior take precedence over visual imitation.

@@ -26,8 +26,8 @@ export const pages = {
         'Thousands arrived angry, confused, or holding a dead machine with their only copy of something on it — the technical answer and the useful one are not always the same sentence.',
         'As a lead I ran two stores — opening, closing, events, whatever no procedure covered. Clearing obstacles, not instructions.') },
       { label: 'Now', cls: 'copy', html: '<h2>Technical support and open systems</h2>' + P(
-        'Since Aberdeen, full time on AI: agent workflows, MCP servers, Docker, local GPU inference, my own VPS. Strongest where systems fail — finding what broke, documenting it.',
-        'Same job, different surface. <a href="{thoughts}">My thoughts</a>: the tools worth building hand control back to the person using them.',
+        'Same skill, new surface: diagnosis under pressure, translated for whoever is in front of me — now pointed at agent workflows and infrastructure instead of a dead MacBook. Full time on AI since Aberdeen; what I actually run day to day is on <a href="{now}">Now</a>.',
+        'Strongest where systems fail — finding what broke, documenting it, then saying it plainly. <a href="{thoughts}">My thoughts</a> go further: the tools worth building hand control back to the person using them.',
         'Early in this career and public about it — source, tests, a stated scope. Judge me on what I have shipped.') },
       { label: 'Outside work', cls: 'prose', html: P(
         'Building and overclocking PCs since I was a teenager — same instinct behind the homelab now (Proxmox, GrapheneOS, de-Googling) and this profile\'s Half-Life aesthetic: taking sealed things apart.') }
@@ -53,7 +53,7 @@ export const pages = {
         'Open weights and primitives are practical, not only political — whoever controls them controls how far the agent can help. If not the computer\'s owner, someone else sets the ceiling.',
         'Two things I hold loosely: the winning interface is probably the existing system made addressable, not a chat window; the skill worth having is understanding a system well enough to expose and debug it.') },
       { label: 'Where I am in it', cls: 'prose', html: P(
-        'I run this rather than theorise: Hermes daily, Omarchy as a daily driver, a quantised model on my own GPU, agents in Docker on my own VPS. Conviction from watching them fail.',
+        'I run this rather than theorise it — Hermes daily, Omarchy as a daily driver, agents in Docker on my own VPS. What that stack actually is right now lives on <a href="{now}">Now</a>. Conviction comes from watching it fail and fixing it, not from reading about it.',
         'The work I want is at that seam — making these systems reliable for people who should not have to care how they are built.',
         'Same principle, pointed at a machine instead of a person. <a href="{about}">Leading is serving</a>: measured by whether people depending on it end up with more control than they started with.') }
     ],
@@ -106,11 +106,11 @@ export const pages = {
       { label: 'Omarchy', html: P(
         'My daily driver, alongside Arch and Fedora — a desktop that expects to be edited rather than tolerated. <a href="{thoughts}">Read why</a>: the machine has to be shapeable before an agent can do much with it.') },
       { label: 'Hermes Agent', html: P(
-        'The agent harness I operate daily, built by Nous Research, not by me — scheduled workflows with permission to touch real files, wired to a model on my own GPU.') }
+        'The agent harness I operate daily, built by Nous Research, not by me — scheduled workflows with permission to touch real files.') }
     ],
     focusLabel: 'Current focus',
     cards: [
-      { meta: '01', h3: 'Owning the stack', p: 'Local GPU inference, a Proxmox homelab, moving off Google, OSINT, GrapheneOS next. Slow, inconvenient, not stopping.' },
+      { meta: '01', h3: 'Owning the stack', p: 'Local GPU inference — two rigs offline after a format, rebuilding now — plus a Proxmox homelab, moving off Google, OSINT, GrapheneOS next. Slow, inconvenient, not stopping.' },
       { meta: '02', h3: 'Machines Do It Better', p: 'Early-stage solo practice helping small businesses adopt agentic AI where it genuinely saves time. No clients yet — that is the bet.' }
     ],
     studyLabel: 'Studying', studyH2: 'Depth before theatre.',
