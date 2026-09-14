@@ -50,57 +50,75 @@ const CONTACT_LABEL_ES = { Email: 'Correo', Phone: 'Teléfono', Site: 'Sitio' };
 // extreme left and right are dark hair that falls below the floor, and those
 // blank columns strip off, which would otherwise leave the drawn portrait
 // narrower than its crop. Regenerate with scratchpad/hero7.py.
-const portrait = `                                                      ..:..-........
-                                                    ..::..:..:....::::..
-                                          .....:..::..........       ..:::.
-                                      .... ... . ...                     .::::
-                                   .........   .-=+++**+=::.               ..:-
-                                .:.   .    .:+#@@@@@@@@@@@@@%#+-:.       :.   :-
-                              .:.        :*@@@@@%%%%%@@@@@@@@@@@@%*-.    :+:   ::
-                             .:.      .=%@@@@%%%%%%%%%%%%%%%%@@@@@@@%-    :=. ..::
-                            .. .:    =@@@%%####################%%%%@@@*.  .-. .::=:
-                           .:.::.  .#@@%##*####****################%%@@*:   . ...--:.
-                         ....-... .@@%##**##########################%%%#+.     . :-.:.
-                         .   :.  .@@%#***####****#****##%%%%%######%%%###-  ...+:-==::..
-                        ::. ..  .%@%#*###%%###########%%%########%%%%#**+.  +=-*==++:::-:
-                       .=-:.-.  +@%%#%%%%%@@%####*###%%**####%%%%%%%%+-*+- .==:-:-=+-.:-::.
-                      .--....  .%@@@%####%%%%#**#*#####*#@@@@@@@@@@@@*-*+. ..:..:----..--::-.
-                     .::. ..   -@@@@%#*%%%%#*###%#*#**#*+++=+++=+++*##*+-  .... .::-::..---:=:
-                     :.:  .    +@@%%%%%%%**#++***+=-:....::-====++==--:::    ... .:::::..--::=-
-                    :: .      .-----:::.. ..:-++++=. .-+*##%######%@@@%#+:     .  ..::-::.:==-=-
-                    ::    :=+*#%#######*+:  .-****-.=*++++*+++++++***##%@@*.   .   ..:=+-::-=::--.
-                   .=.  .==%@@@%*+++**+*#%-  :+++: :#*+==++++****###%%%%%%@#   .    .-+*-:. :-:-==
-                   :+. :+.  .-#%%*+**++++**  *@@@*. .-+*#%%%%###**++++++**#%-:.    ..-+=  .:.::-==  .
-                 .:--          .=*#%%**++=- -@@@@@:    .-+-::..  .        .....  .:=-=-- ..--=::--.
-                .-=+:             :-:..    =@@@@@@:              ..::-::..:..  .:.:+*#- .-=+:=+.::-.
-                -==:                      =@@@@%%@+.              .:-=-::..:.     .-+:  :=##-+=:.--=
-               -=:+.         .           .@@@@%%%@@+.              .%@-....:.:   :*=..  ..-+===:.-+=-.
-              :=:-:.         .          .#@@@@@%%%@@=.       ......:##=::::.:*..-*#---  .:.-===:.-++==.
-             ::.=:.   .....  ....      .#@@@@@@@%%#%%=:.     ....:.::::---..+=:::==+-.   ..----:.--+=--
-            .=--=:.  .%%#=+: .::...   .*@@@@@@@@%%%%#*=+-.    ....:-=::::..*#-..:=*-:.    .:=-=-.::-+--.
-           .++--+-  ..%@@++- ::...   :+@%###***#%@@@%++***-.     .:..:.. :*#+:..-+=-.  . ..-==*=..::==-=:
-           :+::--+... :*=:.-....   .=+%+==----=--=#%@#+####*+:.      :.:+@*==. :-+=:...  : =-===:.:-=---=.
-           .-.==:+.    .::.:     .-++#*.:=---=:.  .=*#*#%%%###*+==--==*##++=- .::*:.--.  ::=:--+-..=------
-           ::.+-.-:.       ::.:-+**#%@#. .:::-::...:--+%%%@@%######****++--:. .:-= .:::. -=.:-.:--..:---:-:
-          .-.:*+::::.      +%#####%%@@@*.   .-:.:.::-=#@@%%%%##%%#*****++=-:: :.:- ...-- .:-:==::--::-::--=:
-          :=.:*+:.. .      =#*###%@@%*=:  ..+-.--.:+#@@@@@%%%%%%%%####*+=---: . ::...:.-: ...:=*-:--:::::--=.
-          ::..+=:... .     -##%%%@%%*-+:.-: ..--::-:=#@@@@@%%%%%%%%###*+=+=:.   .-...: ::::+-------::-:-:.-=.
-          :: :--:. ..      :##%%%%%%=:+:-=.   =-.-:.:=#%@@@@@%%%#%%#*#*+++-:    .::......:--=+*+:::::-:-:.--.
-         :-:.:.:=. .       :##%%%%%#-...:::=+-:..:...-=*#%*#%%%%%%%###*++==:     :*=:.--. :-:=---:.::::--.:-:
-         .-:...:-.         .#%%%@%#*+::....:-:....  .=+-+*+**%%%%%%%%#*+*--.     .:.=.=+:...:....:...:--::---
-         .-..  :..       ...*%@#*+=--=:   .   ...........-=+**#%%%%%%*#++-:........-=..--::.:::. ::...:-:::-=:
-         .- ...:.       . ..-%#-==::-. :=++##*####%%#+-.. ..--=#%%%%****=:..:...-:=+-: :.=: .==..::::.--:::++=:
-         :-  .:..        ...-*+-%=:..:#%#%@%@@@%##**####+-....:*@%%#**=+-: :..:---%=...:...:.-=::.-:::-=:====+-:
-        .-::.--.        ....==++#-. -%#*+=-:.::.::-=++*##*-.::-+%%%%*+==::.. .-=*%%=. .-:..:-:==..-:-=-==+----==-
-        :..=---.        . .:=-+#*-.:*###*=-...:.:+-=####*+-::::+#%*+++--... .++#%%*: ..-...:-=+:.:+---+-=--:--=+-.
-       :..-+:::.       . .::-:---=:-+**++=:-::=:-++=+****+=-.::=+-=+=+-:.   -#=#%+=. - .=:. :=+=:+#:---==:-=--:=:
-      ::.++=:::.         ..::.::++-==:--=-==.++.:-**++++=====:--=:-=-*-.....===#+:- :. -*:..:+=**+.:-=-:=-:==--=+.
-    .:: -#*-:::..   .    ..-. .::=:..-+++*=.=%:.-+=#%##*--===---+=--:*- .:..-:+-::..:..-.:-:===+*:::-++:==-:+=:=-=.
-   :-.. +**=-.....  .   .:.:.....:..:++***--@+=-*++*%%@%*+-:--:-====-*: .. .:-+:...:.--..=::=*+=-==:#+=::=*-:+::==-.
- .::... ++--+--.  .   ...:..:....:::-=+*++=%====**+##*#@@#=:--:-=-=---:......--::: ::.:-+ .=-%*.---.++-: .=:-----:=-::
- ...:%: .*==----. .   ..  ..::.. .-:==*+-:*#:---++*+++#%##=-::-==:-...:..... :--.-.:. ..+:.--=+..=-.-+-:-:::.-:-===:-=:
- ---=#. -%==::.::       ....::..:-.==+#---#-:-::=++---*++==-::-=-::.... ......---:+.  ...-:.:-:-:.:::::-=-...---=*:.-==-.
-.=++:-..+@*-:::.:.  .   .. :::::=.:=-*+::=*.:-:=##=---==+-.=..:.:...--.........=+**-..   .::.:.=-.-.:=::=**+--==*-..:--*:`;
+const portrait = `                                           .:.:.......
+                                   ......................
+                               ......  .:...            ..:.
+                            .. ..   .-+#%%%@%*+=:.      .  :.
+                           ..    .-#@@@@@@@@@@@@@@%+:   -:  :.
+                          ...  .+@@@%#####%%###%%%@@@*.  -..:-.
+                        .:.:. -@@%**##***####*######%@#:  ...:-.
+                       ...:  -@%***##**#*###########%%%*.  .::-:.
+                      .: .. :@%*##%%#######%%#######%#*+..=-+=+-::.
+                      --.:  %@%#%#%@%##**####%%@@@@@@++*..-::-==.:-:.
+                     :: .. :@@@%#@%%####*#**+*+*****#*+- ....::-:.:--:
+                    :..    -**++++-==+**=:.::-=+++++++=:   . ..::::----
+                    :   :-=+++++=-. .=**-.=++******##%%%+.  . ..:=-.--:-.
+                   :: :-=#@@#****##. +#= -**+***######%%@%.     -*:..::=-
+                  .=: .   .-*##*+++.:@@@:  :=*=--::::...:-:.  :--= .:----
+                 .==         :-... :@@@@-          ..::...  ..:*+..=+-=.::
+                .-=.      .       .@@@%@%.          =#:..:.. .--. :=+==.:=:
+               .--:.             .#@@@%%@#.     ....=#-::.=:.=*-: ..-==.-+=-
+              .-:-.  --:: ....   #@@@@@%#%+-.   ...:::--.:+::-+=.   :--::-==.
+              -=-=. .%@+=.::.  .*@##**#%@@*+*=.    ..:..-#=..=+: . .:=+:.:-=-.
+             .=:-=-  .=::.   .-**-=---:.=##*#%#+-:...:-*#=: :+-:: ..--==.:=---
+             .:-=:-.   ..:.:=*#%+..::-.  :=*%%%%###****+--..:=.::. -:-:--.:---:
+             -:-+:...   :%##%%@@#.  -::::=+%@%%%#%###*++--...: ..-..::=---:::-=:
+             :.-+:.     .##%%@%+=.:.::-:-=%@@@%%%%%###*==-.  :....::---=:-::::--
+            .:.:-:..    .*%%%@*:--=..::::.=#%%%@%%#%##*+=:   :-....:-=+=:.::-::-
+            .-..:-.     .*%%%%+:...-=...  -=+**#%%%%##*+-.   .--:=:.::.::..:-::-.
+            .:. :.     ..+@#+=--......:::::..:=+*%%%%**+:......=.:--.:: .:..-::=-
+            :: ...     ..-#-+:..=*#%@@@%#%#+-..::#@%#*+=....--*-...:.:=..:::-:-=+-.
+            ::.-.      ..-+**..*%*=-:::--++##+..:+@%#+=:...-+##. :. :-=:.::--==--==.
+           ..---.       :--+=:-#*+-:.::-=+##*=:::+*+++-.  -*#%=...:..-+:-+--=-----=
+          ..=+::.      .::.:+----===:+.-**++===--=---+:...==*=....=..-=*+:-=-=:==-=.
+        .:.:#+-:..     .:...::.-++*:*+:++#%#+=----==-+....:=:...::.-:==+-:=*--=-=--=.
+       .::.:+-=-. .  ........::=+*=*+-=*+##%@*--:--=--:...:-:..:.--.:+*:=:=+:.=------:.
+       ::*:.+=--:.   . ..:: .:-=*--*::-++=+##*-:-=-:.......--::. .-::-=.-::-:-..:-=+:-=.
+      .+=-.:@+::..    ...:.:::=+=:+-::-*+--=+--.:::.::.... .=++.   :..:-:::::++-:-+=.:-+.
+      .+-::.=%:...   ....-=-:+==-:=-.--##-:==.:::. .-:..... .*@*-.....:=+:::.:*@+-+.:::=+
+       :.:+ .-..:.. ..::-==-:#-:-++::--+#=:+:.:-: .:.....:..  =+=:=-:::.=%*=::.+++: .::-=:
+       .: +: :...   ..:-=:--:#-:-=+:---=*=-=..=-.......::.... .+*=+::::..-##+: .:#-..:::.::.
+       :..%..-.-.  ..:-=:=*.:*=-:=-..:::=--:..=:.......:..... :%%%* :-.:. :##=. :%*:=-.:=.::
+      .: +* ::::.....-=-=*- ----.-:...:::-::.:=:.:. ...... .. :=-=: :::-:.=+%*..-%%:--:.==.::
+    ..-::-:.--:  ...:--:*:.::.--.::....::-::.-=..:..............:. .-..=+--+%:. .*@+.:-:.-=.-
+    . .-+#@=-:.  ...==-+--------:....::.-:=..:.::.:.............:..::. .=:-+-.:..:#*=::=:-- .
+    . :@@@%+:... .:-===-:-.-*==-:--..--.:--.::..:.:::...:.......+=:.......-:.::.. -%*..:-:- ..
+    . .+@+-=::.  .:..:..+:-++:=:--:.---:---:==...::::-::-..... :+==:. ... .--:-=. :++--:=++#.:.  .
+    .  .:*:++... .  .:::=======---:-.---::-+-:..:=+--=---.... ..*#*#.-++*=::- .:: .+=::--::%+:-::.
+   ..  ..:..-:.. ....:=-=-:--:: ::.....:-::=-:.:=+**+=-..::..:===#*-:==-=*:-+-.:=.:::.:=-:.-+#%--
+       .:.-:...   . ... ....:. .:. .. ...::.:---=*##=:...:::.+**.:: ..:.:-:.-*.-*:-+#..-:..::-++-.
+      .:..-- ... ......:. ......:+-=+===:::::-=+*+-.....:-.::-+:.:..::-.-+-::=-+*=-#*:::==:::::-=:..
+    ..:.:::: ......  -%*....   .:*#******====+#=:....:::.::.::-..:.:::--.:=.:*-.+*===.=::-::---++-:.
+   ...-+=:..::..... +@= .... ....+#*****+++**+:.-%%@...:..-..:--:- .:::-+=-:==-.-==#%:-=--:-.:.:-:*:
+    ..#=. -+:.::.. .@#  .... ....-******+++=: -@@@%= .-::.:..-----=:.-.:==:.-:. :-+%%=:+##=:::-+*+-:.
+   :=.=+:.-:.::. . +@. ..... ............    +@@= ....:-::::-::..:=+=-:.:=. :+:-.:=*@+.-=**+: ..:-.:.
+  .:....::...:-.. .@- ....... ..........    +@@- ..::::-=-:.::..-*-::-=: =-.:=+-.:-=%+:=-=:-*-.... .--:..
+:== ..-::  . ==.  *# .:::-:=-....:.......  :@@- ..:::.:::.......-%@-. :-:=+..*%: :=+=::+.-*--#=+@: =+..:
+:%%..-..  .:=+.  :@: :+-==:-.#: ....-.    .%@- ..:.......:===.-:..:::.:+-....@-..::=.-====+=.=:.-:..:-. .
+:@@-:=::..:-:.   %* .....:-::@=  ..:-=:.. *@#  ..    . ..-..-::%+..::-+:.:..:+:...--:-=+#**+.-   ....:
+.**....:....  . =@.::    .::.+%..=:......:@@=      ..:-::- ::. :=-:::=*:..-:=+:--:+=-:==+*=.:.          ...
+ :==+. .....   :@-.-==:-=:.  -*#+. ..... *@@:  .:---===:=-.::::. .--==-:.:+*.-.:--%@#=-=**=:=:
+.-:::  .. .:: .@+.::::::-:: .**=..:---...@@@. ::::--==-:=:..---::.:--.:.=%#=. ...-*#%*=:--:  .
+ :. ......  -.*@.::....     #%=..=-:.   -@@@. :::::=----=:  ::....::::..=+.   ..:....:==-::                  .
+ .. .::.:... +@-.:........:=@+:.=:.     #@@% .::::==-:--:-.....:.:..::...:......:=--..-.:=-:.
+-. :::.....::@* .....:-:---#*+ ::.  .. :@@@- :::-==-----.::.::::.-:..=+..::....:.:-:...::-:..
+.. .-::: .:.%@. ...:--::-.-*#..-:..... =@@@. :---==----=-:-..:...:...*#...:::::::.:-...-+-. :=:      ..
+ ...:::. ..=@+ ..:---:-=-:#@=.-:...::. #@@% .:-====:=------+:..::::::-+:.:-=::--.:--.-=...::-=-.  .:
+.. .:::..::@@. ::--::-=:.*%#.::.....:..@@@* :=---==----==:--::.:::-:::-::-=**=::----:.-=-:===:===:         . .
+ ...=..:..%@+ :---:.-=..-%%-.-:....::.-@@@+.:=---==-=-=-=:::-::-:::---:..::--:=:=+--=:--====:=+-=:        ::
+  .==::: +@@. :--::--.::*%#.-:...:-:. +@@@-.-----=-========---::::-:-::::.:::--.:=*--.::=-:-:-=--=:      ..
+. .=:::..@@+ ::-::==..:-%@:.:....-::. #@@@..:--:-::--===--+=:-::-----::--:-==-:..--:--::==-.:--=+=.
+. -:... +@@..::::-=:.::+%# :....:-:. :@@@*.::--:---:-=-:-==---::----::-:::--:::.-=-.-.:::-+=====-     .`;
 
 const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
@@ -126,7 +144,14 @@ const banner = `     ██╗ █████╗ ██╗   ██╗██╗
 // keeps working if either is ever redrawn at another size.
 const bannerCols = Math.max(...banner.split('\n').map((l) => l.length));
 const portraitCols = Math.max(...portrait.split('\n').map((l) => l.length));
-const PORTRAIT_EM = (bannerCols / portraitCols).toFixed(4);
+// The portrait sets the art column's width and the wordmark sits under it at
+// about half scale. Tying the two to the same width instead forced the
+// portrait to be wider than tall, which meant cropping it off at the chin to
+// fit the terminal's fixed height. Both are expressed against the wordmark's
+// natural width so the pair stays in step if either is redrawn.
+const PORTRAIT_SCALE = 0.89;
+const BANNER_SCALE = 0.49;
+const PORTRAIT_EM = (bannerCols * PORTRAIT_SCALE / portraitCols).toFixed(4);
 
 const BOX_WIDTH = 64;
 const boxTop = (title) => {
@@ -161,7 +186,7 @@ const factsHtml = groups.map((g) => [
 // Logo on the left, facts on the right — like fastfetch itself. Built as one
 // string with no whitespace between the two <span> children so nothing sits
 // between them as a stray text node inside the flex row.
-const ffHtml = `<span class="ff"><span class="art" aria-hidden="true"><span class="face" style="font-size:${PORTRAIT_EM}em">${portrait}</span>\n${banner}</span>`
+const ffHtml = `<span class="ff"><span class="art" aria-hidden="true"><span class="face" style="font-size:${PORTRAIT_EM}em">${portrait}</span>\n<span class="mark" style="font-size:${BANNER_SCALE}em">${banner}</span></span>`
   + `<span class="ffinfo">${factsHtml}</span></span>`;
 
 // Everything the client-side commands need, and nothing more.
@@ -337,7 +362,13 @@ const data = {
   // Numbers taken from Javier's actual rig (Ryzen 9 9900X3D, 60.5 GiB RAM,
   // a 1.82 TiB btrfs root, a read-only external mount pinned at 100%) rather
   // than invented, so the simulated monitor at least describes a real machine.
-  var CORES = [61, 35, 78, 19, 8, 52, 44, 27], MEM = 12, START = Date.now();
+  // All 24 threads, not a sample of 8: the terminal is a fixed height now, and
+  // a real btop on this machine fills that height rather than leaving two
+  // thirds of the window empty. Same reason for the GPU and NET boxes below —
+  // btop draws them, and they are the panels a 5090 owner would actually watch.
+  var CORES = [], MEM = 12, VRAM = 34, START = Date.now();
+  for (var ci = 0; ci < 24; ci++) CORES.push(8 + Math.random() * 70);
+  var NET_DOWN = 6.2, NET_UP = 1.1;
   function uptimeStr() {
     var s = Math.floor((Date.now() - START) / 1000);
     return Math.floor(s / 60) + 'm ' + (s % 60) + 's';
@@ -345,34 +376,54 @@ const data = {
   function renderBtopBody() {
     var old = document.getElementById('btop-live');
     CORES = CORES.map(function (c) { return jitter(c, 6); });
-    MEM = jitter(MEM, 3);
-    var coreLines = [];
-    for (var i = 0; i < CORES.length; i += 2) {
-      var left = pad(label('c' + i) + ' ' + bar(CORES[i], 10) + ' ' + Math.round(CORES[i]) + '%', 24);
-      var right = i + 1 < CORES.length ? label('c' + (i + 1)) + ' ' + bar(CORES[i + 1], 10) + ' ' + Math.round(CORES[i + 1]) + '%' : '';
-      coreLines.push(left + right);
+    MEM = jitter(MEM, 3); VRAM = jitter(VRAM, 4);
+    NET_DOWN = Math.max(0.1, jitter(NET_DOWN, 2)); NET_UP = Math.max(0.1, jitter(NET_UP, 0.6));
+    // three columns of eight, which is how btop lays out a core count this high
+    var coreLines = [], PER = 8;
+    for (var i = 0; i < PER; i++) {
+      var row = '';
+      for (var c = 0; c < 3; c++) {
+        var n = c * PER + i;
+        var cell = label((n < 10 ? 'c0' : 'c') + n) + ' ' + bar(CORES[n], 8) + pad(' ' + Math.round(CORES[n]) + '%', 5);
+        row += c < 2 ? pad(cell, 21) : cell;
+      }
+      coreLines.push(row);
     }
     var load = (CORES.reduce(function (a, c) { return a + c; }, 0) / CORES.length / 100).toFixed(2);
-    var cpuBox = box('ryzen 9 9900x3d — load ' + load + ' — up ' + uptimeStr(), 54, coreLines);
-    var memBox = box('mem', 26, [
+    var cpuBox = box('cpu — ryzen 9 9900x3d (24) — load ' + load + ' — up ' + uptimeStr(), 62, coreLines);
+    var gpuTemp = Math.round(jitter(54, 4)), gpuUtil = jitter(VRAM + 18, 8);
+    var gpuBox = box('gpu — rtx 5090', 30, [
+      label('util ') + bar(gpuUtil, 10) + ' ' + Math.round(gpuUtil) + '%',
+      label('vram ') + bar(VRAM, 10) + ' ' + Math.round(VRAM) + '%',
+      label('temp ') + gpuTemp + '°C   ' + label('fan ') + Math.round(jitter(38, 5)) + '%'
+    ]);
+    var netBox = box('net — wlan0', 30, [
+      label('down ') + NET_DOWN.toFixed(1) + ' MiB/s  ' + bar(Math.min(100, NET_DOWN * 8), 6),
+      label('up   ') + NET_UP.toFixed(1) + ' MiB/s  ' + bar(Math.min(100, NET_UP * 20), 6),
+      label('total') + '  412 GiB down / 38 GiB up'
+    ]);
+    var memBox = box('mem', 30, [
       label('total') + '  60.5G',
-      label('used') + '   ' + bar(MEM, 10) + ' ' + Math.round(MEM) + '%',
+      label('used ') + bar(MEM, 10) + ' ' + Math.round(MEM) + '%',
       label('avail') + '  ' + (60.5 * (1 - MEM / 100)).toFixed(1) + 'G'
     ]);
     var rootPct = jitter(4, 1);
-    var disksBox = box('disks', 26, [
-      label('btrfs') + ' ' + bar(rootPct, 10) + ' ' + Math.round(rootPct) + '%',
-      label('iso') + '   ' + bar(100, 10) + ' 100%'
+    var disksBox = box('disks', 30, [
+      label('/    ') + bar(rootPct, 10) + ' ' + Math.round(rootPct) + '%',
+      label('/home') + bar(jitter(31, 2), 10) + ' 31%',
+      label('iso  ') + bar(100, 10) + ' 100%'
     ]);
-    var procBox = box('proc', 54, [
-      tag('box', 'PID    CMD                     CPU%   MEM%'),
-      label('1024') + '   hermes-agent --daemon    ' + jitter(9, 3).toFixed(1) + '    2.1',
-      label('1187') + '   astro dev --host         ' + jitter(3, 2).toFixed(1) + '    1.4',
-      label('2044') + '   ollama serve ' + data.pausedTag + '     0.0    0.0',
-      label('2390') + '   nginx: worker process    ' + jitter(0.6, 0.4).toFixed(1) + '    0.3',
-      label('3102') + '   fzf                      0.1    0.1'
+    var procBox = box('proc', 62, [
+      tag('box', 'PID     CMD                          CPU%    MEM%    USER'),
+      label('1024') + '    hermes-agent --daemon        ' + pad(jitter(9, 3).toFixed(1), 8) + '2.1     javier',
+      label('1187') + '    astro dev --host             ' + pad(jitter(3, 2).toFixed(1), 8) + '1.4     javier',
+      label('1402') + '    hyprland                     ' + pad(jitter(2.2, 1).toFixed(1), 8) + '1.9     javier',
+      label('2044') + '    ollama serve ' + data.pausedTag + pad('', 15 - data.pausedTag.length) + '0.0     0.0     javier',
+      label('2390') + '    nginx: worker process        ' + pad(jitter(0.6, 0.4).toFixed(1), 8) + '0.3     http',
+      label('3102') + '    fzf                          0.1     0.1     javier'
     ]);
-    var html = cpuBox + '\n\n' + sideBySide(memBox, disksBox, 2) + '\n\n' + procBox;
+    var html = cpuBox + '\n\n' + sideBySide(gpuBox, netBox, 2) + '\n\n'
+      + sideBySide(memBox, disksBox, 2) + '\n\n' + procBox;
     var el = old || document.createElement('span');
     el.id = 'btop-live';
     el.innerHTML = html;
@@ -400,21 +451,37 @@ const data = {
     write('');
     var cmd2 = document.createElement('span');
     cmd2.className = 'cmd';
-    cmd2.textContent = 'jpp ~/code/javier-ponz-site ❯ tree -L 2\n';
+    cmd2.textContent = 'jpp ~/code/javier-ponz-site ❯ tree -L 3\n';
     out.appendChild(cmd2);
     writeHtml(accent('javier-ponz-site'));
+    // Three levels rather than two, and the real filenames: the terminal is a
+    // fixed height now, so this is the depth that fills the window — and a
+    // tree of directory names alone tells a reader nothing about the project.
     ['├── src',
       '│   ├── components',
+      '│   │   ├── sections',
+      '│   │   └── Terminal.astro',
       '│   ├── data',
+      '│   │   ├── pages.mjs',
+      '│   │   ├── site.ts',
+      '│   │   ├── skins.mjs',
+      '│   │   └── ui.mjs',
       '│   ├── layouts',
       '│   └── pages',
       '├── public',
+      '│   ├── audio',
+      '│   └── favicon.svg',
       '├── scripts',
-      '└── docs'
+      '├── docs',
+      '└── Dockerfile'
     ].forEach(function (l) {
       var m = l.match(/^([│├└─\s]+)(.*)$/);
-      writeHtml(m ? tag('box', m[1]) + accent(m[2]) : accent(l));
+      var name = m ? m[2] : l;
+      var isDir = name.indexOf('.') === -1;
+      writeHtml(m ? tag('box', m[1]) + (isDir ? accent(name) : label(name)) : accent(name));
     });
+    write('');
+    writeHtml(tag('box', '8 directories, 23 files'));
   }
 
   var RENDER = { '1': renderFastfetch, '2': renderBtop, '3': renderTree };
@@ -656,7 +723,8 @@ const data = {
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   }
   @supports not (background-clip:text){.out .art{-webkit-text-fill-color:currentColor}}
-  .out .face{display:block;white-space:pre;line-height:1}
+  .out .face,
+  .out .mark{display:block;white-space:pre;line-height:1}
   .out .ffinfo{display:block;flex:1;min-width:0}
   .out .k{color:var(--accent2)}
   .out .v{color:var(--fg)}
