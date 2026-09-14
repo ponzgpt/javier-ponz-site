@@ -1,53 +1,77 @@
 ---
-// A fixed music control, bottom-left — squared off to match the terminal
-// window's own chrome (same border, radius and background as .win), not a
-// pill. No Audio element or AudioContext exists until the first click —
+// A fixed music control, bottom-left — a small terminal panel, not a pill:
+// track marquee on top, a gradient/peak-hold VU meter in the middle, CLI-
+// style transport + volume buttons on the bottom row. Colours read from
+// the active skin's own tokens (--accent2 and two --rainbow steps) rather
+// than fixed hex, so it matches Omakase by default and still fits every
+// other skin — same principle the fastfetch card and workspaces already
+// follow. Background is 80% opaque + a blur, so the page shows through
+// slightly instead of sitting as a flat card on top of it.
+//
+// No Audio element or AudioContext exists until the first click —
 // verified that browsers zero out an AnalyserNode fed by a natively muted
 // (or volume=0) element, which is the only way to autoplay without a
-// gesture, so real analysed audio can't play silently pre-click. The bars
-// idle-animate a fake, shaped pattern instead until then: an honest
-// "there's sound here" invitation, not a trick — no audio loads or plays
-// a single sample before the click.
+// gesture, so real analysed audio can't play silently pre-click. The
+// meter idle-animates a fake, shaped pattern instead until then: an
+// honest "there's sound here" invitation, not a trick.
 //
 // Six CC0 tracks (nova head, Suno-generated, sourced from Internet
 // Archive — see the button's title for per-track credit) shuffle on load;
-// next/prev step through that shuffled order, and the last track's `ended`
-// event advances the same way a real player would.
+// prev/next step through that order, and `ended` advances the same way.
 import { ui } from '../data/ui.mjs';
 
 const { lang = 'en' } = Astro.props;
 const t = ui[lang];
 ---
 <div class="music-player">
-  <div class="music-transport">
-    <button type="button" id="musicPrev" class="music-btn music-btn-sm" aria-label={t.musicPrev} title={t.musicPrev}>
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M8 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-        <path d="M17.5 6.75v10.5L8.5 12l9-5.25Z" fill="currentColor" />
-      </svg>
-    </button>
-    <button type="button" id="musicToggle" class="music-btn music-btn-lg" aria-pressed="false"
-            aria-label={t.musicPlay} data-play-label={t.musicPlay} data-mute-label={t.musicMute}>
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path id="musicIconPlay" d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
-        <g id="musicIconPause" style="display:none">
-          <rect x="6.5" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
-          <rect x="14" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
-        </g>
-      </svg>
-    </button>
-    <button type="button" id="musicNext" class="music-btn music-btn-sm" aria-label={t.musicNext} title={t.musicNext}>
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M16 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-        <path d="M6.5 6.75v10.5l9-5.25Z" fill="currentColor" />
-      </svg>
-    </button>
+  <div class="music-row music-row-title">
+    <span class="music-note" aria-hidden="true">♪</span>
+    <div class="music-title-wrap" id="musicTitleWrap">
+      <span class="music-title" id="musicTitle">{t.musicTitle}</span>
+    </div>
   </div>
-  <canvas id="musicEq" width="132" height="32" aria-hidden="true"></canvas>
-  <div class="music-title-wrap" id="musicTitleWrap">
-    <span class="music-title" id="musicTitle">{t.musicTitle}</span>
+
+  <canvas id="musicEq" width="248" height="46" class="music-eq" aria-hidden="true"></canvas>
+
+  <div class="music-row music-row-controls">
+    <div class="music-transport">
+      <button type="button" id="musicPrev" class="music-btn music-btn-sm" aria-label={t.musicPrev} title={t.musicPrev}>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M17.5 6.75v10.5L8.5 12l9-5.25Z" fill="currentColor" />
+        </svg>
+      </button>
+      <button type="button" id="musicToggle" class="music-btn music-btn-lg" aria-pressed="false"
+              aria-label={t.musicPlay} data-play-label={t.musicPlay} data-mute-label={t.musicMute}>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path id="musicIconPlay" d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
+          <g id="musicIconPause" style="display:none">
+            <rect x="6.5" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
+            <rect x="14" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
+          </g>
+        </svg>
+      </button>
+      <button type="button" id="musicNext" class="music-btn music-btn-sm" aria-label={t.musicNext} title={t.musicNext}>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M16 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M6.5 6.75v10.5l9-5.25Z" fill="currentColor" />
+        </svg>
+      </button>
+    </div>
+
+    <span class="music-status" id="musicStatus" aria-hidden="true"></span>
+
+    <div class="music-vol">
+      <button type="button" id="musicVolDown" class="music-btn music-btn-sm" aria-label={t.musicVolDown} title={t.musicVolDown}>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 10H4v4h2M6 10l6-5v14l-6-5" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round" /></svg>
+      </button>
+      <span class="music-vol-bar" aria-hidden="true"><span class="music-vol-fill" id="musicVolFill"></span></span>
+      <span class="music-vol-pct" id="musicVolPct">55%</span>
+      <button type="button" id="musicVolUp" class="music-btn music-btn-sm" aria-label={t.musicVolUp} title={t.musicVolUp}>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 10H4v4h2M6 10l6-5v14l-6-5" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round" /><path d="M17 9a5 5 0 010 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+      </button>
+    </div>
   </div>
-  <input type="range" id="musicVolume" class="music-volume" min="0" max="100" value="55" aria-label={t.musicVolume} />
 </div>
 
 <script is:inline>
@@ -56,8 +80,12 @@ const t = ui[lang];
     var btn = document.getElementById('musicToggle');
     var prevBtn = document.getElementById('musicPrev');
     var nextBtn = document.getElementById('musicNext');
+    var volDownBtn = document.getElementById('musicVolDown');
+    var volUpBtn = document.getElementById('musicVolUp');
+    var volFill = document.getElementById('musicVolFill');
+    var volPct = document.getElementById('musicVolPct');
+    var statusDot = document.getElementById('musicStatus');
     var eq = document.getElementById('musicEq');
-    var volumeSlider = document.getElementById('musicVolume');
     var iconPlay = document.getElementById('musicIconPlay');
     var iconPause = document.getElementById('musicIconPause');
     var titleWrap = document.getElementById('musicTitleWrap');
@@ -65,21 +93,32 @@ const t = ui[lang];
     if (!player || !btn || !eq || !window.AudioContext) return;
     var ctx2d = eq.getContext('2d');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Classic VU-meter colours — deliberately fixed, not skin tokens: each
-    // LED segment is coloured by its own position in the stack (bottom
-    // green, mid yellow, top red), same on every skin, like a real meter.
-    var GREEN = '#4ade80', YELLOW = '#facc15', RED = '#f87171', DIM = 'rgba(255,255,255,.08)';
-    var SEGMENTS = 8, BARS = 12;
+    var BARS = 24;
+
+    // Colours come from the active skin's own tokens — --accent2 for the
+    // low end, two --rainbow steps for mid/high — read fresh whenever the
+    // skin changes, rather than fixed hex. Matches Omakase (Tokyo Night)
+    // by default and still fits every other skin, same as the fastfetch
+    // card and the btop/tree workspaces.
+    var COLOR_LOW = '#9ece6a', COLOR_MID = '#e0af68', COLOR_HIGH = '#f7768e';
+    function refreshColors() {
+      var cs = getComputedStyle(document.documentElement);
+      COLOR_LOW = cs.getPropertyValue('--accent2').trim() || COLOR_LOW;
+      COLOR_MID = cs.getPropertyValue('--rainbow-3').trim() || COLOR_MID;
+      COLOR_HIGH = cs.getPropertyValue('--rainbow-1').trim() || COLOR_HIGH;
+    }
+    refreshColors();
+    new MutationObserver(refreshColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-skin'] });
 
     // CC0 (nova head, Suno-generated) — see archive.org/details/<id> per
     // track for the original upload and its licence statement.
     var TRACKS = [
-      { file: '/audio/crown-of-the-horizon.mp3', title: 'Crown of the Horizon' },
-      { file: '/audio/neon-eyes.mp3', title: 'Neon Eyes' },
-      { file: '/audio/electric-bloom.mp3', title: 'Electric Bloom' },
-      { file: '/audio/digital-dream.mp3', title: 'Digital Dream' },
-      { file: '/audio/signal-void.mp3', title: 'Signal Void' },
-      { file: '/audio/static-crown.mp3', title: 'Static Crown' }
+      { file: '/audio/crown-of-the-horizon.mp3', title: 'Crown of the Horizon', genre: 'Synthwave' },
+      { file: '/audio/neon-eyes.mp3', title: 'Neon Eyes', genre: 'Synthwave' },
+      { file: '/audio/electric-bloom.mp3', title: 'Electric Bloom', genre: 'Synthwave' },
+      { file: '/audio/digital-dream.mp3', title: 'Digital Dream', genre: 'Synthwave' },
+      { file: '/audio/signal-void.mp3', title: 'Signal Void', genre: 'Darksynth' },
+      { file: '/audio/static-crown.mp3', title: 'Static Crown', genre: 'Darksynth' }
     ];
     function shuffle(arr) {
       var a = arr.slice();
@@ -93,26 +132,35 @@ const t = ui[lang];
     var pos = 0, current = TRACKS[order[0]];
 
     var audio = null, actx = null, analyser = null, gain = null, freq = null, raf = null, playing = false;
-    var volume = (parseInt(volumeSlider.value, 10) || 55) / 100;
+    var volume = 0.55;
 
-    // Measures the *single* copy first, only duplicates the text (for the
-    // seamless -50% loop) if it would actually overflow — and waits two
-    // animation frames before measuring, so a font/layout race can't leave
-    // scrollWidth read too early (that was making the marquee silently
-    // never start for some titles).
-    function setTitle(title) {
+    function setVolumeUi() {
+      var pct = Math.round(volume * 100);
+      volFill.style.width = pct + '%';
+      volPct.textContent = pct + '%';
+    }
+    setVolumeUi();
+
+    // Measures the *single* copy of "artist — title (genre)" first, only
+    // duplicating (for the seamless -50% loop) when it would actually
+    // overflow — a double-rAF wait avoids a font/layout race leaving
+    // scrollWidth read too early, and a forced reflow before re-adding the
+    // animation class means it reliably restarts instead of ever freezing
+    // mid-scroll on a track change.
+    function setTitle(track) {
+      var text = 'nova head — ' + track.title + ' (' + track.genre + ')';
       titleWrap.classList.remove('marquee');
-      titleEl.textContent = title;
+      titleEl.textContent = text;
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           if (titleEl.scrollWidth > titleWrap.clientWidth) {
-            titleEl.textContent = title + '   •   ' + title;
-            void titleWrap.offsetWidth; // force reflow before (re)starting the animation
+            titleEl.textContent = text + '     •     ' + text;
+            void titleWrap.offsetWidth;
             titleWrap.classList.add('marquee');
           }
         });
       });
-      btn.title = 'nova head — "' + title + '" (CC0)';
+      btn.title = text + ' — CC0, archive.org';
     }
 
     function build() {
@@ -130,7 +178,7 @@ const t = ui[lang];
       analyser.connect(gain);
       gain.connect(actx.destination);
       audio.src = current.file;
-      setTitle(current.title);
+      setTitle(current);
     }
 
     // dir: +1 next, -1 previous — both just move the shuffled pointer;
@@ -140,7 +188,7 @@ const t = ui[lang];
       if (pos >= order.length) { order = shuffle(TRACKS.map(function (_, i) { return i; })); pos = 0; }
       if (pos < 0) { order = shuffle(TRACKS.map(function (_, i) { return i; })); pos = order.length - 1; }
       current = TRACKS[order[pos]];
-      setTitle(current.title);
+      setTitle(current);
       if (!audio) return;
       audio.src = current.file;
       if (playing) audio.play().catch(function () {});
@@ -152,58 +200,62 @@ const t = ui[lang];
       gain.gain.setValueAtTime(gain.gain.value, now);
       gain.gain.linearRampToValueAtTime(v, now + 0.4);
     }
+    function setVolume(v) {
+      volume = Math.max(0, Math.min(1, v));
+      setVolumeUi();
+      if (playing && gain) gain.gain.value = volume;
+    }
 
-    // Shared renderer: both the real (analyser-driven) and idle (fake,
-    // shaped) states draw the same LED ladder from a 0..1-per-bar array —
-    // browsers zero out the analyser when the source element is natively
-    // muted or volume=0 (verified: that's what autoplay-without-a-click
-    // would require), so there is no way to autoplay real, analysed audio
-    // silently. The idle animation is an honest simulation instead: no
-    // audio ever loads or plays until the click, it just LOOKS alive —
-    // and now shaped/coloured like the real thing, not just a green hum.
-    function renderSegments(values) {
-      var w = eq.width, h = eq.height, gap = 3, bw = (w - gap * (BARS - 1)) / BARS;
-      var segGap = 2, segH = (h - segGap * (SEGMENTS - 1)) / SEGMENTS;
+    // Continuous gradient bars (green→amber→pink, bottom to top) with a
+    // decaying peak-hold dash per bar — not discrete LED squares. Peaks
+    // persist across idle/real so the meter never visually "resets".
+    var peaks = new Array(BARS).fill(0);
+    function renderMeter(values) {
+      var w = eq.width, h = eq.height, gap = 2, bw = (w - gap * (BARS - 1)) / BARS;
       ctx2d.clearRect(0, 0, w, h);
+      var grad = ctx2d.createLinearGradient(0, h, 0, 0);
+      grad.addColorStop(0, COLOR_LOW);
+      grad.addColorStop(0.65, COLOR_MID);
+      grad.addColorStop(1, COLOR_HIGH);
       for (var i = 0; i < BARS; i++) {
-        var lit = Math.max(1, Math.round(values[i] * SEGMENTS));
-        for (var s = 0; s < SEGMENTS; s++) {
-          var y = h - (s + 1) * (segH + segGap) + segGap;
-          var frac = s / SEGMENTS;
-          ctx2d.fillStyle = s < lit ? (frac < 0.5 ? GREEN : frac < 0.8 ? YELLOW : RED) : DIM;
-          ctx2d.fillRect(i * (bw + gap), y, bw, segH);
-        }
+        var v = values[i];
+        peaks[i] = v >= peaks[i] ? v : Math.max(0, peaks[i] - 0.012);
+        var barH = Math.max(1.5, v * h);
+        ctx2d.fillStyle = grad;
+        ctx2d.fillRect(i * (bw + gap), h - barH, bw, barH);
+        var peakY = Math.max(1, h - peaks[i] * h);
+        ctx2d.fillStyle = COLOR_HIGH;
+        ctx2d.fillRect(i * (bw + gap), peakY - 1, bw, 1.4);
       }
     }
     function drawBars() {
       analyser.getByteFrequencyData(freq);
       var values = [];
       for (var i = 0; i < BARS; i++) values.push(freq[Math.floor((i * freq.length) / BARS)] / 255);
-      renderSegments(values);
+      renderMeter(values);
       raf = requestAnimationFrame(drawBars);
     }
     var idleTimer = null, idleT = 0;
-    // A bass-heavy shape (taller on the left, like a real spectrum) plus
-    // per-bar sine oscillation and a little noise — occasionally crosses
-    // into yellow/red on the leading bars, same as genuine playback, not
-    // a flat green hum.
+    // A bass-heavy fake shape (taller on the left, like a real spectrum)
+    // plus per-bar sine oscillation and noise — crosses into amber and
+    // occasional pink on the leading bars, same as genuine playback.
     var idlePhase = new Array(BARS).fill(0).map(function () { return Math.random() * Math.PI * 2; });
-    var idleBase = new Array(BARS).fill(0).map(function (_, i) { return 0.78 - (i / BARS) * 0.5; });
+    var idleBase = new Array(BARS).fill(0).map(function (_, i) { return 0.8 - (i / BARS) * 0.55; });
     function drawIdleAnimated() {
       idleT += 0.12;
       var values = idleBase.map(function (base, i) {
-        var osc = Math.sin(idleT * (1.3 + i * 0.06) + idlePhase[i]) * 0.22;
-        var noise = (Math.random() - 0.5) * 0.12;
-        return Math.max(0.05, Math.min(0.97, base + osc + noise));
+        var osc = Math.sin(idleT * (1.3 + i * 0.05) + idlePhase[i]) * 0.22;
+        var noise = (Math.random() - 0.5) * 0.1;
+        return Math.max(0.04, Math.min(0.98, base + osc + noise));
       });
-      renderSegments(values);
+      renderMeter(values);
       idleTimer = setTimeout(drawIdleAnimated, 110);
     }
     function stopIdle() {
       if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
     }
     function drawFlat() {
-      renderSegments(new Array(BARS).fill(0));
+      renderMeter(new Array(BARS).fill(0));
     }
 
     function play() {
@@ -215,6 +267,7 @@ const t = ui[lang];
       btn.setAttribute('aria-pressed', 'true');
       btn.setAttribute('aria-label', btn.dataset.muteLabel);
       player.classList.add('playing');
+      statusDot.classList.add('playing');
       iconPlay.style.display = 'none'; iconPause.style.display = '';
       stopIdle();
       if (!reduce && !raf) drawBars();
@@ -224,6 +277,7 @@ const t = ui[lang];
       btn.setAttribute('aria-pressed', 'false');
       btn.setAttribute('aria-label', btn.dataset.playLabel);
       player.classList.remove('playing');
+      statusDot.classList.remove('playing');
       iconPlay.style.display = ''; iconPause.style.display = 'none';
       if (gain) rampTo(0);
       if (raf) { cancelAnimationFrame(raf); raf = null; }
@@ -232,15 +286,13 @@ const t = ui[lang];
     // The template's placeholder text is just a guess at what track will
     // load — reflect whichever one shuffling actually picked, immediately,
     // not only once build()/step() first runs from a click.
-    setTitle(current.title);
+    setTitle(current);
     if (reduce) drawFlat(); else drawIdleAnimated();
     btn.addEventListener('click', function () { playing ? mute() : play(); });
     prevBtn.addEventListener('click', function () { step(-1); });
     nextBtn.addEventListener('click', function () { step(1); });
-    volumeSlider.addEventListener('input', function () {
-      volume = volumeSlider.value / 100;
-      if (playing && gain) gain.gain.value = volume;
-    });
+    volDownBtn.addEventListener('click', function () { setVolume(volume - 0.1); });
+    volUpBtn.addEventListener('click', function () { setVolume(volume + 0.1); });
     document.addEventListener('visibilitychange', function () {
       if (!audio) return;
       if (document.hidden && playing) audio.pause();
@@ -252,35 +304,47 @@ const t = ui[lang];
 <style is:global>
   .music-player{
     position:fixed;left:18px;bottom:18px;z-index:15;
-    display:flex;align-items:center;gap:10px;
-    height:52px;padding:0 14px 0 8px;border-radius:10px;
+    display:flex;flex-direction:column;gap:7px;
+    width:272px;padding:10px 12px;border-radius:10px;
     border:2px solid var(--accent2);
-    background:color-mix(in srgb, var(--bg), #000 22%);
+    background:color-mix(in srgb, var(--bg) 80%, transparent);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   }
+  .music-row{display:flex;align-items:center;gap:8px}
+  .music-row-title{gap:6px}
+  .music-note{color:var(--accent2);font-size:13px;flex:none;line-height:1}
+  .music-title-wrap{flex:1;min-width:0;overflow:hidden;position:relative}
+  .music-title{
+    display:inline-block;white-space:nowrap;
+    font-family:var(--font-display);font-size:11.5px;color:var(--accent2);
+  }
+  .music-title-wrap.marquee .music-title{animation:music-marquee 11s linear infinite}
+  @keyframes music-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.music-title-wrap.marquee .music-title{animation:none}}
+  .music-eq{display:block;width:100%;height:46px}
+  .music-row-controls{justify-content:space-between}
   .music-transport{display:flex;align-items:center;gap:5px;flex:none}
-  /* One button family — same shape/radius/colour, play/pause just bigger
-     and filled (primary) while prev/next stay outlined (secondary). */
+  /* One button family — same shape/radius/colour throughout, play/pause
+     just bigger and filled (primary), the rest outlined (secondary). */
   .music-btn{
     display:flex;align-items:center;justify-content:center;flex:none;
     border-radius:6px;cursor:pointer;color:var(--accent2);
   }
-  .music-btn-lg{width:34px;height:34px;background:var(--accent2);color:var(--bg);border:0}
-  .music-btn-lg svg{width:18px;height:18px}
-  .music-btn-sm{width:24px;height:24px;background:none;border:1.5px solid var(--accent2)}
-  .music-btn-sm svg{width:13px;height:13px}
+  .music-btn-lg{width:32px;height:32px;background:var(--accent2);color:var(--bg);border:0}
+  .music-btn-lg svg{width:17px;height:17px}
+  .music-btn-sm{width:22px;height:22px;background:none;border:1.5px solid var(--accent2)}
+  .music-btn-sm svg{width:12px;height:12px}
   .music-btn-sm:hover{background:color-mix(in srgb, var(--accent2), transparent 85%)}
-  .music-player canvas{display:block;flex:none}
-  .music-title-wrap{width:110px;flex:none;overflow:hidden;position:relative}
-  .music-title{
-    display:inline-block;white-space:nowrap;
-    font-family:var(--font-display);font-size:12px;color:var(--fg);
-  }
-  .music-title-wrap.marquee .music-title{animation:music-marquee 9s linear infinite}
-  @keyframes music-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media(prefers-reduced-motion:reduce){.music-title-wrap.marquee .music-title{animation:none}}
-  .music-volume{width:56px;flex:none;accent-color:var(--accent2);cursor:pointer}
+  .music-status{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none}
+  .music-status.playing{background:var(--accent2);box-shadow:0 0 6px var(--accent2)}
+  .music-vol{display:flex;align-items:center;gap:5px;flex:none}
+  .music-vol-bar{width:40px;height:7px;border-radius:3px;background:var(--raised);overflow:hidden;flex:none}
+  .music-vol-fill{display:block;height:100%;background:var(--accent2);width:55%}
+  .music-vol-pct{font-family:var(--font-display);font-size:10px;color:var(--muted);width:26px;flex:none;text-align:right}
   @media(max-width:640px){
-    .music-player{left:10px;bottom:10px;padding-right:10px;gap:6px}
-    .music-title-wrap,.music-volume,.music-btn-sm{display:none}
+    .music-player{width:auto;padding:8px}
+    .music-row-title,.music-status,.music-vol,.music-btn-sm{display:none}
+    .music-eq{width:64px;height:26px}
+    .music-row-controls{justify-content:center}
   }
 </style>
