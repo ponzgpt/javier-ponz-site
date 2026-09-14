@@ -1,37 +1,49 @@
 ---
-// A small fixed music control, bottom-left — same shape as omarchy.org's
-// own: nothing loads or plays until the first click (no Audio element, no
-// AudioContext), so there's no autoplay-with-sound to fight the browser
-// over. Click starts it muted→playing with a gain ramp; click again mutes.
-// A real-time AnalyserNode drives the tiny EQ bars while it's sounding.
+// A fixed music control, bottom-left — big enough to actually notice.
+// Same load pattern as omarchy.org's own: nothing loads or plays until the
+// first click (no Audio element, no AudioContext), so there's no
+// autoplay-with-sound to fight the browser over. Click ramps a GainNode
+// 0→volume and starts an AnalyserNode-driven EQ; click again ramps to 0.
 import { ui } from '../data/ui.mjs';
 
 const { lang = 'en' } = Astro.props;
 const t = ui[lang];
 ---
 <div class="music-player">
-  <button type="button" id="musicToggle" class="music-btn" aria-pressed="false"
+  <button type="button" id="musicToggle" class="music-toggle" aria-pressed="false"
           aria-label={t.musicPlay} title={t.musicCredit}
           data-play-label={t.musicPlay} data-mute-label={t.musicMute}>
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 10v4h3l4 4V6l-4 4H4Z" fill="currentColor" />
-      <path d="M14.5 9.5a4 4 0 010 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-      <path d="M17 7a7 7 0 010 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      <path id="musicIconPlay" d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
+      <g id="musicIconPause" style="display:none">
+        <rect x="6.5" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
+        <rect x="14" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
+      </g>
     </svg>
-    <canvas id="musicEq" width="36" height="16" aria-hidden="true"></canvas>
   </button>
+  <canvas id="musicEq" width="130" height="30" aria-hidden="true"></canvas>
+  <span class="music-title" title={t.musicCredit}>{t.musicTitle}</span>
+  <input type="range" id="musicVolume" class="music-volume" min="0" max="100" value="55" aria-label={t.musicVolume} />
 </div>
 
 <script is:inline>
   (function () {
+    var player = document.querySelector('.music-player');
     var btn = document.getElementById('musicToggle');
     var eq = document.getElementById('musicEq');
-    if (!btn || !eq || !window.AudioContext) return;
+    var volumeSlider = document.getElementById('musicVolume');
+    var iconPlay = document.getElementById('musicIconPlay');
+    var iconPause = document.getElementById('musicIconPause');
+    if (!player || !btn || !eq || !window.AudioContext) return;
     var ctx2d = eq.getContext('2d');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var barColor = getComputedStyle(document.documentElement).getPropertyValue('--accent2').trim() || '#9ece6a';
+    // Classic VU-meter colours — deliberately fixed, not skin tokens: the
+    // green/yellow/red read is the whole point of this effect, same on
+    // every skin, like real hardware meters.
+    var GREEN = '#4ade80', YELLOW = '#facc15', RED = '#f87171';
 
     var audio = null, actx = null, analyser = null, gain = null, freq = null, raf = null, playing = false;
+    var volume = (parseInt(volumeSlider.value, 10) || 55) / 100;
 
     function build() {
       if (audio) return;
@@ -58,13 +70,13 @@ const t = ui[lang];
 
     function drawBars() {
       analyser.getByteFrequencyData(freq);
-      var w = eq.width, h = eq.height, n = 9, bw = w / n;
+      var w = eq.width, h = eq.height, n = 12, gap = 3, bw = (w - gap * (n - 1)) / n;
       ctx2d.clearRect(0, 0, w, h);
-      ctx2d.fillStyle = barColor;
       for (var i = 0; i < n; i++) {
         var v = freq[Math.floor((i * freq.length) / n)] / 255;
         var barH = Math.max(2, v * h);
-        ctx2d.fillRect(i * bw + 1, h - barH, bw - 2, barH);
+        ctx2d.fillStyle = v < 0.45 ? GREEN : v < 0.75 ? YELLOW : RED;
+        ctx2d.fillRect(i * (bw + gap), h - barH, bw, barH);
       }
       raf = requestAnimationFrame(drawBars);
     }
@@ -73,41 +85,59 @@ const t = ui[lang];
       build();
       if (actx.state !== 'running') actx.resume();
       audio.play().catch(function () {});
-      rampTo(0.5);
+      rampTo(volume);
       playing = true;
       btn.setAttribute('aria-pressed', 'true');
       btn.setAttribute('aria-label', btn.dataset.muteLabel);
-      btn.classList.add('playing');
+      player.classList.add('playing');
+      iconPlay.style.display = 'none'; iconPause.style.display = '';
       if (!reduce && !raf) drawBars();
     }
     function mute() {
       playing = false;
       btn.setAttribute('aria-pressed', 'false');
       btn.setAttribute('aria-label', btn.dataset.playLabel);
-      btn.classList.remove('playing');
+      player.classList.remove('playing');
+      iconPlay.style.display = ''; iconPause.style.display = 'none';
       if (gain) rampTo(0);
       if (raf) { cancelAnimationFrame(raf); raf = null; }
       ctx2d.clearRect(0, 0, eq.width, eq.height);
     }
     btn.addEventListener('click', function () { playing ? mute() : play(); });
+    volumeSlider.addEventListener('input', function () {
+      volume = volumeSlider.value / 100;
+      if (playing && gain) gain.gain.value = volume;
+    });
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden && playing) { audio.pause(); }
-      else if (!document.hidden && playing) { audio.play().catch(function () {}); }
+      if (!audio) return;
+      if (document.hidden && playing) audio.pause();
+      else if (!document.hidden && playing) audio.play().catch(function () {});
     });
   })();
 </script>
 
 <style is:global>
-  .music-player{position:fixed;left:16px;bottom:16px;z-index:15}
-  .music-btn{
-    display:inline-flex;align-items:center;gap:7px;
-    height:36px;padding:0 12px;border-radius:18px;
-    background:var(--raised);border:1px solid var(--line);color:var(--muted);
-    cursor:pointer;transition:border-color .15s ease,color .15s ease;
+  .music-player{
+    position:fixed;left:18px;bottom:18px;z-index:15;
+    display:flex;align-items:center;gap:10px;
+    height:52px;padding:0 16px 0 10px;border-radius:26px;
+    background:var(--raised);border:2px solid var(--accent2);
+    box-shadow:0 6px 20px color-mix(in srgb, var(--accent2) 30%, transparent);
   }
-  .music-btn:hover{border-color:var(--accent2);color:var(--fg)}
-  .music-btn.playing{color:var(--accent2);border-color:var(--accent2)}
-  .music-btn svg{width:16px;height:16px;flex:none}
-  .music-btn canvas{display:block;flex:none}
-  @media(max-width:700px){.music-player{left:10px;bottom:10px}}
+  .music-toggle{
+    display:flex;align-items:center;justify-content:center;flex:none;
+    width:34px;height:34px;border-radius:50%;
+    background:var(--accent2);color:var(--bg);border:0;cursor:pointer;
+  }
+  .music-toggle svg{width:18px;height:18px}
+  .music-player canvas{display:block;flex:none}
+  .music-title{
+    font-family:var(--font-display);font-size:12px;color:var(--fg);
+    white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis;
+  }
+  .music-volume{width:64px;flex:none;accent-color:var(--accent2);cursor:pointer}
+  @media(max-width:640px){
+    .music-player{left:10px;bottom:10px;padding-right:10px;gap:7px}
+    .music-title,.music-volume{display:none}
+  }
 </style>

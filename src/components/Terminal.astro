@@ -181,7 +181,7 @@ const data = {
   // simulated tools (btop, tree) built from the same `data` every other
   // command reads from, so they can't drift from the real project list.
   var wsButtons = document.querySelectorAll('.ws[data-ws]');
-  var CMD_ECHO = { '1': 'fastfetch', '2': 'btop', '3': 'tree -L 1 ~/code' };
+  var CMD_ECHO = { '1': 'fastfetch', '2': 'btop', '3': 'ls -la ~/code' };
   var btopInterval = null;
 
   function box(title, width, rows) {
@@ -191,6 +191,17 @@ const data = {
     var bottom = '└' + '─'.repeat(width) + '┘';
     var body = rows.map(function (r) { return '│ ' + pad(r, width - 2) + '│'; }).join('\n');
     return top + '\n' + body + '\n' + bottom;
+  }
+  // Two boxes of possibly different height, joined line-by-line — real
+  // btop tiles MEM/DISKS/PROC side by side rather than stacking them.
+  function sideBySide(a, b, gap) {
+    gap = ' '.repeat(gap || 2);
+    var al = a.split('\n'), bl = b.split('\n');
+    var aw = Math.max.apply(null, al.map(function (s) { return s.length; }));
+    var n = Math.max(al.length, bl.length);
+    var out2 = [];
+    for (var i = 0; i < n; i++) out2.push(pad(al[i] || '', aw) + gap + (bl[i] || ''));
+    return out2.join('\n');
   }
   function bar(pct, width) {
     width = width || 21;
@@ -210,22 +221,45 @@ const data = {
     out.appendChild(hintEl);
   }
 
-  var CORES = [61, 35, 78, 19], MEM = 71;
+  // A btop-style layout: one CPU box with a two-column core grid (real
+  // btop's own convention once you have more than 4-6 cores), then MEM and
+  // DISKS tiled side by side, then PROC — same shape as the actual Omarchy
+  // Quattro desktop, not just a single flat box.
+  var CORES = [61, 35, 78, 19, 8, 52, 44, 27], MEM = 71, START = Date.now();
+  function uptimeStr() {
+    var s = Math.floor((Date.now() - START) / 1000);
+    return Math.floor(s / 60) + 'm ' + (s % 60) + 's';
+  }
   function renderBtopBody() {
     var old = document.getElementById('btop-live');
     CORES = CORES.map(function (c) { return jitter(c, 6); });
     MEM = jitter(MEM, 3);
-    var cpuRows = CORES.map(function (c, i) { return 'core' + i + '  ' + bar(c) + '  ' + Math.round(c) + '%'; });
-    var memRows = ['used   ' + bar(MEM) + '  ' + Math.round(MEM) + '%   ' + (MEM / 100 * 16).toFixed(1) + 'G / 16.0G'];
-    var procRows = [
-      'PID    CMD                       CPU%   MEM%',
-      '1024   hermes-agent --daemon      ' + jitter(9, 3).toFixed(1) + '    2.1',
-      '1187   astro dev --host           ' + jitter(3, 2).toFixed(1) + '    1.4',
-      '2044   ollama serve ' + data.pausedTag + '       0.0    0.0',
-      '2390   nginx: worker process      ' + jitter(0.6, 0.4).toFixed(1) + '    0.3',
-      '3102   fzf                        0.1    0.1'
-    ];
-    var html = box('CPU', 60, cpuRows) + '\n\n' + box('MEM', 60, memRows) + '\n\n' + box('PROC', 60, procRows);
+    var coreLines = [];
+    for (var i = 0; i < CORES.length; i += 2) {
+      var left = pad('c' + i + ' ' + bar(CORES[i], 10) + ' ' + Math.round(CORES[i]) + '%', 24);
+      var right = i + 1 < CORES.length ? 'c' + (i + 1) + ' ' + bar(CORES[i + 1], 10) + ' ' + Math.round(CORES[i + 1]) + '%' : '';
+      coreLines.push(left + right);
+    }
+    var load = (CORES.reduce(function (a, c) { return a + c; }, 0) / CORES.length / 100).toFixed(2);
+    var cpuBox = box('cpu — load ' + load + ' — up ' + uptimeStr(), 54, coreLines);
+    var memBox = box('mem', 26, [
+      'total  16.0G',
+      'used   ' + bar(MEM, 10) + ' ' + Math.round(MEM) + '%',
+      'avail  ' + (16 * (1 - MEM / 100)).toFixed(1) + 'G'
+    ]);
+    var disksBox = box('disks', 26, [
+      'root  ' + bar(jitter(38, 3), 10) + ' ' + Math.round(jitter(38, 3)) + '%',
+      'home  ' + bar(jitter(64, 3), 10) + ' ' + Math.round(jitter(64, 3)) + '%'
+    ]);
+    var procBox = box('proc', 54, [
+      'PID    CMD                     CPU%   MEM%',
+      '1024   hermes-agent --daemon    ' + jitter(9, 3).toFixed(1) + '    2.1',
+      '1187   astro dev --host         ' + jitter(3, 2).toFixed(1) + '    1.4',
+      '2044   ollama serve ' + data.pausedTag + '     0.0    0.0',
+      '2390   nginx: worker process    ' + jitter(0.6, 0.4).toFixed(1) + '    0.3',
+      '3102   fzf                      0.1    0.1'
+    ]);
+    var html = cpuBox + '\n\n' + sideBySide(memBox, disksBox, 2) + '\n\n' + procBox;
     var el = old || document.createElement('span');
     el.id = 'btop-live';
     el.textContent = html;
@@ -235,19 +269,36 @@ const data = {
     renderBtopBody();
   }
 
+  // A two-command filesystem view, like Omarchy's own file manager + tree
+  // pane: a coloured `ls -la` of the real repos first, then a real `tree`
+  // of this very site's own layout underneath.
   function folderName(url) { return url.split('/').pop(); }
   function renderTree() {
     var items = data.projects.map(function (p) { return { name: folderName(p.u), tag: p.s }; });
     items.push({ name: 'javier-ponz-site', tag: data.treeThisSite });
-    write('~/code');
-    items.forEach(function (it, i) {
-      var branch = i === items.length - 1 ? '└── ' : '├── ';
-      write(branch + it.name + '  [' + it.tag + ']');
+    write('Permissions  Size  User     Name');
+    items.forEach(function (it) {
+      write('drwxr-xr-x   -     javier   ' + pad(it.name + '/', 25) + '[' + it.tag + ']');
     });
     write('');
     var hintEl = document.createElement('span');
-    hintEl.innerHTML = data.treeHint;
+    hintEl.innerHTML = data.treeHint + '\n';
     out.appendChild(hintEl);
+    write('');
+    var cmd2 = document.createElement('span');
+    cmd2.className = 'cmd';
+    cmd2.textContent = 'jpp ~/code/javier-ponz-site ❯ tree -L 2\n';
+    out.appendChild(cmd2);
+    ['javier-ponz-site',
+      '├── src',
+      '│   ├── components',
+      '│   ├── data',
+      '│   ├── layouts',
+      '│   └── pages',
+      '├── public',
+      '├── scripts',
+      '└── docs'
+    ].forEach(function (l) { write(l); });
   }
 
   var RENDER = { '1': renderFastfetch, '2': renderBtop, '3': renderTree };

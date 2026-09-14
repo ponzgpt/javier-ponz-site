@@ -339,7 +339,7 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
 }
 *{box-sizing:border-box}
 html{background:var(--bg);color:var(--fg);font-family:var(--font-body);scroll-behavior:smooth}
-body{margin:0;line-height:1.6;font-size:calc(15.5px * var(--scale,1));background:var(--bg)}
+body{margin:0;line-height:1.6;font-size:calc(15.5px * var(--scale,1));background:var(--bg);overflow-x:hidden}
 a{color:inherit;text-decoration-color:var(--accent2);text-underline-offset:3px}
 a:hover{color:var(--accent);text-decoration:underline}
 ::selection{background:color-mix(in srgb, var(--accent) 30%, var(--bg));color:var(--fg)}
@@ -429,14 +429,23 @@ a:hover{color:var(--accent);text-decoration:underline}
 .kicker,.label{font-family:var(--font-display);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2)}
 .label::before{content:"\25CF ";color:var(--accent)}
 
-/* Omarchy's own trick for full-bleed section bands inside a fixed-width
-   column: box-shadow spread paints past an element's edges without adding
-   to its layout size (no wrapper divs, no scroll risk), so alternating
-   shades replace the old border-top rule between sections. .landing (the
-   terminal + tagline block) is exempt — it gets its own interactive
-   background below — so the rhythm starts fresh right after it. */
-main > section:not(.landing):nth-of-type(even){box-shadow:0 0 0 100vw var(--raised)}
-main > section:not(.landing):nth-of-type(odd){box-shadow:0 0 0 100vw var(--bg)}
+/* Full-bleed section bands inside a fixed-width column, alternating shades
+   instead of the old border-top rule. A box-shadow-spread version of this
+   shipped first but Safari visibly mis-sized very large spreads — this is
+   the standard, cross-browser-safe trick instead: a ::before pinned to the
+   section's own top/bottom (so it can never drift from the section's real
+   extent) and centred at 100vw via left:50%/translateX(-50%). `isolation`
+   gives each section its own stacking context so z-index:-1 only tucks the
+   pseudo behind that section's own text, never under an earlier sibling's.
+   .landing (the terminal + tagline block) is exempt — it gets its own
+   interactive background below — so the rhythm starts fresh right after it. */
+main > section:not(.landing){position:relative;isolation:isolate}
+main > section:not(.landing)::before{
+  content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;
+  transform:translateX(-50%);z-index:-1;
+}
+main > section:not(.landing):nth-of-type(even)::before{background:var(--raised)}
+main > section:not(.landing):nth-of-type(odd)::before{background:var(--bg)}
 
 /* The landing block: a soft glow that follows the cursor (JS sets --mx/--my
    on pointer move), same spirit as omarchy.org's reactive hero — skipped

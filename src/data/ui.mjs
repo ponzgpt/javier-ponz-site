@@ -21,6 +21,8 @@ const EN = {
   musicPlay: 'Play ambient music',
   musicMute: 'Mute',
   musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
+  musicTitle: 'Crown of the Horizon',
+  musicVolume: 'Volume',
   // terminal
   term: {
     title: 'jpp — ~',
@@ -130,6 +132,8 @@ const ES = {
   musicPlay: 'Reproducir música ambiental',
   musicMute: 'Silenciar',
   musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
+  musicTitle: 'Crown of the Horizon',
+  musicVolume: 'Volumen',
   term: {
     title: 'jpp — ~',
     online: 'en línea',
