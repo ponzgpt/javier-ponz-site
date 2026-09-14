@@ -159,12 +159,23 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: 
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (reduce.matches) return;
 
-      var CELL = 5.76; // 4.8 * 1.2 — 20% bigger again
+      /* The four grids are different shapes (13x13 up to 22x22), so a fixed
+         cell size would render them at wildly different sizes — the lambda
+         nearly twice the Omarchy mark. Derive the cell from a target for the
+         longest side instead, so every sprite occupies the same box. Phones
+         get a smaller, slower one: the desktop size is a fifth of a 390px
+         screen, and the desktop speed crosses it in about five seconds. */
+      function metrics() {
+        var small = innerWidth <= 760;
+        return { target: small ? 46 : 78, base: small ? 30 : 50.4, spread: small ? 18 : 31.2 };
+      }
+      var M = metrics();
 
       function build(id) {
         var s = sprites[id];
         if (!s) return null;
         var w = s.grid[0].length, h = s.grid.length;
+        var CELL = M.target / Math.max(w, h);
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
         svg.setAttribute('width', w * CELL);
@@ -201,7 +212,7 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: 
           document.body.appendChild(wrap);
           x = Math.random() * Math.max(1, innerWidth - b.w);
           y = Math.random() * Math.max(1, innerHeight - b.h);
-          var speed = 50.4 + Math.random() * 31.2; // px/s — 20% faster again
+          var speed = M.base + Math.random() * M.spread; // px/s
           var angle = Math.random() * Math.PI * 2;
           vx = Math.cos(angle) * speed;
           vy = Math.sin(angle) * speed;
@@ -221,6 +232,24 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: 
       function bounce() {
         if (!mount(document.documentElement.dataset.skin)) return;
         document.addEventListener('jp:skin', function (e) { mount(e.detail); });
+
+        /* Crossing the desktop/mobile threshold (rotating a phone, resizing a
+           window) has to resize the sprite and rescale its speed, or it stays
+           at whichever size the page happened to load at. */
+        var resizeTimer;
+        addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            var next = metrics();
+            if (next.target === M.target) return;
+            var scaled = (next.base + next.spread / 2) / (M.base + M.spread / 2);
+            vx *= scaled; vy *= scaled;
+            M = next;
+            mount(document.documentElement.dataset.skin);
+            x = Math.min(x, Math.max(0, innerWidth - built.w));
+            y = Math.min(y, Math.max(0, innerHeight - built.h));
+          }, 150);
+        });
 
         function tick(now) {
           var dt = Math.min(0.05, (now - last) / 1000);
@@ -616,12 +645,18 @@ a.row:hover h3{color:var(--accent)}
    the transform origin it translates from. */
 .spren{
   position:fixed;top:0;left:0;z-index:1;pointer-events:auto;
-  opacity:.67;
+  opacity:.8;
   will-change:transform;
 }
 .spren a{display:block;cursor:pointer}
-.spren svg{display:block;filter:drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));transition:filter .2s}
-.spren:hover svg{filter:drop-shadow(0 0 18px var(--accent2)) drop-shadow(0 0 8px var(--accent2))}
+.spren svg{display:block;transition:filter .2s;animation:spren-pulse 9s ease-in-out infinite}
+/* Most of the cycle sits at the resting glow and then flares briefly, so the
+   sprite catches the eye now and then instead of throbbing continuously. */
+@keyframes spren-pulse{
+  0%,82%,100%{filter:drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent))}
+  91%{filter:drop-shadow(0 0 17px var(--accent2)) drop-shadow(0 0 7px var(--accent2))}
+}
+.spren:hover svg{animation:none;filter:drop-shadow(0 0 18px var(--accent2)) drop-shadow(0 0 8px var(--accent2))}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .spren{display:none}
