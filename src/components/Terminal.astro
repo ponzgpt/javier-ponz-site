@@ -53,22 +53,17 @@ const groups = t.term.factGroups.map((g) => ({
     v
   ])
 }));
-// Icons replace the word, not the alignment: prefix (3 chars) + one icon
-// glyph, padded to a fixed column — same job pad() did for text labels,
-// just a constant width now that every "label" is a single glyph.
-const KEYW = 6;
+// Icon *and* word — icon-only read worse than the plain label it replaced,
+// so the key column is now "prefix + icon + label", padded as one string
+// the same way the plain-text labels were before.
+const keyOf = (prefix, k) => `${prefix}${fastfetchIcons[k] ?? '•'} ${k}`;
+const KEYW = Math.max(...groups.flatMap((g) => g.rows.map(([prefix, k]) => keyOf(prefix, k).length))) + 2;
 const pad = (s, w) => s + ' '.repeat(Math.max(1, w - s.length));
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const factsHtml = groups.map((g) => [
   `<span class="box">${esc(boxTop(g.title))}</span>`,
-  g.rows.map(([prefix, k, v]) => {
-    const icon = fastfetchIcons[k] ?? '•';
-    return `<span class="k" style="color:var(--${g.color})" title="${esc(k)}">`
-      + `<span aria-hidden="true">${esc(pad(prefix + icon, KEYW))}</span>`
-      + `<span class="sr-only">${esc(k)} </span></span>`
-      + `<span class="v">${esc(v)}</span>`;
-  }).join('\n'),
+  g.rows.map(([prefix, k, v]) => `<span class="k" style="color:var(--${g.color})">${esc(pad(keyOf(prefix, k), KEYW))}</span><span class="v">${esc(v)}</span>`).join('\n'),
   `<span class="box">${esc(boxBottom)}</span>`
 ].join('\n')).join('\n\n');
 
@@ -111,6 +106,7 @@ const data = {
 </pre>
       <form class="line" id="term-form" autocomplete="off">
         <label for="term-in">jpp ~ <b>❯</b></label>
+        <span class="cursor" aria-hidden="true"></span>
         <input id="term-in" name="c" type="text" spellcheck="false" autocapitalize="off"
                aria-describedby="term-title" placeholder="help" />
       </form>
@@ -349,6 +345,13 @@ const data = {
   .line{display:flex;align-items:baseline;gap:9px;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
   .line label{color:var(--muted);font-size:13px;white-space:nowrap}
   .line label b{color:var(--accent)}
+  /* Blinks until the line gets focus, to invite the first click — a real
+     caret takes over once the input is actually active. */
+  .cursor{width:8px;height:15px;flex:none;align-self:center;background:var(--accent)}
+  .line:not(:focus-within) .cursor{animation:term-cursor-blink 1s step-end infinite}
+  .line:focus-within .cursor{display:none}
+  @keyframes term-cursor-blink{50%{opacity:0}}
+  @media(prefers-reduced-motion:reduce){.cursor{animation:none}}
   .line input{
     flex:1;min-width:0;background:none;border:0;outline:none;
     color:var(--fg);font:inherit;font-size:13px;caret-color:var(--accent);

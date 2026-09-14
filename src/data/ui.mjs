@@ -18,7 +18,7 @@ const EN = {
   term: {
     title: 'jpp — ~',
     online: 'online',
-    hint: 'Type <b>help</b> for what this understands — or skip it, the whole site below works the same without it.',
+    hint: 'Type <b>help</b> to see what this understands.',
     // The real category boxes Javier's own fastfetch prints (Hardware /
     // Software / Age·Uptime·Update) — confirmed against an actual screenshot
     // of his terminal, not guessed. Same three boxes, same field order, our
@@ -117,7 +117,7 @@ const ES = {
   term: {
     title: 'jpp — ~',
     online: 'en línea',
-    hint: 'Escribe <b>help</b> para ver qué entiende esta terminal — o ignórala, el resto del sitio funciona igual sin ella.',
+    hint: 'Escribe <b>help</b> para ver qué entiende esta terminal.',
     factGroups: [
       {
         title: 'Hardware',
