@@ -198,3 +198,28 @@ const ES = {
 };
 
 export const ui = { en: EN, es: ES };
+
+// Icons for the terminal's fastfetch card, keyed by the (language-invariant)
+// field label. Real fastfetch uses Nerd Font glyphs, which render as blank
+// boxes without that font installed — nearly every visitor here. These are
+// plain Unicode (Geometric Shapes / Miscellaneous Technical), the same
+// blocks the site's own project icons (➤▣⌁▤◈▦◉⌘) already use successfully,
+// so no new font dependency and no risk of missing glyphs.
+export const fastfetchIcons = {
+  OS: '⌘',
+  Host: '⌂',
+  Kernel: '⚙',
+  WM: '⊞',
+  Shell: '❯',
+  Terminal: '◫',
+  Packages: '▥',
+  Theme: '◐',
+  CPU: '▧',
+  GPU: '◆',
+  Display: '▭',
+  Disk: '▨',
+  Memory: '◧',
+  'OS Age': '◷',
+  Uptime: '◔',
+  Update: '↻'
+};
