@@ -20,9 +20,9 @@ export const pages = {
     en: {
       title: 'Javier Ponz — technical support & agent operations',
       desc: 'Javier Ponz — people-first technical problem solver. Ten years at Apple Retail, now building agent tooling and small products that reach production.',
-      kicker: 'Javier Ponz — technical support · agent operations · open systems',
+      kicker: 'Meat-proxy · human-in-the-loop · slop provider',
       tagline: 'People-first ', taglineSerif: 'technical problem solver', taglineEnd: '.',
-      lede: 'Ten years diagnosing hard problems at Apple Retail. Now applying the same discipline to agent workflows, tools and small products that reach production.',
+      lede: 'Ten years diagnosing hard problems at Apple Retail. Now applying the same principles to agent workflows, tools and small products that reach production.',
       support: 'I work where people and technical systems meet: find what broke, explain it plainly, and make the next step workable.',
       ctas: [
         { href: '{projects}', label: 'See the work' },
@@ -32,9 +32,9 @@ export const pages = {
     es: {
       title: 'Javier Ponz — soporte técnico y operaciones con agentes',
       desc: 'Javier Ponz — resuelvo problemas técnicos pensando primero en las personas. Diez años en Apple Retail, ahora construyendo herramientas para agentes y productos pequeños que llegan a producción.',
-      kicker: 'Javier Ponz — soporte técnico · operaciones con agentes · sistemas abiertos',
+      kicker: 'Meat-proxy · human-in-the-loop · slop provider',
       tagline: 'Resuelvo problemas técnicos ', taglineSerif: 'pensando primero en las personas', taglineEnd: '.',
-      lede: 'Diez años diagnosticando problemas difíciles en Apple Retail. Ahora aplico esa misma disciplina a flujos con agentes, herramientas y productos pequeños que llegan a producción.',
+      lede: 'Diez años diagnosticando problemas difíciles en Apple Retail. Ahora aplico esos mismos principios a flujos con agentes, herramientas y productos pequeños que llegan a producción.',
       support: 'Trabajo donde se tocan las personas y los sistemas técnicos: encontrar qué se ha roto, explicarlo con claridad, y dejar el siguiente paso al alcance.',
       ctas: [
         { href: '{projects}', label: 'Ver el trabajo' },
@@ -46,7 +46,9 @@ export const pages = {
   /* ─────────────────────────────────────────────────────────── about ── */
   about: {
     en: {
-      kicker: '01 / About', h1: 'The machine should be ', serif: 'shapeable', h1end: ' by the person living in it.',
+      kicker: '01 / About', h1: 'The machine should be ', serif: 'shaped',
+      serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
+      h1end: ' by the needs of the person that commands it.',
       lede: 'I am interested in the space between people and their machines: how agents, open-source tools and editable systems can give ordinary users more control instead of handing more of it to large corporations.',
       sections: [
         { label: 'Background', cls: 'copy', html: '<h2>Ten years between people and their machines.</h2>' + P(
@@ -60,7 +62,9 @@ export const pages = {
       ]
     },
     es: {
-      kicker: '01 / Perfil', h1: 'La máquina debería ser ', serif: 'moldeable', h1end: ' por quien vive dentro de ella.',
+      kicker: '01 / Perfil', h1: 'La máquina debería estar ', serif: 'moldeada',
+      serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
+      h1end: ' por las necesidades de quien la gobierna.',
       lede: 'Me interesa el espacio entre las personas y sus máquinas: cómo los agentes, las herramientas de código abierto y los sistemas editables pueden darle más control a la gente corriente en vez de entregárselo a las grandes corporaciones.',
       sections: [
         { label: 'Trayectoria', cls: 'copy', html: '<h2>Diez años entre las personas y sus máquinas.</h2>' + P(
