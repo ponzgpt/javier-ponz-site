@@ -20,6 +20,30 @@ const headline = lang === 'en' ? person.headline : personEs.headline;
 const profileLine = lang === 'en' ? profile[1] : profileEs[1];
 const CONTACT_LABEL_ES = { Email: 'Correo', Phone: 'Teléfono', Site: 'Sitio' };
 
+// A quadrant-block rendering of Javier's sketch portrait, sitting above the
+// wordmark so the art column carries roughly the same visual weight as the
+// three info boxes beside it — the balance real fastfetch has and this did
+// not, when a short wide wordmark left the left half mostly empty.
+// Generated once from nousresearch-application/javier-sketch.jpg; Block
+// Elements only, the same range the wordmark below already uses.
+const portrait = `                  ▗▄▗▄▖
+              ▗▟█▀▀▀▀▀▜▙▄
+             ▗█▛       ▀█ ▝
+            ▗██ ▗▖▗▖   ▐█▙▟▄
+            ▟█▙▄▄▘▐███▛▜▛███▌
+           ▗████▌ ▖▝▀▀▀▝▗███
+            ██▛ ▟██▖     ███▖  ▖
+           ▟██▙▟▀▚▞▀▀▌  ▟████▀▞▐▘
+           ▝████▖▜▘  ▗▗▟█▌▜█▌▞ ▟▖
+          ▐▙████ █▘ ███████▝█▌▗▐▄
+          ▀████▚▟██▄██████▙▟█▌ █▘▗▌
+          ▐▜██▙▟█████▛▀▀ ████▛▜▛▟▌ ▗
+         ▗▘███████▛▘     ▜████▄▛ ▜▛▘
+         ▗█▟████▛█▘▗▄▞▀█▄▟▙█▀▚▝█▖▝▙
+         ▟████▘▛ █▙▀▘ ▐▛▀▀▀▚▛▗██▀
+        ▝▜███▌▞ ▗█▌ ▝     ▟▞▘▗▌▝  ▞
+        ▗▘▟▀ ▝  ▝▛         ▜`;
+
 const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
      ██║███████║██║   ██║██║█████╗  ██████╔╝
@@ -72,7 +96,7 @@ const factsHtml = groups.map((g) => [
 // Logo on the left, facts on the right — like fastfetch itself. Built as one
 // string with no whitespace between the two <span> children so nothing sits
 // between them as a stray text node inside the flex row.
-const ffHtml = `<span class="ff"><span class="art">${banner}</span>`
+const ffHtml = `<span class="ff"><span class="art" aria-hidden="true">${portrait}\n\n${banner}</span>`
   + `<span class="ffinfo"><span class="who">${esc(name)} — ${esc(location)}</span>\n${factsHtml}</span></span>`;
 
 // Everything the client-side commands need, and nothing more.
