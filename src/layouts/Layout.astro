@@ -241,7 +241,10 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
       var raf = null, mx = '50%', my = '15%';
       el.addEventListener('pointermove', function (e) {
         var r = el.getBoundingClientRect();
-        mx = ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%';
+        // The glow's background lives on a full-viewport-wide ::before now
+        // (see .landing::before), so its horizontal coordinate space is the
+        // viewport, not this element's own (narrower) box.
+        mx = (e.clientX / window.innerWidth * 100).toFixed(1) + '%';
         my = ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%';
         if (raf) return;
         raf = requestAnimationFrame(function () {
@@ -451,8 +454,10 @@ main > section:not(.landing):nth-of-type(odd)::before{background:var(--bg)}
    on pointer move), same spirit as omarchy.org's reactive hero — skipped
    under reduced-motion, where the plain --bg already set as the base layer
    is all that shows. */
-.landing{
-  position:relative;
+.landing{position:relative;isolation:isolate}
+.landing::before{
+  content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;
+  transform:translateX(-50%);z-index:-1;
   background:
     radial-gradient(760px circle at var(--mx,50%) var(--my,15%), color-mix(in srgb, var(--accent) 30%, transparent), transparent 65%),
     var(--bg);
