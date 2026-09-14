@@ -5,26 +5,44 @@
 // verified that browsers zero out an AnalyserNode fed by a natively muted
 // (or volume=0) element, which is the only way to autoplay without a
 // gesture, so real analysed audio can't play silently pre-click. The bars
-// idle-animate a fake, randomised pattern instead until then: an honest
+// idle-animate a fake, shaped pattern instead until then: an honest
 // "there's sound here" invitation, not a trick — no audio loads or plays
-// a single sample before the click. A small CC0 playlist shuffles on load
-// and advances on `ended` once it does — no single track loops forever.
+// a single sample before the click.
+//
+// Six CC0 tracks (nova head, Suno-generated, sourced from Internet
+// Archive — see the button's title for per-track credit) shuffle on load;
+// next/prev step through that shuffled order, and the last track's `ended`
+// event advances the same way a real player would.
 import { ui } from '../data/ui.mjs';
 
 const { lang = 'en' } = Astro.props;
 const t = ui[lang];
 ---
 <div class="music-player">
-  <button type="button" id="musicToggle" class="music-toggle" aria-pressed="false"
-          aria-label={t.musicPlay} data-play-label={t.musicPlay} data-mute-label={t.musicMute}>
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path id="musicIconPlay" d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
-      <g id="musicIconPause" style="display:none">
-        <rect x="6.5" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
-        <rect x="14" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
-      </g>
-    </svg>
-  </button>
+  <div class="music-transport">
+    <button type="button" id="musicPrev" class="music-btn music-btn-sm" aria-label={t.musicPrev} title={t.musicPrev}>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M8 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M17.5 6.75v10.5L8.5 12l9-5.25Z" fill="currentColor" />
+      </svg>
+    </button>
+    <button type="button" id="musicToggle" class="music-btn music-btn-lg" aria-pressed="false"
+            aria-label={t.musicPlay} data-play-label={t.musicPlay} data-mute-label={t.musicMute}>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path id="musicIconPlay" d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
+        <g id="musicIconPause" style="display:none">
+          <rect x="6.5" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
+          <rect x="14" y="5.5" width="4" height="13" rx="1" fill="currentColor" />
+        </g>
+      </svg>
+    </button>
+    <button type="button" id="musicNext" class="music-btn music-btn-sm" aria-label={t.musicNext} title={t.musicNext}>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M16 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M6.5 6.75v10.5l9-5.25Z" fill="currentColor" />
+      </svg>
+    </button>
+  </div>
   <canvas id="musicEq" width="132" height="32" aria-hidden="true"></canvas>
   <div class="music-title-wrap" id="musicTitleWrap">
     <span class="music-title" id="musicTitle">{t.musicTitle}</span>
@@ -36,6 +54,8 @@ const t = ui[lang];
   (function () {
     var player = document.querySelector('.music-player');
     var btn = document.getElementById('musicToggle');
+    var prevBtn = document.getElementById('musicPrev');
+    var nextBtn = document.getElementById('musicNext');
     var eq = document.getElementById('musicEq');
     var volumeSlider = document.getElementById('musicVolume');
     var iconPlay = document.getElementById('musicIconPlay');
@@ -51,13 +71,15 @@ const t = ui[lang];
     var GREEN = '#4ade80', YELLOW = '#facc15', RED = '#f87171', DIM = 'rgba(255,255,255,.08)';
     var SEGMENTS = 8, BARS = 12;
 
-    // A few similarly-styled CC0 tracks (nova head, Suno-generated) rather
-    // than one loop forever — shuffled on load, next one plays on `ended`.
+    // CC0 (nova head, Suno-generated) — see archive.org/details/<id> per
+    // track for the original upload and its licence statement.
     var TRACKS = [
       { file: '/audio/crown-of-the-horizon.mp3', title: 'Crown of the Horizon' },
       { file: '/audio/neon-eyes.mp3', title: 'Neon Eyes' },
       { file: '/audio/electric-bloom.mp3', title: 'Electric Bloom' },
-      { file: '/audio/digital-dream.mp3', title: 'Digital Dream' }
+      { file: '/audio/digital-dream.mp3', title: 'Digital Dream' },
+      { file: '/audio/signal-void.mp3', title: 'Signal Void' },
+      { file: '/audio/static-crown.mp3', title: 'Static Crown' }
     ];
     function shuffle(arr) {
       var a = arr.slice();
@@ -73,12 +95,22 @@ const t = ui[lang];
     var audio = null, actx = null, analyser = null, gain = null, freq = null, raf = null, playing = false;
     var volume = (parseInt(volumeSlider.value, 10) || 55) / 100;
 
+    // Measures the *single* copy first, only duplicates the text (for the
+    // seamless -50% loop) if it would actually overflow — and waits two
+    // animation frames before measuring, so a font/layout race can't leave
+    // scrollWidth read too early (that was making the marquee silently
+    // never start for some titles).
     function setTitle(title) {
-      titleEl.textContent = title + '   •   ' + title;
       titleWrap.classList.remove('marquee');
+      titleEl.textContent = title;
       requestAnimationFrame(function () {
-        var single = titleEl.scrollWidth / 2;
-        if (single > titleWrap.clientWidth) titleWrap.classList.add('marquee');
+        requestAnimationFrame(function () {
+          if (titleEl.scrollWidth > titleWrap.clientWidth) {
+            titleEl.textContent = title + '   •   ' + title;
+            void titleWrap.offsetWidth; // force reflow before (re)starting the animation
+            titleWrap.classList.add('marquee');
+          }
+        });
       });
       btn.title = 'nova head — "' + title + '" (CC0)';
     }
@@ -87,7 +119,7 @@ const t = ui[lang];
       if (audio) return;
       audio = new Audio();
       audio.preload = 'none';
-      audio.addEventListener('ended', nextTrack);
+      audio.addEventListener('ended', function () { step(1); });
       actx = new AudioContext();
       analyser = actx.createAnalyser();
       analyser.fftSize = 64;
@@ -101,12 +133,16 @@ const t = ui[lang];
       setTitle(current.title);
     }
 
-    function nextTrack() {
-      pos++;
+    // dir: +1 next, -1 previous — both just move the shuffled pointer;
+    // going past either end reshuffles rather than repeating the same order.
+    function step(dir) {
+      pos += dir;
       if (pos >= order.length) { order = shuffle(TRACKS.map(function (_, i) { return i; })); pos = 0; }
+      if (pos < 0) { order = shuffle(TRACKS.map(function (_, i) { return i; })); pos = order.length - 1; }
       current = TRACKS[order[pos]];
-      audio.src = current.file;
       setTitle(current.title);
+      if (!audio) return;
+      audio.src = current.file;
       if (playing) audio.play().catch(function () {});
     }
 
@@ -118,12 +154,13 @@ const t = ui[lang];
     }
 
     // Shared renderer: both the real (analyser-driven) and idle (fake,
-    // randomised) states draw the same LED ladder from a 0..1 array —
+    // shaped) states draw the same LED ladder from a 0..1-per-bar array —
     // browsers zero out the analyser when the source element is natively
     // muted or volume=0 (verified: that's what autoplay-without-a-click
     // would require), so there is no way to autoplay real, analysed audio
     // silently. The idle animation is an honest simulation instead: no
-    // audio ever loads or plays until the click, it just LOOKS alive.
+    // audio ever loads or plays until the click, it just LOOKS alive —
+    // and now shaped/coloured like the real thing, not just a green hum.
     function renderSegments(values) {
       var w = eq.width, h = eq.height, gap = 3, bw = (w - gap * (BARS - 1)) / BARS;
       var segGap = 2, segH = (h - segGap * (SEGMENTS - 1)) / SEGMENTS;
@@ -145,15 +182,22 @@ const t = ui[lang];
       renderSegments(values);
       raf = requestAnimationFrame(drawBars);
     }
-    var idleTimer = null;
-    var idleVals = new Array(BARS).fill(0).map(function () { return 0.1 + Math.random() * 0.15; });
+    var idleTimer = null, idleT = 0;
+    // A bass-heavy shape (taller on the left, like a real spectrum) plus
+    // per-bar sine oscillation and a little noise — occasionally crosses
+    // into yellow/red on the leading bars, same as genuine playback, not
+    // a flat green hum.
+    var idlePhase = new Array(BARS).fill(0).map(function () { return Math.random() * Math.PI * 2; });
+    var idleBase = new Array(BARS).fill(0).map(function (_, i) { return 0.78 - (i / BARS) * 0.5; });
     function drawIdleAnimated() {
-      for (var i = 0; i < BARS; i++) {
-        idleVals[i] += (Math.random() - 0.5) * 0.22;
-        idleVals[i] = Math.max(0.06, Math.min(0.55, idleVals[i]));
-      }
-      renderSegments(idleVals);
-      idleTimer = setTimeout(drawIdleAnimated, 170);
+      idleT += 0.12;
+      var values = idleBase.map(function (base, i) {
+        var osc = Math.sin(idleT * (1.3 + i * 0.06) + idlePhase[i]) * 0.22;
+        var noise = (Math.random() - 0.5) * 0.12;
+        return Math.max(0.05, Math.min(0.97, base + osc + noise));
+      });
+      renderSegments(values);
+      idleTimer = setTimeout(drawIdleAnimated, 110);
     }
     function stopIdle() {
       if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
@@ -185,8 +229,14 @@ const t = ui[lang];
       if (raf) { cancelAnimationFrame(raf); raf = null; }
       if (reduce) drawFlat(); else if (!idleTimer) drawIdleAnimated();
     }
+    // The template's placeholder text is just a guess at what track will
+    // load — reflect whichever one shuffling actually picked, immediately,
+    // not only once build()/step() first runs from a click.
+    setTitle(current.title);
     if (reduce) drawFlat(); else drawIdleAnimated();
     btn.addEventListener('click', function () { playing ? mute() : play(); });
+    prevBtn.addEventListener('click', function () { step(-1); });
+    nextBtn.addEventListener('click', function () { step(1); });
     volumeSlider.addEventListener('input', function () {
       volume = volumeSlider.value / 100;
       if (playing && gain) gain.gain.value = volume;
@@ -207,12 +257,18 @@ const t = ui[lang];
     border:2px solid var(--accent2);
     background:color-mix(in srgb, var(--bg), #000 22%);
   }
-  .music-toggle{
+  .music-transport{display:flex;align-items:center;gap:5px;flex:none}
+  /* One button family — same shape/radius/colour, play/pause just bigger
+     and filled (primary) while prev/next stay outlined (secondary). */
+  .music-btn{
     display:flex;align-items:center;justify-content:center;flex:none;
-    width:34px;height:34px;border-radius:6px;
-    background:var(--accent2);color:var(--bg);border:0;cursor:pointer;
+    border-radius:6px;cursor:pointer;color:var(--accent2);
   }
-  .music-toggle svg{width:18px;height:18px}
+  .music-btn-lg{width:34px;height:34px;background:var(--accent2);color:var(--bg);border:0}
+  .music-btn-lg svg{width:18px;height:18px}
+  .music-btn-sm{width:24px;height:24px;background:none;border:1.5px solid var(--accent2)}
+  .music-btn-sm svg{width:13px;height:13px}
+  .music-btn-sm:hover{background:color-mix(in srgb, var(--accent2), transparent 85%)}
   .music-player canvas{display:block;flex:none}
   .music-title-wrap{width:110px;flex:none;overflow:hidden;position:relative}
   .music-title{
@@ -222,9 +278,9 @@ const t = ui[lang];
   .music-title-wrap.marquee .music-title{animation:music-marquee 9s linear infinite}
   @keyframes music-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media(prefers-reduced-motion:reduce){.music-title-wrap.marquee .music-title{animation:none}}
-  .music-volume{width:60px;flex:none;accent-color:var(--accent2);cursor:pointer}
+  .music-volume{width:56px;flex:none;accent-color:var(--accent2);cursor:pointer}
   @media(max-width:640px){
-    .music-player{left:10px;bottom:10px;padding-right:10px;gap:7px}
-    .music-title-wrap,.music-volume{display:none}
+    .music-player{left:10px;bottom:10px;padding-right:10px;gap:6px}
+    .music-title-wrap,.music-volume,.music-btn-sm{display:none}
   }
 </style>
