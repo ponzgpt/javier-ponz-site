@@ -147,15 +147,19 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
   <MusicPlayer lang={lang} />
 
   <script is:inline define:vars={{ sprites }}>
-    /* Each skin has a pixel character that crosses the screen occasionally
-       while you scroll. Built as SVG rects from the grid in skins.mjs, animated
-       with a single CSS transform so it stays on the compositor, and skipped
-       entirely for anyone who asked for reduced motion. */
+    /* Each skin has a pixel character that bounces around the viewport,
+       DVD-logo style — independent of scrolling now, not triggered by it.
+       Built as SVG rects from the grid in skins.mjs, position driven by a
+       single rAF loop (transform only, stays on the compositor), and
+       skipped entirely for anyone who asked for reduced motion. It floats
+       for a while, then disappears for a stretch (~10s, jittered) before
+       coming back elsewhere — so it's a occasional detail, not a constant
+       distraction. */
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (reduce.matches) return;
 
-      var CELL = 4, last = 0, flying = false;
+      var CELL = 4.8; // 4 * 1.2 — 20% bigger
 
       function build(id) {
         var s = sprites[id];
@@ -178,39 +182,50 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
             svg.appendChild(r);
           }
         }
-        return svg;
+        return { svg: svg, w: w * CELL, h: h * CELL };
       }
 
-      function fly() {
-        if (flying) return;
-        var svg = build(document.documentElement.dataset.skin);
-        if (!svg) return;
-        flying = true;
+      function bounceSession() {
+        var built = build(document.documentElement.dataset.skin);
+        if (!built) { scheduleNext(); return; }
         var wrap = document.createElement('div');
         wrap.className = 'spren';
-        wrap.style.top = (12 + Math.random() * 62) + 'vh';
-        wrap.style.setProperty('--dur', (5.5 + Math.random() * 2.5) + 's');
-        wrap.style.setProperty('--bob', (14 + Math.random() * 22) + 'px');
-        wrap.appendChild(svg);
+        wrap.appendChild(built.svg);
         document.body.appendChild(wrap);
-        wrap.addEventListener('animationend', function (e) {
-          if (e.animationName !== 'spren-cross') return;
-          wrap.remove(); flying = false;
-        });
+
+        var x = Math.random() * Math.max(1, innerWidth - built.w);
+        var y = Math.random() * Math.max(1, innerHeight - built.h);
+        var speed = 42 + Math.random() * 26; // px/s — medium, not frantic
+        var angle = Math.random() * Math.PI * 2;
+        var vx = Math.cos(angle) * speed, vy = Math.sin(angle) * speed;
+        var last = performance.now();
+        var visibleFor = 15000 + Math.random() * 10000; // ~15-25s afloat
+        var elapsed = 0, raf;
+
+        function tick(now) {
+          var dt = Math.min(0.05, (now - last) / 1000);
+          last = now;
+          elapsed += dt * 1000;
+          x += vx * dt; y += vy * dt;
+          var maxX = innerWidth - built.w, maxY = innerHeight - built.h;
+          if (x <= 0) { x = 0; vx = Math.abs(vx); }
+          else if (x >= maxX) { x = maxX; vx = -Math.abs(vx); }
+          if (y <= 0) { y = 0; vy = Math.abs(vy); }
+          else if (y >= maxY) { y = maxY; vy = -Math.abs(vy); }
+          wrap.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+          if (elapsed < visibleFor) raf = requestAnimationFrame(tick);
+          else { wrap.remove(); scheduleNext(); }
+        }
+        raf = requestAnimationFrame(tick);
       }
 
-      var ticking = false;
-      addEventListener('scroll', function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          ticking = false;
-          var now = Date.now();
-          if (now - last < 16000) return;
-          last = now;
-          fly();
-        });
-      }, { passive: true });
+      function scheduleNext() {
+        // ~10s, jittered (arbitrary rather than a metronome) so the gap
+        // doesn't read as a fixed, predictable interval.
+        var gap = 10000 + (Math.random() * 6000 - 3000);
+        setTimeout(bounceSession, gap);
+      }
+      scheduleNext();
     })();
   </script>
 
@@ -569,20 +584,15 @@ a.row:hover h3{color:var(--accent)}
   .sb span{display:block;margin-bottom:6px}
 }
 /* the skin's pixel character, crossing the screen */
+/* Position (translate) is driven entirely by the bounce script's rAF loop
+   now, not a CSS keyframe crossing the screen once — top/left:0 is just
+   the transform origin it translates from. */
 .spren{
-  position:fixed;left:0;z-index:1;pointer-events:none;
+  position:fixed;top:0;left:0;z-index:1;pointer-events:none;
+  opacity:.67;
   will-change:transform;
-  animation:spren-cross var(--dur,6s) linear forwards, spren-bob 1.6s ease-in-out infinite alternate;
 }
 .spren svg{display:block;filter:drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent))}
-@keyframes spren-cross{
-  from{transform:translateX(-90px)}
-  to{transform:translateX(calc(100vw + 90px))}
-}
-@keyframes spren-bob{
-  from{margin-top:calc(var(--bob,18px) * -1)}
-  to{margin-top:var(--bob,18px)}
-}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .spren{display:none}
