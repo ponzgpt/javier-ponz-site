@@ -1,9 +1,10 @@
 ---
-// A fixed music control, bottom-left — big enough to actually notice.
-// Same load pattern as omarchy.org's own: nothing loads or plays until the
-// first click (no Audio element, no AudioContext), so there's no
-// autoplay-with-sound to fight the browser over. Click ramps a GainNode
-// 0→volume and starts an AnalyserNode-driven EQ; click again ramps to 0.
+// A fixed music control, bottom-left — squared off to match the terminal
+// window's own chrome (same border, radius and background as .win), not a
+// pill. Same load pattern as omarchy.org's own: nothing loads or plays
+// until the first click (no Audio element, no AudioContext), so there's no
+// autoplay-with-sound to fight the browser over. A small CC0 playlist
+// shuffles on load and advances on `ended` — no single track loops forever.
 import { ui } from '../data/ui.mjs';
 
 const { lang = 'en' } = Astro.props;
@@ -11,8 +12,7 @@ const t = ui[lang];
 ---
 <div class="music-player">
   <button type="button" id="musicToggle" class="music-toggle" aria-pressed="false"
-          aria-label={t.musicPlay} title={t.musicCredit}
-          data-play-label={t.musicPlay} data-mute-label={t.musicMute}>
+          aria-label={t.musicPlay} data-play-label={t.musicPlay} data-mute-label={t.musicMute}>
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path id="musicIconPlay" d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />
       <g id="musicIconPause" style="display:none">
@@ -21,8 +21,10 @@ const t = ui[lang];
       </g>
     </svg>
   </button>
-  <canvas id="musicEq" width="130" height="30" aria-hidden="true"></canvas>
-  <span class="music-title" title={t.musicCredit}>{t.musicTitle}</span>
+  <canvas id="musicEq" width="132" height="32" aria-hidden="true"></canvas>
+  <div class="music-title-wrap" id="musicTitleWrap">
+    <span class="music-title" id="musicTitle">{t.musicTitle}</span>
+  </div>
   <input type="range" id="musicVolume" class="music-volume" min="0" max="100" value="55" aria-label={t.musicVolume} />
 </div>
 
@@ -34,22 +36,54 @@ const t = ui[lang];
     var volumeSlider = document.getElementById('musicVolume');
     var iconPlay = document.getElementById('musicIconPlay');
     var iconPause = document.getElementById('musicIconPause');
+    var titleWrap = document.getElementById('musicTitleWrap');
+    var titleEl = document.getElementById('musicTitle');
     if (!player || !btn || !eq || !window.AudioContext) return;
     var ctx2d = eq.getContext('2d');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Classic VU-meter colours — deliberately fixed, not skin tokens: the
-    // green/yellow/red read is the whole point of this effect, same on
-    // every skin, like real hardware meters.
-    var GREEN = '#4ade80', YELLOW = '#facc15', RED = '#f87171';
+    // Classic VU-meter colours — deliberately fixed, not skin tokens: each
+    // LED segment is coloured by its own position in the stack (bottom
+    // green, mid yellow, top red), same on every skin, like a real meter.
+    var GREEN = '#4ade80', YELLOW = '#facc15', RED = '#f87171', DIM = 'rgba(255,255,255,.08)';
+    var SEGMENTS = 8, BARS = 12;
+
+    // A few similarly-styled CC0 tracks (nova head, Suno-generated) rather
+    // than one loop forever — shuffled on load, next one plays on `ended`.
+    var TRACKS = [
+      { file: '/audio/crown-of-the-horizon.mp3', title: 'Crown of the Horizon' },
+      { file: '/audio/neon-eyes.mp3', title: 'Neon Eyes' },
+      { file: '/audio/electric-bloom.mp3', title: 'Electric Bloom' },
+      { file: '/audio/digital-dream.mp3', title: 'Digital Dream' }
+    ];
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+    var order = shuffle(TRACKS.map(function (_, i) { return i; }));
+    var pos = 0, current = TRACKS[order[0]];
 
     var audio = null, actx = null, analyser = null, gain = null, freq = null, raf = null, playing = false;
     var volume = (parseInt(volumeSlider.value, 10) || 55) / 100;
 
+    function setTitle(title) {
+      titleEl.textContent = title + '   •   ' + title;
+      titleWrap.classList.remove('marquee');
+      requestAnimationFrame(function () {
+        var single = titleEl.scrollWidth / 2;
+        if (single > titleWrap.clientWidth) titleWrap.classList.add('marquee');
+      });
+      btn.title = 'nova head — "' + title + '" (CC0)';
+    }
+
     function build() {
       if (audio) return;
-      audio = new Audio('/audio/crown-of-the-horizon.mp3');
-      audio.loop = true;
+      audio = new Audio();
       audio.preload = 'none';
+      audio.addEventListener('ended', nextTrack);
       actx = new AudioContext();
       analyser = actx.createAnalyser();
       analyser.fftSize = 64;
@@ -59,6 +93,17 @@ const t = ui[lang];
       actx.createMediaElementSource(audio).connect(analyser);
       analyser.connect(gain);
       gain.connect(actx.destination);
+      audio.src = current.file;
+      setTitle(current.title);
+    }
+
+    function nextTrack() {
+      pos++;
+      if (pos >= order.length) { order = shuffle(TRACKS.map(function (_, i) { return i; })); pos = 0; }
+      current = TRACKS[order[pos]];
+      audio.src = current.file;
+      setTitle(current.title);
+      if (playing) audio.play().catch(function () {});
     }
 
     function rampTo(v) {
@@ -70,15 +115,31 @@ const t = ui[lang];
 
     function drawBars() {
       analyser.getByteFrequencyData(freq);
-      var w = eq.width, h = eq.height, n = 12, gap = 3, bw = (w - gap * (n - 1)) / n;
+      var w = eq.width, h = eq.height, gap = 3, bw = (w - gap * (BARS - 1)) / BARS;
+      var segGap = 2, segH = (h - segGap * (SEGMENTS - 1)) / SEGMENTS;
       ctx2d.clearRect(0, 0, w, h);
-      for (var i = 0; i < n; i++) {
-        var v = freq[Math.floor((i * freq.length) / n)] / 255;
-        var barH = Math.max(2, v * h);
-        ctx2d.fillStyle = v < 0.45 ? GREEN : v < 0.75 ? YELLOW : RED;
-        ctx2d.fillRect(i * (bw + gap), h - barH, bw, barH);
+      for (var i = 0; i < BARS; i++) {
+        var v = freq[Math.floor((i * freq.length) / BARS)] / 255;
+        var lit = Math.max(1, Math.round(v * SEGMENTS));
+        for (var s = 0; s < SEGMENTS; s++) {
+          var y = h - (s + 1) * (segH + segGap) + segGap;
+          var frac = s / SEGMENTS;
+          ctx2d.fillStyle = s < lit ? (frac < 0.5 ? GREEN : frac < 0.8 ? YELLOW : RED) : DIM;
+          ctx2d.fillRect(i * (bw + gap), y, bw, segH);
+        }
       }
       raf = requestAnimationFrame(drawBars);
+    }
+    function drawIdle() {
+      var w = eq.width, h = eq.height, gap = 3, bw = (w - gap * (BARS - 1)) / BARS;
+      var segGap = 2, segH = (h - segGap * (SEGMENTS - 1)) / SEGMENTS;
+      ctx2d.clearRect(0, 0, w, h);
+      ctx2d.fillStyle = DIM;
+      for (var i = 0; i < BARS; i++) {
+        for (var s = 0; s < SEGMENTS; s++) {
+          ctx2d.fillRect(i * (bw + gap), h - (s + 1) * (segH + segGap) + segGap, bw, segH);
+        }
+      }
     }
 
     function play() {
@@ -101,8 +162,9 @@ const t = ui[lang];
       iconPlay.style.display = ''; iconPause.style.display = 'none';
       if (gain) rampTo(0);
       if (raf) { cancelAnimationFrame(raf); raf = null; }
-      ctx2d.clearRect(0, 0, eq.width, eq.height);
+      drawIdle();
     }
+    drawIdle();
     btn.addEventListener('click', function () { playing ? mute() : play(); });
     volumeSlider.addEventListener('input', function () {
       volume = volumeSlider.value / 100;
@@ -120,24 +182,28 @@ const t = ui[lang];
   .music-player{
     position:fixed;left:18px;bottom:18px;z-index:15;
     display:flex;align-items:center;gap:10px;
-    height:52px;padding:0 16px 0 10px;border-radius:26px;
-    background:var(--raised);border:2px solid var(--accent2);
-    box-shadow:0 6px 20px color-mix(in srgb, var(--accent2) 30%, transparent);
+    height:52px;padding:0 14px 0 8px;border-radius:10px;
+    border:2px solid var(--accent2);
+    background:color-mix(in srgb, var(--bg), #000 22%);
   }
   .music-toggle{
     display:flex;align-items:center;justify-content:center;flex:none;
-    width:34px;height:34px;border-radius:50%;
+    width:34px;height:34px;border-radius:6px;
     background:var(--accent2);color:var(--bg);border:0;cursor:pointer;
   }
   .music-toggle svg{width:18px;height:18px}
   .music-player canvas{display:block;flex:none}
+  .music-title-wrap{width:110px;flex:none;overflow:hidden;position:relative}
   .music-title{
+    display:inline-block;white-space:nowrap;
     font-family:var(--font-display);font-size:12px;color:var(--fg);
-    white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis;
   }
-  .music-volume{width:64px;flex:none;accent-color:var(--accent2);cursor:pointer}
+  .music-title-wrap.marquee .music-title{animation:music-marquee 9s linear infinite}
+  @keyframes music-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.music-title-wrap.marquee .music-title{animation:none}}
+  .music-volume{width:60px;flex:none;accent-color:var(--accent2);cursor:pointer}
   @media(max-width:640px){
     .music-player{left:10px;bottom:10px;padding-right:10px;gap:7px}
-    .music-title,.music-volume{display:none}
+    .music-title-wrap,.music-volume{display:none}
   }
 </style>

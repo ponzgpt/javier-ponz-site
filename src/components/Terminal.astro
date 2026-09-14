@@ -157,12 +157,17 @@ const data = {
   if (!out || !form || !input) return;
 
   var history = [], hpos = 0;
-  var pad = function (s, n) { return (s + '          ').slice(0, n); };
 
   function write(text, cls) {
     var el = document.createElement('span');
     if (cls) el.className = cls;
     el.textContent = text + '\n';
+    out.appendChild(el);
+  }
+  function writeHtml(html, cls) {
+    var el = document.createElement('span');
+    if (cls) el.className = cls;
+    el.innerHTML = html + '\n';
     out.appendChild(el);
   }
   function link(label, href, note) {
@@ -184,12 +189,24 @@ const data = {
   var CMD_ECHO = { '1': 'fastfetch', '2': 'btop', '3': 'ls -la ~/code' };
   var btopInterval = null;
 
+  // Colour, like workspace 1's fastfetch card, not a flat single tone:
+  // .k/.box are the same classes that card already defines (accent2
+  // labels, muted borders) — reused here rather than inventing new ones.
+  // pad()/width math measure *visible* length so a row can carry
+  // `<span>` markup and still line up in the grid.
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function visibleLen(s) { return String(s).replace(/<[^>]*>/g, '').length; }
+  function pad(s, w) { return s + ' '.repeat(Math.max(0, w - visibleLen(s))); }
+  function tag(cls, text) { return '<span class="' + cls + '">' + esc(text) + '</span>'; }
+  function label(text) { return tag('k', text); }
+  function accent(text) { return '<span style="color:var(--accent)">' + esc(text) + '</span>'; }
+
   function box(title, width, rows) {
     var rem = Math.max(0, width - title.length - 2);
     var l = Math.floor(rem / 2);
-    var top = '┌' + '─'.repeat(l) + ' ' + title + ' ' + '─'.repeat(rem - l) + '┐';
-    var bottom = '└' + '─'.repeat(width) + '┘';
-    var body = rows.map(function (r) { return '│ ' + pad(r, width - 2) + '│'; }).join('\n');
+    var top = tag('box', '┌' + '─'.repeat(l) + ' ' + title + ' ' + '─'.repeat(rem - l) + '┐');
+    var bottom = tag('box', '└' + '─'.repeat(width) + '┘');
+    var body = rows.map(function (r) { return tag('box', '│ ') + pad(r, width - 2) + tag('box', '│'); }).join('\n');
     return top + '\n' + body + '\n' + bottom;
   }
   // Two boxes of possibly different height, joined line-by-line — real
@@ -197,7 +214,7 @@ const data = {
   function sideBySide(a, b, gap) {
     gap = ' '.repeat(gap || 2);
     var al = a.split('\n'), bl = b.split('\n');
-    var aw = Math.max.apply(null, al.map(function (s) { return s.length; }));
+    var aw = Math.max.apply(null, al.map(visibleLen));
     var n = Math.max(al.length, bl.length);
     var out2 = [];
     for (var i = 0; i < n; i++) out2.push(pad(al[i] || '', aw) + gap + (bl[i] || ''));
@@ -236,33 +253,33 @@ const data = {
     MEM = jitter(MEM, 3);
     var coreLines = [];
     for (var i = 0; i < CORES.length; i += 2) {
-      var left = pad('c' + i + ' ' + bar(CORES[i], 10) + ' ' + Math.round(CORES[i]) + '%', 24);
-      var right = i + 1 < CORES.length ? 'c' + (i + 1) + ' ' + bar(CORES[i + 1], 10) + ' ' + Math.round(CORES[i + 1]) + '%' : '';
+      var left = pad(label('c' + i) + ' ' + bar(CORES[i], 10) + ' ' + Math.round(CORES[i]) + '%', 24);
+      var right = i + 1 < CORES.length ? label('c' + (i + 1)) + ' ' + bar(CORES[i + 1], 10) + ' ' + Math.round(CORES[i + 1]) + '%' : '';
       coreLines.push(left + right);
     }
     var load = (CORES.reduce(function (a, c) { return a + c; }, 0) / CORES.length / 100).toFixed(2);
     var cpuBox = box('cpu — load ' + load + ' — up ' + uptimeStr(), 54, coreLines);
     var memBox = box('mem', 26, [
-      'total  16.0G',
-      'used   ' + bar(MEM, 10) + ' ' + Math.round(MEM) + '%',
-      'avail  ' + (16 * (1 - MEM / 100)).toFixed(1) + 'G'
+      label('total') + '  16.0G',
+      label('used') + '   ' + bar(MEM, 10) + ' ' + Math.round(MEM) + '%',
+      label('avail') + '  ' + (16 * (1 - MEM / 100)).toFixed(1) + 'G'
     ]);
     var disksBox = box('disks', 26, [
-      'root  ' + bar(jitter(38, 3), 10) + ' ' + Math.round(jitter(38, 3)) + '%',
-      'home  ' + bar(jitter(64, 3), 10) + ' ' + Math.round(jitter(64, 3)) + '%'
+      label('root') + '  ' + bar(jitter(38, 3), 10) + ' ' + Math.round(jitter(38, 3)) + '%',
+      label('home') + '  ' + bar(jitter(64, 3), 10) + ' ' + Math.round(jitter(64, 3)) + '%'
     ]);
     var procBox = box('proc', 54, [
-      'PID    CMD                     CPU%   MEM%',
-      '1024   hermes-agent --daemon    ' + jitter(9, 3).toFixed(1) + '    2.1',
-      '1187   astro dev --host         ' + jitter(3, 2).toFixed(1) + '    1.4',
-      '2044   ollama serve ' + data.pausedTag + '     0.0    0.0',
-      '2390   nginx: worker process    ' + jitter(0.6, 0.4).toFixed(1) + '    0.3',
-      '3102   fzf                      0.1    0.1'
+      tag('box', 'PID    CMD                     CPU%   MEM%'),
+      label('1024') + '   hermes-agent --daemon    ' + jitter(9, 3).toFixed(1) + '    2.1',
+      label('1187') + '   astro dev --host         ' + jitter(3, 2).toFixed(1) + '    1.4',
+      label('2044') + '   ollama serve ' + data.pausedTag + '     0.0    0.0',
+      label('2390') + '   nginx: worker process    ' + jitter(0.6, 0.4).toFixed(1) + '    0.3',
+      label('3102') + '   fzf                      0.1    0.1'
     ]);
     var html = cpuBox + '\n\n' + sideBySide(memBox, disksBox, 2) + '\n\n' + procBox;
     var el = old || document.createElement('span');
     el.id = 'btop-live';
-    el.textContent = html;
+    el.innerHTML = html;
     if (!old) out.appendChild(el);
   }
   function renderBtop() {
@@ -276,9 +293,9 @@ const data = {
   function renderTree() {
     var items = data.projects.map(function (p) { return { name: folderName(p.u), tag: p.s }; });
     items.push({ name: 'javier-ponz-site', tag: data.treeThisSite });
-    write('Permissions  Size  User     Name');
+    writeHtml(tag('box', 'Permissions  Size  User     Name'));
     items.forEach(function (it) {
-      write('drwxr-xr-x   -     javier   ' + pad(it.name + '/', 25) + '[' + it.tag + ']');
+      writeHtml(tag('box', 'drwxr-xr-x   -     javier   ') + pad(label(it.name + '/'), 25) + accent('[' + it.tag + ']'));
     });
     write('');
     var hintEl = document.createElement('span');
@@ -289,8 +306,8 @@ const data = {
     cmd2.className = 'cmd';
     cmd2.textContent = 'jpp ~/code/javier-ponz-site ❯ tree -L 2\n';
     out.appendChild(cmd2);
-    ['javier-ponz-site',
-      '├── src',
+    writeHtml(accent('javier-ponz-site'));
+    ['├── src',
       '│   ├── components',
       '│   ├── data',
       '│   ├── layouts',
@@ -298,7 +315,10 @@ const data = {
       '├── public',
       '├── scripts',
       '└── docs'
-    ].forEach(function (l) { write(l); });
+    ].forEach(function (l) {
+      var m = l.match(/^([│├└─\s]+)(.*)$/);
+      writeHtml(m ? tag('box', m[1]) + accent(m[2]) : accent(l));
+    });
   }
 
   var RENDER = { '1': renderFastfetch, '2': renderBtop, '3': renderTree };
