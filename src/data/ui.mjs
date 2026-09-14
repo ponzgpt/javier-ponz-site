@@ -23,6 +23,8 @@ const EN = {
   musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
   musicTitle: 'Crown of the Horizon',
   musicVolume: 'Volume',
+  musicPrev: 'Previous track',
+  musicNext: 'Next track',
   // terminal
   term: {
     title: 'jpp — ~',
@@ -134,6 +136,8 @@ const ES = {
   musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
   musicTitle: 'Crown of the Horizon',
   musicVolume: 'Volumen',
+  musicPrev: 'Pista anterior',
+  musicNext: 'Pista siguiente',
   term: {
     title: 'jpp — ~',
     online: 'en línea',
