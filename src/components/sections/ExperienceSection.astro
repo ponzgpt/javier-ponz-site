@@ -1,0 +1,24 @@
+---
+// Experience absorbs what used to be three things: the Apple narrative, the
+// standalone Timeline section, and the credential list that hung off About.
+// One section, because a reader looking for "what has he actually done"
+// should not have to find three.
+import Page from '../Page.astro';
+import { pages } from '../../data/pages.mjs';
+import { timeline, credentials } from '../../data/site';
+import { pick } from '../../data/i18n.mjs';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.experience[lang];
+const items = timeline.map((i) => pick(i, lang));
+const creds = credentials.map((c) => pick(c, lang));
+---
+<Page p={p} id="experience">
+  <section class="grid"><span class="label">{p.chronologyLabel}</span><div class="rows">
+    {items.map((i) => <article class="row"><time>{i.date}</time><div><h3>{i.title}</h3><p>{i.text}</p></div></article>)}
+  </div></section>
+  <section class="grid"><span class="label">{p.educationLabel}</span><div class="rows">
+    {creds.map((c) => <article class="row"><time>{c.date}</time><div><h3>{c.title}</h3><p>{c.org}{c.org && c.status ? ' · ' : ''}{c.status}</p></div></article>)}
+  </div></section>
+  <section class="grid"><span class="label">{p.closingLabel}</span><div class="notice">{p.closing}</div></section>
+</Page>
