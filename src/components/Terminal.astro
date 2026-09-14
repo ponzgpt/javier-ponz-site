@@ -20,31 +20,32 @@ const headline = lang === 'en' ? person.headline : personEs.headline;
 const profileLine = lang === 'en' ? profile[1] : profileEs[1];
 const CONTACT_LABEL_ES = { Email: 'Correo', Phone: 'Teléfono', Site: 'Sitio' };
 
-// A quadrant-block rendering of Javier's sketch portrait, sitting above the
+// A tone-ramp rendering of Javier's photo, sitting above the
 // wordmark so the art column carries roughly the same visual weight as the
 // three info boxes beside it — the balance real fastfetch has and this did
 // not, when a short wide wordmark left the left half mostly empty.
-// Generated once from nousresearch-application/javier-sketch.jpg; Block
-// Elements only, the same range the wordmark below already uses.
-const portrait = `             ▗▄▄▄█▛████▄▗
-            ▟██▀      ▝▜█▙ ▚▖
-           ▟█▛          ▜▌  ▘
-          ▟▘█  ▄ ▗▟ ▘   ██▙▟▖▖
-          ▜█▛  ▜▌▐█▄▟▙▄▟██████▖ ▖
-         ▐█████▛  ▀██ ▗ ▝▐█▀▟▌  ▝
-         ▜████▀▄ ▄    ▀  ▐███▌
-         ▐██▛ ▗███▙      ▐███▙▖  █
-        ▗████▟█▀▘▝▀▀█▖   ▟█▀███▜▟▘▛
-        ▝█████▘▐█▛   ▘  ▟█▚▐██▘▞▘▐▙
-        ▖▐████▛ ▄▖  ▗▟▟███▙▞▀█▟▌ ▐▝▘
-       ▄█▄████▘▐█▄ ▜████████▌▐█▘▗▖█▖▝▌
-       ▐▗████▘▚▟██▄████████▘▄██▌ ▜▞ ▗▌
-       ▐▛███▙▄█████████▀▀ █████▄██ █▀  ▖
-       ▖▚▟███████▛▛▀▀     █████▙ █▞▞▙▄▄▘
-      ▝▚█████████▌    ▗▄  ▜▘▀████▛  ▟▛
-      ▐█▗████▘▞▘█▀ ▐█▘▝▗█▄▟▙▟▀▀▚▖▜█▘ ▘
-      ▟▛▜███▛▞▘▝▜▙█▀ ▖▗█▛▀▀▛▚▄▛▗███▘
-     ▝█▄███  ▘ ▐▚▛    ▝      █  ▛▀▘  ▝`;
+// Generated once from the source photo. A 1-bit block rendering was tried
+// first and failed on this image: hair, beard and hoodie sit at almost the
+// same tone, so any threshold merged them into one blob. A grey ramp keeps
+// them apart. The image is inverted, so the pale wall falls away to blank
+// and the dark hair and lenses carry the ink.
+const portrait = `               .::-+++=:
+            .+#+-..:=*%%*:
+           :*#:       .*%+-.
+          :#%: .:.::..:+#**+-.
+         .*%+--*==#=====%@**+=:
+        .+%%@%@+ .#@@%+###*%++-.
+       .=#%*%%*---:=*#*+**#%*++-.
+       :+#@@=.-###-  .:=%%%#*+*+-.
+       =#%@@--*++++=-.:+%##%###+=:
+      :+#@@@**+=+=:=+-=##=#%*++==-:.
+     :+=*@@@%#+=+=:-**#%%#%%*+*++=-:.
+     -**#@@%**++*=+*#%%@@#+##*+*=+*=:.
+    .=+#%@#****##*#%%@@@@@*#%#++#-**=:.
+   .-::*@%#****%####%%%%@@%#%#**%++++=:.
+  .::-*#@@@%##%%%##*#+*%%%*+#*****+*+--:..
+ .:.-+#%@@*#@@@+=++*==#%%##%#***+-=+++==...
+ .::**##@#=@@@@%%%%=-###%%#*###*#=-=-*++=:.`;
 
 const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
