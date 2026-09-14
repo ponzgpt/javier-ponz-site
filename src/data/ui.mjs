@@ -18,29 +18,44 @@ const EN = {
   term: {
     title: 'jpp — ~',
     online: 'online',
-    hint: 'Type <b>help</b> for what this understands. Everything here is also a normal page — the links below work without it.',
-    // Real fastfetch module vocabulary and order (OS/Host/Kernel/Uptime/
-    // Packages/Shell/Display/WM/Theme/Terminal/CPU/GPU/Memory) — one box,
-    // titled like fastfetch's own "user@host" separator rather than an
-    // invented category heading. The humour is in the values, not the labels.
+    hint: 'Type <b>help</b> for what this understands — or skip it, the whole site below works the same without it.',
+    // The real category boxes Javier's own fastfetch prints (Hardware /
+    // Software / Age·Uptime·Update) — confirmed against an actual screenshot
+    // of his terminal, not guessed. Same three boxes, same field order, our
+    // own values.
     factGroups: [
       {
-        title: 'jpp@aberdeen',
+        title: 'Hardware',
         color: 'accent2',
+        rows: [
+          ['CPU', 'Human (1) @ full attention'],
+          ['GPU', '2 × local inference rigs — paused'],
+          ['Display', '27" external, plenty of screen time'],
+          ['Disk', 'a decade of notes, mostly Markdown'],
+          ['Memory', '10 years / always more to learn']
+        ]
+      },
+      {
+        title: 'Software',
+        color: 'accent',
         rows: [
           ['OS', 'Omarchy'],
           ['Host', 'Genius Bar, Madrid → homelab, Aberdeen'],
           ['Kernel', 'leading-is-serving 10.0-lts'],
-          ['Uptime', '35 years, still compiling'],
-          ['Packages', 'whatever ships (git)'],
-          ['Shell', 'fzf'],
-          ['Display', '27" external, plenty of screen time'],
           ['WM', 'Hyprland'],
-          ['Theme', 'Tokyo Night (Omakase)'],
+          ['Shell', 'fzf'],
           ['Terminal', 'you are in it'],
-          ['CPU', 'Human (1) @ full attention'],
-          ['GPU', '2 × local inference rigs — currently paused'],
-          ['Memory', '10 years / always more to learn']
+          ['Packages', 'whatever ships (git)'],
+          ['Theme', 'Tokyo Night (Omakase)']
+        ]
+      },
+      {
+        title: 'Age / Uptime / Update',
+        color: 'rainbow-7',
+        rows: [
+          ['OS Age', 'since Aug 2024'],
+          ['Uptime', '35 years, still compiling'],
+          ['Update', 'open to support & customer-facing roles']
         ]
       }
     ],
@@ -102,25 +117,40 @@ const ES = {
   term: {
     title: 'jpp — ~',
     online: 'en línea',
-    hint: 'Escribe <b>help</b> para ver qué entiende esta terminal. Todo esto es también una página normal — los enlaces de abajo funcionan sin ella.',
+    hint: 'Escribe <b>help</b> para ver qué entiende esta terminal — o ignórala, el resto del sitio funciona igual sin ella.',
     factGroups: [
       {
-        title: 'jpp@aberdeen',
+        title: 'Hardware',
         color: 'accent2',
+        rows: [
+          ['CPU', 'Humano (1) @ atención plena'],
+          ['GPU', '2 × equipos de inferencia local — pausados'],
+          ['Display', '27" externo, pantalla de sobra'],
+          ['Disk', 'una década de notas, casi todo en Markdown'],
+          ['Memory', '10 años / siempre queda más por aprender']
+        ]
+      },
+      {
+        title: 'Software',
+        color: 'accent',
         rows: [
           ['OS', 'Omarchy'],
           ['Host', 'Genius Bar, Madrid → homelab en Aberdeen'],
           ['Kernel', 'liderar-es-servir 10.0-lts'],
-          ['Uptime', '35 años, seguimos compilando'],
-          ['Packages', 'lo que llega a producción (git)'],
-          ['Shell', 'fzf'],
-          ['Display', '27" externo, pantalla de sobra'],
           ['WM', 'Hyprland'],
-          ['Theme', 'Tokyo Night (Omakase)'],
+          ['Shell', 'fzf'],
           ['Terminal', 'estás dentro de ella'],
-          ['CPU', 'Humano (1) @ atención plena'],
-          ['GPU', '2 × equipos de inferencia local — pausados por ahora'],
-          ['Memory', '10 años / siempre queda más por aprender']
+          ['Packages', 'lo que llega a producción (git)'],
+          ['Theme', 'Tokyo Night (Omakase)']
+        ]
+      },
+      {
+        title: 'Age / Uptime / Update',
+        color: 'rainbow-7',
+        rows: [
+          ['OS Age', 'desde agosto de 2024'],
+          ['Uptime', '35 años, seguimos compilando'],
+          ['Update', 'abierto a soporte técnico y roles de cara al cliente']
         ]
       }
     ],
