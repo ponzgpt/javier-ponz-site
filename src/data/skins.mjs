@@ -52,6 +52,7 @@ export const skins = [
         '1111111.11111'
       ]
     },
+    link: { href: 'https://omarchy.org', label: 'Omarchy' },
     // Omarchy's own tokyo-night theme, themes/tokyo-night/colors.toml in
     // omacom/omarchy — background/foreground/accent/green, verbatim.
     bg: '#1a1b26',
@@ -76,17 +77,24 @@ export const skins = [
       // skin's name comes from. Not Nous's mark: it is Hermes' own, and older.
       ink: { 1: 'var(--accent)', 2: 'var(--accent2)' },
       grid: [
-        '.1.......1.',
-        '11...2...11',
-        '.1..212..1.',
-        '....121....',
-        '...12.21...',
-        '....121....',
-        '...12.21...',
-        '....121....',
-        '.....2.....'
+        '.......2.......',
+        '......111......',
+        '.......1.......',
+        '.11.........11.',
+        '11111.....11111',
+        '.11111.1.11111.',
+        '..111..1..111..',
+        '.....2.1.2.....',
+        '......212......',
+        '.......1.......',
+        '......212......',
+        '.....2.1.2.....',
+        '......212......',
+        '.......1.......',
+        '......111......'
       ]
     },
+    link: { href: 'https://hermes.nousresearch.com', label: 'Hermes Agent' },
     // Values taken from the CLI's own built-in "default" skin,
     // hermes_cli/skin_engine.py → _BUILTIN_SKINS["default"].
     bg: '#0E1216',
@@ -104,14 +112,20 @@ export const skins = [
       // Syl: a windspren, a ribbon of light with a bright core and a trail.
       ink: { 1: 'var(--accent)', 2: '#FFFFFF' },
       grid: [
-        '.......121',
-        '....11221.',
-        '..11221...',
-        '.1122.....',
-        '112.......',
-        '1.........'
+        '.........22.',
+        '.......2211.',
+        '.....22111..',
+        '...22111....',
+        '..2111......',
+        '..111.......',
+        '..111.......',
+        '...111......',
+        '....111.....',
+        '.....11.....',
+        '......1.....'
       ]
     },
+    link: { href: 'https://www.brandonsanderson.com/', label: 'Brandon Sanderson' },
     // Stormlight held in a sphere: a cold blue-white glow on storm-dark night,
     // with Radiant gold. Not from a published palette — this one is mine.
     bg: '#0C1120',
@@ -127,19 +141,23 @@ export const skins = [
     name: 'Black Mesa',
     note: 'Black Mesa, 1998',
     sprite: {
-      // Headcrab. Four legs, two eyes, a very bad attitude.
-      ink: { 1: 'var(--accent)', 2: 'var(--bg)', 3: 'var(--accent2)' },
+      // The lambda, in Valve orange. It replaced a headcrab, which at this size
+      // read as a generic pixel bug rather than as Half-Life.
+      ink: { 1: 'var(--accent)' },
       grid: [
-        '...1111...',
-        '..111111..',
-        '.11111111.',
-        '1121111211',
-        '1111111111',
-        '.11111111.',
-        '3.1....1.3',
-        '.3.....3..'
+        '11.........',
+        '.11........',
+        '..11.......',
+        '...11......',
+        '....11.....',
+        '....111....',
+        '...11.11...',
+        '..11...11..',
+        '.11.....11.',
+        '11.......11'
       ]
     },
+    link: { href: 'https://www.half-life.com/', label: 'Half-Life' },
     // Valve orange on tarmac, with the hazard amber off the HEV suit HUD.
     bg: '#0B0A08',
     fg: '#D6CFC4',

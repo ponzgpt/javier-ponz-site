@@ -121,26 +121,7 @@ export const pages = {
       lede: 'Small products and agent tooling, shown with their limits and their receipts.',
       authorship: 'Project notes say what I specified, wrote, deployed or built with an agent. The distinction matters to me.',
       runningLabel: 'Running daily', projectsLabel: 'Built and shipped',
-      caseStudyLabel: 'Case study: Memento Mori', caseStudyH2: 'Getting a small app to production.',
-      caseStudyLede: 'The native widget is the product; this is its web demo, same model, same browser. How the web side went from idea to a real domain with real release gates.',
-      caseStudyCaption: 'The landing view at memento.technoir.cloud',
-      caseStudyLinksLabel: 'Links',
-      caseStudyLinks: [
-        { time: 'Live', h3: 'memento.technoir.cloud ↗', href: 'https://memento.technoir.cloud/', p: 'The deployed application.' },
-        { time: 'Source', h3: 'github.com/ponzgpt/memento-mori ↗', href: 'https://github.com/ponzgpt/memento-mori', p: 'Apache-2.0, with the release tooling described below.' }
-      ],
-      caseStudySections: [
-        { label: 'Decisions', cls: 'prose', html:
-          '<h3>No backend, no accounts, no analytics</h3>' + P('Birth date and intention never leave the browser — the right call for something this personal.') +
-          '<h3>Zero runtime dependencies</h3>' + P('Plain HTML, CSS and ES modules, no build step, openable from a single file. Nothing to patch when a dependency has a bad week.') +
-          '<h3>Docker, nginx and Traefik on a VPS I already run</h3>' + P('The VPS and domain already existed — no new subscription, no new vendor. Containers because the deployment itself was part of the learning. Each release is an immutable tag; rollback redeploys the last one.') +
-          '<h3>The uncertainty stays visible</h3>' + P('A confident single date would have been easier, and a lie.') },
-        { label: 'Release gates', cls: 'prose', html: P(
-          'What I am gladdest about is not the app but what stands between it and production: <code>npm run verify</code> runs unit tests, feature-story checks, lint, a smoke check, version consistency and a Waybar compile.',
-          'The version check exists because I once drifted — package version, manifest and changelog disagreed, and I noticed by accident. A failing check instead of a habit, run in GitHub Actions on all three platforms.') },
-        { label: 'What I would do differently', cls: 'prose', html:
-          '<ul><li><strong>Deploy earlier.</strong> Local preview never surfaces what a real deployment does — an ugly version in week one beats polishing in isolation.</li><li><strong>Decide the product boundary once, and write down why.</strong> Widget to web app and back; deciding early skips real rework.</li><li><strong>Write the scope note first.</strong> Not medical, actuarial, or a prediction about an individual — writing that early makes several decisions obvious sooner.</li></ul>' }
-      ],
+      liveLabel: 'Live', liveNote: 'Deployed and running on a VPS I administer.',
       closingLabel: 'The common thread',
       closing: 'It is not “AI”. It is making a system useful, inspectable and hard to misunderstand.',
       scopeLabel: 'Scope note',
@@ -151,26 +132,7 @@ export const pages = {
       lede: 'Productos pequeños y herramientas para agentes, con sus límites y sus pruebas a la vista.',
       authorship: 'Cada ficha dice qué especifiqué, qué escribí, qué desplegué y qué construí con un agente. Esa distinción me importa.',
       runningLabel: 'Uso a diario', projectsLabel: 'Hecho y publicado',
-      caseStudyLabel: 'Caso práctico: Memento Mori', caseStudyH2: 'Llevar una app pequeña a producción.',
-      caseStudyLede: 'El widget nativo es el producto; esto es su demo web, mismo modelo, mismo navegador. Cómo la parte web pasó de idea a un dominio real con controles de publicación reales.',
-      caseStudyCaption: 'La vista principal en memento.technoir.cloud',
-      caseStudyLinksLabel: 'Enlaces',
-      caseStudyLinks: [
-        { time: 'En vivo', h3: 'memento.technoir.cloud ↗', href: 'https://memento.technoir.cloud/', p: 'La aplicación desplegada.' },
-        { time: 'Código', h3: 'github.com/ponzgpt/memento-mori ↗', href: 'https://github.com/ponzgpt/memento-mori', p: 'Apache-2.0, con las herramientas de publicación descritas abajo.' }
-      ],
-      caseStudySections: [
-        { label: 'Decisiones', cls: 'prose', html:
-          '<h3>Sin backend, sin cuentas, sin analítica</h3>' + P('La fecha de nacimiento y la intención nunca salen del navegador — la decisión correcta para algo tan personal.') +
-          '<h3>Cero dependencias en tiempo de ejecución</h3>' + P('HTML, CSS y módulos ES sin más, sin paso de compilación, se puede abrir desde un único fichero. Nada que parchear cuando a una dependencia le va mal la semana.') +
-          '<h3>Docker, nginx y Traefik sobre un VPS que ya tenía</h3>' + P('El VPS y el dominio ya existían — sin suscripción nueva, sin proveedor nuevo. Contenedores porque el propio despliegue era parte de lo que quería aprender. Cada versión es una etiqueta inmutable; el rollback vuelve a desplegar la anterior.') +
-          '<h3>La incertidumbre se queda a la vista</h3>' + P('Una fecha única y segura habría sido más fácil, y una mentira.') },
-        { label: 'Controles de publicación', cls: 'prose', html: P(
-          'De lo que más contento estoy no es de la app, sino de lo que hay entre ella y producción: <code>npm run verify</code> ejecuta tests unitarios, comprobaciones de historias de usuario, lint, una prueba de humo, consistencia de versión y una compilación de Waybar.',
-          'La comprobación de versión existe porque una vez se me desincronizó — la versión del paquete, el manifiesto y el changelog no coincidían, y lo noté por casualidad. Un check que falla en vez de un hábito, ejecutado en GitHub Actions en las tres plataformas.') },
-        { label: 'Qué haría distinto', cls: 'prose', html:
-          '<ul><li><strong>Desplegar antes.</strong> La vista previa local nunca saca a la luz lo que hace un despliegue real — una versión fea en la primera semana gana a pulirla en aislamiento.</li><li><strong>Decidir el límite del producto una vez, y anotar por qué.</strong> Del widget a la app web y de vuelta; decidirlo pronto evita rehacer trabajo de verdad.</li><li><strong>Escribir la nota de alcance primero.</strong> No es consejo médico, actuarial, ni una predicción sobre nadie en concreto — escribirlo pronto hace evidentes varias decisiones antes.</li></ul>' }
-      ],
+      liveLabel: 'En vivo', liveNote: 'Desplegado y funcionando en un VPS que administro yo.',
       closingLabel: 'El hilo común',
       closing: 'No es la «IA». Es hacer que un sistema sea útil, inspeccionable y difícil de malinterpretar.',
       scopeLabel: 'Nota de alcance',

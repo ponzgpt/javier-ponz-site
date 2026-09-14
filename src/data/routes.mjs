@@ -4,7 +4,7 @@
 const TOKENS = {
   about: '#about', experience: '#experience', projects: '#projects',
   skills: '#skills', achievements: '#achievements', newsletter: '#newsletter',
-  contact: '#contact', casestudy: '#case-study',
+  contact: '#contact',
   servant: 'https://en.wikipedia.org/wiki/Servant_leadership',
   mdib: 'https://machinesdoitbetter.beehiiv.com',
   cv: '/javier-ponz-prado-cv.pdf', home: '/'

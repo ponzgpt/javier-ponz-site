@@ -20,9 +20,9 @@ https://machinesdoitbetter.beehiiv.com (currently between issues).
 ## The site
 
 One long page at https://javierponz.technoir.cloud/, not separate routes —
-`#about`, `#experience`, `#projects`, `#case-study`, `#skills`,
-`#achievements`, `#newsletter` and `#contact` are anchors into it, in that
-order. Also published in Spanish, as a
+`#about`, `#experience`, `#projects`, `#skills`, `#achievements`,
+`#newsletter` and `#contact` are anchors into it, in that order. Also
+published in Spanish, as a
 full translation rather than a browser-side swap, at
 https://javierponz.technoir.cloud/es/. The CV is at
 https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf (English only),
