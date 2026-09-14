@@ -769,6 +769,17 @@ const data = {
     .term-wrap{padding-top:28px}
     .tray{display:none}
     .clock{text-align:left}
-    .out{font-size:12px}
+    .out{
+      font-size:12px;
+      /* At 72vh this box was most of a phone's visible viewport, so a swipe
+         landing anywhere on it scrolled the terminal's own content — not the
+         page — until that content ran out, which on workspace 2/3 (34 lines
+         at a fixed line-height, unlike workspace 1's viewport-scaled art) it
+         rarely did. Shrinking it here leaves real page above and below the
+         terminal to swipe on instead; workspaces still scroll inside
+         themselves when their content is taller than this, same as any
+         terminal window, but the page itself is never trapped behind it. */
+      height:min(46vh,380px);
+    }
   }
 </style>
