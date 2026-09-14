@@ -92,10 +92,17 @@ const data = {
 ---
 <section class="term-wrap" aria-labelledby="term-title">
   <div class="win">
-    <div class="bar">
-      <span class="ws"><b>1</b><i></i><i></i></span>
-      <span class="wtitle" id="term-title">{t.term.title}</span>
-      <span class="wstat"><span class="dot"></span>{t.term.online}</span>
+    <div class="bar waybar">
+      <span id="term-title" class="sr-only">{t.term.title}</span>
+      <span class="ws-group" aria-hidden="true">
+        <span class="ws active">1</span><span class="ws">2</span><span class="ws">3</span>
+      </span>
+      <span class="clock" id="waybar-clock" aria-hidden="true">&nbsp;</span>
+      <span class="tray" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 8-5 4V5l5 4L7 15" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 17.5a1 1 0 100 2 1 1 0 000-2Z" fill="currentColor"/><path d="M8.5 15a5 5 0 017 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M5.5 12a9 9 0 0113 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 10v4h3l4 4V6l-4 4H4Z" fill="currentColor"/><path d="M14.5 9.5a4 4 0 010 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M17 7a7 7 0 010 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </span>
     </div>
     <div class="term" id="term">
       <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">jpp ~ <b>❯</b> fastfetch</span>
@@ -113,6 +120,27 @@ const data = {
     </div>
   </div>
 </section>
+
+<script is:inline>
+  /* The waybar imitation's clock — Aberdeen local time (Europe/London),
+     not the visitor's own, since the point is "what's on Javier's screen
+     right now" rather than a generic clock widget. Ticks every second. */
+  (function () {
+    var el = document.getElementById('waybar-clock');
+    if (!el) return;
+    var fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Europe/London', weekday: 'short', day: '2-digit', month: 'short',
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+    });
+    function tick() {
+      var p = {};
+      fmt.formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      el.textContent = p.weekday + ' ' + p.day + ' ' + p.month + '  ' + p.hour + ':' + p.minute + ':' + p.second;
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
 
 <script is:inline define:vars={{ data }}>
 (function () {
@@ -300,20 +328,26 @@ const data = {
     border:2px solid var(--accent2);border-radius:10px;overflow:hidden;
     background:color-mix(in srgb, var(--bg), #000 22%);
   }
-  /* A bar in the shape of a Wayland status bar, not a macOS title bar:
-     workspace pills on the left, window title in the middle, status right. */
-  .bar{
+  /* Hyprland windows carry no title bar of their own — it's a tiling WM.
+     What sits above this one is a Waybar imitation instead: workspace
+     pills left, a live clock centre, a tray right, same as the real thing
+     running above every window on Javier's actual desktop. */
+  .waybar{
     display:flex;align-items:center;gap:14px;
     padding:7px 12px;border-bottom:1px solid var(--line);
     background:var(--surface);font-family:var(--font-display);font-size:11.5px;
     color:var(--muted);letter-spacing:.04em;
   }
-  .ws{display:flex;gap:6px;align-items:center}
-  .ws b{background:var(--accent);color:var(--bg);padding:0 6px;border-radius:3px;font-weight:700}
-  .ws i{width:6px;height:6px;border-radius:50%;border:1px solid var(--line);display:block}
-  .wtitle{flex:1;text-align:center;color:var(--fg);opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .wstat{display:flex;align-items:center;gap:6px;white-space:nowrap}
-  .wstat .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+  .ws-group{display:flex;gap:5px;align-items:center;flex:none}
+  .ws{
+    min-width:18px;height:18px;padding:0 5px;border-radius:3px;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);font-weight:700;
+  }
+  .ws.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+  .clock{flex:1;text-align:center;color:var(--fg);opacity:.85;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tray{display:flex;align-items:center;gap:10px;flex:none}
+  .tray svg{width:14px;height:14px;display:block}
 
   .term{padding:16px 18px 14px;font-family:'Courier Prime','Courier New',monospace}
   .out{
@@ -347,7 +381,7 @@ const data = {
   .line label b{color:var(--accent)}
   /* Blinks until the line gets focus, to invite the first click — a real
      caret takes over once the input is actually active. */
-  .cursor{width:8px;height:15px;flex:none;align-self:center;background:var(--accent)}
+  .cursor{width:8px;height:15px;flex:none;align-self:center;background:var(--accent2)}
   .line:not(:focus-within) .cursor{animation:term-cursor-blink 1s step-end infinite}
   .line:focus-within .cursor{display:none}
   @keyframes term-cursor-blink{50%{opacity:0}}
@@ -365,8 +399,8 @@ const data = {
   }
   @media (max-width:700px){
     .term-wrap{padding-top:28px}
-    .wstat{display:none}
-    .wtitle{text-align:left}
+    .tray{display:none}
+    .clock{text-align:left}
     .out{font-size:12px}
   }
 </style>
