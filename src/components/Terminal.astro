@@ -139,19 +139,23 @@ const banner = `     ██╗ █████╗ ██╗   ██╗██╗
 // middle row, "└ └" for the last), first row flush with no prefix.
 // Wide enough for the longest row (the Update line) to sit inside the border
 // rather than poke out past it. Real specs run longer than the old one-liners.
-// The portrait is drawn at more columns than the wordmark; rendering it at a
-// proportionally smaller size makes the two blocks exactly the same width, and
-// keeps working if either is ever redrawn at another size.
+// The portrait is drawn at more columns than the wordmark, so the two need
+// different font-sizes to end up the width the layout wants. PORTRAIT_SCALE
+// sets the portrait's width as a fraction of the wordmark's own natural
+// width (bannerCols at 1em) — 0.89 is the widest the portrait can go while
+// leaving the wordmark room to sit under it at full height, see below.
 const bannerCols = Math.max(...banner.split('\n').map((l) => l.length));
 const portraitCols = Math.max(...portrait.split('\n').map((l) => l.length));
-// The portrait sets the art column's width and the wordmark sits under it at
-// about half scale. Tying the two to the same width instead forced the
-// portrait to be wider than tall, which meant cropping it off at the chin to
-// fit the terminal's fixed height. Both are expressed against the wordmark's
-// natural width so the pair stays in step if either is redrawn.
 const PORTRAIT_SCALE = 0.89;
-const BANNER_SCALE = 0.49;
 const PORTRAIT_EM = (bannerCols * PORTRAIT_SCALE / portraitCols).toFixed(4);
+// The wordmark used to render at a fixed fraction of that size, which made
+// it narrower than the portrait above it and left a bare gap to its right —
+// the block was only ever left-aligned inside a box sized for the wider
+// portrait. Deriving BANNER_EM from the portrait's own rendered width instead
+// (rather than a second guessed constant) makes the two exactly as wide as
+// each other, however either is redrawn: bannerCols * BANNER_EM must equal
+// portraitCols * PORTRAIT_EM.
+const BANNER_EM = (portraitCols * Number(PORTRAIT_EM) / bannerCols).toFixed(4);
 
 const BOX_WIDTH = 64;
 const boxTop = (title) => {
@@ -186,7 +190,7 @@ const factsHtml = groups.map((g) => [
 // Logo on the left, facts on the right — like fastfetch itself. Built as one
 // string with no whitespace between the two <span> children so nothing sits
 // between them as a stray text node inside the flex row.
-const ffHtml = `<span class="ff"><span class="art" aria-hidden="true"><span class="face" style="font-size:${PORTRAIT_EM}em">${portrait}</span>\n<span class="mark" style="font-size:${BANNER_SCALE}em">${banner}</span></span>`
+const ffHtml = `<span class="ff"><span class="art" aria-hidden="true"><span class="face" style="font-size:${PORTRAIT_EM}em">${portrait}</span>\n<span class="mark" style="font-size:${BANNER_EM}em">${banner}</span></span>`
   + `<span class="ffinfo">${factsHtml}</span></span>`;
 
 // Everything the client-side commands need, and nothing more.
@@ -719,7 +723,13 @@ const data = {
   .out .art{
     display:block;flex:none;white-space:pre;font-size:min(1.7vw,17px);line-height:1;font-weight:700;
     margin:0;overflow-x:auto;overflow-y:hidden;color:var(--accent);
-    background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 34%,var(--strong) 34%,var(--strong) 67%,var(--accent2) 67%);
+    /* One continuous ramp over the whole box (portrait, then the wordmark
+       under it), not the old three flat bands — repeating a stop's position
+       (e.g. "accent 34%, strong 34%") is what forced a hard edge there
+       instead of a blend. A single stop per colour lets the browser
+       interpolate the whole way down, and violet (the same token the
+       section labels use) now carries the middle of it. */
+    background:linear-gradient(180deg,var(--accent) 0%,var(--violet) 50%,var(--accent2) 100%);
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   }
   @supports not (background-clip:text){.out .art{-webkit-text-fill-color:currentColor}}
