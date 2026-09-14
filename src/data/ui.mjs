@@ -25,6 +25,8 @@ const EN = {
   musicVolume: 'Volume',
   musicPrev: 'Previous track',
   musicNext: 'Next track',
+  musicVolDown: 'Volume down',
+  musicVolUp: 'Volume up',
   // terminal
   term: {
     title: 'jpp — ~',
@@ -138,6 +140,8 @@ const ES = {
   musicVolume: 'Volumen',
   musicPrev: 'Pista anterior',
   musicNext: 'Pista siguiente',
+  musicVolDown: 'Bajar volumen',
+  musicVolUp: 'Subir volumen',
   term: {
     title: 'jpp — ~',
     online: 'en línea',
