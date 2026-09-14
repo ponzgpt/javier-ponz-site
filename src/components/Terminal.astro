@@ -233,12 +233,21 @@ const data = {
       </span>
     </div>
     <div class="term" id="term">
-      <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">jpp ~ <b>❯</b> fastfetch</span>
+      <div class="out-wrap">
+        <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">jpp ~ <b>❯</b> fastfetch</span>
 
 <Fragment set:html={ffHtml} />
 
 <span class="hint" set:html={t.term.hint} />
 </pre>
+        <!-- Shown/hidden by JS (updateFade in the client script) whenever the
+             box actually has more content below the fold — otherwise, on a
+             phone, the portrait+wordmark alone can fill the capped height and
+             the specs underneath are invisible with no sign they exist. -->
+        <div class="scroll-fade" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
       <form class="line" id="term-form" autocomplete="off">
         <label for="term-in">jpp ~ <b>❯</b></label>
         <span class="cursor" aria-hidden="true"></span>
@@ -275,7 +284,17 @@ const data = {
   var out = document.getElementById('term-out');
   var form = document.getElementById('term-form');
   var input = document.getElementById('term-in');
+  var fade = document.querySelector('.scroll-fade');
   if (!out || !form || !input) return;
+
+  // Whenever there's more of the box below the visible edge — mainly on a
+  // phone, where the portrait+wordmark alone can already fill the capped
+  // height, leaving the specs underneath invisible with nothing hinting they
+  // exist. 1px of slack absorbs sub-pixel rounding so it doesn't flicker at
+  // the exact bottom.
+  function updateFade() {
+    if (fade) fade.classList.toggle('show', out.scrollHeight - out.scrollTop - out.clientHeight > 1);
+  }
 
   // Measured, not guessed: the three workspaces (and typed commands, which
   // keep appending to whichever is showing) are never the same length, and a
@@ -294,7 +313,9 @@ const data = {
     var natural = out.scrollHeight;
     var cap = innerWidth <= 700 ? innerHeight * 0.5 : Infinity;
     out.style.height = Math.round(Math.min(natural, cap)) + 'px';
+    updateFade();
   }
+  out.addEventListener('scroll', updateFade, { passive: true });
 
   var history = [], hpos = 0;
 
@@ -707,8 +728,9 @@ const data = {
      would silently fail to match them. */
   .term-wrap{padding:44px 0 8px}
   .win{
+    --term-bg:color-mix(in srgb, var(--bg), #000 22%);
     border:2px solid var(--accent2);border-radius:10px;overflow:hidden;
-    background:color-mix(in srgb, var(--bg), #000 22%);
+    background:var(--term-bg);
   }
   /* Hyprland windows carry no title bar of their own — it's a tiling WM.
      What sits above this one is a Waybar imitation instead: workspace
@@ -753,6 +775,23 @@ const data = {
        changes, which was the original complaint switching workspaces. */
     overflow:auto;scrollbar-width:thin;transition:height .18s ease;
   }
+  /* A capped box (mostly on a phone, where the portrait+wordmark alone can
+     already fill it) looks exactly like a finished box with nothing hinting
+     that the specs are still below — no partial line, no visible scrollbar
+     on iOS/Android until a finger is already on it. updateFade (in the
+     client script) toggles .show whenever out.scrollTop hasn't reached the
+     bottom yet, on the same box .win already paints, so the edge disappears
+     into it rather than leaving a seam. */
+  .out-wrap{position:relative}
+  .scroll-fade{
+    position:absolute;left:0;right:0;bottom:0;height:34px;
+    display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;
+    background:linear-gradient(180deg,transparent,var(--term-bg) 75%);
+    color:var(--muted);pointer-events:none;opacity:0;transition:opacity .2s ease;
+  }
+  .scroll-fade.show{opacity:1}
+  .scroll-fade svg{width:13px;height:13px}
+  @media(prefers-reduced-motion:reduce){.scroll-fade{transition:none}}
   .out .cmd{color:var(--muted)}
   .out .cmd b{color:var(--accent);font-weight:700}
   /* logo left, fastfetch-style facts right — real fastfetch's own layout */
