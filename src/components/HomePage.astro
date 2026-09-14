@@ -20,11 +20,13 @@ const p = pages.home[lang];
 const proj = projects.slice(0, 3).map((r) => pick(r, lang));
 ---
 <Layout title={p.title} description={p.desc} lang={lang}>
-  <Terminal lang={lang} />
-  <section class="hero"><p class="kicker">{p.kicker}</p>
-    <h1 class="sr-only">Javier Ponz</h1>
-    <p class="tagline">{p.tagline}<span class="serif">{p.taglineSerif}</span>{p.taglineEnd}</p>
-    <p class="lede">{p.lede}</p></section>
+  <section class="landing" id="landing">
+    <Terminal lang={lang} />
+    <div class="hero"><p class="kicker">{p.kicker}</p>
+      <h1 class="sr-only">Javier Ponz</h1>
+      <p class="tagline">{p.tagline}<span class="serif">{p.taglineSerif}</span>{p.taglineEnd}</p>
+      <p class="lede">{p.lede}</p></div>
+  </section>
   <section class="grid"><span class="label">{p.overviewLabel}</span><div class="copy">
     <h2>{p.overviewH2}</h2>
     <Fragment set:html={expand(p.overview)} />

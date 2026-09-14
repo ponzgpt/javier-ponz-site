@@ -2,6 +2,7 @@
 import { skins, defaultSkin, skinCss } from '../data/skins.mjs';
 import { ui } from '../data/ui.mjs';
 import { locales, localeHome } from '../data/i18n.mjs';
+import MusicPlayer from '../components/MusicPlayer.astro';
 
 interface Props { title: string; description?: string; lang?: string }
 const { title, description = 'Javier Ponz — technology, service and agents.', lang = 'en' } = Astro.props;
@@ -142,6 +143,7 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
     <span><b>javier-ponz</b> <span class="sep">&#9474;</span> {t.status} <span class="sep">&#9474;</span> {t.openToWork}</span>
     <span><a href="mailto:nerion89@gmail.com">{t.footerLinks[0]}</a> <span class="sep">&#9474;</span> <a href="https://github.com/ponzgpt">{t.footerLinks[1]}</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">{t.footerLinks[2]}</a></span>
   </div></footer>
+  <MusicPlayer lang={lang} />
 
   <script is:inline define:vars={{ sprites }}>
     /* Each skin has a pixel character that crosses the screen occasionally
@@ -225,6 +227,29 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
       }
       update();
       addEventListener('scroll', update, { passive: true });
+    })();
+  </script>
+
+  <script is:inline>
+    /* The landing block's cursor-reactive glow: just two CSS custom
+       properties, throttled to one write per animation frame — the browser
+       does the rest via the radial-gradient already in the stylesheet. */
+    (function () {
+      var el = document.getElementById('landing');
+      if (!el) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var raf = null, mx = '50%', my = '15%';
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        mx = ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%';
+        my = ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%';
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          el.style.setProperty('--mx', mx);
+          el.style.setProperty('--my', my);
+          raf = null;
+        });
+      });
     })();
   </script>
 
@@ -403,12 +428,32 @@ a:hover{color:var(--accent);text-decoration:underline}
 
 .kicker,.label{font-family:var(--font-display);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2)}
 .label::before{content:"\25CF ";color:var(--accent)}
+
+/* Omarchy's own trick for full-bleed section bands inside a fixed-width
+   column: box-shadow spread paints past an element's edges without adding
+   to its layout size (no wrapper divs, no scroll risk), so alternating
+   shades replace the old border-top rule between sections. .landing (the
+   terminal + tagline block) is exempt — it gets its own interactive
+   background below — so the rhythm starts fresh right after it. */
+main > section:not(.landing):nth-of-type(even){box-shadow:0 0 0 100vw var(--raised)}
+main > section:not(.landing):nth-of-type(odd){box-shadow:0 0 0 100vw var(--bg)}
+
+/* The landing block: a soft glow that follows the cursor (JS sets --mx/--my
+   on pointer move), same spirit as omarchy.org's reactive hero — skipped
+   under reduced-motion, where the plain --bg already set as the base layer
+   is all that shows. */
+.landing{
+  position:relative;
+  background:
+    radial-gradient(760px circle at var(--mx,50%) var(--my,15%), color-mix(in srgb, var(--accent) 30%, transparent), transparent 65%),
+    var(--bg);
+}
 .hero{padding:76px 0 70px;max-width:900px}
 .hero h1{font-family:var(--font-display);font-size:clamp(34px,5.4vw,58px);line-height:1.06;letter-spacing:-.03em;margin:20px 0 26px;font-weight:700;color:var(--accent)}
 .tagline{font-family:var(--font-display);font-size:clamp(22px,3.2vw,32px);line-height:1.2;letter-spacing:-.02em;margin:26px 0 24px;font-weight:700;color:var(--fg)}
 .serif{font:inherit;color:var(--accent2);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--accent2)}
 .lede{font-size:calc(19px * var(--scale,1));max-width:700px}
-.grid{display:grid;grid-template-columns:190px 1fr;gap:60px;border-top:1px solid var(--line);padding:64px 0}
+.grid{display:grid;grid-template-columns:190px 1fr;gap:60px;padding:64px 0}
 .grid h2{font-family:var(--font-display);font-size:clamp(26px,3.6vw,32px);line-height:1.1;letter-spacing:-.03em;margin:0 0 24px;color:var(--accent)}
 .copy{max-width:760px;font-size:calc(16px * var(--scale,1))}
 .copy p{margin:0 0 18px}

@@ -11,9 +11,16 @@ const EN = {
   langLabel: 'Change language',
   githubLabel: 'Javier on GitHub',
   menuLabel: 'Menu',
+  wsLabel: 'Simulated workspaces',
   status: 'aberdeen, scotland',
   openToWork: 'open to work',
   footerLinks: ['email', 'github', 'linkedin'],
+  pausedTag: '(paused)',
+  treeHint: 'real repos — see <b>projects</b> for details.',
+  treeThisSite: 'this site',
+  musicPlay: 'Play ambient music',
+  musicMute: 'Mute',
+  musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
   // terminal
   term: {
     title: 'jpp — ~',
@@ -70,7 +77,9 @@ const EN = {
       ['contact', 'email, GitHub, LinkedIn'],
       ['skin [name]', 'change the look, or list the options'],
       ['lang [code]', 'switch language: en, es'],
-      ['fastfetch', 'the banner again'],
+      ['fastfetch', 'the banner again (workspace 1)'],
+      ['btop', 'a simulated resource monitor (workspace 2)'],
+      ['tree', 'the real repos, as a file tree (workspace 3)'],
       ['clear', 'wipe the scrollback']
     ],
     strings: {
@@ -111,9 +120,16 @@ const ES = {
   langLabel: 'Cambiar de idioma',
   githubLabel: 'Javier en GitHub',
   menuLabel: 'Menú',
+  wsLabel: 'Espacios de trabajo simulados',
   status: 'aberdeen, escocia',
   openToWork: 'disponible',
   footerLinks: ['correo', 'github', 'linkedin'],
+  pausedTag: '(pausado)',
+  treeHint: 'repos reales — mira <b>projects</b> para más detalles.',
+  treeThisSite: 'este sitio',
+  musicPlay: 'Reproducir música ambiental',
+  musicMute: 'Silenciar',
+  musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
   term: {
     title: 'jpp — ~',
     online: 'en línea',
@@ -165,7 +181,9 @@ const ES = {
       ['contact', 'correo, GitHub, LinkedIn'],
       ['skin [nombre]', 'cambiar el aspecto, o ver las opciones'],
       ['lang [código]', 'cambiar de idioma: en, es'],
-      ['fastfetch', 'el banner otra vez'],
+      ['fastfetch', 'el banner otra vez (espacio 1)'],
+      ['btop', 'un monitor de recursos simulado (espacio 2)'],
+      ['tree', 'los repos reales, como árbol de ficheros (espacio 3)'],
       ['clear', 'limpiar la pantalla']
     ],
     strings: {
