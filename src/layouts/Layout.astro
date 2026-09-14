@@ -15,7 +15,9 @@ const canonical = site + localeHome(lang);
 const navPaths = ['#about', '#experience', '#projects', '#skills', '#achievements', '#newsletter', '#contact'];
 const nav: [string, string][] = navPaths.map((p, i) => [p, t.nav[i]]);
 const ids = skins.map((s) => s.id);
-const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
+// Each skin's sprite travels with the destination it links to, so the floating
+// character and where it sends you can never drift apart.
+const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: s.link }]));
 ---
 <!doctype html>
 <html lang={locale.html} data-skin={defaultSkin}>
@@ -180,29 +182,45 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
             svg.appendChild(r);
           }
         }
-        return { svg: svg, w: w * CELL, h: h * CELL };
+        return { svg: svg, w: w * CELL, h: h * CELL, link: s.link };
+      }
+
+      var wrap = null, built = null, x = 0, y = 0, vx = 0, vy = 0, last = 0;
+
+      /* Swap in the sprite belonging to `id`, keeping the current position and
+         heading so switching skin morphs the character in flight rather than
+         teleporting it. Called once on load and again on every skin change. */
+      function mount(id) {
+        var b = build(id);
+        if (!b) return false;
+        var first = !wrap;
+        built = b;
+        if (first) {
+          wrap = document.createElement('div');
+          wrap.className = 'spren';
+          document.body.appendChild(wrap);
+          x = Math.random() * Math.max(1, innerWidth - b.w);
+          y = Math.random() * Math.max(1, innerHeight - b.h);
+          var speed = 50.4 + Math.random() * 31.2; // px/s — 20% faster again
+          var angle = Math.random() * Math.PI * 2;
+          vx = Math.cos(angle) * speed;
+          vy = Math.sin(angle) * speed;
+          last = performance.now();
+        }
+        wrap.textContent = '';
+        var link = document.createElement('a');
+        link.href = b.link.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', b.link.label + ' (opens in a new tab)');
+        link.appendChild(b.svg);
+        wrap.appendChild(link);
+        return first;
       }
 
       function bounce() {
-        var built = build(document.documentElement.dataset.skin);
-        if (!built) return;
-        var wrap = document.createElement('div');
-        wrap.className = 'spren';
-        var link = document.createElement('a');
-        link.href = 'https://omarchy.org';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.setAttribute('aria-label', 'Omarchy (opens in a new tab)');
-        link.appendChild(built.svg);
-        wrap.appendChild(link);
-        document.body.appendChild(wrap);
-
-        var x = Math.random() * Math.max(1, innerWidth - built.w);
-        var y = Math.random() * Math.max(1, innerHeight - built.h);
-        var speed = 50.4 + Math.random() * 31.2; // px/s — 20% faster again
-        var angle = Math.random() * Math.PI * 2;
-        var vx = Math.cos(angle) * speed, vy = Math.sin(angle) * speed;
-        var last = performance.now();
+        if (!mount(document.documentElement.dataset.skin)) return;
+        document.addEventListener('jp:skin', function (e) { mount(e.detail); });
 
         function tick(now) {
           var dt = Math.min(0.05, (now - last) / 1000);
@@ -293,6 +311,9 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
         b.addEventListener('click', function () {
           var id = b.dataset.skinSet;
           paint(id);
+          // The floating sprite belongs to the skin, so it has to be rebuilt
+          // here; without this it kept whichever character it was born with.
+          document.dispatchEvent(new CustomEvent('jp:skin', { detail: id }));
           try { localStorage.setItem('jp-skin', id); } catch (e) {}
           // Reflect the choice in the URL too, so copying the address bar
           // shares this skin instead of whoever opens it defaulting to Omakase.

@@ -34,9 +34,13 @@ assert.equal(new Set(skins.map((s) => s.id)).size, skins.length, 'duplicate skin
 
 let failures = 0;
 for (const s of skins) {
-  for (const key of ['id', 'name', 'note', 'bg', 'fg', 'accent', 'accent2', 'display', 'body', 'sprite']) {
+  for (const key of ['id', 'name', 'note', 'bg', 'fg', 'accent', 'accent2', 'display', 'body', 'sprite', 'link']) {
     assert.ok(s[key], `${s.id}: missing "${key}"`);
   }
+  // The sprite is a real link, so a skin without a destination would render an
+  // <a href="undefined"> that silently goes nowhere.
+  assert.match(s.link.href, /^https:\/\/\S+$/, `${s.id}.link.href must be an https URL`);
+  assert.ok(s.link.label, `${s.id}.link.label is what the screen reader announces`);
   for (const key of ['bg', 'fg', 'accent', 'accent2']) {
     assert.match(s[key], /^#[0-9a-fA-F]{6}$/, `${s.id}.${key} must be a 6-digit hex`);
   }
