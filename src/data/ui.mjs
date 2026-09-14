@@ -42,6 +42,7 @@ const EN = {
         title: 'Hardware',
         color: 'accent2',
         rows: [
+          ['PC', 'custom build'],
           ['CPU', 'AMD Ryzen 9 9900X3D (24) @ 5.58 GHz'],
           ['GPU', 'AMD Radeon Graphics'],
           ['GPU', 'NVIDIA GeForce RTX 5090'],
@@ -156,6 +157,7 @@ const ES = {
         title: 'Hardware',
         color: 'accent2',
         rows: [
+          ['PC', 'montaje propio'],
           ['CPU', 'AMD Ryzen 9 9900X3D (24) @ 5,58 GHz'],
           ['GPU', 'AMD Radeon Graphics'],
           ['GPU', 'NVIDIA GeForce RTX 5090'],
@@ -244,6 +246,7 @@ export const ui = { en: EN, es: ES };
 // blocks the site's own project icons (➤▣⌁▤◈▦◉⌘) already use successfully,
 // so no new font dependency and no risk of missing glyphs.
 export const fastfetchIcons = {
+  PC: '▣',
   OS: '⌘',
   Channel: '⌂',
   Kernel: '⚙',
