@@ -9,7 +9,7 @@
 import { projects, running, skillGroups } from '../data/site';
 import { person, profile, personEs, profileEs } from '../data/cv.mjs';
 import { skins } from '../data/skins.mjs';
-import { ui } from '../data/ui.mjs';
+import { ui, fastfetchIcons } from '../data/ui.mjs';
 import { locales, pick } from '../data/i18n.mjs';
 
 const { lang = 'en' } = Astro.props;
@@ -48,17 +48,27 @@ const boxBottom = '└' + '─'.repeat(BOX_WIDTH) + '┘';
 const groups = t.term.factGroups.map((g) => ({
   ...g,
   rows: g.rows.map(([k, v], i) => [
-    (i === 0 ? '' : i === g.rows.length - 1 ? '└ └' : '│ ├') + k,
+    (i === 0 ? '' : i === g.rows.length - 1 ? '└ └' : '│ ├'),
+    k,
     v
   ])
 }));
-const KEYW = Math.max(...groups.flatMap((g) => g.rows.map(([k]) => k.length))) + 2;
+// Icons replace the word, not the alignment: prefix (3 chars) + one icon
+// glyph, padded to a fixed column — same job pad() did for text labels,
+// just a constant width now that every "label" is a single glyph.
+const KEYW = 6;
 const pad = (s, w) => s + ' '.repeat(Math.max(1, w - s.length));
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const factsHtml = groups.map((g) => [
   `<span class="box">${esc(boxTop(g.title))}</span>`,
-  g.rows.map(([k, v]) => `<span class="k" style="color:var(--${g.color})">${esc(pad(k, KEYW))}</span><span class="v">${esc(v)}</span>`).join('\n'),
+  g.rows.map(([prefix, k, v]) => {
+    const icon = fastfetchIcons[k] ?? '•';
+    return `<span class="k" style="color:var(--${g.color})" title="${esc(k)}">`
+      + `<span aria-hidden="true">${esc(pad(prefix + icon, KEYW))}</span>`
+      + `<span class="sr-only">${esc(k)} </span></span>`
+      + `<span class="v">${esc(v)}</span>`;
+  }).join('\n'),
   `<span class="box">${esc(boxBottom)}</span>`
 ].join('\n')).join('\n\n');
 
@@ -94,7 +104,9 @@ const data = {
     </div>
     <div class="term" id="term">
       <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">jpp ~ <b>❯</b> fastfetch</span>
+
 <Fragment set:html={ffHtml} />
+
 <span class="hint" set:html={t.term.hint} />
 </pre>
       <form class="line" id="term-form" autocomplete="off">
