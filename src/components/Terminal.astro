@@ -277,6 +277,25 @@ const data = {
   var input = document.getElementById('term-in');
   if (!out || !form || !input) return;
 
+  // Measured, not guessed: the three workspaces (and typed commands, which
+  // keep appending to whichever is showing) are never the same length, and a
+  // hand-picked pixel height is wrong for one of them the moment any of them
+  // changes — this box has already been clipped on desktop and trapped
+  // scroll on mobile from exactly that. Read the real content height after
+  // every render instead, and only cap it on a narrow viewport, where
+  // letting it fill the screen is the actual problem; a normal desktop has
+  // the room, so it just gets to be as tall as it needs to be.
+  function fitOut() {
+    // scrollHeight already reports the content's full height regardless of
+    // the box's own current (explicit or clipped) height, so there is no
+    // need to release it to 'auto' first — doing that would also force an
+    // intermediate reflow the .out transition could snap through instead of
+    // animating smoothly from its previous height.
+    var natural = out.scrollHeight;
+    var cap = innerWidth <= 700 ? innerHeight * 0.5 : Infinity;
+    out.style.height = Math.round(Math.min(natural, cap)) + 'px';
+  }
+
   var history = [], hpos = 0;
 
   function write(text, cls) {
@@ -505,6 +524,7 @@ const data = {
     el.textContent = 'jpp ~ ❯ ' + CMD_ECHO[n] + '\n\n';
     out.appendChild(el);
     RENDER[n]();
+    fitOut();
     out.scrollTop = 0;
     if (btopInterval) { clearInterval(btopInterval); btopInterval = null; }
     if (n === '2') btopInterval = setInterval(renderBtopBody, 2500);
@@ -629,10 +649,11 @@ const data = {
     el.className = 'cmd';
     el.textContent = 'jpp ~ ❯ ' + raw + '\n';
     out.appendChild(el);
-    if (!cmd) return;
+    if (!cmd) { fitOut(); return; }
     if (commands[cmd]) commands[cmd](arg);
     else write(cmd + ': command not found. Try help.', 'err');
     write('');
+    fitOut();
   }
 
   form.addEventListener('submit', function (e) {
@@ -663,8 +684,18 @@ const data = {
         : Object.keys(commands);
       var hits = pool.filter(function (c) { return c.indexOf(typed) === 0; });
       if (hits.length === 1) input.value = hits[0] + ' ';
-      else if (hits.length > 1) { run(typed); write(hits.join('  ')); write(''); }
+      else if (hits.length > 1) { run(typed); write(hits.join('  ')); write(''); fitOut(); }
     }
+  });
+
+  // Establishes the box's real height against the SSR fastfetch content
+  // already sitting in the DOM, then keeps it correct across an orientation
+  // flip or the browser window being resized past the 700px cap threshold.
+  fitOut();
+  var fitResizeTimer;
+  addEventListener('resize', function () {
+    clearTimeout(fitResizeTimer);
+    fitResizeTimer = setTimeout(fitOut, 120);
   });
 })();
 </script>
@@ -709,12 +740,18 @@ const data = {
   .out{
     margin:0;white-space:pre-wrap;word-break:break-word;
     font-size:13px;line-height:1.5;color:var(--fg);
-    /* Fixed, not max-height: workspace 1 (fastfetch) is much taller than btop
-       or the file tree, so a shrink-to-fit box resized the whole terminal on
-       every ctrl+n and shoved the page below it around. Sized to the tallest
-       of the three; the other two simply leave the bottom empty, which is
-       what a real terminal window does anyway. */
-    height:min(72vh,680px);overflow:auto;scrollbar-width:thin;
+    /* Height is set in JS (fitOut, below), not fixed here: workspace 1
+       (fastfetch, with the portrait) and workspace 2/3 (btop, the file tree)
+       are never the same length, and any single number picked by hand is
+       wrong for one of them the moment either changes — as happened twice
+       already, once clipping the mobile viewport and once clipping the
+       fastfetch hint on desktop. fitOut measures whatever is actually in the
+       box after every render and sizes to that instead, with a cap only on
+       narrow viewports (see fitOut) so it can never take over a phone
+       screen; on a normal desktop it simply fits, however tall that is. The
+       transition is what stops that from feeling like a jump when it
+       changes, which was the original complaint switching workspaces. */
+    overflow:auto;scrollbar-width:thin;transition:height .18s ease;
   }
   .out .cmd{color:var(--muted)}
   .out .cmd b{color:var(--accent);font-weight:700}
@@ -769,17 +806,6 @@ const data = {
     .term-wrap{padding-top:28px}
     .tray{display:none}
     .clock{text-align:left}
-    .out{
-      font-size:12px;
-      /* At 72vh this box was most of a phone's visible viewport, so a swipe
-         landing anywhere on it scrolled the terminal's own content — not the
-         page — until that content ran out, which on workspace 2/3 (34 lines
-         at a fixed line-height, unlike workspace 1's viewport-scaled art) it
-         rarely did. Shrinking it here leaves real page above and below the
-         terminal to swipe on instead; workspaces still scroll inside
-         themselves when their content is taller than this, same as any
-         terminal window, but the page itself is never trapped behind it. */
-      height:min(46vh,380px);
-    }
+    .out{font-size:12px}
   }
 </style>
