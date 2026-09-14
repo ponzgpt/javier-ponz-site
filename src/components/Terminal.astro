@@ -20,32 +20,53 @@ const headline = lang === 'en' ? person.headline : personEs.headline;
 const profileLine = lang === 'en' ? profile[1] : profileEs[1];
 const CONTACT_LABEL_ES = { Email: 'Correo', Phone: 'Teléfono', Site: 'Sitio' };
 
-// A tone-ramp rendering of Javier's photo, sitting above the
-// wordmark so the art column carries roughly the same visual weight as the
-// three info boxes beside it — the balance real fastfetch has and this did
-// not, when a short wide wordmark left the left half mostly empty.
-// Generated once from the source photo. A 1-bit block rendering was tried
-// first and failed on this image: hair, beard and hoodie sit at almost the
-// same tone, so any threshold merged them into one blob. A grey ramp keeps
-// them apart. The image is inverted, so the pale wall falls away to blank
-// and the dark hair and lenses carry the ink.
-const portrait = `               .::-+++=:
-            .+#+-..:=*%%*:
-           :*#:       .*%+-.
-          :#%: .:.::..:+#**+-.
-         .*%+--*==#=====%@**+=:
-        .+%%@%@+ .#@@%+###*%++-.
-       .=#%*%%*---:=*#*+**#%*++-.
-       :+#@@=.-###-  .:=%%%#*+*+-.
-       =#%@@--*++++=-.:+%##%###+=:
-      :+#@@@**+=+=:=+-=##=#%*++==-:.
-     :+=*@@@%#+=+=:-**#%%#%%*+*++=-:.
-     -**#@@%**++*=+*#%%@@#+##*+*=+*=:.
-    .=+#%@#****##*#%%@@@@@*#%#++#-**=:.
-   .-::*@%#****%####%%%%@@%#%#**%++++=:.
-  .::-*#@@@%##%%%##*#+*%%%*+#*****+*+--:..
- .:.-+#%@@*#@@@+=++*==#%%##%#***+-=+++==...
- .::**##@#=@@@@%%%%=-###%%#*###*#=-=-*++=:.`;
+// A tone-ramp rendering of Javier's photo, above the wordmark.
+//
+// Three things this needs that the earlier versions got wrong. The wall is
+// flood-filled away from the borders, so luminance maps DIRECTLY — bright skin
+// becomes dense glyphs. Inverting instead (to drop the wall for free) is what
+// turned the face into a void inside a wall of ink. It is drawn at 88 columns,
+// because likeness at this scale is mostly a resolution problem. And it gets
+// its own font-size, PORTRAIT_EM below, so those 88 columns occupy exactly the
+// width of the 44-column wordmark underneath.
+const portrait = `                                    :===-----:.
+                           .:::--==++=::.   ..:-::
+                        :::..:=*#@@@@@@%#+-:   ::-=
+                       -=.  =%@@@@@@@@@@@@@@#=..-:-=.
+                     .-=-.=@@@@@@@@@@@@@@@@@@@*..::=+-
+                    :=::.+@@@@@@@@@@@@@@@@@@@%#=:==+*+=:
+                   :+-- -@@@@@@@@@@@@@@@@@@@%#*-:--=+==++-
+                  .=:.. +#####*##%#++++***###*+:...:---=+*+.
+                  =:.:=*#****+-:*#=-**######%%%#= ...:+=-=+*-
+                 -=.:.:-+*#***--@@+.:=++=========:..:-+::==++
+                ++.      .:.. =@@@%:      ..==:::. .-=::+++=+=
+              .++-     ..    =@@@@@#-.....::*#--:-:-=-..-=+=+**
+             .*+=..+*=:::...=@@@@@@@#+-:..:::---==:==:...-+==+*+
+             -*++: :=-:...-+*++++-=###%#+=-:-==*+::=-:..:===-=+*+
+             =++-:.   -=+*#%*::-=::+#@@@@%%###*+-::-.::::-=====+*+
+             +=+:..   +#%@%#+-::-==+%@@@@@@%%#*+-..::..::-=======*:
+            :=--:.    =#%%#=--------+#%%@@@%%#*+:  .-::::------==+-
+            -=::.    .-##*+=--=+=======+#%@@%#*=:..:--:-::-::::==+*:
+            =-::     .-+++-=*******##*+-=+%%#*+-::-++:.:.:--:-==++*#=
+           :==-:     .:-+==**+=-==+*##*+=+***+-:.=**=..:::=====++++**
+         .-+*+-.     .:.:=-=+*++++*###*++=+===:.:==-..:::-+++=++++++*-
+        -+=-+=-:.    ....:-=****+**##%#+====--...::...:::-+==-+=-==++*+:
+       :#*==#=-:.    ..:::=++=+==+*++*+=:--::.....:=-  .::-----=+==+*++*+.
+       -#+=-++::.   ..:--=+====-=+#+==-::...:...   -*=:::::-+==-=*#++-==#*
+        -==-.:..   .:--=-=+-=+--==*+=-.:-. .  ...   :+==-:::-+*+-:=*=:-==+-.
+        --*-:::.  .:--==:==--=:::--=-:.-:..   ..    :**+.:::::+#+.:*#=+-=+++
+     .:===*:-:.. .:--==::---:::..::-:::-...         .::..::-=-+#=::*%+==-=++=
+     :.-#%%*-:. ..-===---=--:::.::::-.:......  .     .:.::..--=-::.-**=-==+--
+     :.-@@*+-:  .::::---===---::--:--:-...::::::.    :=-:..:..-::-:.-*+==++*+-  .
+     :- -+===:.    .:---=--:-::::--:-=-.:-==--::..  .-**+:=++=-=::-::======#***+.
+     :  :--::.     .....:.. :....:::::---+*+=:..:..-+=-=.:---=-==:+==+=-==-=+*#*:
+       :=--- ..     -:      :======---=++-::....:.:--:...:-::=--+=+++#+-======+*+=.
+.    .=+==::..... :%+.      :+*****++++--+**:::.::.::::..::-==-=+--**#+=++====+*+#:
+     -=++:--::..  %#  ..   ..-====---:.+@@*+.:::::::-::=--::=-:--::=+%#=+##+--=+*+=.
+    :=---::..:.  =% .. ..  ....       %@* ..::--::.:.:==---::=::==--+*#=+**++-:-=-=+-:.
+  -*+.--:...:-. .@..:::::::......    #@- .::...:.:::..=+-.:----:*+::=+==++*++*+#=-*+:=
+  =@%-=-:.:::. .%= .:.:::=# ...::.. *@= ..   ...::-:-+:.::-=:..:+:::===+*#**-*##*+=*: .
+  .#*--.:... ..##.-......:#=--..::.=@@.   ..:-:--.:. :-:--+-.---=-==**++*##=+##%%%#%%#=:`;
 
 const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
@@ -66,6 +87,13 @@ const banner = `     ██╗ █████╗ ██╗   ██╗██╗
 // middle row, "└ └" for the last), first row flush with no prefix.
 // Wide enough for the longest row (the Update line) to sit inside the border
 // rather than poke out past it. Real specs run longer than the old one-liners.
+// The portrait is drawn at more columns than the wordmark; rendering it at a
+// proportionally smaller size makes the two blocks exactly the same width, and
+// keeps working if either is ever redrawn at another size.
+const bannerCols = Math.max(...banner.split('\n').map((l) => l.length));
+const portraitCols = Math.max(...portrait.split('\n').map((l) => l.length));
+const PORTRAIT_EM = (bannerCols / portraitCols).toFixed(4);
+
 const BOX_WIDTH = 64;
 const boxTop = (title) => {
   const rem = Math.max(0, BOX_WIDTH - title.length);
@@ -99,7 +127,7 @@ const factsHtml = groups.map((g) => [
 // Logo on the left, facts on the right — like fastfetch itself. Built as one
 // string with no whitespace between the two <span> children so nothing sits
 // between them as a stray text node inside the flex row.
-const ffHtml = `<span class="ff"><span class="art" aria-hidden="true">${portrait}\n\n${banner}</span>`
+const ffHtml = `<span class="ff"><span class="art" aria-hidden="true"><span class="face" style="font-size:${PORTRAIT_EM}em">${portrait}</span>\n${banner}</span>`
   + `<span class="ffinfo"><span class="who">${esc(name)} — ${esc(location)}</span>\n${factsHtml}</span></span>`;
 
 // Everything the client-side commands need, and nothing more.
@@ -586,6 +614,7 @@ const data = {
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   }
   @supports not (background-clip:text){.out .art{-webkit-text-fill-color:currentColor}}
+  .out .face{display:block;white-space:pre;line-height:1}
   .out .ffinfo{display:block;flex:1;min-width:0}
   .out .who{color:var(--accent);font-weight:700}
   .out .k{color:var(--accent2)}
