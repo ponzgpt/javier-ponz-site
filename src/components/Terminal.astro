@@ -87,15 +87,22 @@ const data = {
   langs: locales.map((l) => ({ id: l.code, name: l.name, home: l.code === 'en' ? '/' : `/${l.code}/` })),
   curLang: lang,
   help: t.term.help,
-  s: t.term.strings
+  s: t.term.strings,
+  pausedTag: t.pausedTag,
+  treeHint: t.treeHint,
+  treeThisSite: t.treeThisSite,
+  ffHtml,
+  hint: t.term.hint
 };
 ---
 <section class="term-wrap" aria-labelledby="term-title">
   <div class="win">
     <div class="bar waybar">
       <span id="term-title" class="sr-only">{t.term.title}</span>
-      <span class="ws-group" aria-hidden="true">
-        <span class="ws active">1</span><span class="ws">2</span><span class="ws">3</span>
+      <span class="ws-group" role="group" aria-label={t.wsLabel}>
+        <button type="button" class="ws active" data-ws="1" aria-pressed="true">1</button>
+        <button type="button" class="ws" data-ws="2" aria-pressed="false">2</button>
+        <button type="button" class="ws" data-ws="3" aria-pressed="false">3</button>
       </span>
       <span class="clock" id="waybar-clock" aria-hidden="true">&nbsp;</span>
       <span class="tray" aria-hidden="true">
@@ -170,7 +177,114 @@ const data = {
     out.appendChild(el);
   }
 
+  // Hyprland-style workspaces: 1 is the seeded fastfetch view, 2/3 are
+  // simulated tools (btop, tree) built from the same `data` every other
+  // command reads from, so they can't drift from the real project list.
+  var wsButtons = document.querySelectorAll('.ws[data-ws]');
+  var CMD_ECHO = { '1': 'fastfetch', '2': 'btop', '3': 'tree -L 1 ~/code' };
+  var btopInterval = null;
+
+  function box(title, width, rows) {
+    var rem = Math.max(0, width - title.length - 2);
+    var l = Math.floor(rem / 2);
+    var top = '┌' + '─'.repeat(l) + ' ' + title + ' ' + '─'.repeat(rem - l) + '┐';
+    var bottom = '└' + '─'.repeat(width) + '┘';
+    var body = rows.map(function (r) { return '│ ' + pad(r, width - 2) + '│'; }).join('\n');
+    return top + '\n' + body + '\n' + bottom;
+  }
+  function bar(pct, width) {
+    width = width || 21;
+    var filled = Math.max(0, Math.min(width, Math.round(width * pct / 100)));
+    return '█'.repeat(filled) + '░'.repeat(width - filled);
+  }
+  function jitter(base, spread) {
+    return Math.max(2, Math.min(98, base + (Math.random() * 2 - 1) * spread));
+  }
+
+  function renderFastfetch() {
+    out.insertAdjacentHTML('beforeend', data.ffHtml);
+    write('');
+    var hintEl = document.createElement('span');
+    hintEl.className = 'hint';
+    hintEl.innerHTML = data.hint;
+    out.appendChild(hintEl);
+  }
+
+  var CORES = [61, 35, 78, 19], MEM = 71;
+  function renderBtopBody() {
+    var old = document.getElementById('btop-live');
+    CORES = CORES.map(function (c) { return jitter(c, 6); });
+    MEM = jitter(MEM, 3);
+    var cpuRows = CORES.map(function (c, i) { return 'core' + i + '  ' + bar(c) + '  ' + Math.round(c) + '%'; });
+    var memRows = ['used   ' + bar(MEM) + '  ' + Math.round(MEM) + '%   ' + (MEM / 100 * 16).toFixed(1) + 'G / 16.0G'];
+    var procRows = [
+      'PID    CMD                       CPU%   MEM%',
+      '1024   hermes-agent --daemon      ' + jitter(9, 3).toFixed(1) + '    2.1',
+      '1187   astro dev --host           ' + jitter(3, 2).toFixed(1) + '    1.4',
+      '2044   ollama serve ' + data.pausedTag + '       0.0    0.0',
+      '2390   nginx: worker process      ' + jitter(0.6, 0.4).toFixed(1) + '    0.3',
+      '3102   fzf                        0.1    0.1'
+    ];
+    var html = box('CPU', 60, cpuRows) + '\n\n' + box('MEM', 60, memRows) + '\n\n' + box('PROC', 60, procRows);
+    var el = old || document.createElement('span');
+    el.id = 'btop-live';
+    el.textContent = html;
+    if (!old) out.appendChild(el);
+  }
+  function renderBtop() {
+    renderBtopBody();
+  }
+
+  function folderName(url) { return url.split('/').pop(); }
+  function renderTree() {
+    var items = data.projects.map(function (p) { return { name: folderName(p.u), tag: p.s }; });
+    items.push({ name: 'javier-ponz-site', tag: data.treeThisSite });
+    write('~/code');
+    items.forEach(function (it, i) {
+      var branch = i === items.length - 1 ? '└── ' : '├── ';
+      write(branch + it.name + '  [' + it.tag + ']');
+    });
+    write('');
+    var hintEl = document.createElement('span');
+    hintEl.innerHTML = data.treeHint;
+    out.appendChild(hintEl);
+  }
+
+  var RENDER = { '1': renderFastfetch, '2': renderBtop, '3': renderTree };
+  function setActiveWs(n) {
+    wsButtons.forEach(function (b) {
+      var on = b.dataset.ws === n;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+  }
+  function switchWorkspace(n) {
+    if (!RENDER[n]) return;
+    setActiveWs(n);
+    out.innerHTML = '';
+    var el = document.createElement('span');
+    el.className = 'cmd';
+    el.textContent = 'jpp ~ ❯ ' + CMD_ECHO[n] + '\n\n';
+    out.appendChild(el);
+    RENDER[n]();
+    out.scrollTop = 0;
+    if (btopInterval) { clearInterval(btopInterval); btopInterval = null; }
+    if (n === '2') btopInterval = setInterval(renderBtopBody, 2500);
+  }
+  wsButtons.forEach(function (b) {
+    b.addEventListener('click', function () { switchWorkspace(b.dataset.ws); });
+  });
+  document.addEventListener('keydown', function (e) {
+    // Best-effort only: most browsers already reserve Cmd/Ctrl+1..3 for
+    // switching tabs and consume the combo before it reaches page JS.
+    if (!(e.metaKey || e.ctrlKey)) return;
+    if (e.key === '1' || e.key === '2' || e.key === '3') switchWorkspace(e.key);
+  });
+
   var commands = {
+    fastfetch: function () { switchWorkspace('1'); },
+    btop: function () { switchWorkspace('2'); },
+    tree: function () { switchWorkspace('3'); },
     help: function () {
       write(data.s.commands, 'k');
       data.help.forEach(function (c) { write('  ' + pad(c[0], 16) + c[1]); });
@@ -265,7 +379,6 @@ const data = {
       write('lang → ' + arg + ' …');
       setTimeout(function () { location.href = url.toString(); }, 220);
     },
-    fastfetch: function () { location.reload(); },
     clear: function () { out.textContent = ''; },
     sudo: function () { write(data.s.sudo, 'err'); }
   };
@@ -343,7 +456,10 @@ const data = {
     min-width:18px;height:18px;padding:0 5px;border-radius:3px;
     display:inline-flex;align-items:center;justify-content:center;
     border:1px solid var(--line);font-weight:700;
+    background:none;color:var(--muted);font-family:inherit;font-size:inherit;
+    cursor:pointer;
   }
+  .ws:hover{border-color:var(--accent2);color:var(--fg)}
   .ws.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
   .clock{flex:1;text-align:center;color:var(--fg);opacity:.85;font-variant-numeric:tabular-nums;white-space:nowrap}
   .tray{display:flex;align-items:center;gap:10px;flex:none}
