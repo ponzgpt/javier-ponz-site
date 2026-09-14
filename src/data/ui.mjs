@@ -41,11 +41,14 @@ const EN = {
         title: 'Hardware',
         color: 'accent2',
         rows: [
-          ['CPU', 'Human (1) @ full attention'],
-          ['GPU', 'RTX 5090 · 2 × local inference rigs — paused'],
-          ['Display', '3840×2160 @ 144 Hz, plenty of screen time'],
-          ['Disk', '1.82 TiB btrfs — a decade of notes, mostly Markdown'],
-          ['Memory', '10 years / always more to learn']
+          ['CPU', 'AMD Ryzen 9 9900X3D (24) @ 5.58 GHz'],
+          ['GPU', 'AMD Radeon Graphics'],
+          ['GPU', 'NVIDIA GeForce RTX 5090'],
+          ['Display', '3840x2160 @ 1.25x in 72", 60 Hz'],
+          ['Disk', '127.13 GiB / 1.82 TiB (7%) - btrfs'],
+          ['Disk', '5.81 GiB / 5.81 GiB (100%) - iso'],
+          ['Memory', '9.36 GiB / 60.46 GiB (15%)'],
+          ['Swap', '0 B / 120.91 GiB (0%)']
         ]
       },
       {
@@ -53,21 +56,20 @@ const EN = {
         color: 'accent',
         rows: [
           ['OS', 'Omarchy 4.0.3-1'],
-          ['Host', 'Genius Bar, Madrid → homelab, Aberdeen'],
-          ['Kernel', 'leading-is-serving 10.0-lts'],
+          ['Channel', 'stable'],
+          ['Kernel', 'Linux 7.2.3-arch1-3'],
           ['WM', 'Hyprland 0.56.2 (Wayland)'],
-          ['Shell', 'fzf'],
-          ['Terminal', 'you are in it'],
-          ['Packages', 'whatever ships (git)'],
-          ['Theme', 'Tokyo Night (Omakase)'],
-          ['Font', 'JetBrainsMono Nerd Font']
+          ['Terminal', 'foot 1.28.0'],
+          ['Packages', '1045 (pacman)'],
+          ['Theme', 'Tokyo Night'],
+          ['Font', 'JetBrainsMono Nerd Font (12pt)']
         ]
       },
       {
         title: 'Age / Uptime / Update',
         color: 'rainbow-7',
         rows: [
-          ['OS Age', 'since Aug 2024'],
+          ['OS Age', '0 days'],
           ['Uptime', '36 years, still compiling'],
           ['Update', 'open to technical support & customer-facing roles']
         ]
@@ -152,11 +154,14 @@ const ES = {
         title: 'Hardware',
         color: 'accent2',
         rows: [
-          ['CPU', 'Humano (1) @ atención plena'],
-          ['GPU', 'RTX 5090 · 2 × equipos de inferencia local — pausados'],
-          ['Display', '3840×2160 @ 144 Hz, pantalla de sobra'],
-          ['Disk', '1,82 TiB btrfs — una década de notas, casi todo en Markdown'],
-          ['Memory', '10 años / siempre queda más por aprender']
+          ['CPU', 'AMD Ryzen 9 9900X3D (24) @ 5,58 GHz'],
+          ['GPU', 'AMD Radeon Graphics'],
+          ['GPU', 'NVIDIA GeForce RTX 5090'],
+          ['Display', '3840x2160 @ 1,25x en 72", 60 Hz'],
+          ['Disk', '127,13 GiB / 1,82 TiB (7%) - btrfs'],
+          ['Disk', '5,81 GiB / 5,81 GiB (100%) - iso'],
+          ['Memory', '9,36 GiB / 60,46 GiB (15%)'],
+          ['Swap', '0 B / 120,91 GiB (0%)']
         ]
       },
       {
@@ -164,23 +169,22 @@ const ES = {
         color: 'accent',
         rows: [
           ['OS', 'Omarchy 4.0.3-1'],
-          ['Host', 'Genius Bar, Madrid → homelab en Aberdeen'],
-          ['Kernel', 'liderar-es-servir 10.0-lts'],
+          ['Channel', 'stable'],
+          ['Kernel', 'Linux 7.2.3-arch1-3'],
           ['WM', 'Hyprland 0.56.2 (Wayland)'],
-          ['Shell', 'fzf'],
-          ['Terminal', 'estás dentro de ella'],
-          ['Packages', 'lo que llega a producción (git)'],
-          ['Theme', 'Tokyo Night (Omakase)'],
-          ['Font', 'JetBrainsMono Nerd Font']
+          ['Terminal', 'foot 1.28.0'],
+          ['Packages', '1045 (pacman)'],
+          ['Theme', 'Tokyo Night'],
+          ['Font', 'JetBrainsMono Nerd Font (12pt)']
         ]
       },
       {
         title: 'Age / Uptime / Update',
         color: 'rainbow-7',
         rows: [
-          ['OS Age', 'desde agosto de 2024'],
+          ['OS Age', '0 días'],
           ['Uptime', '36 años, seguimos compilando'],
-          ['Update', 'abierto a soporte técnico y puestos de cara al cliente']
+          ['Update', 'soporte técnico y puestos de cara al cliente']
         ]
       }
     ],
@@ -239,10 +243,10 @@ export const ui = { en: EN, es: ES };
 // so no new font dependency and no risk of missing glyphs.
 export const fastfetchIcons = {
   OS: '⌘',
-  Host: '⌂',
+  Channel: '⌂',
   Kernel: '⚙',
   WM: '⊞',
-  Shell: '❯',
+  Swap: '⇅',
   Terminal: '◫',
   Packages: '▥',
   Theme: '◐',

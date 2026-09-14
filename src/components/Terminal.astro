@@ -37,7 +37,9 @@ const banner = `     ██╗ █████╗ ██╗   ██╗██╗
 // titled sections (etc/fastfetch/config.jsonc in omacom/omarchy) — a plain
 // top/bottom border per box, a tree-branch prefix per row ("│ ├" for a
 // middle row, "└ └" for the last), first row flush with no prefix.
-const BOX_WIDTH = 54;
+// Wide enough for the longest row (the Update line) to sit inside the border
+// rather than poke out past it. Real specs run longer than the old one-liners.
+const BOX_WIDTH = 64;
 const boxTop = (title) => {
   const rem = Math.max(0, BOX_WIDTH - title.length);
   const l = Math.floor(rem / 2);
