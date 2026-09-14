@@ -5,7 +5,7 @@
 // translate.
 
 const EN = {
-  nav: ['about', 'projects', 'thoughts', 'now', 'contact'],
+  nav: ['about', 'experience', 'projects', 'skills', 'achievements', 'newsletter', 'contact'],
   skip: 'Skip to content',
   skinLabel: "Change the site's theme",
   langLabel: 'Change language',
@@ -42,9 +42,9 @@ const EN = {
         color: 'accent2',
         rows: [
           ['CPU', 'Human (1) @ full attention'],
-          ['GPU', '2 × local inference rigs — paused'],
-          ['Display', '27" external, plenty of screen time'],
-          ['Disk', 'a decade of notes, mostly Markdown'],
+          ['GPU', 'RTX 5090 · 2 × local inference rigs — paused'],
+          ['Display', '3840×2160 @ 144 Hz, plenty of screen time'],
+          ['Disk', '1.82 TiB btrfs — a decade of notes, mostly Markdown'],
           ['Memory', '10 years / always more to learn']
         ]
       },
@@ -52,14 +52,15 @@ const EN = {
         title: 'Software',
         color: 'accent',
         rows: [
-          ['OS', 'Omarchy'],
+          ['OS', 'Omarchy 4.0.3-1'],
           ['Host', 'Genius Bar, Madrid → homelab, Aberdeen'],
           ['Kernel', 'leading-is-serving 10.0-lts'],
-          ['WM', 'Hyprland'],
+          ['WM', 'Hyprland 0.56.2 (Wayland)'],
           ['Shell', 'fzf'],
           ['Terminal', 'you are in it'],
           ['Packages', 'whatever ships (git)'],
-          ['Theme', 'Tokyo Night (Omakase)']
+          ['Theme', 'Tokyo Night (Omakase)'],
+          ['Font', 'JetBrainsMono Nerd Font']
         ]
       },
       {
@@ -67,8 +68,8 @@ const EN = {
         color: 'rainbow-7',
         rows: [
           ['OS Age', 'since Aug 2024'],
-          ['Uptime', '35 years, still compiling'],
-          ['Update', 'open to support & customer-facing roles']
+          ['Uptime', '36 years, still compiling'],
+          ['Update', 'open to technical support & customer-facing roles']
         ]
       }
     ],
@@ -78,7 +79,7 @@ const EN = {
       ['open <page>', 'go to one of them'],
       ['projects', 'what I built, and who wrote it'],
       ['running', 'what I run every day'],
-      ['skills', 'grouped, with what I am still learning'],
+      ['skills', 'demonstrated, learning, and direction'],
       ['cv', 'profile and the PDF'],
       ['contact', 'email, GitHub, LinkedIn'],
       ['skin [name]', 'change the look, or list the options'],
@@ -109,18 +110,18 @@ const EN = {
   // page names used by `ls` and `open` — the id (first item) is a slug, kept
   // identical across languages so `open about` works either way.
   pages: [
-    ['about', '#about', 'experience and the transition'],
-    ['timeline', '#timeline', 'a concise chronology'],
-    ['agents', '#agents', 'the working notebook'],
+    ['about', '#about', 'who I am, and the principle under it'],
+    ['experience', '#experience', 'Apple Retail, the transition, the study'],
     ['projects', '#projects', 'what I run, what I built, and the case study'],
-    ['thoughts', '#thoughts', 'the malleable machine'],
-    ['now', '#now', 'what has my attention'],
+    ['skills', '#skills', 'demonstrated, learning, and direction'],
+    ['achievements', '#achievements', 'milestones and proof'],
+    ['newsletter', '#newsletter', 'Machines Do It Better — the signal'],
     ['contact', '#contact', 'how to reach me']
   ]
 };
 
 const ES = {
-  nav: ['perfil', 'proyectos', 'ideas', 'ahora', 'contacto'],
+  nav: ['perfil', 'experiencia', 'proyectos', 'competencias', 'logros', 'newsletter', 'contacto'],
   skip: 'Ir al contenido',
   skinLabel: 'Cambiar el aspecto del sitio',
   langLabel: 'Cambiar de idioma',
@@ -152,9 +153,9 @@ const ES = {
         color: 'accent2',
         rows: [
           ['CPU', 'Humano (1) @ atención plena'],
-          ['GPU', '2 × equipos de inferencia local — pausados'],
-          ['Display', '27" externo, pantalla de sobra'],
-          ['Disk', 'una década de notas, casi todo en Markdown'],
+          ['GPU', 'RTX 5090 · 2 × equipos de inferencia local — pausados'],
+          ['Display', '3840×2160 @ 144 Hz, pantalla de sobra'],
+          ['Disk', '1,82 TiB btrfs — una década de notas, casi todo en Markdown'],
           ['Memory', '10 años / siempre queda más por aprender']
         ]
       },
@@ -162,14 +163,15 @@ const ES = {
         title: 'Software',
         color: 'accent',
         rows: [
-          ['OS', 'Omarchy'],
+          ['OS', 'Omarchy 4.0.3-1'],
           ['Host', 'Genius Bar, Madrid → homelab en Aberdeen'],
           ['Kernel', 'liderar-es-servir 10.0-lts'],
-          ['WM', 'Hyprland'],
+          ['WM', 'Hyprland 0.56.2 (Wayland)'],
           ['Shell', 'fzf'],
           ['Terminal', 'estás dentro de ella'],
           ['Packages', 'lo que llega a producción (git)'],
-          ['Theme', 'Tokyo Night (Omakase)']
+          ['Theme', 'Tokyo Night (Omakase)'],
+          ['Font', 'JetBrainsMono Nerd Font']
         ]
       },
       {
@@ -177,8 +179,8 @@ const ES = {
         color: 'rainbow-7',
         rows: [
           ['OS Age', 'desde agosto de 2024'],
-          ['Uptime', '35 años, seguimos compilando'],
-          ['Update', 'abierto a soporte técnico y roles de cara al cliente']
+          ['Uptime', '36 años, seguimos compilando'],
+          ['Update', 'abierto a soporte técnico y puestos de cara al cliente']
         ]
       }
     ],
@@ -188,7 +190,7 @@ const ES = {
       ['open <página>', 'ir a una de ellas'],
       ['projects', 'lo que he hecho, y quién lo escribió'],
       ['running', 'lo que uso a diario'],
-      ['skills', 'por grupos, con lo que aún estoy aprendiendo'],
+      ['skills', 'demostrado, aprendiendo, y hacia dónde voy'],
       ['cv', 'perfil y el PDF'],
       ['contact', 'correo, GitHub, LinkedIn'],
       ['skin [nombre]', 'cambiar el aspecto, o ver las opciones'],
@@ -217,12 +219,12 @@ const ES = {
     }
   },
   pages: [
-    ['about', '#about', 'la experiencia y el cambio de rumbo'],
-    ['timeline', '#timeline', 'una cronología breve'],
-    ['agents', '#agents', 'el cuaderno de trabajo'],
+    ['about', '#about', 'quién soy, y el principio que hay debajo'],
+    ['experience', '#experience', 'Apple Retail, el cambio de rumbo, la formación'],
     ['projects', '#projects', 'lo que uso, lo que he hecho, y el caso práctico'],
-    ['thoughts', '#thoughts', 'la máquina moldeable'],
-    ['now', '#now', 'qué me ocupa ahora'],
+    ['skills', '#skills', 'demostrado, aprendiendo, y hacia dónde voy'],
+    ['achievements', '#achievements', 'hitos y pruebas'],
+    ['newsletter', '#newsletter', 'Machines Do It Better — the signal'],
     ['contact', '#contact', 'cómo contactarme']
   ]
 };
@@ -244,6 +246,7 @@ export const fastfetchIcons = {
   Terminal: '◫',
   Packages: '▥',
   Theme: '◐',
+  Font: '◨',
   CPU: '▧',
   GPU: '◆',
   Display: '▭',

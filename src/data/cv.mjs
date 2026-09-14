@@ -77,7 +77,7 @@ export const shipped = [
 
 export const experience = [
   {
-    title: 'Founder — Machines Do It Better',
+    title: 'Machines Do It Better — independent practice, in formation',
     when: 'August 2024 — present',
     where: 'Aberdeen, Scotland · independent',
     body: 'An agent consultancy for individuals and small businesses, premised on privacy, data sovereignty and customisation to a specific use case rather than the deterministic workflow tooling most agencies sell. Designing, deploying and stress-testing agents and automations in Docker and Dokploy with OpenRouter and Telegram; operational documentation and workflow QA. No clients to date. Editorial newsletter covering AI, robotics and fintech.'

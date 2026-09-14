@@ -12,7 +12,7 @@ const site = 'https://javierponz.technoir.cloud';
 const canonical = site + localeHome(lang);
 // Anchors into the single long page, not routes — see data/routes.mjs TOKENS.
 // Anchors are identical on every locale, so nav hrefs need no lang-prefixing.
-const navPaths = ['#about', '#projects', '#thoughts', '#now', '#contact'];
+const navPaths = ['#about', '#experience', '#projects', '#skills', '#achievements', '#newsletter', '#contact'];
 const nav: [string, string][] = navPaths.map((p, i) => [p, t.nav[i]]);
 const ids = skins.map((s) => s.id);
 const sprites = Object.fromEntries(skins.map((s) => [s.id, s.sprite]));
@@ -521,6 +521,9 @@ a.row:hover h3{color:var(--accent)}
 .notice{border:1px solid var(--accent);background:var(--surface);padding:22px;font-size:17px;max-width:760px}
 
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+/* …unless the chips are the section's whole content (Skills, Newsletter
+   topics), where the 14px would push them out of line with their label. */
+.grid > .tags{margin-top:0}
 .tag{font-family:var(--font-display);font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--accent2);overflow-wrap:anywhere}
 /* Cycles through a skin's --rainbow-1..7 (skins.mjs); a skin with no
    `rainbow` array gets accent2 in every slot, so this is a no-op for it. */

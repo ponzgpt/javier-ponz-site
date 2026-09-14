@@ -11,15 +11,18 @@
 ## Currently
 
 Open to technical support, customer success and customer-facing roles, plus
-junior developer and agent-operations work. Founder of Machines Do It Better,
-an early-stage solo practice — no clients yet. Career changer, second year,
-stated openly rather than obscured.
+junior developer and agent-operations work. Building Machines Do It Better,
+an early-stage solo practice — in formation, no clients yet. Career changer,
+second year, stated openly rather than obscured. Writes an occasional
+newsletter, "Machines Do It Better — the signal", at
+https://machinesdoitbetter.beehiiv.com (currently between issues).
 
 ## The site
 
 One long page at https://javierponz.technoir.cloud/, not separate routes —
-`#about`, `#timeline`, `#agents`, `#projects`, `#case-study`, `#thoughts`,
-`#now` and `#contact` are anchors into it. Also published in Spanish, as a
+`#about`, `#experience`, `#projects`, `#case-study`, `#skills`,
+`#achievements`, `#newsletter` and `#contact` are anchors into it, in that
+order. Also published in Spanish, as a
 full translation rather than a browser-side swap, at
 https://javierponz.technoir.cloud/es/. The CV is at
 https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf (English only),

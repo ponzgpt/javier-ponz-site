@@ -1,49 +1,60 @@
 ---
 // The whole one-page site, parametrized by `lang` — src/pages/index.astro
 // and src/pages/es/index.astro are both thin wrappers around this.
+//
+// Scroll order is the navigation order, and the kickers in pages.mjs number
+// themselves 01…07 to match. Reorder here and there together.
 import Layout from '../layouts/Layout.astro';
 import Terminal from './Terminal.astro';
 import AboutSection from './sections/AboutSection.astro';
-import TimelineSection from './sections/TimelineSection.astro';
-import AgentsSection from './sections/AgentsSection.astro';
+import ExperienceSection from './sections/ExperienceSection.astro';
 import ProjectsSection from './sections/ProjectsSection.astro';
-import ThoughtsSection from './sections/ThoughtsSection.astro';
-import NowSection from './sections/NowSection.astro';
+import SkillsSection from './sections/SkillsSection.astro';
+import AchievementsSection from './sections/AchievementsSection.astro';
+import NewsletterSection from './sections/NewsletterSection.astro';
 import ContactSection from './sections/ContactSection.astro';
 import { pages } from '../data/pages.mjs';
-import { projects } from '../data/site';
 import { expand } from '../data/routes.mjs';
-import { pick } from '../data/i18n.mjs';
 
 const { lang = 'en' } = Astro.props;
 const p = pages.home[lang];
-const proj = projects.slice(0, 3).map((r) => pick(r, lang));
 ---
 <Layout title={p.title} description={p.desc} lang={lang}>
   <section class="landing" id="landing">
     <Terminal lang={lang} />
-    <div class="hero"><p class="kicker">{p.kicker}</p>
+    <div class="hero">
+      <p class="kicker">{p.kicker}</p>
       <h1 class="sr-only">Javier Ponz</h1>
       <p class="tagline">{p.tagline}<span class="serif">{p.taglineSerif}</span>{p.taglineEnd}</p>
-      <p class="lede">{p.lede}</p></div>
+      <p class="lede">{p.lede}</p>
+      <p class="support">{p.support}</p>
+      <div class="ctas">
+        {p.ctas.map((c) => <a class={c.alt ? 'cta cta-alt' : 'cta'} href={expand(c.href)}>{c.label}</a>)}
+      </div>
+    </div>
   </section>
-  <section class="grid"><span class="label">{p.overviewLabel}</span><div class="copy">
-    <h2>{p.overviewH2}</h2>
-    <Fragment set:html={expand(p.overview)} />
-    <div class="tags">{p.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
-  </div></section>
-  <section class="grid"><span class="label">{p.exploreLabel}</span><div class="cards">
-    {p.cards.map((c) => <a class="card" href={expand(c.href)}><span class="meta">{c.meta}</span><h3>{c.h3}</h3><p>{c.p}</p></a>)}
-  </div></section>
-  <section class="grid"><span class="label">{p.workLabel}</span><div class="rows">
-    {proj.map((r) => <a class="row" href={r.url} target="_blank" rel="noreferrer"><time>{r.kind}<br /><span class="byline">{r.by}</span></time><div><h3>{r.title} ↗</h3><p>{r.description}</p></div></a>)}
-  </div></section>
 
   <AboutSection lang={lang} />
-  <TimelineSection lang={lang} />
-  <AgentsSection lang={lang} />
+  <ExperienceSection lang={lang} />
   <ProjectsSection lang={lang} />
-  <ThoughtsSection lang={lang} />
-  <NowSection lang={lang} />
+  <SkillsSection lang={lang} />
+  <AchievementsSection lang={lang} />
+  <NewsletterSection lang={lang} />
   <ContactSection lang={lang} />
 </Layout>
+
+<style>
+  /* The gist under the terminal: lede, one supporting line, two ways on.
+     The buttons reuse the .dl shape the CV download already uses, so this
+     is the same visual language, not a second one. */
+  .support{font-size:calc(17px * var(--scale,1));color:var(--muted);max-width:700px;margin-top:14px}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .cta{
+    border:2px solid var(--accent);color:var(--accent);background:none;
+    padding:12px 22px;text-decoration:none;font-family:var(--font-display);
+    font-weight:700;font-size:14px;transition:background-color .15s ease,color .15s ease;
+  }
+  .cta:hover{background:var(--accent);color:var(--bg);text-decoration:none}
+  .cta-alt{border-color:var(--line);color:var(--fg)}
+  .cta-alt:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+</style>

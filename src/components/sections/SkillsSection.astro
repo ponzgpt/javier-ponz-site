@@ -1,0 +1,20 @@
+---
+// Three groups, each its own labelled row, so the reader can see at a glance
+// which claims are experience and which are ambition. Rendering them as one
+// flat tag cloud would erase exactly that distinction.
+import Page from '../Page.astro';
+import { pages } from '../../data/pages.mjs';
+import { skillGroups } from '../../data/site';
+import { pick } from '../../data/i18n.mjs';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.skills[lang];
+const groups = skillGroups.map((g) => pick(g, lang));
+---
+<Page p={p} id="skills">
+  {groups.map((g) => (
+    <section class="grid"><span class="label">{g.name}</span>
+      <div class="tags">{g.items.map((i) => <span class="tag">{i}</span>)}</div>
+    </section>
+  ))}
+</Page>

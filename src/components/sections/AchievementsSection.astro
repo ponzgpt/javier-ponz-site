@@ -1,0 +1,18 @@
+---
+// Milestones and proof — the same .rows shape the chronology uses, because
+// these are the same kind of claim: a date, a thing, and something a reader
+// can go and check.
+import Page from '../Page.astro';
+import { pages } from '../../data/pages.mjs';
+import { achievements } from '../../data/site';
+import { pick } from '../../data/i18n.mjs';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.achievements[lang];
+const items = achievements.map((a) => pick(a, lang));
+---
+<Page p={p} id="achievements">
+  <section class="grid"><span class="label">{p.label}</span><div class="rows">
+    {items.map((a) => <article class="row"><time>{a.date}</time><div><h3>{a.title}</h3><p>{a.text}</p></div></article>)}
+  </div></section>
+</Page>

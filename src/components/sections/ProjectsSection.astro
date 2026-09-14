@@ -1,4 +1,8 @@
 ---
+// Six projects, in the order that puts the only production product first,
+// then Memento Mori again as the case study under its own #case-study
+// anchor. `running` stays a separate list from `projects` because operating
+// something and authoring it are different claims.
 import { pages } from '../../data/pages.mjs';
 import { projects, running } from '../../data/site';
 import { expand } from '../../data/routes.mjs';
@@ -16,17 +20,14 @@ const projectItems = projects.map((r) => pick(r, lang));
 <section class="grid"><span class="label">{p.projectsLabel}</span><div class="cards">
   {projectItems.map((r) => <a class="card" href={r.url} target="_blank" rel="noreferrer"><span class="card-icon" aria-hidden="true">{r.icon}</span><span class="meta">{r.status} · {r.kind}<br />{r.by}</span><h3>{r.title} ↗</h3><p>{r.description}</p></a>)}
 </div></section>
-<section class="grid"><span class="label">{p.productionLabel}</span><div class="copy">
-  <figure class="shot"><a href="https://github.com/ponzgpt/hermes-agent-site" target="_blank" rel="noreferrer"><img src="/shots/hermes-agent-site.jpg" alt="Hermes Agent Site" width="1200" height="833" loading="lazy" /></a><figcaption>{p.cap2}</figcaption></figure>
-</div></section>
 <section class="grid" id="case-study"><span class="label">{p.caseStudyLabel}</span><div class="copy">
   <h2>{p.caseStudyH2}</h2>
   <p>{p.caseStudyLede}</p>
-  <figure class="shot"><a href="https://memento.technoir.cloud/" target="_blank" rel="noreferrer"><img src="/shots/memento-mori.jpg" alt="Memento Mori" width="1200" height="833" loading="lazy" /></a><figcaption>{p.caseStudyCaption}</figcaption></figure>
+  <figure class="shot"><a href="https://memento.technoir.cloud/" target="_blank" rel="noreferrer"><img src="/shots/memento-mori.jpg" alt="The Memento Mori web app: a life grid with the estimated horizon marked" width="1200" height="833" loading="lazy" /></a><figcaption>{p.caseStudyCaption}</figcaption></figure>
 </div></section>
 <section class="grid"><span class="label">{p.caseStudyLinksLabel}</span><div class="rows">
   {p.caseStudyLinks.map((l) => <a class="row" href={l.href} target="_blank" rel="noreferrer"><time>{l.time}</time><div><h3>{l.h3}</h3><p>{l.p}</p></div></a>)}
 </div></section>
 {p.caseStudySections.map((s) => <section class="grid"><span class="label">{s.label}</span><div class={s.cls} set:html={expand(s.html)} /></section>)}
-<section class="grid"><span class="label">{p.caseStudyScopeLabel}</span><div class="notice">{p.caseStudyScope}</div></section>
-<section class="grid"><span class="label">{p.scopeLabel}</span><div class="notice">{p.scope}</div></section>
+<section class="grid"><span class="label">{p.closingLabel}</span><div class="copy"><p>{p.closing}</p></div></section>
+<section class="grid"><span class="label">{p.scopeLabel}</span><div class="notice">{p.authorship} {p.scope}</div></section>

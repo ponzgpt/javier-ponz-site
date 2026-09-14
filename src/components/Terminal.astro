@@ -242,7 +242,10 @@ const data = {
   // btop's own convention once you have more than 4-6 cores), then MEM and
   // DISKS tiled side by side, then PROC — same shape as the actual Omarchy
   // Quattro desktop, not just a single flat box.
-  var CORES = [61, 35, 78, 19, 8, 52, 44, 27], MEM = 71, START = Date.now();
+  // Numbers taken from Javier's actual rig (Ryzen 9 9900X3D, 60.5 GiB RAM,
+  // a 1.82 TiB btrfs root, a read-only external mount pinned at 100%) rather
+  // than invented, so the simulated monitor at least describes a real machine.
+  var CORES = [61, 35, 78, 19, 8, 52, 44, 27], MEM = 12, START = Date.now();
   function uptimeStr() {
     var s = Math.floor((Date.now() - START) / 1000);
     return Math.floor(s / 60) + 'm ' + (s % 60) + 's';
@@ -258,15 +261,16 @@ const data = {
       coreLines.push(left + right);
     }
     var load = (CORES.reduce(function (a, c) { return a + c; }, 0) / CORES.length / 100).toFixed(2);
-    var cpuBox = box('cpu — load ' + load + ' — up ' + uptimeStr(), 54, coreLines);
+    var cpuBox = box('ryzen 9 9900x3d — load ' + load + ' — up ' + uptimeStr(), 54, coreLines);
     var memBox = box('mem', 26, [
-      label('total') + '  16.0G',
+      label('total') + '  60.5G',
       label('used') + '   ' + bar(MEM, 10) + ' ' + Math.round(MEM) + '%',
-      label('avail') + '  ' + (16 * (1 - MEM / 100)).toFixed(1) + 'G'
+      label('avail') + '  ' + (60.5 * (1 - MEM / 100)).toFixed(1) + 'G'
     ]);
+    var rootPct = jitter(4, 1);
     var disksBox = box('disks', 26, [
-      label('root') + '  ' + bar(jitter(38, 3), 10) + ' ' + Math.round(jitter(38, 3)) + '%',
-      label('home') + '  ' + bar(jitter(64, 3), 10) + ' ' + Math.round(jitter(64, 3)) + '%'
+      label('btrfs') + ' ' + bar(rootPct, 10) + ' ' + Math.round(rootPct) + '%',
+      label('iso') + '   ' + bar(100, 10) + ' 100%'
     ]);
     var procBox = box('proc', 54, [
       tag('box', 'PID    CMD                     CPU%   MEM%'),
