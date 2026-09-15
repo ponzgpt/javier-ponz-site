@@ -20,5 +20,4 @@ const creds = credentials.map((c) => pick(c, lang));
   <section class="grid"><span class="label">{p.educationLabel}</span><div class="rows">
     {creds.map((c) => <article class="row"><time>{c.date}</time><div><h3>{c.title}</h3><p>{c.org}{c.org && c.status ? ' · ' : ''}{c.status}</p></div></article>)}
   </div></section>
-  <section class="grid"><span class="label">{p.closingLabel}</span><div class="notice">{p.closing}</div></section>
 </Page>

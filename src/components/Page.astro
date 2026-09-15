@@ -8,6 +8,7 @@ const { p, id } = Astro.props;
 ---
 <section class="hero" id={id}>
   <p class="kicker">{p.kicker}</p>
+  {p.epigraph && <blockquote class="epigraph" set:html={p.epigraph} />}
   <h1>{p.h1}{p.serifHref
     ? <a class="serif" href={p.serifHref} target="_blank" rel="noreferrer">{p.serif}</a>
     : <span class="serif">{p.serif}</span>}{p.h1end}</h1>
