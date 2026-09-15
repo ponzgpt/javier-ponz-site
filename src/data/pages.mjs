@@ -53,7 +53,8 @@ export const pages = {
       sections: [
         { label: 'Background', cls: 'copy', html: '<h2>Ten years between people and their machines.</h2>' + P(
           'A decade at Apple Retail taught me to diagnose fast and translate between what the engineer means, what the sale promised, and what the person actually sees. Same job now, different surface: agent workflows, small products, infrastructure I run myself.',
-          'I prefer computers that can be edited rather than merely tolerated. Plain configuration, readable files and an owner who understands the system are practical advantages, not decoration — and the reason an agent can do anything useful on a machine at all. Open weights and open primitives matter for the same practical reason: whoever controls them sets the ceiling on how far the agent can help you.') },
+          'I prefer computers that can be edited rather than merely tolerated. Plain configuration, readable files and an owner who understands the system are practical advantages, not decoration — and the reason an agent can do anything useful on a machine at all. Open weights and open primitives matter for the same practical reason: whoever controls them sets the ceiling on how far the agent can help you.')
+          + '<blockquote>“The future is already here — it\'s just not evenly distributed.”<cite>— William Gibson</cite></blockquote>' },
         { label: 'The principle', cls: 'prose', html: P(
           '<strong><a href="{servant}" target="_blank" rel="noreferrer">Leading is serving</a>.</strong>',
           'For me, that means removing what is in somebody\'s way and leaving them with more control than they had before. It applies at a support bench, on a team and inside a technical system.') },
@@ -69,7 +70,8 @@ export const pages = {
       sections: [
         { label: 'Trayectoria', cls: 'copy', html: '<h2>Diez años entre las personas y sus máquinas.</h2>' + P(
           'Una década en Apple Retail me enseñó a diagnosticar rápido y a traducir entre lo que quiere decir el ingeniero, lo que prometió la venta, y lo que la persona realmente ve. El mismo trabajo ahora, otra superficie: flujos con agentes, productos pequeños, infraestructura que administro yo.',
-          'Prefiero ordenadores que se puedan editar, no solo tolerar. La configuración en texto plano, los ficheros legibles y un dueño que entiende el sistema son ventajas prácticas, no decoración — y la razón por la que un agente puede hacer algo útil en una máquina. Los pesos y las primitivas abiertas importan por lo mismo: quien los controla pone el techo de hasta dónde puede ayudarte el agente.') },
+          'Prefiero ordenadores que se puedan editar, no solo tolerar. La configuración en texto plano, los ficheros legibles y un dueño que entiende el sistema son ventajas prácticas, no decoración — y la razón por la que un agente puede hacer algo útil en una máquina. Los pesos y las primitivas abiertas importan por lo mismo: quien los controla pone el techo de hasta dónde puede ayudarte el agente.')
+          + '<blockquote>«El futuro ya está aquí — simplemente no está distribuido de forma uniforme.»<cite>— William Gibson</cite></blockquote>' },
         { label: 'El principio', cls: 'prose', html: P(
           '<strong><a href="{servant}" target="_blank" rel="noreferrer">Liderar es servir</a>.</strong>',
           'Para mí eso significa quitar lo que le estorba a alguien y dejarlo con más control del que tenía antes. Vale en un banco de reparación, en un equipo y dentro de un sistema técnico.') },

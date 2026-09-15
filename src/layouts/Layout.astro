@@ -540,6 +540,11 @@ main > section:not(.landing):nth-of-type(odd)::before{background:var(--bg)}
 .grid h2{font-family:var(--font-display);font-size:clamp(26px,3.6vw,32px);line-height:1.1;letter-spacing:-.03em;margin:0 0 24px;color:var(--accent)}
 .copy{max-width:760px;font-size:calc(16px * var(--scale,1))}
 .copy p{margin:0 0 18px}
+/* One attributed quote, set apart from Javier's own prose rather than
+   blended into it — a left rule and italics is the plainest way to do that
+   without a new font dependency, so it reads the same in every skin. */
+.copy blockquote,.prose blockquote{margin:22px 0;padding:2px 0 2px 18px;border-left:2px solid var(--accent2);font-style:italic}
+.copy blockquote cite,.prose blockquote cite{display:block;margin-top:6px;font-style:normal;font-family:var(--font-display);font-size:13px;color:var(--muted)}
 
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .card{position:relative;background:var(--surface);border:1px solid var(--line);padding:22px;min-height:170px}
