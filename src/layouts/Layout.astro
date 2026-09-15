@@ -546,9 +546,10 @@ main > section:not(.landing):nth-of-type(odd)::before{background:var(--bg)}
 .copy blockquote,.prose blockquote,.hero blockquote{margin:22px 0;padding:2px 0 2px 18px;border-left:2px solid var(--accent2);font-style:italic}
 .copy blockquote cite,.prose blockquote cite,.hero blockquote cite{display:block;margin-top:6px;font-style:normal;font-family:var(--font-display);font-size:13px;color:var(--muted)}
 /* Sits above the heading rather than the usual body copy, so it needs its
-   own top/bottom rhythm instead of the shared 22px — snug under the kicker,
-   with room before the h1 that follows it. */
-.hero blockquote{margin:10px 0 22px;max-width:640px;font-size:calc(17px * var(--scale,1))}
+   own top/bottom rhythm instead of the shared 22px — a real gap under the
+   kicker rather than the ~11px a bare <p> margin collapses down to, then
+   room before the h1 that follows it. */
+.hero blockquote{margin:28px 0 22px;max-width:640px;font-size:calc(17px * var(--scale,1))}
 
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .card{position:relative;background:var(--surface);border:1px solid var(--line);padding:22px;min-height:170px}

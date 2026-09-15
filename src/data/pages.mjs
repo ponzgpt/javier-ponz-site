@@ -20,27 +20,27 @@ export const pages = {
     en: {
       title: 'Javier Ponz — technical support & agent operations',
       desc: 'Javier Ponz — people-first technical problem solver. Ten years at Apple Retail, now building agent tooling and small products that reach production.',
-      kicker: 'Meat-proxy · human-in-the-loop · slop provider',
+      kicker: 'Meat-proxy · human-in-the-loop · slop-refiner',
       tagline: 'People-first ', taglineSerif: 'technical problem solver', taglineEnd: '.',
-      lede: 'Ten years diagnosing hard problems at Apple Retail. Now applying the same principles to agent workflows, tools and small products that reach production.',
-      support: 'I work where people and technical systems meet: find what broke, explain it plainly, and make the next step workable.',
+      lede: 'Ten years fixing what nobody else could at Apple Retail. Same reflex now, aimed at agents, tools and small products that actually ship.',
+      support: 'I sit between people and their machines: find what broke, say it straight, leave you with a next step that works.',
       ctas: [
         { href: '{projects}', label: 'See the work' },
         { href: '{contact}', label: 'Get in touch', alt: true },
-        { href: '/javier-ponz-prado-cv.pdf', label: 'View CV', alt: true, ext: true }
+        { href: '/javier-ponz-prado-cv.pdf', label: 'CV', alt: true, ext: true }
       ]
     },
     es: {
       title: 'Javier Ponz — soporte técnico y operaciones con agentes',
       desc: 'Javier Ponz — resuelvo problemas técnicos pensando primero en las personas. Diez años en Apple Retail, ahora construyendo herramientas para agentes y productos pequeños que llegan a producción.',
-      kicker: 'Meat-proxy · human-in-the-loop · slop provider',
+      kicker: 'Meat-proxy · human-in-the-loop · slop-refiner',
       tagline: 'Resuelvo problemas técnicos ', taglineSerif: 'pensando primero en las personas', taglineEnd: '.',
-      lede: 'Diez años diagnosticando problemas difíciles en Apple Retail. Ahora aplico esos mismos principios a flujos con agentes, herramientas y productos pequeños que llegan a producción.',
-      support: 'Trabajo donde se tocan las personas y los sistemas técnicos: encontrar qué se ha roto, explicarlo con claridad, y dejar el siguiente paso al alcance.',
+      lede: 'Diez años arreglando lo que nadie más podía, en Apple Retail. El mismo reflejo ahora, apuntado a agentes, herramientas y productos pequeños que sí llegan a producción.',
+      support: 'Estoy en medio de las personas y sus máquinas: encuentro qué se ha roto, lo digo sin rodeos, y te dejo un siguiente paso que funciona.',
       ctas: [
         { href: '{projects}', label: 'Ver el trabajo' },
         { href: '{contact}', label: 'Hablamos', alt: true },
-        { href: '/javier-ponz-prado-cv.pdf', label: 'Ver CV', alt: true, ext: true }
+        { href: '/javier-ponz-prado-cv.pdf', label: 'CV', alt: true, ext: true }
       ]
     }
   },
@@ -53,11 +53,11 @@ export const pages = {
       h1: 'The machine should be ', serif: 'shaped',
       serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
       h1end: ' by the needs of the person that commands it.',
-      lede: 'I am interested in the space between people and their machines: how agents, open-source tools and editable systems can give ordinary users more control instead of handing more of it to large corporations.',
+      lede: 'I am interested in the space between people and their machines: how agents and open-source tools can put real control back in the hands of the person running them — not the platform, and not whoever else thinks they have a claim on it.',
       sections: [
         { label: 'Background', cls: 'copy', html: '<h2>Ten years between people and their machines.</h2>' + P(
-          'A decade at Apple Retail taught me to diagnose fast and translate between what the engineer means, what the sale promised, and what the person actually sees. Same job now, different surface: agent workflows, small products, infrastructure I run myself.',
-          'I prefer computers that can be edited rather than merely tolerated. Plain configuration, readable files and an owner who understands the system are practical advantages, not decoration — and the reason an agent can do anything useful on a machine at all. Open weights and open primitives matter for the same practical reason: whoever controls them sets the ceiling on how far the agent can help you.') },
+          'A decade in the trenches taught me to diagnose fast, explain plainly and put the user first. Same goal now, different surface: agent harnesses, automation workflows and bespoke infrastructure that satisfy customer needs.',
+          'I want a machine that works the moment I turn it on, and doesn\'t fight me the moment I want to see how it works. Convenience and control aren\'t opposites — the best systems give you both: usable straight out of the box, still yours to open up when you need to. Open weights and open primitives matter for the same reason: whoever controls them decides where that ceiling sits.') },
         { label: 'The principle', cls: 'prose', html: P(
           '<strong><a href="{servant}" target="_blank" rel="noreferrer">Leading is serving</a>.</strong>',
           'For me, that means removing what is in somebody\'s way and leaving them with more control than they had before. It applies at a support bench, on a team and inside a technical system.') },
@@ -71,11 +71,11 @@ export const pages = {
       h1: 'La máquina debería estar ', serif: 'moldeada',
       serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
       h1end: ' por las necesidades de quien la gobierna.',
-      lede: 'Me interesa el espacio entre las personas y sus máquinas: cómo los agentes, las herramientas de código abierto y los sistemas editables pueden darle más control a la gente corriente en vez de entregárselo a las grandes corporaciones.',
+      lede: 'Me interesa el espacio entre las personas y sus máquinas: cómo los agentes y las herramientas de código abierto pueden devolver el control real a quien de verdad usa la máquina — no a la plataforma, ni a quien crea tener derecho a decidir por ti.',
       sections: [
         { label: 'Trayectoria', cls: 'copy', html: '<h2>Diez años entre las personas y sus máquinas.</h2>' + P(
-          'Una década en Apple Retail me enseñó a diagnosticar rápido y a traducir entre lo que quiere decir el ingeniero, lo que prometió la venta, y lo que la persona realmente ve. El mismo trabajo ahora, otra superficie: flujos con agentes, productos pequeños, infraestructura que administro yo.',
-          'Prefiero ordenadores que se puedan editar, no solo tolerar. La configuración en texto plano, los ficheros legibles y un dueño que entiende el sistema son ventajas prácticas, no decoración — y la razón por la que un agente puede hacer algo útil en una máquina. Los pesos y las primitivas abiertas importan por lo mismo: quien los controla pone el techo de hasta dónde puede ayudarte el agente.') },
+          'Una década en primera línea me enseñó a diagnosticar rápido, explicarlo con claridad y poner al usuario primero. El mismo objetivo ahora, otra superficie: frameworks de agentes, flujos de automatización e infraestructura a medida que satisface las necesidades del cliente.',
+          'Quiero una máquina que funcione en cuanto la enciendo, y que no me lo ponga difícil en cuanto quiero ver cómo funciona por dentro. Comodidad y control no son opuestos — los mejores sistemas te dan las dos cosas: listos para usar nada más sacarlos de la caja, y siempre tuyos para abrirlos cuando lo necesites. Los pesos y las primitivas abiertas importan por lo mismo: quien los controla decide dónde está ese techo.') },
         { label: 'El principio', cls: 'prose', html: P(
           '<strong><a href="{servant}" target="_blank" rel="noreferrer">Liderar es servir</a>.</strong>',
           'Para mí eso significa quitar lo que le estorba a alguien y dejarlo con más control del que tenía antes. Vale en un banco de reparación, en un equipo y dentro de un sistema técnico.') },
