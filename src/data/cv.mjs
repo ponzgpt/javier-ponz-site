@@ -44,6 +44,15 @@ export const profile = [
   'One conviction across every role: leading is serving. A tool, like a lead, is measured by whether the person depending on it ends up with more capacity than they started with.'
 ];
 
+// The CV's Profile section, and only that section — everything else on the
+// PDF still reads from the arrays below. Kept separate from `profile`
+// (above) rather than trimming that array, because `profile[1]` is also
+// what the terminal's `whoami` command prints on the live site and has to
+// stay exactly as it is. This one exists to be short: a one-page CV has no
+// room for the personal-essay version, and a hiring manager skimming it
+// doesn't need the homelab backstory the site tells at length elsewhere.
+export const cvSummary = 'Ten years at Apple Retail across hardware repair, technical diagnosis, consultative support and team leadership, now transitioning into AI systems and agent operations. Best at translating between people and their machines: finding what actually broke, explaining it plainly, and making the next step workable. Studying AI and Full Stack development while building and shipping small agent tooling and products into production. Looking for technical support, customer-facing engineering or agent-operations roles.';
+
 export const shipped = [
   {
     title: 'Memento Mori — native widget + web demo, live in production',
@@ -75,75 +84,86 @@ export const shipped = [
   }
 ];
 
+// MDIB used to be the first entry here, with its own paragraph. It has no
+// clients and is not conventional employment, so on a one-page CV it now
+// gets one line in `cvBuilding` instead of a full entry with its own bullets.
+// `bullets` (1-2 per role, tightest for the oldest/shortest ones) replaced a
+// `body` paragraph per entry — a CV reads as achievements to scan, not
+// prose to read start to finish, and a paragraph forced it into the latter.
+export const cvBuilding = 'Building Machines Do It Better since August 2024, an agent consultancy for individuals and small businesses built on privacy and sovereignty — no clients yet. Shipping small products and agent tooling alongside it (Memento Mori, Hermes PKM Toolkit, Mental Models Toolkit and more), live at javierponz.technoir.cloud and github.com/ponzgpt.';
+
 export const experience = [
   {
-    title: 'Machines Do It Better — independent practice, in formation',
-    when: 'August 2024 — present',
-    where: 'Aberdeen, Scotland · independent',
-    body: 'An agent consultancy for individuals and small businesses, premised on privacy, data sovereignty and customisation to a specific use case rather than the deterministic workflow tooling most agencies sell. Designing, deploying and stress-testing agents and automations in Docker and Dokploy with OpenRouter and Telegram; operational documentation and workflow QA. No clients to date. Editorial newsletter covering AI, robotics and fintech.'
-  },
-  {
     title: 'Lead In-Store Experience — Apple Retail (secondment, twice)',
-    when: 'February — August 2023; February — August 2024',
+    when: 'Feb — Aug 2023; Feb — Aug 2024',
     where: 'Xanadú (Arroyomolinos), then Parquesur (Leganés), Madrid',
-    body: 'Two seven-month leadership secondments taken while holding the Genius role. Ran floor experience for the store: planning, resourcing, events, maintenance coordination, structured feedback and the situations that fit no procedure. Led by removing obstacles rather than issuing instructions.'
+    bullets: [
+      'Two seven-month leadership secondments taken while holding the Genius role.',
+      'Ran floor operations — planning, resourcing, events, structured feedback — and the situations that fit no procedure.'
+    ]
   },
   {
     title: 'Genius — Apple Retail',
     when: 'March 2018 — August 2024',
     where: 'Parquesur, Leganés, Madrid',
-    body: 'Six and a half years as the technical baseline of the store: advanced hardware and software diagnosis on the cases nobody else had resolved, translating them for people with very different levels of understanding, and bringing newer technicians onto the bench. The two leadership secondments above sit inside this run.'
+    bullets: [
+      "Six and a half years as the store's technical baseline: advanced diagnosis on cases nobody else had resolved.",
+      'Translated findings for people with very different levels of understanding; brought newer technicians onto the bench.'
+    ]
   },
   {
     title: 'AppleCare Support Advisor — Apple',
-    when: 'March 2020 — June 2020',
+    when: 'March — June 2020',
     where: 'Remote, Madrid · COVID volunteering',
-    body: 'Concurrent remote support cases under structured troubleshooting and documentation standards, working autonomously.'
+    bullets: [
+      'Concurrent remote support cases under structured troubleshooting and documentation standards, working autonomously.'
+    ]
   },
   {
     title: 'Specialist, then Technical Specialist — Apple Retail',
     when: 'September 2014 — February 2018',
     where: 'Parquesur, Madrid',
-    body: 'Foundations in diagnosis, consultative support, practical problem solving and execution under pressure.'
+    bullets: [
+      'Foundations in diagnosis, consultative support and execution under pressure.'
+    ]
   }
 ];
 
 export const education = [
   {
     title: 'Specialist in Artificial Intelligence',
-    when: 'October 2024 — December 2026, in progress',
-    where: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)'
+    when: '2024 — 2026, in progress',
+    where: 'Universidad Rey Juan Carlos, via Racks University'
   },
   {
     title: 'Full Stack AI Developer',
-    when: 'September 2025 — December 2026, in progress',
-    where: 'Universidad Rey Juan Carlos, via Racks University (IUNIT-affiliated)'
+    when: '2025 — 2026, in progress',
+    where: 'Universidad Rey Juan Carlos, via Racks University'
   },
   {
     title: 'Industrial Engineering (Electronics and Automation)',
-    when: '80 ECTS completed, degree unfinished',
-    where: 'Universidad Politécnica de Madrid · 2008 — 2013'
-  },
-  {
-    title: 'Apple Certified Mac Technician (ACMT); Apple Certified iOS Technician (ACiT)',
-    when: 'Certified',
-    where: 'Apple'
-  },
-  {
-    title: 'English — Cambridge Certificate in Advanced English (C1)',
-    when: 'Certified',
-    where: 'Cambridge Assessment'
+    when: '2008 — 2013, 80 ECTS, not completed',
+    where: 'Universidad Politécnica de Madrid'
   }
 ];
 
-// Flat groups, deliberately keyword-dense and plainly written: the first reader
-// of this document is likely to be software.
+// One line, not two entries with their own when/where — neither certificate
+// needs a date and both fit a single row.
+export const certifications = 'Apple Certified Mac Technician (ACMT) · Apple Certified iOS Technician (ACiT) · English — Cambridge CAE (C1)';
+
+// Flat groups, deliberately keyword-dense and plainly written: the first
+// reader of this document is likely to be software. Pruned against
+// site.ts's own skillGroups (the web's already fact-checked version of this
+// same claim) rather than left to drift on its own — OpenClaw, LM Studio and
+// the homelab-privacy items (OSINT, GrapheneOS, de-Googling, Pi-hole) were
+// in an earlier draft of this list but never verified anywhere else on the
+// site, and a CV is the wrong place for a claim the site itself doesn't make.
 export const skills = [
-  { group: 'Agents and AI', items: ['Hermes Agent', 'OpenClaw', 'Model Context Protocol (MCP)', 'MCP server development', 'agent workflows', 'workflow QA', 'OpenRouter', 'llama.cpp', 'Ollama', 'LM Studio', 'local inference on own GPU', 'prompt and failure-trace debugging'] },
-  { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux — Arch, Fedora, Omarchy', 'VPS administration', 'TLS / Let’s Encrypt', 'GitHub Actions', 'CI/CD', 'release gating', 'PC building and overclocking'] },
-  { group: 'Development', items: ['JavaScript', 'TypeScript', 'Python', 'Astro', 'Swift', 'HTML', 'CSS', 'Git', 'unit testing', 'static site generation'] },
-  { group: 'Practice', items: ['Technical support', 'customer success', 'customer-facing technical work', 'technical troubleshooting', 'failure-mode investigation', 'customer operations', 'consultative selling', 'technical writing and documentation', 'de-escalation', 'mentoring', 'team leadership'] },
-  { group: 'Currently learning', items: ['vLLM', 'Proxmox', 'NAS under a hypervisor', 'virtualisation', 'networking and Pi-hole', 'self-hosted homelab', 'OSINT', 'GrapheneOS', 'de-Googling'] },
+  { group: 'Agents and AI', items: ['Hermes Agent', 'Model Context Protocol (MCP)', 'agent workflows', 'workflow QA', 'OpenRouter', 'llama.cpp', 'Ollama', 'local inference', 'prompt and failure-trace debugging'] },
+  { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux — Arch, Fedora, Omarchy', 'VPS administration', 'GitHub Actions', 'CI/CD'] },
+  { group: 'Development', items: ['JavaScript', 'TypeScript', 'Python', 'Astro', 'Swift', 'Git'] },
+  { group: 'Practice', items: ['Technical support', 'customer success', 'technical troubleshooting', 'failure-mode investigation', 'documentation', 'mentoring', 'team leadership'] },
+  { group: 'Building towards', items: ['vLLM', 'Proxmox', 'self-hosted homelab', 'agent operations'] },
   { group: 'Languages', items: ['Spanish (native)', 'English (Cambridge CAE, C1)'] }
 ];
 
