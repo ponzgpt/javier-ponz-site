@@ -165,11 +165,6 @@ const boxTop = (title) => {
 };
 const boxBottom = '└' + '─'.repeat(BOX_WIDTH) + '┘';
 
-// Pulled out for the live-uptime script below, so its "since 5:30am" tail
-// stays in whichever language the page is in without a second translated
-// string to keep in sync with ui.mjs.
-const wakeLabel = t.term.factGroups[2].rows.find(([k]) => k === 'Uptime')[1];
-
 const groups = t.term.factGroups.map((g) => ({
   ...g,
   rows: g.rows.map(([k, v], i) => [
@@ -269,48 +264,36 @@ const data = {
 <script is:inline>
   /* The waybar imitation's clock — Aberdeen local time (Europe/London),
      not the visitor's own, since the point is "what's on Javier's screen
-     right now" rather than a generic clock widget. Ticks every second. */
+     right now" rather than a generic clock widget. Ticks every second, and
+     the same tick also drives the fastfetch Uptime row: not the OS's
+     uptime, but elapsed time since a fixed 5:30am reference in that same
+     Aberdeen clock — one Intl formatter and one interval doing both jobs
+     rather than a second one computing the same hour/minute/second again.
+     Uptime's element is looked up fresh every tick rather than cached,
+     because it is destroyed and rebuilt whenever workspace 1 re-renders
+     (switching back to it clears #term-out and reinserts the seeded
+     fastfetch HTML) — a harmless no-op while workspace 2 or 3 is showing. */
   (function () {
-    var el = document.getElementById('waybar-clock');
-    if (!el) return;
+    var clockEl = document.getElementById('waybar-clock');
     var fmt = new Intl.DateTimeFormat('en-US', {
       timeZone: 'Europe/London', weekday: 'short', day: '2-digit', month: 'short',
       hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
     });
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
     function tick() {
       var p = {};
       fmt.formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
-      el.textContent = p.weekday + ' ' + p.day + ' ' + p.month + '  ' + p.hour + ':' + p.minute + ':' + p.second;
+      if (clockEl) clockEl.textContent = p.weekday + ' ' + p.day + ' ' + p.month + '  ' + p.hour + ':' + p.minute + ':' + p.second;
+
+      var upEl = document.getElementById('ff-uptime');
+      if (upEl) {
+        var secs = (+p.hour) * 3600 + (+p.minute) * 60 + (+p.second) - (5 * 3600 + 30 * 60);
+        if (secs < 0) secs += 24 * 3600;
+        upEl.textContent = pad2(Math.floor(secs / 3600)) + ':' + pad2(Math.floor(secs / 60) % 60) + ':' + pad2(secs % 60);
+      }
     }
     tick();
     setInterval(tick, 1000);
-  })();
-</script>
-
-<script is:inline define:vars={{ wakeLabel }}>
-  /* Uptime, repurposed: not the OS's, but time since Javier woke up today
-     (5:30am, Europe/London) — real elapsed time, so it can't be baked once
-     at build and left to drift stale. The element it targets is destroyed
-     and rebuilt every time workspace 1 re-renders (switching back to it
-     clears #term-out and reinserts the seeded fastfetch HTML), so this
-     looks it up fresh on every tick rather than caching a reference — a
-     no-op while workspace 2 or 3 is showing, picked up again the moment 1
-     comes back. Minute precision only, so a 20s poll is plenty. */
-  (function () {
-    var fmt = new Intl.DateTimeFormat('en-US', {
-      timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', hour12: false
-    });
-    function tick() {
-      var el = document.getElementById('ff-uptime');
-      if (!el) return;
-      var p = {};
-      fmt.formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
-      var mins = (+p.hour) * 60 + (+p.minute) - (5 * 60 + 30);
-      if (mins < 0) mins += 24 * 60;
-      el.textContent = Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm — ' + wakeLabel;
-    }
-    tick();
-    setInterval(tick, 20000);
   })();
 </script>
 
