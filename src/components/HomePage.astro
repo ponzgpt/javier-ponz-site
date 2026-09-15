@@ -30,7 +30,7 @@ const p = pages.home[lang];
       <p class="support">{p.support}</p>
       <div class="ctas">
         {p.ctas.map((c) => (
-          <a class={c.alt ? 'cta cta-alt' : 'cta'} href={expand(c.href)} download={c.download || undefined}>{c.label}</a>
+          <a class={c.alt ? 'cta cta-alt' : 'cta'} href={expand(c.href)} target={c.ext ? '_blank' : null} rel={c.ext ? 'noreferrer' : null}>{c.label}</a>
         ))}
       </div>
     </div>
@@ -47,8 +47,9 @@ const p = pages.home[lang];
 
 <style>
   /* The gist under the terminal: lede, one supporting line, three ways on —
-     the work, contact, and the CV download that used to be its own
-     disclosure down in Contact. */
+     the work, contact, and the CV (opens in a new tab rather than forcing a
+     download, so the visitor can read it before deciding) that used to be
+     its own disclosure down in Contact. */
   .support{font-size:calc(17px * var(--scale,1));color:var(--muted);max-width:700px;margin-top:14px}
   .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
   .cta{

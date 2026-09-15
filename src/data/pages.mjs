@@ -27,7 +27,7 @@ export const pages = {
       ctas: [
         { href: '{projects}', label: 'See the work' },
         { href: '{contact}', label: 'Get in touch', alt: true },
-        { href: '/javier-ponz-prado-cv.pdf', label: 'Download CV', alt: true, download: true }
+        { href: '/javier-ponz-prado-cv.pdf', label: 'View CV', alt: true, ext: true }
       ]
     },
     es: {
@@ -40,7 +40,7 @@ export const pages = {
       ctas: [
         { href: '{projects}', label: 'Ver el trabajo' },
         { href: '{contact}', label: 'Hablamos', alt: true },
-        { href: '/javier-ponz-prado-cv.pdf', label: 'Descargar CV', alt: true, download: true }
+        { href: '/javier-ponz-prado-cv.pdf', label: 'Ver CV', alt: true, ext: true }
       ]
     }
   },
