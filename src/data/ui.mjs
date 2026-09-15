@@ -71,12 +71,12 @@ const EN = {
         color: 'rainbow-7',
         rows: [
           ['OS Age', '36 years'],
-          // Placeholder only — replaced on load and every 20s by the
-          // client script in Terminal.astro with minutes since 5:30am
-          // Europe/London, since a string baked at build time would go
-          // stale within the hour.
-          ['Uptime', 'up since 5:30am'],
-          ['Update', '1 dependency unresolved — might be your team']
+          // Placeholder only — the client script in Terminal.astro
+          // overwrites this every second with HH:MM:SS elapsed since a
+          // fixed 5:30am Europe/London reference, using the same clock
+          // tick that already drives the waybar clock above.
+          ['Uptime', '00:00:00'],
+          ['Update', 'Sunday, September 13 2026 at 20:51']
         ]
       }
     ],
@@ -190,10 +190,11 @@ const ES = {
         rows: [
           ['OS Age', '36 años'],
           // Solo un valor provisional — el script cliente en Terminal.astro
-          // lo sustituye al cargar y cada 20s por los minutos desde las
-          // 5:30am hora de Europe/London.
-          ['Uptime', 'despierto desde las 5:30am'],
-          ['Update', '1 dependencia sin resolver — podría ser tu equipo']
+          // lo sustituye cada segundo por las HH:MM:SS transcurridas desde
+          // una referencia fija de las 5:30am hora de Europe/London, con
+          // el mismo tick que ya mueve el reloj de la waybar de arriba.
+          ['Uptime', '00:00:00'],
+          ['Update', 'domingo, 13 de septiembre de 2026 a las 20:51']
         ]
       }
     ],
