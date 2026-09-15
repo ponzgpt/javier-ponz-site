@@ -2,14 +2,23 @@
 /**
  * Generates public/javier-ponz-prado-cv.pdf from src/data/cv.mjs.
  *
- * The Contact section's CV disclosure and this PDF read from the same
- * module, so the two cannot drift apart. The only difference is that entries marked
- * `private: true` (the phone number) are written here and never rendered
- * on the public page.
+ * The Contact section's CV disclosure and this PDF used to read from the
+ * same module, so the two could not drift apart; the disclosure is gone
+ * from the page now (the PDF is a Home CTA instead), but this still reads
+ * the same source module as everything else. The only difference is that
+ * entries marked `private: true` (the phone number) are written here and
+ * never rendered on the public page.
  *
- * The layout is deliberately plain and single-column. The first reader of a
- * CV is now usually software — an ATS or an agent — and multi-column layouts
- * scramble text-extraction order, so nothing here depends on visual position.
+ * One page, deliberately: a decade in one field plus two years transitioning
+ * into another does not need three. Sections read as bullets to scan, not
+ * paragraphs to read start to finish; "Selected work" collapsed into one
+ * line pointing at the site and GitHub, because the portfolio is the place
+ * for the long version, not the CV. Bold entry titles instead of colour, so
+ * it still reads correctly if printed in black and white.
+ *
+ * Layout is single-column on purpose. The first reader of a CV is now
+ * usually software — an ATS or an agent — and multi-column layouts scramble
+ * text-extraction order, so nothing here depends on visual position.
  * Everything is real selectable text; no facts live inside images.
  *
  *   node scripts/build-cv-pdf.mjs
@@ -21,7 +30,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { person, profile, shipped, experience, education, skills } from '../src/data/cv.mjs';
+import { person, cvSummary, cvBuilding, experience, education, certifications, skills } from '../src/data/cv.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'public', 'javier-ponz-prado-cv.pdf');
@@ -37,32 +46,43 @@ const CHROME_CANDIDATES = [
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const entry = (e) => `
+const role = (e) => `
   <article class="entry">
-    <h3>${esc(e.title)}</h3>
-    <p class="when">${esc(e.when)}</p>
+    <div class="entry-head"><h3>${esc(e.title)}</h3><span class="when">${esc(e.when)}</span></div>
     ${e.where ? `<p class="where">${esc(e.where)}</p>` : ''}
-    ${e.body ? `<p class="body">${esc(e.body)}</p>` : ''}
+    <ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
   </article>`;
+
+const edu = (e) => `
+  <div class="edu-row">
+    <div class="entry-head"><h3>${esc(e.title)}</h3><span class="when">${esc(e.when)}</span></div>
+    <p class="where">${esc(e.where)}</p>
+  </div>`;
 
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>${esc(person.name)} — CV</title>
 <style>
-  @page { size: A4; margin: 15mm 16mm; }
+  @page { size: A4; margin: 12mm 16mm; }
   * { box-sizing: border-box; }
   body { margin:0; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-         font-size:9.7pt; line-height:1.42; color:#111; }
-  h1 { font-size:20pt; margin:0 0 3px; letter-spacing:-.01em; }
-  .headline { font-size:10pt; font-weight:700; color:#3a3a3a; margin:0 0 5px; }
-  .contact { font-size:8.7pt; color:#333; margin:0 0 4px; }
-  h2 { font-size:8.6pt; letter-spacing:.14em; text-transform:uppercase; color:#555;
-       border-bottom:1px solid #b9b9b9; padding-bottom:3px; margin:15px 0 9px; }
-  .entry { margin-bottom:10px; page-break-inside:avoid; }
-  .entry h3 { font-size:10pt; margin:0 0 1px; }
-  .when { font-size:8.5pt; color:#666; margin:0 0 1px; }
+         font-size:9.5pt; line-height:1.34; color:#161616; }
+  h1 { font-size:21pt; margin:0 0 2px; letter-spacing:-.01em; }
+  .headline { font-size:10.5pt; font-weight:700; color:#2f6fd6; margin:0 0 6px; }
+  .contact { font-size:8.8pt; color:#333; margin:0; }
+  h2 { font-size:8.2pt; letter-spacing:.13em; text-transform:uppercase; color:#2f6fd6;
+       border-bottom:1px solid #d3d3d3; padding-bottom:2px; margin:12px 0 7px; }
+  p { margin:0 0 6px; }
+  .entry { margin-bottom:7px; page-break-inside:avoid; }
+  .entry-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .entry h3 { font-size:9.8pt; margin:0; }
+  .when { font-size:8.6pt; color:#666; white-space:nowrap; }
   .where { font-size:8.8pt; color:#444; margin:0 0 3px; }
-  .body { margin:0; }
-  p { margin:0 0 5px; }
+  ul { margin:2px 0 0; padding-left:14px; }
+  li { margin:0 0 1px; }
+  .edu-row { margin-bottom:5px; page-break-inside:avoid; }
+  .edu-row h3 { font-size:9.6pt; margin:0; }
+  .edu-row .where { margin:0; }
+  .certs { margin:6px 0 0; color:#333; }
   .skills p { margin:0 0 4px; }
   .skills strong { font-weight:700; }
 </style></head><body>
@@ -70,21 +90,19 @@ const html = `<!doctype html>
 <header>
   <h1>${esc(person.name)}</h1>
   <p class="headline">${esc(person.headline)}</p>
-  <p class="contact">${esc(person.location)}</p>
-  <p class="contact">${person.contact.map((c) => `${esc(c.label)}: ${esc(c.value)}`).join(' · ')}</p>
+  <p class="contact">${esc(person.location)} · ${person.contact.map((c) => esc(c.value)).join(' · ')}</p>
 </header>
 
 <h2>Profile</h2>
-${profile.map((p) => `<p>${esc(p)}</p>`).join('\n')}
-
-<h2>Selected work</h2>
-${shipped.map(entry).join('\n')}
+<p>${esc(cvSummary)}</p>
+<p>${esc(cvBuilding)}</p>
 
 <h2>Experience</h2>
-${experience.map(entry).join('\n')}
+${experience.map(role).join('\n')}
 
 <h2>Education and certifications</h2>
-${education.map(entry).join('\n')}
+${education.map(edu).join('\n')}
+<p class="certs">${esc(certifications)}</p>
 
 <h2>Skills</h2>
 <div class="skills">
