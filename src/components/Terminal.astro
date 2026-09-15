@@ -165,6 +165,11 @@ const boxTop = (title) => {
 };
 const boxBottom = '└' + '─'.repeat(BOX_WIDTH) + '┘';
 
+// Pulled out for the live-uptime script below, so its "since 5:30am" tail
+// stays in whichever language the page is in without a second translated
+// string to keep in sync with ui.mjs.
+const wakeLabel = t.term.factGroups[2].rows.find(([k]) => k === 'Uptime')[1];
+
 const groups = t.term.factGroups.map((g) => ({
   ...g,
   rows: g.rows.map(([k, v], i) => [
@@ -181,9 +186,12 @@ const KEYW = Math.max(...groups.flatMap((g) => g.rows.map(([prefix, k]) => keyOf
 const pad = (s, w) => s + ' '.repeat(Math.max(1, w - s.length));
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+// Uptime's value gets an id: it's not the OS's uptime but time since Javier
+// woke up, ticked live by the script below rather than baked once at build
+// time (see ui.mjs for why the row's own text is only a placeholder).
 const factsHtml = groups.map((g) => [
   `<span class="box">${esc(boxTop(g.title))}</span>`,
-  g.rows.map(([prefix, k, v]) => `<span class="k" style="color:var(--${g.color})">${esc(pad(keyOf(prefix, k), KEYW))}</span><span class="v">${esc(v)}</span>`).join('\n'),
+  g.rows.map(([prefix, k, v]) => `<span class="k" style="color:var(--${g.color})">${esc(pad(keyOf(prefix, k), KEYW))}</span><span class="v"${k === 'Uptime' ? ' id="ff-uptime"' : ''}>${esc(v)}</span>`).join('\n'),
   `<span class="box">${esc(boxBottom)}</span>`
 ].join('\n')).join('\n\n');
 
@@ -276,6 +284,33 @@ const data = {
     }
     tick();
     setInterval(tick, 1000);
+  })();
+</script>
+
+<script is:inline define:vars={{ wakeLabel }}>
+  /* Uptime, repurposed: not the OS's, but time since Javier woke up today
+     (5:30am, Europe/London) — real elapsed time, so it can't be baked once
+     at build and left to drift stale. The element it targets is destroyed
+     and rebuilt every time workspace 1 re-renders (switching back to it
+     clears #term-out and reinserts the seeded fastfetch HTML), so this
+     looks it up fresh on every tick rather than caching a reference — a
+     no-op while workspace 2 or 3 is showing, picked up again the moment 1
+     comes back. Minute precision only, so a 20s poll is plenty. */
+  (function () {
+    var fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', hour12: false
+    });
+    function tick() {
+      var el = document.getElementById('ff-uptime');
+      if (!el) return;
+      var p = {};
+      fmt.formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      var mins = (+p.hour) * 60 + (+p.minute) - (5 * 60 + 30);
+      if (mins < 0) mins += 24 * 60;
+      el.textContent = Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm — ' + wakeLabel;
+    }
+    tick();
+    setInterval(tick, 20000);
   })();
 </script>
 

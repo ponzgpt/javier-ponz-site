@@ -44,11 +44,10 @@ const EN = {
         rows: [
           ['PC', 'custom build'],
           ['CPU', 'AMD Ryzen 9 9900X3D (24) @ 5.58 GHz'],
-          ['GPU', 'AMD Radeon Graphics'],
           ['GPU', 'NVIDIA GeForce RTX 5090'],
-          ['Display', '3840x2160 @ 1.25x in 72", 60 Hz'],
+          ['Display', '3840x2160 @ 120 Hz in 42"'],
           ['Disk', '127.13 GiB / 1.82 TiB (7%) - btrfs'],
-          ['Disk', '5.81 GiB / 5.81 GiB (100%) - iso'],
+          ['Disk', '0 B / 1.82 TiB (0%) - btrfs'],
           ['Memory', '9.36 GiB / 60.46 GiB (15%)'],
           ['Swap', '0 B / 120.91 GiB (0%)']
         ]
@@ -71,9 +70,13 @@ const EN = {
         title: 'Age / Uptime / Update',
         color: 'rainbow-7',
         rows: [
-          ['OS Age', '0 days'],
-          ['Uptime', '36 years, still compiling'],
-          ['Update', 'open to technical support & customer-facing roles']
+          ['OS Age', '36 years'],
+          // Placeholder only — replaced on load and every 20s by the
+          // client script in Terminal.astro with minutes since 5:30am
+          // Europe/London, since a string baked at build time would go
+          // stale within the hour.
+          ['Uptime', 'up since 5:30am'],
+          ['Update', '1 dependency unresolved — might be your team']
         ]
       }
     ],
@@ -159,11 +162,10 @@ const ES = {
         rows: [
           ['PC', 'montaje propio'],
           ['CPU', 'AMD Ryzen 9 9900X3D (24) @ 5,58 GHz'],
-          ['GPU', 'AMD Radeon Graphics'],
           ['GPU', 'NVIDIA GeForce RTX 5090'],
-          ['Display', '3840x2160 @ 1,25x en 72", 60 Hz'],
+          ['Display', '3840x2160 @ 120 Hz en 42"'],
           ['Disk', '127,13 GiB / 1,82 TiB (7%) - btrfs'],
-          ['Disk', '5,81 GiB / 5,81 GiB (100%) - iso'],
+          ['Disk', '0 B / 1,82 TiB (0%) - btrfs'],
           ['Memory', '9,36 GiB / 60,46 GiB (15%)'],
           ['Swap', '0 B / 120,91 GiB (0%)']
         ]
@@ -186,9 +188,12 @@ const ES = {
         title: 'Age / Uptime / Update',
         color: 'rainbow-7',
         rows: [
-          ['OS Age', '0 días'],
-          ['Uptime', '36 años, seguimos compilando'],
-          ['Update', 'soporte técnico y puestos de cara al cliente']
+          ['OS Age', '36 años'],
+          // Solo un valor provisional — el script cliente en Terminal.astro
+          // lo sustituye al cargar y cada 20s por los minutos desde las
+          // 5:30am hora de Europe/London.
+          ['Uptime', 'despierto desde las 5:30am'],
+          ['Update', '1 dependencia sin resolver — podría ser tu equipo']
         ]
       }
     ],
