@@ -26,7 +26,8 @@ export const pages = {
       support: 'I work where people and technical systems meet: find what broke, explain it plainly, and make the next step workable.',
       ctas: [
         { href: '{projects}', label: 'See the work' },
-        { href: '{contact}', label: 'Get in touch', alt: true }
+        { href: '{contact}', label: 'Get in touch', alt: true },
+        { href: '/javier-ponz-prado-cv.pdf', label: 'Download CV', alt: true, download: true }
       ]
     },
     es: {
@@ -38,7 +39,8 @@ export const pages = {
       support: 'Trabajo donde se tocan las personas y los sistemas técnicos: encontrar qué se ha roto, explicarlo con claridad, y dejar el siguiente paso al alcance.',
       ctas: [
         { href: '{projects}', label: 'Ver el trabajo' },
-        { href: '{contact}', label: 'Hablamos', alt: true }
+        { href: '{contact}', label: 'Hablamos', alt: true },
+        { href: '/javier-ponz-prado-cv.pdf', label: 'Descargar CV', alt: true, download: true }
       ]
     }
   },
@@ -46,15 +48,16 @@ export const pages = {
   /* ─────────────────────────────────────────────────────────── about ── */
   about: {
     en: {
-      kicker: '01 / About', h1: 'The machine should be ', serif: 'shaped',
+      kicker: '01 / About',
+      epigraph: '“The future is already here — it\'s just not evenly distributed.”<cite>— William Gibson</cite>',
+      h1: 'The machine should be ', serif: 'shaped',
       serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
       h1end: ' by the needs of the person that commands it.',
       lede: 'I am interested in the space between people and their machines: how agents, open-source tools and editable systems can give ordinary users more control instead of handing more of it to large corporations.',
       sections: [
         { label: 'Background', cls: 'copy', html: '<h2>Ten years between people and their machines.</h2>' + P(
           'A decade at Apple Retail taught me to diagnose fast and translate between what the engineer means, what the sale promised, and what the person actually sees. Same job now, different surface: agent workflows, small products, infrastructure I run myself.',
-          'I prefer computers that can be edited rather than merely tolerated. Plain configuration, readable files and an owner who understands the system are practical advantages, not decoration — and the reason an agent can do anything useful on a machine at all. Open weights and open primitives matter for the same practical reason: whoever controls them sets the ceiling on how far the agent can help you.')
-          + '<blockquote>“The future is already here — it\'s just not evenly distributed.”<cite>— William Gibson</cite></blockquote>' },
+          'I prefer computers that can be edited rather than merely tolerated. Plain configuration, readable files and an owner who understands the system are practical advantages, not decoration — and the reason an agent can do anything useful on a machine at all. Open weights and open primitives matter for the same practical reason: whoever controls them sets the ceiling on how far the agent can help you.') },
         { label: 'The principle', cls: 'prose', html: P(
           '<strong><a href="{servant}" target="_blank" rel="noreferrer">Leading is serving</a>.</strong>',
           'For me, that means removing what is in somebody\'s way and leaving them with more control than they had before. It applies at a support bench, on a team and inside a technical system.') },
@@ -63,15 +66,16 @@ export const pages = {
       ]
     },
     es: {
-      kicker: '01 / Perfil', h1: 'La máquina debería estar ', serif: 'moldeada',
+      kicker: '01 / Perfil',
+      epigraph: '«El futuro ya está aquí — simplemente no está distribuido de forma uniforme.»<cite>— William Gibson</cite>',
+      h1: 'La máquina debería estar ', serif: 'moldeada',
       serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
       h1end: ' por las necesidades de quien la gobierna.',
       lede: 'Me interesa el espacio entre las personas y sus máquinas: cómo los agentes, las herramientas de código abierto y los sistemas editables pueden darle más control a la gente corriente en vez de entregárselo a las grandes corporaciones.',
       sections: [
         { label: 'Trayectoria', cls: 'copy', html: '<h2>Diez años entre las personas y sus máquinas.</h2>' + P(
           'Una década en Apple Retail me enseñó a diagnosticar rápido y a traducir entre lo que quiere decir el ingeniero, lo que prometió la venta, y lo que la persona realmente ve. El mismo trabajo ahora, otra superficie: flujos con agentes, productos pequeños, infraestructura que administro yo.',
-          'Prefiero ordenadores que se puedan editar, no solo tolerar. La configuración en texto plano, los ficheros legibles y un dueño que entiende el sistema son ventajas prácticas, no decoración — y la razón por la que un agente puede hacer algo útil en una máquina. Los pesos y las primitivas abiertas importan por lo mismo: quien los controla pone el techo de hasta dónde puede ayudarte el agente.')
-          + '<blockquote>«El futuro ya está aquí — simplemente no está distribuido de forma uniforme.»<cite>— William Gibson</cite></blockquote>' },
+          'Prefiero ordenadores que se puedan editar, no solo tolerar. La configuración en texto plano, los ficheros legibles y un dueño que entiende el sistema son ventajas prácticas, no decoración — y la razón por la que un agente puede hacer algo útil en una máquina. Los pesos y las primitivas abiertas importan por lo mismo: quien los controla pone el techo de hasta dónde puede ayudarte el agente.') },
         { label: 'El principio', cls: 'prose', html: P(
           '<strong><a href="{servant}" target="_blank" rel="noreferrer">Liderar es servir</a>.</strong>',
           'Para mí eso significa quitar lo que le estorba a alguien y dejarlo con más control del que tenía antes. Vale en un banco de reparación, en un equipo y dentro de un sistema técnico.') },
@@ -95,9 +99,7 @@ export const pages = {
           'I moved from Madrid to Aberdeen and began a deliberate transition into AI and full stack development. I am learning by building: small applications, agent tooling, automation, deployments, and the documentation that explains what actually happened.') }
       ],
       chronologyLabel: 'Chronology',
-      educationLabel: 'Study and certification',
-      closingLabel: 'In short',
-      closing: 'I am early in this chapter and public about it. The work, the source and the stated limits are there to be inspected.'
+      educationLabel: 'Study and certification'
     },
     es: {
       kicker: '02 / Experiencia', h1: 'Una década de diagnóstico, soporte y ', serif: 'quitar obstáculos', h1end: '.',
@@ -111,9 +113,7 @@ export const pages = {
           'Me mudé de Madrid a Aberdeen y empecé una transición deliberada hacia la IA y el desarrollo full stack. Aprendo construyendo: aplicaciones pequeñas, herramientas para agentes, automatización, despliegues, y la documentación que explica qué pasó de verdad.') }
       ],
       chronologyLabel: 'Cronología',
-      educationLabel: 'Formación y certificaciones',
-      closingLabel: 'En resumen',
-      closing: 'Llevo poco en este capítulo y lo hago en público. El trabajo, el código y los límites declarados están ahí para que los mires de cerca.'
+      educationLabel: 'Formación y certificaciones'
     }
   },
 
@@ -126,23 +126,13 @@ export const pages = {
       kicker: '03 / Projects', h1: 'Things I am ', serif: 'making', h1end: '.',
       lede: 'Small products and agent tooling, shown with their limits and their receipts.',
       authorship: 'Project notes say what I specified, wrote, deployed or built with an agent. The distinction matters to me.',
-      runningLabel: 'Running daily', projectsLabel: 'Built and shipped',
-      liveLabel: 'Live', liveNote: 'Deployed and running on a VPS I administer.',
-      closingLabel: 'The common thread',
-      closing: 'It is not “AI”. It is making a system useful, inspectable and hard to misunderstand.',
-      scopeLabel: 'Scope note',
-      scope: 'Personal projects and learning artefacts, not client deliverables. Memento Mori is a reflective aid built on population averages — not medical, legal, actuarial or mental-health advice, and no claim about any individual.'
+      runningLabel: 'Running daily', projectsLabel: 'Built'
     },
     es: {
       kicker: '03 / Proyectos', h1: 'Cosas que estoy ', serif: 'haciendo', h1end: '.',
       lede: 'Productos pequeños y herramientas para agentes, con sus límites y sus pruebas a la vista.',
       authorship: 'Cada ficha dice qué especifiqué, qué escribí, qué desplegué y qué construí con un agente. Esa distinción me importa.',
-      runningLabel: 'Uso a diario', projectsLabel: 'Hecho y publicado',
-      liveLabel: 'En vivo', liveNote: 'Desplegado y funcionando en un VPS que administro yo.',
-      closingLabel: 'El hilo común',
-      closing: 'No es la «IA». Es hacer que un sistema sea útil, inspeccionable y difícil de malinterpretar.',
-      scopeLabel: 'Nota de alcance',
-      scope: 'Proyectos personales y ejercicios de aprendizaje, no entregables para clientes. Memento Mori es una ayuda para la reflexión basada en promedios de población — no es consejo médico, legal, actuarial ni de salud mental, y no afirma nada sobre nadie en concreto.'
+      runningLabel: 'Uso a diario', projectsLabel: 'Hecho'
     }
   },
 
@@ -221,7 +211,7 @@ export const pages = {
   /* ───────────────────────────────────────────────────────── contact ── */
   contact: {
     en: {
-      kicker: '07 / Contact', h1: 'If the system has to make sense to ', serif: 'actual people', h1end: ', get in touch.',
+      kicker: '07 / Contact', h1: 'If the system has to make sense to ', serif: 'the person', h1end: ' using it, get in touch.',
       lede: 'I am based in Aberdeen, Scotland. Remote work suits me. I am looking for work around technical support, customer-facing engineering, agent operations, implementation and practical AI tooling.',
       coordsLabel: 'Coordinates',
       rows: [
@@ -237,7 +227,7 @@ export const pages = {
       final: 'Good technical work leaves people with more clarity and control than before. That is the standard.'
     },
     es: {
-      kicker: '07 / Contacto', h1: 'Si el sistema tiene que tener sentido para ', serif: 'personas de verdad', h1end: ', escríbeme.',
+      kicker: '07 / Contacto', h1: 'Si el sistema tiene que tener sentido para ', serif: 'la persona', h1end: ' que lo usa, escríbeme.',
       lede: 'Vivo en Aberdeen, Escocia. El trabajo en remoto me viene bien. Busco trabajo de soporte técnico, ingeniería de cara al cliente, operaciones con agentes, implementación y herramientas de IA aplicadas.',
       coordsLabel: 'Coordenadas',
       rows: [
@@ -252,12 +242,5 @@ export const pages = {
       finalLabel: 'El criterio',
       final: 'Un buen trabajo técnico deja a las personas con más claridad y más control del que tenían antes. Ese es el criterio.'
     }
-  },
-
-  /* ────────────────────────────────────────────────────────────── cv ── */
-  // Just what the Contact section's CV disclosure needs.
-  cv: {
-    en: { kicker: 'Curriculum vitae', download: '↓ Download CV (PDF)' },
-    es: { kicker: 'Currículum', download: '↓ Descargar el CV (PDF)' }
   }
 };
