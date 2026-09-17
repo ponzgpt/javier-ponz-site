@@ -50,9 +50,17 @@ generated from the same data as the Contact section.
 Hermes Agent (Nous Research) and Omarchy (Basecamp/DHH) — operated daily, not
 authored. Local inference is a separate, ongoing infrastructure project: two
 machines meant to serve an open-weights model behind an API, currently offline
-while the hardware is rebuilt. Also building a self-hosted homelab on Proxmox,
-and unwinding a decade inside a closed platform (off Google, OSINT,
+while the hardware is rebuilt. A homelab of his own is in early design —
+hardware, topology and networking, with Proxmox as the intended base. He is
+also unwinding a decade inside a closed platform (off Google, OSINT,
 GrapheneOS next).
+
+Starting next, stated as intent rather than experience: Kubernetes and
+container orchestration, on top of the Docker, Docker Swarm, Traefik and
+nginx he already runs in production, plus deeper Python. Learned with an LLM
+and an agent harness beside him, aimed at the portion that makes a system
+operable — enough to deploy it, read what the harness proposes and catch it
+when it is wrong. Not claimed as professional experience.
 
 ## Skills
 
