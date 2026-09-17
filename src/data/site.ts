@@ -188,7 +188,8 @@ export const skillGroups = [
     items: [
       'Agent operations and implementation', 'Digital sovereignty and private, personalised technology',
       'Local inference and model serving', 'vLLM and quantised open weights',
-      'Proxmox and a self-hosted homelab',
+      'Kubernetes and container orchestration', 'Deployment of agent services and their infrastructure',
+      'A homelab of my own — hardware, topology, networking, Proxmox',
       'Tools that help normal people and small businesses use technology with more control'
     ],
     es: {
@@ -196,7 +197,8 @@ export const skillGroups = [
       items: [
         'Operaciones e implementación con agentes', 'Soberanía digital y tecnología privada y personalizada',
         'Inferencia local y servido de modelos', 'vLLM y pesos abiertos cuantizados',
-        'Proxmox y un homelab autoalojado',
+        'Kubernetes y orquestación de contenedores', 'Despliegue de servicios con agentes y su infraestructura',
+        'Un homelab propio — hardware, topología, redes, Proxmox',
         'Herramientas para que personas normales y pequeños negocios usen la tecnología con más control'
       ]
     }

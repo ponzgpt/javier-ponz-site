@@ -140,11 +140,11 @@ export const pages = {
   skills: {
     en: {
       kicker: '04 / Skills', h1: 'What I know, what I am ', serif: 'learning', h1end: ', and what I am building towards.',
-      lede: 'Split three ways on purpose. Nothing in the second or third group is experience I have already had.'
+      lede: 'Split three ways on purpose. Nothing in the second or third group is experience I have already had. The third is what I am starting next — learned with an LLM and an agent harness beside me, aimed at the 20% that makes a system operable: enough to deploy it, read what the harness proposes, and catch it when it is wrong.'
     },
     es: {
       kicker: '04 / Competencias', h1: 'Lo que sé, lo que estoy ', serif: 'aprendiendo', h1end: ', y hacia dónde construyo.',
-      lede: 'Separado en tres a propósito. Nada del segundo ni del tercer grupo es experiencia que ya tenga.'
+      lede: 'Separado en tres a propósito. Nada del segundo ni del tercer grupo es experiencia que ya tenga. El tercero es lo que empiezo ahora — con un LLM y un arnés de agentes al lado, buscando el 20% que hace operable un sistema: lo justo para desplegarlo, leer lo que propone el arnés y pillarlo cuando se equivoca.'
     }
   },
 
