@@ -4,7 +4,7 @@ Javier Ponz's personal site (Astro, static, multilingual) with a working termina
 ## Commands
 - Check (before every commit and deploy): `npm run check && npm run build`
 - Dev: `npm run dev`
-- Deploy: `DEPLOYMENT.md`
+- Deploy: `./scripts/deploy.sh`
 
 ## Non-negotiables
 1. A skin is four colours and two fonts in `src/data/skins.mjs`; everything else derives via `color-mix()`. No per-skin CSS.
