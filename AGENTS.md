@@ -11,3 +11,4 @@ Javier Ponz's personal site (Astro, static, multilingual) with a working termina
 2. `fg`, `accent`, `accent2` and the derived `--muted` keep 4.5:1 against `bg` (`npm run check:skins`).
 3. Terminal commands read the same data files as the pages; never duplicate content.
 4. The CV PDF (`npm run cv:pdf`, from `src/data/cv.mjs`) is English-only on purpose.
+5. Publish only claims backed by primary evidence (ledger: private repo `ponzgpt/javier-ponz-site-internal`); never claim senior engineering experience, enterprise clients, production work for third parties, official Nous employment or visa sponsorship without it.
