@@ -10,7 +10,7 @@
 
 ## Currently
 
-Open to technical support, customer success and customer-facing roles, plus
+Open to support engineering, technical support and customer-facing roles, plus
 junior developer and agent-operations work. Building Machines Do It Better,
 an early-stage solo practice — in formation, no clients yet. Career changer,
 second year, stated openly rather than obscured. Writes an occasional
@@ -30,20 +30,19 @@ generated from the same data as the Contact section.
 
 ## Shipped work
 
+- hermes-triage — read-only triage report for the Hermes Agent issue queue
+  (16,206 open issues on its first run): response times, likely duplicates,
+  suggested labels with reasons, reproduction candidates. Specified by him,
+  mostly agent-written. https://hermes-triage.technoir.cloud/ ·
+  https://github.com/ponzgpt/hermes-triage
 - Memento Mori — web application in production; Docker, Traefik, TLS, an
   eight-check release gate. https://memento.technoir.cloud/ ·
   https://github.com/ponzgpt/memento-mori
-- Hermes PKM Toolkit — MCP server for local Markdown vaults, tested against
-  path traversal. https://github.com/ponzgpt/hermes-pkm-toolkit
-- The Aberdeen Daily — nightly local newspaper agent; figures computed in
-  code, never by the model. Fork of vaelkeep/hermes-paper-agent.
-  https://github.com/ponzgpt/aberdeen-daily
 - Mental Models Toolkit — thirty machine-readable decision models.
   https://github.com/ponzgpt/mental-models-toolkit
-- Hermes Agent Site — unofficial landing page for Hermes Agent.
-  https://github.com/ponzgpt/hermes-agent-site
-- 0TH Hermes — onboarding guide and setup script for Hermes Agent.
-  https://github.com/ponzgpt/0th-hermes
+- The Aberdeen Daily — local newspaper agent; figures computed in code, never
+  by the model. Fork of vaelkeep/hermes-paper-agent. First edition September
+  2026; the nightly run is paused. https://github.com/ponzgpt/aberdeen-daily
 
 ## Runs daily, did not write
 

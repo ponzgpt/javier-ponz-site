@@ -9,7 +9,7 @@
 
 export const person = {
   name: 'Javier Ponz',
-  headline: 'Technical support & customer success · agent operations · technical troubleshooting',
+  headline: 'Technical support · support engineering · agent operations',
   location: 'Aberdeen, Scotland, United Kingdom',
   // `private: true` fields are written into the PDF only, never rendered on the web page.
   contact: [
@@ -26,7 +26,7 @@ export const person = {
 // feeds only build-cv-pdf.mjs, and that PDF stays English-only on purpose
 // (see README). So only those four strings get a Spanish counterpart.
 export const personEs = {
-  headline: 'Soporte técnico y customer success · operaciones con agentes · resolución de incidencias técnicas',
+  headline: 'Soporte técnico · ingeniería de soporte · operaciones con agentes',
   location: 'Aberdeen, Escocia, Reino Unido'
 };
 
@@ -50,22 +50,22 @@ export const profile = [
 // stay exactly as it is. This one exists to be short: a one-page CV has no
 // room for the personal-essay version, and a hiring manager skimming it
 // doesn't need the homelab backstory the site tells at length elsewhere.
-export const cvSummary = 'Ten years at Apple Retail across hardware repair, technical diagnosis, consultative support and team leadership, now transitioning into AI systems and agent operations. Best at translating between people and their machines: finding what actually broke, explaining it plainly, and making the next step workable. Studying AI and Full Stack development while building and shipping small agent tooling and products into production. Looking for technical support, customer-facing engineering or agent-operations roles.';
+export const cvSummary = 'Ten years of technical support at Apple — Genius, remote AppleCare, in-store leadership: diagnosing unfamiliar hardware and software faults, escalating with a case someone can act on, and training the technicians who came after me. Colleagues used my case notes as the example to follow. I now use Hermes Agent daily, run my own production VPS and build small support tooling with an agent beside me, saying which parts the agent wrote. Looking for support engineering roles.';
 
 export const shipped = [
+  {
+    title: 'hermes-triage — issue-queue triage for Hermes Agent',
+    when: '2026',
+    where: 'MIT · specified by me, mostly agent-written · github.com/ponzgpt/hermes-triage',
+    href: 'https://hermes-triage.technoir.cloud/',
+    body: 'Read-only CLI that snapshots every open Hermes Agent issue (16,206 on its first run) and writes a queue-health report: response times, age, likely duplicate clusters, suggested labels from the repo\'s own taxonomy with the reason for each and their measured agreement with maintainers\' labels, and bugs one person can reproduce. Never writes to GitHub.'
+  },
   {
     title: 'Memento Mori — native widget + web demo, live in production',
     when: '2026',
     where: 'memento.technoir.cloud · Apache-2.0 · github.com/ponzgpt/memento-mori',
     href: 'https://memento.technoir.cloud/',
     body: 'Native menu-bar/Waybar widget is the product; this is its bilingual web demo (English default, Spanish toggle), running the same World Bank life-expectancy model plus six lifestyle factors. No accounts, no backend, no analytics — all computation in the browser. Docker, nginx and Traefik on a VPS I administer, behind an eight-check release gate that refuses to publish on red. Cross-platform CI on Linux, macOS and Windows.'
-  },
-  {
-    title: 'Hermes PKM Toolkit — MCP server and agent skills',
-    when: '2026',
-    where: 'MIT · specified by me, implemented by an agent · github.com/ponzgpt/hermes-pkm-toolkit',
-    href: 'https://github.com/ponzgpt/hermes-pkm-toolkit',
-    body: 'Model Context Protocol tools for operating local Markdown vaults safely, with a filesystem-safety layer and tests covering path-traversal rejection and absolute-path neutralisation. I wrote the specification and the safety requirements; Hermes Agent produced the implementation from them. Listed because directing an agent to a usable result is the skill I am practising, not as code I could walk through line by line.'
   },
   {
     title: 'Mental Models Toolkit — agent skill pack',
@@ -75,7 +75,7 @@ export const shipped = [
     body: 'Thirty machine-readable decision and risk models, schema-validated in continuous integration, written to be read by an agent rather than by a person. The selection and the models are my work.'
   },
   {
-    title: 'The Aberdeen Daily — nightly local newspaper agent',
+    title: 'The Aberdeen Daily — local newspaper agent (paused)',
     when: '2026',
     where: 'MIT · fork of vaelkeep/hermes-paper-agent · github.com/ponzgpt/aberdeen-daily',
     href: 'https://github.com/ponzgpt/aberdeen-daily',
@@ -89,7 +89,7 @@ export const shipped = [
 // `bullets` (1-2 per role, tightest for the oldest/shortest ones) replaced a
 // `body` paragraph per entry — a CV reads as achievements to scan, not
 // prose to read start to finish, and a paragraph forced it into the latter.
-export const cvBuilding = 'Building Machines Do It Better since August 2024, an agent consultancy for individuals and small businesses built on privacy and sovereignty — no clients yet. Shipping small products and agent tooling alongside it (Memento Mori, Hermes PKM Toolkit, Mental Models Toolkit and more), live at javierponz.technoir.cloud and github.com/ponzgpt.';
+export const cvBuilding = 'Independent since August 2024, in Aberdeen: studying, and building support and agent tooling in public. hermes-triage — a read-only triage report on the Hermes Agent issue queue (16,206 open issues on its first run: response times, likely duplicates, suggested labels with their reasons, reproduction candidates; specified by me, mostly agent-written). Memento Mori — a privacy-first web app I wrote and deployed. All of it on a VPS I administer; live at javierponz.technoir.cloud and github.com/ponzgpt.';
 
 export const experience = [
   {
@@ -97,8 +97,8 @@ export const experience = [
     when: 'Feb — Aug 2023; Feb — Aug 2024',
     where: 'Xanadú (Arroyomolinos), then Parquesur (Leganés), Madrid',
     bullets: [
-      'Two seven-month leadership secondments taken while holding the Genius role.',
-      'Ran floor operations — planning, resourcing, events, structured feedback — and the situations that fit no procedure.'
+      'Two seven-month leadership secondments taken while holding the Genius role: trained technical and sales staff, ran weekly cross-team alignment, co-owned scheduling optimisation.',
+      'Handled the escalations and disagreements that fit no procedure; noted by my manager for high visibility with the Support team and store leadership.'
     ]
   },
   {
@@ -106,8 +106,9 @@ export const experience = [
     when: 'March 2018 — August 2024',
     where: 'Parquesur, Leganés, Madrid',
     bullets: [
-      "Six and a half years as the store's technical baseline: advanced diagnosis on cases nobody else had resolved.",
-      'Translated findings for people with very different levels of understanding; brought newer technicians onto the bench.'
+      'Diagnosed and repaired Mac, iPhone and iPad hardware and software faults, owning each case through post-repair checks; repair times among the shortest on the team while covering front-of-house support; NPS stable and at or above the team average.',
+      'Colleagues used my case notes as the example to follow; standardised documentation to Apple guidelines, which shortened their appointments. Proposed repair-room process fixes to store leadership and linked Support with the stockroom on dead-on-arrival parts.',
+      'Mentored newer technicians and new Geniuses through shadowing and case feedback; trusted by Lead Geniuses to run floor resourcing and walk-in triage.'
     ]
   },
   {
@@ -115,7 +116,8 @@ export const experience = [
     when: 'March — June 2020',
     where: 'Remote, Madrid · COVID volunteering',
     bullets: [
-      'Concurrent remote support cases under structured troubleshooting and documentation standards, working autonomously.'
+      'Tier 1 by phone, email and chat, several cases at once, under structured troubleshooting and documentation standards.',
+      'Escalated what Tier 1 could not resolve: documented the case, briefed Tier 2 first, then a live three-way handoff with the customer.'
     ]
   },
   {

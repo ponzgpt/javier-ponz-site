@@ -8,10 +8,20 @@
 // written by an agent, or forked from someone else's work, and a page headed
 // "things I am making" has to say so rather than let the reader assume.
 //
-// Order matters: Memento Mori leads because it is the only one that went all
-// the way to a live product, and it is the case study further down the
-// Projects section.
+// Order matters: hermes-triage leads because it is the work closest to the
+// role being applied for (Support Engineer, Nous Research). Memento Mori
+// follows: the only one written entirely by me, and the case study further
+// down the Projects section.
 export const projects = [
+  {
+    title: 'hermes-triage', icon: '⌕', kind: 'support tool', status: 'active', by: 'specified by me, agent-written',
+    description: 'A read-only triage report for the Hermes Agent issue queue: response times, queue age, likely duplicates, suggested labels from the repo\'s own taxonomy (each with its reason, and measured against maintainers\' labels) and bugs one person can reproduce today. First run: 16,206 open issues.',
+    url: 'https://github.com/ponzgpt/hermes-triage', live: 'https://hermes-triage.technoir.cloud/',
+    es: {
+      kind: 'herramienta de soporte', status: 'activo', by: 'especificado por mí, escrito por un agente',
+      description: 'Un informe de triaje de solo lectura para la cola de incidencias de Hermes Agent: tiempos de respuesta, antigüedad de la cola, probables duplicados, etiquetas sugeridas de la propia taxonomía del repositorio (cada una con su motivo, y medidas contra las de los mantenedores) y fallos que una persona puede reproducir hoy. Primera ejecución: 16.206 incidencias abiertas.'
+    }
+  },
   {
     title: 'Memento Mori', icon: '▣', kind: 'web app', status: 'shipped', by: 'written & deployed by me',
     description: 'A private browser-based life-expectancy visualisation — useful as a prompt to act, without pretending to predict anyone in particular. No backend, no accounts, no analytics. Live on a VPS I administer.',
@@ -19,33 +29,6 @@ export const projects = [
     es: {
       kind: 'aplicación web', status: 'publicado', by: 'escrito y desplegado por mí',
       description: 'Una visualización privada de esperanza de vida, en el navegador — útil como empujón para actuar, sin pretender predecir nada sobre nadie en concreto. Sin backend, sin cuentas, sin analítica. En producción sobre un VPS que administro yo.'
-    }
-  },
-  {
-    title: 'Hermes PKM Toolkit', icon: '⌁', kind: 'MCP tools', status: 'active', by: 'specified by me, agent-written',
-    description: 'MCP tools and agent skills for working safely with local Markdown vaults. Includes a tested filesystem layer and path-traversal protection.',
-    url: 'https://github.com/ponzgpt/hermes-pkm-toolkit',
-    es: {
-      kind: 'herramientas MCP', status: 'activo', by: 'especificado por mí, escrito por un agente',
-      description: 'Herramientas MCP y skills de agente para trabajar de forma segura con bóvedas locales de Markdown. Incluye una capa de ficheros probada con tests y protección contra path traversal.'
-    }
-  },
-  {
-    title: '0TH Hermes', icon: '➤', kind: 'onboarding guide', status: 'active', by: 'specified by me, agent-written',
-    description: 'An opinionated shortest path to a working Hermes Agent. It reduces the first hour of setup to one clear next step, instead of making a new user choose between every possible provider, model and configuration.',
-    url: 'https://github.com/ponzgpt/0th-hermes',
-    es: {
-      kind: 'guía de inicio', status: 'activo', by: 'especificado por mí, escrito por un agente',
-      description: 'El camino más corto y con criterio propio hasta un Hermes Agent funcionando. Reduce la primera hora de instalación a un único paso siguiente, en vez de obligar a elegir entre todos los proveedores, modelos y configuraciones posibles.'
-    }
-  },
-  {
-    title: 'Hermes Agent Site', icon: '◈', kind: 'landing page', status: 'shipped', by: 'written & deployed by me',
-    description: 'An unofficial landing page for Hermes Agent that behaves like the CLI it describes: a real command palette, six skins and no unnecessary build machinery.',
-    url: 'https://github.com/ponzgpt/hermes-agent-site',
-    es: {
-      status: 'publicado', by: 'escrito y desplegado por mí',
-      description: 'Una landing page no oficial para Hermes Agent que se comporta como el CLI que describe: una paleta de comandos de verdad, seis aspectos y ninguna maquinaria de compilación innecesaria.'
     }
   },
   {
@@ -58,12 +41,12 @@ export const projects = [
     }
   },
   {
-    title: 'The Aberdeen Daily', icon: '▦', kind: 'news agent', status: 'active', by: 'fork of vaelkeep/hermes-paper-agent, adapted by me',
-    description: 'A nightly local paper for Aberdeen. Python computes the figures before the model writes the copy, so the model is never asked to invent the number. The architecture is upstream; my contribution is the city, the feeds and the editorial rules.',
+    title: 'The Aberdeen Daily', icon: '▦', kind: 'news agent', status: 'paused', by: 'fork of vaelkeep/hermes-paper-agent, adapted by me',
+    description: 'A local paper for Aberdeen, written by a Hermes agent. Python computes the figures before the model writes the copy, so the model is never asked to invent the number. The architecture is upstream; my contribution is the city, the feeds and the editorial rules. First edition September 2026; the nightly run is paused.',
     url: 'https://github.com/ponzgpt/aberdeen-daily',
     es: {
-      kind: 'agente de noticias', status: 'activo', by: 'fork de vaelkeep/hermes-paper-agent, adaptado por mí',
-      description: 'Un periódico local nocturno para Aberdeen. Python calcula las cifras antes de que el modelo escriba el texto, así que al modelo nunca se le pide que se invente el número. La arquitectura viene de upstream; mi aportación es la ciudad, las fuentes y las reglas editoriales.'
+      kind: 'agente de noticias', status: 'en pausa', by: 'fork de vaelkeep/hermes-paper-agent, adaptado por mí',
+      description: 'Un periódico local para Aberdeen, escrito por un agente de Hermes. Python calcula las cifras antes de que el modelo escriba el texto, así que al modelo nunca se le pide que se invente el número. La arquitectura viene de upstream; mi aportación es la ciudad, las fuentes y las reglas editoriales. Primera edición en septiembre de 2026; la ejecución nocturna está en pausa.'
     }
   }
 ];
@@ -265,11 +248,11 @@ export const achievements = [
     }
   },
   {
-    date: 'Six repos', title: 'Public tooling and documentation',
-    text: 'Agent skills, MCP tools, an onboarding guide and a news agent — each one stating plainly who wrote what.',
+    date: '16,206 issues', title: 'Hermes Agent queue, triaged',
+    text: 'A read-only report on every open issue: who is waiting, likely duplicates, suggested labels with their reasons, and bugs one person can reproduce.',
     es: {
-      date: 'Seis repos', title: 'Herramientas y documentación públicas',
-      text: 'Skills de agente, herramientas MCP, una guía de inicio y un agente de noticias — cada uno diciendo con claridad quién escribió qué.'
+      date: '16.206 incidencias', title: 'La cola de Hermes Agent, triada',
+      text: 'Un informe de solo lectura sobre cada incidencia abierta: quién espera, probables duplicados, etiquetas sugeridas con su motivo y fallos que una persona puede reproducir.'
     }
   },
   {
