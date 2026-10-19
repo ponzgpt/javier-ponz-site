@@ -125,13 +125,13 @@ export const pages = {
     en: {
       kicker: '03 / Projects', h1: 'Things I am ', serif: 'making', h1end: '.',
       lede: 'Small products and agent tooling, shown with their limits and their receipts.',
-      authorship: 'Project notes say what I specified, wrote, deployed or built with an agent. The distinction matters to me.',
+      authorship: 'I am a vibe coder: I decide, specify, test and ship; AI coding agents write the code. Each card says so, and names any upstream work.',
       runningLabel: 'Running daily', projectsLabel: 'Built'
     },
     es: {
       kicker: '03 / Proyectos', h1: 'Cosas que estoy ', serif: 'haciendo', h1end: '.',
       lede: 'Productos pequeños y herramientas para agentes, con sus límites y sus pruebas a la vista.',
-      authorship: 'Cada ficha dice qué especifiqué, qué escribí, qué desplegué y qué construí con un agente. Esa distinción me importa.',
+      authorship: 'Soy vibe coder: decido, especifico, pruebo y publico; el código lo escriben agentes de IA. Cada ficha lo dice y nombra el trabajo ajeno del que parte.',
       runningLabel: 'Uso a diario', projectsLabel: 'Hecho'
     }
   },

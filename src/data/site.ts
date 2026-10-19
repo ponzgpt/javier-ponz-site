@@ -4,9 +4,10 @@
 // Structural fields (icon, url, date) have nothing to translate, so they are
 // simply absent from `es`.
 //
-// `by` states authorship explicitly. Three of these were specified by me and
-// written by an agent, or forked from someone else's work, and a page headed
-// "things I am making" has to say so rather than let the reader assume.
+// `by` states authorship explicitly. I'm a vibe coder: every project here was
+// specified, tested and shipped by me and written by AI coding agents, or is a
+// fork of someone else's work. A page headed "things I am making" has to say
+// so rather than let the reader assume.
 //
 // Order matters: Neuronara leads — it has a real user and improves in a
 // feedback loop with her, which is the support loop the Nous application is
@@ -15,39 +16,39 @@
 // down the Projects section.
 export const projects = [
   {
-    title: 'Neuronara', icon: '◎', kind: 'clinical search', status: 'in use', by: 'specified by me, agent-written',
+    title: 'Neuronara', icon: '◎', kind: 'clinical search', status: 'in use', by: 'vibe-coded: my spec, agent-written',
     description: 'Cited answers over the standards of clinical neurophysiology — EEG, EMG/NCS, evoked potentials, sleep, IONM. Built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her: every miss she reports is reproduced, fixed and added to the evaluation set so it stays fixed.',
     url: 'https://github.com/ponzgpt/neuronara', live: 'https://neuronara.technoir.cloud/',
     es: {
-      kind: 'búsqueda clínica', status: 'en uso', by: 'especificado por mí, escrito por un agente',
+      kind: 'búsqueda clínica', status: 'en uso', by: 'vibe-coded: especificado por mí, escrito por un agente',
       description: 'Respuestas con citas sobre los estándares de la neurofisiología clínica: EEG, EMG/ENG, potenciales evocados, sueño, monitorización intraoperatoria. Construido para mi pareja, neurofisióloga clínica, y mejorado en un ciclo de feedback con ella: cada fallo que reporta se reproduce, se arregla y se añade al conjunto de evaluación para que no vuelva.'
     }
   },
   {
-    title: 'Memento Mori', icon: '▣', kind: 'web app', status: 'shipped', by: 'written & deployed by me',
+    title: 'Memento Mori', icon: '▣', kind: 'web app', status: 'shipped', by: 'vibe-coded: my spec, agent-written',
     description: 'A private browser-based life-expectancy visualisation — useful as a prompt to act, without pretending to predict anyone in particular. No backend, no accounts, no analytics. Live on a VPS I administer.',
     url: 'https://github.com/ponzgpt/memento-mori', live: 'https://memento.technoir.cloud/',
     es: {
-      kind: 'aplicación web', status: 'publicado', by: 'escrito y desplegado por mí',
+      kind: 'aplicación web', status: 'publicado', by: 'vibe-coded: especificado por mí, escrito por un agente',
       description: 'Una visualización privada de esperanza de vida, en el navegador — útil como empujón para actuar, sin pretender predecir nada sobre nadie en concreto. Sin backend, sin cuentas, sin analítica. En producción sobre un VPS que administro yo.'
     }
   },
   {
-    title: 'Mental Models Toolkit', icon: '▤', kind: 'skill pack', status: 'active', by: 'models mine, agent-packaged',
+    title: 'Mental Models Toolkit', icon: '▤', kind: 'skill pack', status: 'active', by: 'vibe-coded: models chosen by me, agent-written',
     description: 'Thirty machine-readable mental models for decision-making and risk checks, packaged as an agent skill pack and schema-validated in CI.',
     url: 'https://github.com/ponzgpt/mental-models-toolkit',
     es: {
-      kind: 'paquete de skills', status: 'activo', by: 'modelos míos, empaquetado por un agente',
+      kind: 'paquete de skills', status: 'activo', by: 'vibe-coded: modelos elegidos por mí, escrito por un agente',
       description: 'Treinta modelos mentales legibles por máquina para decisiones y comprobaciones de riesgo, empaquetados como skill pack de agente y validados contra esquema en CI.'
     }
   },
   {
-    title: 'The Aberdeen Daily', icon: '▦', kind: 'news agent', status: 'paused', by: 'fork of vaelkeep/hermes-paper-agent, adapted by me',
-    description: 'A local paper for Aberdeen, written by a Hermes agent. Python computes the figures before the model writes the copy, so the model is never asked to invent the number. The architecture is upstream; my contribution is the city, the feeds and the editorial rules. First edition September 2026; the nightly run is paused.',
+    title: 'The Aberdeen Daily', icon: '▦', kind: 'news agent', status: 'scaffolding', by: 'fork of vaelkeep/hermes-paper-agent, adapted with an agent',
+    description: 'A local paper for Aberdeen, written by a Hermes agent. Python computes the figures before the model writes the copy, so the model is never asked to invent the number. The architecture is upstream; my contribution is the city, the feeds and the editorial rules. Scaffolding only: one test edition. The plan is a landing page for local news and businesses with a Beehiiv newsletter.',
     url: 'https://github.com/ponzgpt/aberdeen-daily',
     es: {
-      kind: 'agente de noticias', status: 'en pausa', by: 'fork de vaelkeep/hermes-paper-agent, adaptado por mí',
-      description: 'Un periódico local para Aberdeen, escrito por un agente de Hermes. Python calcula las cifras antes de que el modelo escriba el texto, así que al modelo nunca se le pide que se invente el número. La arquitectura viene de upstream; mi aportación es la ciudad, las fuentes y las reglas editoriales. Primera edición en septiembre de 2026; la ejecución nocturna está en pausa.'
+      kind: 'agente de noticias', status: 'en andamiaje', by: 'fork de vaelkeep/hermes-paper-agent, adaptado con un agente',
+      description: 'Un periódico local para Aberdeen, escrito por un agente de Hermes. Python calcula las cifras antes de que el modelo escriba el texto, así que al modelo nunca se le pide que se invente el número. La arquitectura viene de upstream; mi aportación es la ciudad, las fuentes y las reglas editoriales. Solo el andamiaje: una edición de prueba. El plan es una página de noticias y negocios locales con newsletter en Beehiiv.'
     }
   }
 ];
@@ -242,7 +243,7 @@ export const achievements = [
   },
   {
     date: 'In production', title: 'Memento Mori',
-    text: 'A small app of my own, live on infrastructure I administer, behind an eight-check release gate that refuses to publish on red.',
+    text: 'A small app, vibe-coded and live on infrastructure I run, behind an eight-check release gate that refuses to publish on red.',
     es: {
       date: 'En producción', title: 'Memento Mori',
       text: 'Una app pequeña propia, en producción sobre infraestructura que administro, tras un control de publicación de ocho comprobaciones que se niega a publicar en rojo.'

@@ -32,7 +32,7 @@ generated from the same data as the Contact section.
 
 - Neuronara — cited answers over clinical neurophysiology standards, built for
   his partner, a clinical neurophysiologist, and improved in a feedback loop
-  with her. Specified by him, written with an agent.
+  with her. Vibe-coded: specified and tested by him, written by AI agents.
   https://neuronara.technoir.cloud/ · https://github.com/ponzgpt/neuronara
 - Memento Mori — web application in production; Docker, Traefik, TLS, an
   eight-check release gate. https://memento.technoir.cloud/ ·

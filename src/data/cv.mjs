@@ -49,13 +49,13 @@ export const profile = [
 // stay exactly as it is. This one exists to be short: a one-page CV has no
 // room for the personal-essay version, and a hiring manager skimming it
 // doesn't need the homelab backstory the site tells at length elsewhere.
-export const cvSummary = 'Ten years of technical support at Apple — Genius, remote AppleCare, in-store leadership: diagnosing unfamiliar hardware and software faults, escalating with a case someone can act on, and training the technicians who came after me. Colleagues used my case notes as the example to follow. I now use Hermes Agent daily, run my own production VPS and build small support tooling with an agent beside me, saying which parts the agent wrote. Looking for support engineering roles.';
+export const cvSummary = 'Ten years of technical support at Apple — Genius, remote AppleCare, in-store leadership: diagnosing unfamiliar hardware and software faults, escalating with a case someone can act on, and training the technicians who came after me. Colleagues used my case notes as the example to follow. I now use Hermes Agent daily, run my own production VPS and ship small tools as a vibe coder: I specify and test, AI agents write the code. Looking for support engineering roles.';
 
 export const shipped = [
   {
     title: 'Neuronara — cited answers over clinical neurophysiology standards',
     when: '2026',
-    where: 'neuronara.technoir.cloud · specified by me, written with an agent · github.com/ponzgpt/neuronara',
+    where: 'neuronara.technoir.cloud · vibe-coded: my spec, agent-written · github.com/ponzgpt/neuronara',
     href: 'https://neuronara.technoir.cloud/',
     body: 'Built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her: every miss she reports is reproduced, fixed and added to a held-out evaluation set. Searches society guidance and Europe PMC in English, Spanish and German; the server drops any answer sentence that does not cite a real source.'
   },
@@ -69,7 +69,7 @@ export const shipped = [
   {
     title: 'Mental Models Toolkit — agent skill pack',
     when: '2026',
-    where: 'MIT · models mine, packaging agent-generated · github.com/ponzgpt/mental-models-toolkit',
+    where: 'MIT · vibe-coded · github.com/ponzgpt/mental-models-toolkit',
     href: 'https://github.com/ponzgpt/mental-models-toolkit',
     body: 'Thirty machine-readable decision and risk models, schema-validated in continuous integration, written to be read by an agent rather than by a person. The selection and the models are my work.'
   },
@@ -88,7 +88,7 @@ export const shipped = [
 // `bullets` (1-2 per role, tightest for the oldest/shortest ones) replaced a
 // `body` paragraph per entry — a CV reads as achievements to scan, not
 // prose to read start to finish, and a paragraph forced it into the latter.
-export const cvBuilding = 'Independent since August 2024, in Aberdeen: studying, and building tools in public. Neuronara — cited answers over clinical neurophysiology standards, built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her (specified by me, written with an agent). Memento Mori — a privacy-first web app I wrote and deployed. All of it on a VPS I administer; live at javierponz.technoir.cloud and github.com/ponzgpt.';
+export const cvBuilding = 'Independent since August 2024, in Aberdeen: studying, and building tools in public. Neuronara — cited answers over clinical neurophysiology standards, built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her. Memento Mori — a privacy-first web app. All vibe-coded: I specify, test and ship; AI coding agents write the code. All of it on a VPS I administer; live at javierponz.technoir.cloud and github.com/ponzgpt.';
 
 export const experience = [
   {
@@ -161,7 +161,7 @@ export const certifications = 'Apple Certified Mac Technician (ACMT) · Apple Ce
 export const skills = [
   { group: 'Agents and AI', items: ['Hermes Agent', 'Model Context Protocol (MCP)', 'agent workflows', 'workflow QA', 'OpenRouter', 'llama.cpp', 'Ollama', 'local inference', 'prompt and failure-trace debugging'] },
   { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux — Arch, Fedora, Omarchy', 'VPS administration', 'GitHub Actions', 'CI/CD'] },
-  { group: 'Development', items: ['JavaScript', 'TypeScript', 'Python', 'Astro', 'Swift', 'Git'] },
+  { group: 'Building (vibe-coded, with AI coding agents)', items: ['Claude Code', 'Codex', 'specs and acceptance tests', 'code review of agent output', 'Git', 'shipped in JavaScript, TypeScript, Python, Astro'] },
   { group: 'Practice', items: ['Technical support', 'customer success', 'technical troubleshooting', 'failure-mode investigation', 'documentation', 'mentoring', 'team leadership'] },
   { group: 'Building towards', items: ['vLLM', 'Proxmox', 'self-hosted homelab', 'agent operations'] },
   { group: 'Languages', items: ['Spanish (native)', 'English (Cambridge CAE, C1)'] }
