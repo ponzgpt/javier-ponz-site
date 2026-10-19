@@ -8,18 +8,19 @@
 // written by an agent, or forked from someone else's work, and a page headed
 // "things I am making" has to say so rather than let the reader assume.
 //
-// Order matters: hermes-triage leads because it is the work closest to the
-// role being applied for (Support Engineer, Nous Research). Memento Mori
+// Order matters: Neuronara leads — it has a real user and improves in a
+// feedback loop with her, which is the support loop the Nous application is
+// about. Memento Mori
 // follows: the only one written entirely by me, and the case study further
 // down the Projects section.
 export const projects = [
   {
-    title: 'hermes-triage', icon: '⌕', kind: 'support tool', status: 'active', by: 'specified by me, agent-written',
-    description: 'A read-only triage report for the Hermes Agent issue queue: response times, queue age, likely duplicates, suggested labels from the repo\'s own taxonomy (each with its reason, and measured against maintainers\' labels) and bugs one person can reproduce today. First run: 16,206 open issues.',
-    url: 'https://github.com/ponzgpt/hermes-triage', live: 'https://hermes-triage.technoir.cloud/',
+    title: 'Neuronara', icon: '◎', kind: 'clinical search', status: 'in use', by: 'specified by me, agent-written',
+    description: 'Cited answers over the standards of clinical neurophysiology — EEG, EMG/NCS, evoked potentials, sleep, IONM. Built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her: every miss she reports is reproduced, fixed and added to the evaluation set so it stays fixed.',
+    url: 'https://github.com/ponzgpt/neuronara', live: 'https://neuronara.technoir.cloud/',
     es: {
-      kind: 'herramienta de soporte', status: 'activo', by: 'especificado por mí, escrito por un agente',
-      description: 'Un informe de triaje de solo lectura para la cola de incidencias de Hermes Agent: tiempos de respuesta, antigüedad de la cola, probables duplicados, etiquetas sugeridas de la propia taxonomía del repositorio (cada una con su motivo, y medidas contra las de los mantenedores) y fallos que una persona puede reproducir hoy. Primera ejecución: 16.206 incidencias abiertas.'
+      kind: 'búsqueda clínica', status: 'en uso', by: 'especificado por mí, escrito por un agente',
+      description: 'Respuestas con citas sobre los estándares de la neurofisiología clínica: EEG, EMG/ENG, potenciales evocados, sueño, monitorización intraoperatoria. Construido para mi pareja, neurofisióloga clínica, y mejorado en un ciclo de feedback con ella: cada fallo que reporta se reproduce, se arregla y se añade al conjunto de evaluación para que no vuelva.'
     }
   },
   {
@@ -248,11 +249,11 @@ export const achievements = [
     }
   },
   {
-    date: '16,206 issues', title: 'Hermes Agent queue, triaged',
-    text: 'A read-only report on every open issue: who is waiting, likely duplicates, suggested labels with their reasons, and bugs one person can reproduce.',
+    date: 'In use', title: 'Neuronara',
+    text: 'A clinical reference tool with a real user — a clinical neurophysiologist — improved in a feedback loop with her, every fix pinned by an evaluation question.',
     es: {
-      date: '16.206 incidencias', title: 'La cola de Hermes Agent, triada',
-      text: 'Un informe de solo lectura sobre cada incidencia abierta: quién espera, probables duplicados, etiquetas sugeridas con su motivo y fallos que una persona puede reproducir.'
+      date: 'En uso', title: 'Neuronara',
+      text: 'Una herramienta de referencia clínica con una usuaria real, neurofisióloga clínica, mejorada en un ciclo de feedback con ella; cada arreglo queda fijado por una pregunta de evaluación.'
     }
   },
   {

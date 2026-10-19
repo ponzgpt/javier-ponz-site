@@ -5,9 +5,11 @@
  * The Contact section's CV disclosure and this PDF used to read from the
  * same module, so the two could not drift apart; the disclosure is gone
  * from the page now (the PDF is a Home CTA instead), but this still reads
- * the same source module as everything else. The only difference is that
- * entries marked `private: true` (the phone number) are written here and
- * never rendered on the public page.
+ * the same source module as everything else.
+ *
+ * The phone number is not in this public repository. The published PDF has
+ * none; a copy to send directly is built with it from the environment:
+ *   CV_PHONE='+34 …' CV_OUT=~/somewhere/cv.pdf node scripts/build-cv-pdf.mjs
  *
  * One page, deliberately: a decade in one field plus two years transitioning
  * into another does not need three. Sections read as bullets to scan, not
@@ -33,7 +35,10 @@ import { fileURLToPath } from 'node:url';
 import { person, cvSummary, cvBuilding, experience, education, certifications, skills } from '../src/data/cv.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const out = join(root, 'public', 'javier-ponz-prado-cv.pdf');
+const out = process.env.CV_OUT || join(root, 'public', 'javier-ponz-prado-cv.pdf');
+const contact = process.env.CV_PHONE
+  ? [...person.contact.slice(0, 1), { label: 'Phone', value: process.env.CV_PHONE }, ...person.contact.slice(1)]
+  : person.contact;
 
 const CHROME_CANDIDATES = [
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
@@ -90,7 +95,7 @@ const html = `<!doctype html>
 <header>
   <h1>${esc(person.name)}</h1>
   <p class="headline">${esc(person.headline)}</p>
-  <p class="contact">${esc(person.location)} · ${person.contact.map((c) => esc(c.value)).join(' · ')}</p>
+  <p class="contact">${esc(person.location)} · ${contact.map((c) => esc(c.value)).join(' · ')}</p>
 </header>
 
 <h2>Profile</h2>

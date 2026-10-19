@@ -11,7 +11,6 @@ export const person = {
   name: 'Javier Ponz',
   headline: 'Technical support · support engineering · agent operations',
   location: 'Aberdeen, Scotland, United Kingdom',
-  // `private: true` fields are written into the PDF only, never rendered on the web page.
   contact: [
     { label: 'Email', value: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com' },
     { label: 'LinkedIn', value: 'linkedin.com/in/javierponz', href: 'https://www.linkedin.com/in/javierponz' },
@@ -54,11 +53,11 @@ export const cvSummary = 'Ten years of technical support at Apple — Genius, re
 
 export const shipped = [
   {
-    title: 'hermes-triage — issue-queue triage for Hermes Agent',
+    title: 'Neuronara — cited answers over clinical neurophysiology standards',
     when: '2026',
-    where: 'MIT · specified by me, mostly agent-written · github.com/ponzgpt/hermes-triage',
-    href: 'https://hermes-triage.technoir.cloud/',
-    body: 'Read-only CLI that snapshots every open Hermes Agent issue (16,206 on its first run) and writes a queue-health report: response times, age, likely duplicate clusters, suggested labels from the repo\'s own taxonomy with the reason for each and their measured agreement with maintainers\' labels, and bugs one person can reproduce. Never writes to GitHub.'
+    where: 'neuronara.technoir.cloud · specified by me, written with an agent · github.com/ponzgpt/neuronara',
+    href: 'https://neuronara.technoir.cloud/',
+    body: 'Built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her: every miss she reports is reproduced, fixed and added to a held-out evaluation set. Searches society guidance and Europe PMC in English, Spanish and German; the server drops any answer sentence that does not cite a real source.'
   },
   {
     title: 'Memento Mori — native widget + web demo, live in production',
@@ -89,7 +88,7 @@ export const shipped = [
 // `bullets` (1-2 per role, tightest for the oldest/shortest ones) replaced a
 // `body` paragraph per entry — a CV reads as achievements to scan, not
 // prose to read start to finish, and a paragraph forced it into the latter.
-export const cvBuilding = 'Independent since August 2024, in Aberdeen: studying, and building support and agent tooling in public. hermes-triage — a read-only triage report on the Hermes Agent issue queue (16,206 open issues on its first run: response times, likely duplicates, suggested labels with their reasons, reproduction candidates; specified by me, mostly agent-written). Memento Mori — a privacy-first web app I wrote and deployed. All of it on a VPS I administer; live at javierponz.technoir.cloud and github.com/ponzgpt.';
+export const cvBuilding = 'Independent since August 2024, in Aberdeen: studying, and building tools in public. Neuronara — cited answers over clinical neurophysiology standards, built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her (specified by me, written with an agent). Memento Mori — a privacy-first web app I wrote and deployed. All of it on a VPS I administer; live at javierponz.technoir.cloud and github.com/ponzgpt.';
 
 export const experience = [
   {

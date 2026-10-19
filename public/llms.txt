@@ -30,11 +30,10 @@ generated from the same data as the Contact section.
 
 ## Shipped work
 
-- hermes-triage — read-only triage report for the Hermes Agent issue queue
-  (16,206 open issues on its first run): response times, likely duplicates,
-  suggested labels with reasons, reproduction candidates. Specified by him,
-  mostly agent-written. https://hermes-triage.technoir.cloud/ ·
-  https://github.com/ponzgpt/hermes-triage
+- Neuronara — cited answers over clinical neurophysiology standards, built for
+  his partner, a clinical neurophysiologist, and improved in a feedback loop
+  with her. Specified by him, written with an agent.
+  https://neuronara.technoir.cloud/ · https://github.com/ponzgpt/neuronara
 - Memento Mori — web application in production; Docker, Traefik, TLS, an
   eight-check release gate. https://memento.technoir.cloud/ ·
   https://github.com/ponzgpt/memento-mori
