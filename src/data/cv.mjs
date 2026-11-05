@@ -161,7 +161,7 @@ export const certifications = 'Apple Certified Mac Technician (ACMT) · Apple Ce
 export const skills = [
   { group: 'Agents and AI', items: ['Hermes Agent', 'Model Context Protocol (MCP)', 'agent workflows', 'workflow QA', 'OpenRouter', 'llama.cpp', 'Ollama', 'local inference', 'prompt and failure-trace debugging'] },
   { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux — Arch, Fedora, Omarchy', 'VPS administration', 'GitHub Actions', 'CI/CD'] },
-  { group: 'Building (vibe-coded, with AI coding agents)', items: ['Claude Code', 'Codex', 'specs and acceptance tests', 'code review of agent output', 'Git', 'shipped in JavaScript, TypeScript, Python, Astro'] },
+  { group: 'Building (vibe-coded, with AI coding agents)', items: ['Claude Code', 'Codex', 'specs and acceptance tests', 'testing and verifying agent output', 'Git', 'shipped in JavaScript, TypeScript, Python, Astro'] },
   { group: 'Practice', items: ['Technical support', 'customer success', 'technical troubleshooting', 'failure-mode investigation', 'documentation', 'mentoring', 'team leadership'] },
   { group: 'Building towards', items: ['vLLM', 'Proxmox', 'self-hosted homelab', 'agent operations'] },
   { group: 'Languages', items: ['Spanish (native)', 'English (Cambridge CAE, C1)'] }
