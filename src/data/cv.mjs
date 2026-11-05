@@ -49,7 +49,7 @@ export const profile = [
 // stay exactly as it is. This one exists to be short: a one-page CV has no
 // room for the personal-essay version, and a hiring manager skimming it
 // doesn't need the homelab backstory the site tells at length elsewhere.
-export const cvSummary = 'Ten years of technical support at Apple — Genius, remote AppleCare, in-store leadership: diagnosing unfamiliar hardware and software faults, escalating with a case someone can act on, and training the technicians who came after me. Colleagues used my case notes as the example to follow. I now use Hermes Agent daily, run my own production VPS and ship small tools as a vibe coder: I specify and test, AI agents write the code. Looking for support engineering roles.';
+export const cvSummary = 'Ten years of technical support at Apple — Genius, remote AppleCare, in-store leadership: diagnosing unfamiliar hardware and software faults, escalating with a case someone can act on, and training the technicians who came after me. Colleagues used my case notes as the example to follow. I now use Hermes Agent daily, run my own production VPS and ship small tools as a vibe coder: I specify and test, AI agents write the code. Looking for support engineering and customer-facing roles around open agents, and to help build a support function as it grows.';
 
 export const shipped = [
   {
@@ -96,7 +96,7 @@ export const experience = [
     when: 'Feb — Aug 2023; Feb — Aug 2024',
     where: 'Xanadú (Arroyomolinos), then Parquesur (Leganés), Madrid',
     bullets: [
-      'Two seven-month leadership secondments taken while holding the Genius role: trained technical and sales staff, ran weekly cross-team alignment, co-owned scheduling optimisation.',
+      'From the bench into leadership, twice: seven-month secondments taken while holding the Genius role. Trained technical and sales staff, ran weekly cross-team alignment, co-owned scheduling optimisation and streamlined internal processes.',
       'Handled the escalations and disagreements that fit no procedure; noted by my manager for high visibility with the Support team and store leadership.'
     ]
   },
@@ -115,7 +115,7 @@ export const experience = [
     when: 'March — June 2020',
     where: 'Remote, Madrid · COVID volunteering',
     bullets: [
-      'Tier 1 by phone, email and chat, several cases at once, under structured troubleshooting and documentation standards.',
+      'Remote, asynchronous support: Tier 1 by phone, email and chat, several cases at once, each owned from first contact to resolution under structured troubleshooting and documentation standards.',
       'Escalated what Tier 1 could not resolve: documented the case, briefed Tier 2 first, then a live three-way handoff with the customer.'
     ]
   },
