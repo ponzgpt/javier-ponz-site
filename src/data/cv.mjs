@@ -15,6 +15,8 @@ export const person = {
     { label: 'Email', value: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com' },
     { label: 'LinkedIn', value: 'linkedin.com/in/javierponz', href: 'https://www.linkedin.com/in/javierponz' },
     { label: 'GitHub', value: 'github.com/ponzgpt', href: 'https://github.com/ponzgpt' },
+    { label: 'X', value: 'x.com/sudotechnoir', href: 'https://x.com/sudotechnoir' },
+    { label: 'Discord', value: 'sudotechnoir (Nous Discord)' },
     { label: 'Site', value: 'javierponz.technoir.cloud', href: 'https://javierponz.technoir.cloud/' }
   ]
 };

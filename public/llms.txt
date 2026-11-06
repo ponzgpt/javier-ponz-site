@@ -10,12 +10,26 @@
 
 ## Currently
 
-Open to support engineering, technical support and customer-facing roles, plus
-junior developer and agent-operations work. Building Machines Do It Better,
-an early-stage solo practice — in formation, no clients yet. Career changer,
-second year, stated openly rather than obscured. Writes an occasional
-newsletter, "Machines Do It Better — the signal", at
-https://machinesdoitbetter.beehiiv.com (currently between issues).
+Ex-Apple Genius, now in support engineering and open agents. Open to support
+engineering, technical support and customer-facing roles around open agents.
+Hermes Agent is his daily driver: his main agent, Syl, runs on Hermes Cloud
+through Nous Portal, whose beta he joined among its first users. A vibe coder:
+he decides what to build, specifies it and tests it; AI agents write the code.
+
+Main project: Machines Do It Better (https://mdib.technoir.cloud,
+https://github.com/ponzgpt/machines-do-it-better): personal and business AI
+agents set up on open models and open harnesses such as Hermes Agent, so the
+people using them own the account, the data and the choice of model.
+Pre-launch: the first pilots are friends and family; no paying clients yet.
+
+## Where to find him
+
+- Site and CV: https://javierponz.technoir.cloud
+- GitHub: https://github.com/ponzgpt (all his repositories live here)
+- LinkedIn: https://www.linkedin.com/in/javierponz
+- X: https://x.com/sudotechnoir (@sudotechnoir)
+- Discord: sudotechnoir, in the Nous Research community
+- Email: nerion89@gmail.com
 
 ## The site
 
@@ -39,9 +53,9 @@ generated from the same data as the Contact section.
   https://github.com/ponzgpt/memento-mori
 - Mental Models Toolkit — thirty machine-readable decision models.
   https://github.com/ponzgpt/mental-models-toolkit
-- The Aberdeen Daily — local newspaper agent; figures computed in code, never
-  by the model. Fork of vaelkeep/hermes-paper-agent. First edition September
-  2026; the nightly run is paused. https://github.com/ponzgpt/aberdeen-daily
+- hermes-contributions — what he built around Hermes Agent as a daily user,
+  under one roof: onboarding, a CLI-shaped page, a model field guide and a
+  PKM toolkit. https://github.com/ponzgpt/hermes-contributions
 
 ## Runs daily, did not write
 

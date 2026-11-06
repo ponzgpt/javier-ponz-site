@@ -215,7 +215,9 @@ export const pages = {
       rows: [
         { time: 'Email', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'Work, collaboration, a considered question.', copy: 'nerion89@gmail.com' },
         { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Projects, experiments, the source trail.', copy: 'https://github.com/ponzgpt' },
-        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Professional context, public connections.', copy: 'https://www.linkedin.com/in/javierponz' }
+        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Professional context, public connections.', copy: 'https://www.linkedin.com/in/javierponz' },
+        { time: 'X', h3: '@sudotechnoir ↗', href: 'https://x.com/sudotechnoir', ext: true, p: 'Open agents, Hermes, what I am building. Talking with the Nous community.', copy: 'https://x.com/sudotechnoir' },
+        { time: 'Discord', h3: 'sudotechnoir', p: 'Same name on the Nous Research Discord.', copy: 'sudotechnoir' }
       ],
       copyLabel: 'Copy', copiedLabel: 'Copied', copyFailedLabel: 'Copy failed',
       availabilityLabel: 'Availability',
@@ -231,7 +233,9 @@ export const pages = {
       rows: [
         { time: 'Correo', h3: 'nerion89@gmail.com', href: 'mailto:nerion89@gmail.com', p: 'Trabajo, colaboración, una pregunta pensada.', copy: 'nerion89@gmail.com' },
         { time: 'GitHub', h3: 'github.com/ponzgpt ↗', href: 'https://github.com/ponzgpt', ext: true, p: 'Proyectos, experimentos, el rastro del código.', copy: 'https://github.com/ponzgpt' },
-        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Contexto profesional, contactos públicos.', copy: 'https://www.linkedin.com/in/javierponz' }
+        { time: 'LinkedIn', h3: 'javierponz ↗', href: 'https://www.linkedin.com/in/javierponz', ext: true, p: 'Contexto profesional, contactos públicos.', copy: 'https://www.linkedin.com/in/javierponz' },
+        { time: 'X', h3: '@sudotechnoir ↗', href: 'https://x.com/sudotechnoir', ext: true, p: 'Agentes abiertos, Hermes, lo que estoy construyendo. En conversación con la comunidad de Nous.', copy: 'https://x.com/sudotechnoir' },
+        { time: 'Discord', h3: 'sudotechnoir', p: 'El mismo nombre en el Discord de Nous Research.', copy: 'sudotechnoir' }
       ],
       copyLabel: 'Copiar', copiedLabel: 'Copiado', copyFailedLabel: 'No se pudo copiar',
       availabilityLabel: 'Disponibilidad',

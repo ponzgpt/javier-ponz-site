@@ -634,7 +634,7 @@ const data = {
       link(data.s.dlPdf, data.cvPath);
     },
     contact: function () {
-      data.contact.forEach(function (c) { link(pad(c.l, 10) + c.v, c.h); });
+      data.contact.forEach(function (c) { if (c.h) link(pad(c.l, 10) + c.v, c.h); else write('  ' + pad(c.l, 10) + c.v); });
     },
     skin: function (arg) {
       var ids = data.skins.map(function (s) { return s.id; });
