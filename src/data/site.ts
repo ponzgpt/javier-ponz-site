@@ -16,6 +16,15 @@
 // down the Projects section.
 export const projects = [
   {
+    title: 'Machines Do It Better', icon: '◆', kind: 'main project', status: 'pre-launch', by: 'mine; site vibe-coded',
+    description: 'My main project: personal and business AI agents set up for you on open models and open harnesses like Hermes Agent, so the person using them owns the account, the data and the choice of model. One Founder Pilot on offer; the first pilots are friends and family, no paying clients yet.',
+    url: 'https://github.com/ponzgpt/machines-do-it-better', live: 'https://mdib.technoir.cloud/',
+    es: {
+      kind: 'proyecto principal', status: 'prelanzamiento', by: 'mío; web hecha en vibe coding',
+      description: 'Mi proyecto principal: agentes de IA personales y para negocios, montados sobre modelos abiertos y frameworks abiertos como Hermes Agent, para que quien los usa sea dueño de la cuenta, los datos y la elección de modelo. Una oferta, el Piloto Fundador; los primeros pilotos son familia y amigos, todavía sin clientes de pago.'
+    }
+  },
+  {
     title: 'Neuronara', icon: '◎', kind: 'clinical search', status: 'in use', by: 'vibe-coded: my spec, agent-written',
     description: 'Cited answers over the standards of clinical neurophysiology — EEG, EMG/NCS, evoked potentials, sleep, IONM. Built for my partner, a clinical neurophysiologist, and improved in a feedback loop with her: every miss she reports is reproduced, fixed and added to the evaluation set so it stays fixed.',
     url: 'https://github.com/ponzgpt/neuronara', live: 'https://neuronara.technoir.cloud/',
