@@ -22,10 +22,38 @@
 // each digit indexing `ink`. Kept as strings because that is the cheapest thing
 // to read, diff and edit by hand.
 //
-// Omakase stays referential (Omarchy's own name for its default look); the
-// other three are named plainly after what they borrow a look from.
+// Nous leads: the default look matches the CV and the job it is aimed at. Omakase stays
+// referential (Omarchy's own name for its default look); the others are named plainly after
+// what they borrow a look from.
 
 export const skins = [
+  {
+    id: 'nous',
+    name: 'Nous',
+    note: 'Hermes blue on paper, after nousresearch.com',
+    sprite: {
+      // A Hermes wing in pixels: the open-source agent this site keeps coming back to.
+      ink: { 1: 'var(--accent)', 2: 'var(--accent2)' },
+      grid: [
+        '...........1111',
+        '........1111111',
+        '......111111112',
+        '....11111111122',
+        '..1111111111222',
+        '.111111111122..',
+        '11111111222....',
+        '.1111222.......'
+      ]
+    },
+    link: { href: 'https://nousresearch.com', label: 'Nous Research' },
+    // Paper, navy text and Hermes blue, as on Nous's own job postings (#fafafe, #000091, #0000f2).
+    bg: '#FAFAFE',
+    fg: '#000091',
+    accent: '#0000F2',
+    accent2: '#5757B7',
+    display: "'Big Shoulders Display','Arial Narrow',sans-serif",
+    body: "Inter,'Helvetica Neue',Arial,sans-serif"
+  },
   {
     id: 'omarchy',
     name: 'Omakase',

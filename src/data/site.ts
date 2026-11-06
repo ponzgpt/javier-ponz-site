@@ -9,9 +9,9 @@
 // fork of someone else's work. A page headed "things I am making" has to say
 // so rather than let the reader assume.
 //
-// Order matters: Neuronara leads — it has a real user and improves in a
-// feedback loop with her, which is the support loop the Nous application is
-// about. Memento Mori
+// Order matters, and matches the CV's "Selected work" and the GitHub profile:
+// Neuronara (a real user, a feedback loop), hermes-contributions (Hermes, under
+// one roof), Memento Mori. Then the rest, newest first. Memento Mori
 // follows: the only one written entirely by me, and the case study further
 // down the Projects section.
 export const projects = [
@@ -25,12 +25,48 @@ export const projects = [
     }
   },
   {
+    title: 'hermes-contributions', icon: '⚚', kind: 'Hermes toolkit', status: 'archived', by: 'vibe-coded: my spec, agent-written',
+    description: 'Everything I built around Hermes Agent as a daily user, under one roof: an onboarding script, a landing page that behaves like the CLI, a model field guide and a PKM toolkit (skills and an MCP server), with a check that fails the build when a fact quoted from upstream changes.',
+    url: 'https://github.com/ponzgpt/hermes-contributions',
+    es: {
+      kind: 'kit para Hermes', status: 'archivado', by: 'vibe coding: especificado por mí, escrito por un agente',
+      description: 'Todo lo que construí alrededor de Hermes Agent como usuario diario, bajo un mismo techo: un script de arranque, una portada que se comporta como la CLI, una guía de modelos y un kit PKM (skills y un servidor MCP), con una comprobación que rompe el build cuando cambia un dato citado de upstream.'
+    }
+  },
+  {
     title: 'Memento Mori', icon: '▣', kind: 'web app', status: 'shipped', by: 'vibe-coded: my spec, agent-written',
     description: 'A private browser-based life-expectancy visualisation — useful as a prompt to act, without pretending to predict anyone in particular. No backend, no accounts, no analytics. Live on a VPS I administer.',
     url: 'https://github.com/ponzgpt/memento-mori', live: 'https://memento.technoir.cloud/',
     es: {
       kind: 'aplicación web', status: 'publicado', by: 'vibe-coded: especificado por mí, escrito por un agente',
       description: 'Una visualización privada de esperanza de vida, en el navegador — útil como empujón para actuar, sin pretender predecir nada sobre nadie en concreto. Sin backend, sin cuentas, sin analítica. En producción sobre un VPS que administro yo.'
+    }
+  },
+  {
+    title: 'StacksNRacks', icon: '▥', kind: 'web app', status: 'live', by: 'vibe-coded: my spec, agent-written',
+    description: 'Local AI hardware, priced this week: budget tiers for running LLMs at home, estimated tokens per second per dollar, and community rigs submitted through GitHub issues.',
+    url: 'https://github.com/ponzgpt/stacksnracks', live: 'https://stacksnracks.technoir.cloud/',
+    es: {
+      kind: 'aplicación web', status: 'en producción', by: 'vibe coding: especificado por mí, escrito por un agente',
+      description: 'Hardware para IA local, con precios de esta semana: niveles de presupuesto para correr LLMs en casa, tokens por segundo por euro estimados y equipos de la comunidad enviados como issues de GitHub.'
+    }
+  },
+  {
+    title: 'Hyperexcitability atlas', icon: '∿', kind: 'study atlas', status: 'live', by: 'vibe-coded: my spec, agent-written',
+    description: 'An interactive study atlas of the EURO-NMD webinar on muscle hyperexcitability and cramps, for clinical neurophysiologists: where it starts, what the EMG hears, why it happens.',
+    url: 'https://github.com/ponzgpt/hyperexcitability', live: 'https://hyperexcitability.technoir.cloud/',
+    es: {
+      kind: 'atlas de estudio', status: 'en producción', by: 'vibe coding: especificado por mí, escrito por un agente',
+      description: 'Un atlas de estudio interactivo del webinar de EURO-NMD sobre hiperexcitabilidad muscular y calambres, para neurofisiólogos clínicos: dónde empieza, qué oye el EMG y por qué ocurre.'
+    }
+  },
+  {
+    title: 'BRINK', icon: '☢', kind: 'agent game', status: 'live', by: 'vibe-coded: my spec, agent-written',
+    description: 'A deterministic nuclear escalation game with published arsenals and real distances, playable in the browser or by any MCP-capable agent, including Hermes Agent: a way to watch how agents behave under pressure.',
+    url: 'https://github.com/ponzgpt/brink', live: 'https://brink.technoir.cloud/',
+    es: {
+      kind: 'juego para agentes', status: 'en producción', by: 'vibe coding: especificado por mí, escrito por un agente',
+      description: 'Un juego determinista de escalada nuclear con arsenales publicados y distancias reales, jugable en el navegador o por cualquier agente con MCP, Hermes Agent incluido: una forma de ver cómo se comportan los agentes bajo presión.'
     }
   },
   {
@@ -59,11 +95,11 @@ export const projects = [
 export const running = [
   {
     title: 'Hermes Agent', icon: '◉', kind: 'agent harness', status: 'daily', by: 'Nous Research · I operate it',
-    description: 'Scheduled workflows, automations and agents with permission to touch real files. Skills are Markdown I can edit, tools are servers I can read.',
+    description: 'My main agent, Syl, runs on Hermes Cloud through Nous Portal; I joined the Portal beta among its first users. Scheduled workflows, skills I can edit as Markdown, tools that are servers I can read.',
     url: 'https://github.com/NousResearch/hermes-agent',
     es: {
       kind: 'framework de agentes', status: 'diario', by: 'Nous Research · yo lo opero',
-      description: 'Flujos programados, automatizaciones y agentes con permiso para tocar ficheros reales. Las skills son Markdown que puedo editar, las tools son servidores que puedo leer.'
+      description: 'Mi agente principal, Syl, corre en Hermes Cloud a través de Nous Portal; entré en la beta de Portal entre sus primeros usuarios. Flujos programados, skills que edito como Markdown y tools que son servidores que puedo leer.'
     }
   },
   {

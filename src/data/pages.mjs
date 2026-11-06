@@ -18,11 +18,11 @@ export const pages = {
   /* ─────────────────────────────────────────────────────────── index ── */
   home: {
     en: {
-      title: 'Javier Ponz — technical support & agent operations',
-      desc: 'Javier Ponz — people-first technical problem solver. Ten years at Apple Retail, now building agent tooling and small products that reach production.',
+      title: 'Javier Ponz — support engineering and open agents',
+      desc: 'Javier Ponz — people-first technical problem solver. Ten years of technical support at Apple, now a daily Hermes Agent user building small tools that reach production.',
       kicker: 'Meat-proxy · human-in-the-loop · slop-refiner',
       tagline: 'People-first ', taglineSerif: 'technical problem solver', taglineEnd: '.',
-      lede: 'Ten years fixing what nobody else could at Apple Retail. Same reflex now, aimed at agents, tools and small products that actually ship.',
+      lede: 'Ten years fixing what nobody else could at Apple. Same reflex now, aimed at open agents: Hermes Agent every day, and small tools that actually ship.',
       support: 'I sit between people and their machines: find what broke, say it straight, leave you with a next step that works.',
       ctas: [
         { href: '{projects}', label: 'See the work' },
@@ -31,11 +31,11 @@ export const pages = {
       ]
     },
     es: {
-      title: 'Javier Ponz — soporte técnico y operaciones con agentes',
+      title: 'Javier Ponz — ingeniería de soporte y agentes abiertos',
       desc: 'Javier Ponz — resuelvo problemas técnicos pensando primero en las personas. Diez años en Apple Retail, ahora construyendo herramientas para agentes y productos pequeños que llegan a producción.',
       kicker: 'Meat-proxy · human-in-the-loop · slop-refiner',
       tagline: 'Resuelvo problemas técnicos ', taglineSerif: 'pensando primero en las personas', taglineEnd: '.',
-      lede: 'Diez años arreglando lo que nadie más podía, en Apple Retail. El mismo reflejo ahora, apuntado a agentes, herramientas y productos pequeños que sí llegan a producción.',
+      lede: 'Diez años arreglando lo que nadie más podía, en Apple. El mismo reflejo ahora, apuntado a agentes abiertos: Hermes Agent a diario, y herramientas pequeñas que sí llegan a producción.',
       support: 'Estoy en medio de las personas y sus máquinas: encuentro qué se ha roto, lo digo sin rodeos, y te dejo un siguiente paso que funciona.',
       ctas: [
         { href: '{projects}', label: 'Ver el trabajo' },
@@ -51,7 +51,7 @@ export const pages = {
       kicker: '01 / About',
       epigraph: '“The future is already here — it\'s just not evenly distributed.”<cite>— William Gibson</cite>',
       h1: 'The machine should be ', serif: 'shaped',
-      serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
+      serifHref: 'https://nousresearch.com/a-note-on-our-fundraise',
       h1end: ' by the needs of the person that commands it.',
       lede: 'I am interested in the space between people and their machines: how agents and open-source tools can put real control back in the hands of the person running them — not the platform, and not whoever else thinks they have a claim on it.',
       sections: [
@@ -69,7 +69,7 @@ export const pages = {
       kicker: '01 / Perfil',
       epigraph: '«El futuro ya está aquí — simplemente no está distribuido de forma uniforme.»<cite>— William Gibson</cite>',
       h1: 'La máquina debería estar ', serif: 'moldeada',
-      serifHref: 'https://world.hey.com/dhh/the-malleable-computer-7c187a9b',
+      serifHref: 'https://nousresearch.com/a-note-on-our-fundraise',
       h1end: ' por las necesidades de quien la gobierna.',
       lede: 'Me interesa el espacio entre las personas y sus máquinas: cómo los agentes y las herramientas de código abierto pueden devolver el control real a quien de verdad usa la máquina — no a la plataforma, ni a quien crea tener derecho a decidir por ti.',
       sections: [

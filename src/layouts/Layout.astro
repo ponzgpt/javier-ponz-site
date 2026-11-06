@@ -46,7 +46,7 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Chakra+Petch:wght@500;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500&family=Inter:wght@400;500;600&family=Courier+Prime:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Chakra+Petch:wght@500;700&display=swap" />
   <script is:inline>
     /* A stale #section in the URL (an earlier nav click, browser history, an
        address-bar autocomplete) makes the browser jump straight past the
@@ -352,7 +352,7 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: 
           picker.open = false;
         });
       });
-      paint(document.documentElement.dataset.skin || 'omarchy');
+      paint(document.documentElement.dataset.skin || 'nous');
       document.addEventListener('click', function (e) {
         if (picker.open && !picker.contains(e.target)) picker.open = false;
       });
