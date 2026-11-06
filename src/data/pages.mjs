@@ -51,7 +51,6 @@ export const pages = {
       kicker: '01 / About',
       epigraph: '“The future is already here — it\'s just not evenly distributed.”<cite>— William Gibson</cite>',
       h1: 'The machine should be ', serif: 'shaped',
-      serifHref: 'https://nousresearch.com/a-note-on-our-fundraise',
       h1end: ' by the needs of the person that commands it.',
       lede: 'I am interested in the space between people and their machines: how agents and open-source tools can put real control back in the hands of the person running them — not the platform, and not whoever else thinks they have a claim on it.',
       sections: [
@@ -69,7 +68,6 @@ export const pages = {
       kicker: '01 / Perfil',
       epigraph: '«El futuro ya está aquí — simplemente no está distribuido de forma uniforme.»<cite>— William Gibson</cite>',
       h1: 'La máquina debería estar ', serif: 'moldeada',
-      serifHref: 'https://nousresearch.com/a-note-on-our-fundraise',
       h1end: ' por las necesidades de quien la gobierna.',
       lede: 'Me interesa el espacio entre las personas y sus máquinas: cómo los agentes y las herramientas de código abierto pueden devolver el control real a quien de verdad usa la máquina — no a la plataforma, ni a quien crea tener derecho a decidir por ti.',
       sections: [
