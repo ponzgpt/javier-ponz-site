@@ -96,8 +96,8 @@ export const experience = [
     when: 'Feb — Aug 2023; Feb — Aug 2024',
     where: 'Xanadú (Arroyomolinos), then Parquesur (Leganés), Madrid',
     bullets: [
-      'From the bench into leadership, twice: seven-month secondments taken while holding the Genius role. Trained technical and sales staff, ran weekly cross-team alignment, co-owned scheduling optimisation and streamlined internal processes.',
-      'Handled the escalations and disagreements that fit no procedure; noted by my manager for high visibility with the Support team and store leadership.'
+      'From the bench into leadership, twice: seven-month secondments taken while holding the Genius role. Worked alongside the management team as the link between them and the floor, running the store from opening to close: staffing and team breaks, customer flow, logistics.',
+      'Trained technical and sales staff, ran weekly cross-team alignment and co-owned scheduling optimisation; handled what no procedure covered. Noted by my manager for high visibility with the Support team and store leadership.'
     ]
   },
   {
