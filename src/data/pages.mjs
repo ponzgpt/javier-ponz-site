@@ -85,7 +85,7 @@ export const pages = {
           'Quitar lo que le estorba a alguien y dejarle con más control del que tenía. En un banco de reparación, en un equipo o dentro de un sistema. Y liderar no es imponer tu criterio, por correcto que sea. Es sacar la mejor idea de todos.') },
         { label: 'En lo que creo', cls: 'prose', html: P(
           '<strong>El open source tiene que ganar.</strong> Tu máquina, tus datos, tus llaves, tu agente.',
-          'La libertad primero. Confío en que cada uno lleve sus herramientas, su dinero y sus propios errores.',
+          'La libertad primero. Confío en que cada cual maneje sus herramientas, su dinero y sus propios errores.',
           'Optimista con la tecnología: construir más rápido, en abierto y con las personas al mando.',
           'Mediterráneo hasta la médula: mitos griegos, calzadas romanas, fiestas de guardar. Se cuela en lo que hago, desde un plugin con el nombre del segundo oficio de Hermes hasta otro que guarda un día de descanso.',
           '<em>El viaje antes que el destino.</em>') },
