@@ -1,6 +1,6 @@
 # javier-ponz-site
 
-My portfolio and CV: one page, in English and Spanish, with a working terminal and four colour skins.
+My portfolio and CV: one page, in English and Spanish, with a working terminal and five colour skins.
 
 **Live:** https://javierponz.technoir.cloud · **CV (PDF):** https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf
 
@@ -23,7 +23,7 @@ One long page, not separate routes. Each section is an anchor: `#about`, `#exper
 | `src/data/site.ts` | Projects, timeline, skills and credentials. English is the record; an optional `es` layer overrides only the fields that change |
 | `src/data/ui.mjs`, `src/data/pages.mjs` | Interface text and section prose, `{ en, es }` per block |
 | `src/data/cv.mjs` | The CV, the single source of the PDF |
-| `src/data/skins.mjs` | The four skins |
+| `src/data/skins.mjs` | The five skins |
 
 Both languages are real pages with their own `<html lang>` and `hreflang`, not a script swapping text, so search
 engines and agents read both.
@@ -41,6 +41,7 @@ Pick one from the header, or force one by URL: `?skin=omarchy`.
 
 | id | Name | Colours from |
 |---|---|---|
+| `nous` | Nous | Nous Research's site: Hermes blue on paper (the default) |
 | `hermes` | Caduceus | The default skin of the Hermes Agent CLI |
 | `omarchy` | Omakase | Tokyo Night, Omarchy's default theme |
 | `stormlight` | Stormlight | Original |
