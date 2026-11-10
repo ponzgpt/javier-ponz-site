@@ -14,7 +14,7 @@
 // "aspecto" for a visual skin. Product and technology names stay as they are.
 
 export const locales = [
-  { code: 'en', label: 'EN', name: 'English', html: 'en-US' },
+  { code: 'en', label: 'EN', name: 'English', html: 'en-GB' },
   { code: 'es', label: 'ES', name: 'Español', html: 'es-ES' }
 ];
 
