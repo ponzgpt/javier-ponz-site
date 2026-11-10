@@ -50,7 +50,7 @@ export const profile = [
 // stay exactly as it is. This one exists to be short: a one-page CV has no
 // room for the personal-essay version, and a hiring manager skimming it
 // doesn't need the homelab backstory the site tells at length elsewhere.
-export const cvSummary = "Ten years of technical support at Apple as a Genius, a remote AppleCare advisor and an in-store Lead: diagnosing faults I'd never seen, escalating cases someone could act on, and training the technicians who came after me. Colleagues used my case notes as the example to follow. Today Hermes runs my day: I build plugins for it (two in the Nous Research hackathon), run my own VPS and ship small tools as a vibe coder. I spec and test; AI agents write the code. Looking for support and customer-facing roles around open agents, and to help a support team grow.";
+export const cvSummary = "Ten years of technical support at Apple as a Genius, a remote AppleCare advisor and an in-store Lead: diagnosing faults I'd never seen, escalating cases someone could act on, and training the technicians who came after me. Colleagues used my case notes as the example to follow. Today Hermes runs my day and I build plugins for it as a vibe coder: I spec and test, AI agents write the code. Looking for support and customer-facing roles around open agents, and to help a support team grow.";
 
 export const shipped = [
   {
@@ -156,7 +156,7 @@ export const skills = [
   { group: 'Agents and AI', items: ['Hermes Agent', 'Model Context Protocol (MCP)', 'agent workflows', 'workflow QA', 'OpenRouter', 'llama.cpp', 'Ollama', 'local inference', 'prompt and failure-trace debugging'] },
   { group: 'Infrastructure and deployment', items: ['Docker', 'Docker Swarm', 'Dokploy', 'Traefik', 'nginx', 'Linux: Arch, Fedora, Omarchy', 'VPS administration', 'GitHub Actions', 'CI/CD'] },
   { group: 'Building (vibe-coded, with AI coding agents)', items: ['Claude Code', 'Codex', 'specs and acceptance tests', 'testing and verifying agent output', 'Git', 'shipped in JavaScript, TypeScript, Python, Astro'] },
-  { group: 'Practice', items: ['Technical support', 'customer success', 'technical troubleshooting', 'failure-mode investigation', 'documentation', 'mentoring', 'team leadership'] },
+  { group: 'Practice', items: ['Technical support', 'technical troubleshooting', 'failure-mode investigation', 'documentation', 'mentoring', 'team leadership'] },
   { group: 'Building towards', items: ['vLLM', 'Proxmox', 'self-hosted homelab', 'agent operations'] },
   { group: 'Languages', items: ['Spanish (native)', 'English (Cambridge CAE, C1)'] }
 ];
