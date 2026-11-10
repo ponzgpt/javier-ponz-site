@@ -18,6 +18,23 @@ const ids = skins.map((s) => s.id);
 // Each skin's sprite travels with the destination it links to, so the floating
 // character and where it sends you can never drift apart.
 const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: s.link }]));
+// Fonts are self-hosted (fontsource): no request to Google, so the "no
+// tracking" promise holds. Browsers only download the faces a skin uses.
+import '@fontsource/big-shoulders-display/300';
+import '@fontsource/big-shoulders-display/400';
+import '@fontsource/big-shoulders-display/500';
+import '@fontsource/inter/400';
+import '@fontsource/inter/500';
+import '@fontsource/inter/600';
+import '@fontsource/courier-prime/400';
+import '@fontsource/courier-prime/700';
+import '@fontsource/jetbrains-mono/400';
+import '@fontsource/jetbrains-mono/700';
+import '@fontsource/cormorant-garamond/500';
+import '@fontsource/cormorant-garamond/600';
+import '@fontsource/cormorant-garamond/700';
+import '@fontsource/chakra-petch/500';
+import '@fontsource/chakra-petch/700';
 ---
 <!doctype html>
 <html lang={locale.html} data-skin={defaultSkin}>
@@ -44,9 +61,6 @@ const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: 
   <meta name="twitter:image" content="https://javierponz.technoir.cloud/og-omakase.jpg" />
   <title>{title}</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500&family=Inter:wght@400;500;600&family=Courier+Prime:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Chakra+Petch:wght@500;700&display=swap" />
   <script is:inline>
     /* A stale #section in the URL (an earlier nav click, browser history, an
        address-bar autocomplete) makes the browser jump straight past the

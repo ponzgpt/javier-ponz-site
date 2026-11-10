@@ -7,8 +7,8 @@
 // ── Adding a skin ────────────────────────────────────────────────────────────
 //   1. Append an object below. `id` becomes the [data-skin] attribute value and
 //      the localStorage value, so keep it short, lowercase and stable.
-//   2. If it needs a typeface that isn't already loaded, add the family to the
-//      Google Fonts <link> in src/layouts/Layout.astro. Faces already loaded:
+//   2. If it needs a typeface that isn't already loaded, add its @fontsource
+//      import in src/layouts/Layout.astro. Faces already loaded:
 //      Courier Prime, JetBrains Mono, Cormorant Garamond, Chakra Petch.
 //   3. Check contrast. `fg`, `accent` and `accent2` must each reach 4.5:1
 //      against `bg`, and the derived --muted (fg mixed 28% toward bg) must too.
