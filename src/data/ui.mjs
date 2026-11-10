@@ -15,7 +15,7 @@ const EN = {
   wsHint: 'ctrl + n',
   status: 'aberdeen, scotland',
   openToWork: 'open to work',
-  footerLinks: ['email', 'github', 'linkedin', 'x'],
+  footerLinks: ['github', 'linkedin', 'x'],
   pausedTag: '(paused)',
   treeHint: 'real repos — see <b>projects</b> for details.',
   treeThisSite: 'this site',
@@ -88,7 +88,7 @@ const EN = {
       ['running', 'what I run every day'],
       ['skills', 'demonstrated, learning, and direction'],
       ['cv', 'profile and the PDF'],
-      ['contact', 'email, GitHub, LinkedIn'],
+      ['contact', 'LinkedIn, X, GitHub'],
       ['skin [name]', 'change the look, or list the options'],
       ['lang [code]', 'switch language: en, es'],
       ['fastfetch', 'the banner again (workspace 1)'],
@@ -122,7 +122,7 @@ const EN = {
     ['projects', '#projects', 'what I run, what I built, and the case study'],
     ['skills', '#skills', 'demonstrated, learning, and direction'],
     ['achievements', '#achievements', 'milestones and proof'],
-    ['newsletter', '#newsletter', 'Machines Do It Better — the signal'],
+    ['newsletter', '#newsletter', 'Machines Do It Better: the signal'],
     ['contact', '#contact', 'how to reach me']
   ]
 };
@@ -138,7 +138,7 @@ const ES = {
   wsHint: 'ctrl + n',
   status: 'aberdeen, escocia',
   openToWork: 'disponible',
-  footerLinks: ['correo', 'github', 'linkedin', 'x'],
+  footerLinks: ['github', 'linkedin', 'x'],
   pausedTag: '(pausado)',
   treeHint: 'repos reales — mira <b>projects</b> para más detalles.',
   treeThisSite: 'este sitio',
@@ -206,7 +206,7 @@ const ES = {
       ['running', 'lo que uso a diario'],
       ['skills', 'demostrado, aprendiendo, y hacia dónde voy'],
       ['cv', 'perfil y el PDF'],
-      ['contact', 'correo, GitHub, LinkedIn'],
+      ['contact', 'LinkedIn, X, GitHub'],
       ['skin [nombre]', 'cambiar el aspecto, o ver las opciones'],
       ['lang [código]', 'cambiar de idioma: en, es'],
       ['fastfetch', 'el banner otra vez (espacio 1)'],
@@ -238,7 +238,7 @@ const ES = {
     ['projects', '#projects', 'lo que uso, lo que he hecho, y el caso práctico'],
     ['skills', '#skills', 'demostrado, aprendiendo, y hacia dónde voy'],
     ['achievements', '#achievements', 'hitos y pruebas'],
-    ['newsletter', '#newsletter', 'Machines Do It Better — the signal'],
+    ['newsletter', '#newsletter', 'Machines Do It Better: the signal'],
     ['contact', '#contact', 'cómo contactarme']
   ]
 };

@@ -1,0 +1,12 @@
+---
+// A real 404: nginx serves this with status 404 instead of answering every
+// unknown path with the home page and a 200.
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="404 · Javier Ponz" description="Nothing here.">
+  <section class="hero">
+    <p class="kicker">404</p>
+    <h1>Nothing here. <span class="serif">Yet.</span></h1>
+    <p class="lede">Have you tried turning it off and on again? If that didn't help, <a href="/">the home page</a> works.</p>
+  </section>
+</Layout>

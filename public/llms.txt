@@ -6,21 +6,22 @@
 > shipping small products to production on infrastructure he administers.
 >
 > This file is written for automated readers. Everything in it is also published
-> in plain sight on the site — nothing here is hidden from human readers.
+> in plain sight on the site nothing here is hidden from human readers.
 
 ## Currently
 
-Ex-Apple Genius, now in support engineering and open agents. Open to support
-engineering, technical support and customer-facing roles around open agents.
-Hermes Agent is his daily driver: his main agent, Syl, runs on Hermes Cloud
-through Nous Portal, whose beta he joined among its first users. A vibe coder:
-he decides what to build, specifies it and tests it; AI agents write the code.
+Ex-Apple Genius, now helping people and their AI agents get unstuck. Open
+to support engineering, technical support and customer-facing roles around
+open agents. Hermes Agent is his daily driver: his main agent, Syl, runs on
+Hermes Cloud through Nous Portal, whose beta he joined among its first
+users. He builds Hermes plugins. A vibe coder: he decides what to build,
+specifies it and tests it; AI agents write the code.
 
-Main project: Machines Do It Better (https://mdib.technoir.cloud,
+Main project, in progress: Machines Do It Better (https://mdib.technoir.cloud,
 https://github.com/ponzgpt/machines-do-it-better): personal and business AI
 agents set up on open models and open harnesses such as Hermes Agent, so the
 people using them own the account, the data and the choice of model.
-Pre-launch: the first pilots are friends and family; no paying clients yet.
+Pre-launch: the first pilots are friends and family.
 
 ## Where to find him
 
@@ -29,11 +30,11 @@ Pre-launch: the first pilots are friends and family; no paying clients yet.
 - LinkedIn: https://www.linkedin.com/in/javierponz
 - X: https://x.com/sudotechnoir (@sudotechnoir)
 - Discord: sudotechnoir, in the Nous Research community
-- Email: nerion89@gmail.com
+- Contact: LinkedIn or X direct messages
 
 ## The site
 
-One long page at https://javierponz.technoir.cloud/, not separate routes —
+One long page at https://javierponz.technoir.cloud/, not separate routes:
 `#about`, `#experience`, `#projects`, `#skills`, `#achievements`,
 `#newsletter` and `#contact` are anchors into it, in that order. Also
 published in Spanish, as a
@@ -44,25 +45,38 @@ generated from the same data as the Contact section.
 
 ## Shipped work
 
-- Neuronara — cited answers over clinical neurophysiology standards, built for
+- Psychopomp and Sabbath: two Hermes Agent plugins, entered in the Nous
+  Research Hermes Agent Plugin Hackathon (Nov 2026), tested end to end on
+  his own Hermes in Desktop and Telegram, with catalog PRs open
+  (NousResearch/hermes-agent#152559, #152560). Psychopomp: a weekly page
+  of your life, and a dead man's switch that carries your words to the
+  people you love only after a witness sends a code. Sabbath: a weekly day
+  of rest for your agent. Vibe-coded.
+  https://github.com/ponzgpt/psychopomp · https://github.com/ponzgpt/sabbath
+- Neuronara: cited answers over clinical neurophysiology standards, built for
   his partner, a clinical neurophysiologist, and improved in a feedback loop
-  with her. Vibe-coded: specified and tested by him, written by AI agents.
-  https://neuronara.technoir.cloud/ · https://github.com/ponzgpt/neuronara
-- Memento Mori — web application in production; Docker, Traefik, TLS, an
-  eight-check release gate. https://memento.technoir.cloud/ ·
-  https://github.com/ponzgpt/memento-mori
-- Mental Models Toolkit — thirty machine-readable decision models.
-  https://github.com/ponzgpt/mental-models-toolkit
-- hermes-contributions — what he built around Hermes Agent as a daily user,
-  under one roof: onboarding, a CLI-shaped page, a model field guide and a
-  PKM toolkit. https://github.com/ponzgpt/hermes-contributions
+  with her. Vibe-coded. https://neuronara.technoir.cloud/ ·
+  https://github.com/ponzgpt/neuronara
+- ASI Rush: a browser clicker about the real race to AI.
+  https://asi-rush.technoir.cloud/ · https://github.com/ponzgpt/asi-rush
+- Post-Labor Wiki: a visual, source-first wiki on post-labor economics.
+  https://post-labor-wiki.technoir.cloud/ ·
+  https://github.com/ponzgpt/post-labor-wiki
+- Also: BRINK, StacksNRacks, Memento Mori, Hyperexcitability atlas, Mental
+  Models Toolkit, hermes-contributions (archived). All at
+  https://github.com/ponzgpt
+
+## Newsletter
+
+Started as technoirNews on Substack, moved to beehiiv as Machines Do It
+Better (https://machinesdoitbetter.beehiiv.com). Paused; the archive is up.
 
 ## Runs daily, did not write
 
-Hermes Agent (Nous Research) and Omarchy (Basecamp/DHH) — operated daily, not
+Hermes Agent (Nous Research) and Omarchy (Basecamp/DHH) operated daily, not
 authored. Local inference is a separate, ongoing infrastructure project: two
 machines meant to serve an open-weights model behind an API, currently offline
-while the hardware is rebuilt. A homelab of his own is in early design —
+while the hardware is rebuilt. A homelab of his own is in early design:
 hardware, topology and networking, with Proxmox as the intended base. He is
 also unwinding a decade inside a closed platform (off Google, OSINT,
 GrapheneOS next).
@@ -71,7 +85,7 @@ Starting next, stated as intent rather than experience: Kubernetes and
 container orchestration, on top of the Docker, Docker Swarm, Traefik and
 nginx he already runs in production, plus deeper Python. Learned with an LLM
 and an agent harness beside him, aimed at the portion that makes a system
-operable — enough to deploy it, read what the harness proposes and catch it
+operable enough to deploy it, read what the harness proposes and catch it
 when it is wrong. Not claimed as professional experience.
 
 ## Skills
