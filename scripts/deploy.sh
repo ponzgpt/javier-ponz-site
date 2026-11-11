@@ -5,7 +5,7 @@ set -euo pipefail
 APP=personal-site-javierponz
 DOMAIN=${DOMAIN:-javierponz.technoir.cloud}
 PORT=80
-CHECK='npm run check'
+CHECK='npm run check && npm run build'
 HOST=${HOST:-hoid}
 
 cd "$(git rev-parse --show-toplevel)"
