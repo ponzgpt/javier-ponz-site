@@ -6,7 +6,7 @@
 > shipping small products to production on infrastructure he administers.
 >
 > This file is written for automated readers. Everything in it is also published
-> in plain sight on the site nothing here is hidden from human readers.
+> in plain sight on the site; nothing here is hidden from human readers.
 
 ## Currently
 
@@ -34,21 +34,34 @@ Pre-launch: the first pilots are friends and family.
 
 ## The site
 
-One long page at https://javierponz.technoir.cloud/, not separate routes:
-`#about`, `#experience`, `#projects`, `#skills`, `#achievements`,
-`#newsletter` and `#contact` are anchors into it, in that order. Also
-published in Spanish, as a
-full translation rather than a browser-side swap, at
-https://javierponz.technoir.cloud/es/. The CV is at
+One page at https://javierponz.technoir.cloud/, not separate routes. A
+one-screen hero (name, the line "Ex-Apple | 10 years fixing people's tech. Now
+exploring the intersection of ASI, Neuroscience & Post-Labor Economics.", and
+links), then six numbered sections, each an anchor: `#now` (the two Hermes
+plugins, with test counts and catalog-PR timings next to their sources, and a
+hand-authored, clearly labelled illustrative /sabbath session), `#work`
+(projects, each stating who wrote the code), `#rig` (his workstation specs,
+the VPS, the tools he runs daily, an interactive ASCII 3D scene), `#story`
+(the Apple Retail timeline, study, skills), `#notes` (ASI, neuroscience and
+post-labor economics as interests, not credentials; the newsletter;
+milestones) and `#connect` (a working terminal, contact). The terminal's
+`read` command prints the longer essays (about, apple, newsletter). The
+interests in the hero line are interests, not claimed expertise.
+
+Also published in Spanish, as a full translation rather than a browser-side
+swap, at https://javierponz.technoir.cloud/es/. The CV is at
 https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf (English only),
-generated from the same data as the Contact section.
+generated from the same data as the Story section.
 
 ## Shipped work
 
 - Psychopomp and Sabbath: two Hermes Agent plugins, entered in the Nous
   Research Hermes Agent Plugin Hackathon (Nov 2026), tested end to end on
   his own Hermes in Desktop and Telegram, with catalog PRs open
-  (NousResearch/hermes-agent#152559, #152560). Psychopomp: a weekly page
+  (NousResearch/hermes-agent#152559, #152560): opened 2026-11-10, reviewed
+  by a maintainer about 14 hours later, fixes pushed about 12 hours after
+  that; open and awaiting re-review, not merged. 31 tests between them
+  (18 + 13). Psychopomp: a weekly page
   of your life, and a dead man's switch that carries your words to the
   people you love only after a witness sends a code. Sabbath: a weekly day
   of rest for your agent. Vibe-coded.

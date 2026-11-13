@@ -44,11 +44,11 @@ const nav: [string, string][] = navIds.map((p, i) => [p, t.nav[i]]);
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content={locale.html.replace('-', '_')} />
-  <meta property="og:image" content={site + '/og-omakase.jpg'} />
+  <meta property="og:image" content={site + '/og.jpg'} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content={site + '/og-omakase.jpg'} />
+  <meta name="twitter:image" content={site + '/og.jpg'} />
   <title>{title}</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <script is:inline>
@@ -170,7 +170,7 @@ body::after{
 
 /* ── header ─────────────────────────────────────────────────────────── */
 .site-header{position:sticky;top:0;z-index:30;border-bottom:1px solid transparent;transition:background-color .2s ease,border-color .2s ease;font-family:var(--font-mono);font-size:13px}
-.site-header.scrolled{background:color-mix(in srgb, var(--bg) 84%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+.site-header.scrolled{background:color-mix(in srgb, var(--bg) 94%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:var(--line)}
 .navbar{min-height:58px;display:flex;align-items:center;gap:24px}
 .brand{color:var(--accent);text-decoration:none;font-weight:700;white-space:nowrap}
 .brand:hover{text-decoration:none}

@@ -1,6 +1,6 @@
 # javier-ponz-site
 
-My portfolio and CV: one page, in English and Spanish, with a working terminal and five colour skins.
+My portfolio and CV: one tech-noir page, in English and Spanish, ending in a working terminal.
 
 **Live:** https://javierponz.technoir.cloud · **CV (PDF):** https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf
 
@@ -13,17 +13,19 @@ claims ledger), and the site states for each project who or what wrote it.
 
 ## Structure
 
-One long page, not separate routes. Each section is an anchor: `#about`, `#experience`, `#projects`, `#skills`,
-`#achievements`, `#newsletter`, `#contact`.
+One page, not separate routes: a one-screen hero, then six numbered sections, each an anchor:
+`#now`, `#work`, `#rig`, `#story`, `#notes`, `#connect`.
 
 | Where | What lives there |
 |---|---|
-| `src/components/HomePage.astro` | The whole page, parameterised by language |
+| `src/components/HomePage.astro` | The whole page, parameterised by language; one component per section in `sections/` |
 | `src/pages/index.astro`, `src/pages/es/index.astro` | One-line wrappers: `/` is English, `/es/` is Spanish |
 | `src/data/site.ts` | Projects, timeline, skills and credentials. English is the record; an optional `es` layer overrides only the fields that change |
 | `src/data/ui.mjs`, `src/data/pages.mjs` | Interface text and section prose, `{ en, es }` per block |
 | `src/data/cv.mjs` | The CV, the single source of the PDF |
-| `src/data/skins.mjs` | The five skins |
+| `src/data/skins.mjs` | The palette: four colours and the fonts |
+| `src/data/portrait.mjs` | The ASCII portrait and wordmark (hero, terminal, OG card) |
+| `src/scripts/` | The two WebGL effects: the hero's dither shader and the Rig section's ASCII scene |
 
 Both languages are real pages with their own `<html lang>` and `hreflang`, not a script swapping text, so search
 engines and agents read both.
@@ -35,26 +37,21 @@ English only on purpose: it is the document that gets forwarded, and one canonic
 clean. The phone number is not in this repository; a copy for sending directly is built with
 `CV_PHONE='…' CV_OUT=… npm run cv:pdf`.
 
-## Skins
+## Look
 
-Pick one from the header, or force one by URL: `?skin=omarchy`.
-
-| id | Name | Colours from |
-|---|---|---|
-| `nous` | Nous | Nous Research's site: Hermes blue on paper (the default) |
-| `hermes` | Caduceus | The default skin of the Hermes Agent CLI |
-| `omarchy` | Omakase | Tokyo Night, Omarchy's default theme |
-| `stormlight` | Stormlight | Original |
-| `halflife` | HL | Valve orange on asphalt, the HEV suit's amber HUD |
-
-A skin is four colours and two fonts; everything else derives from them with `color-mix()`. Add one in
-`src/data/skins.mjs`, then run `npm run check:skins`, which fails if any text colour drops below 4.5:1 contrast.
+"Tech noir": warm near-black, bone text, sodium amber and electric violet; Big Shoulders Display, JetBrains
+Mono and Inter, all self-hosted. Everything derives from `src/data/skins.mjs`; `npm run check:skins` fails if a
+text colour drops below 4.5:1. Effects (the dithered hero shader via `@paper-design/shaders`, the three.js
+`AsciiEffect` scene, CSS blinds, grain and scanlines) are progressive enhancement: reduced motion gets one
+still frame, canvases pause off-screen, and without JS or WebGL the page is plain, complete HTML. Some effects
+are from libraries catalogued at Uncommon Web (webdev.teknium.io). `python3 scripts/build-og.py` redraws the
+link-preview card (`public/og.jpg`).
 
 ## The terminal
 
-The home page has a real terminal (`help`, `whoami`, `projects`, `cv`, `skin`, `lang`, `fastfetch`…). Its commands
-read the same data files as the page, so the two cannot disagree. `fastfetch` renders on the server, so without
-JavaScript the page is still plain text.
+The last section is a real terminal (`help`, `whoami`, `projects`, `read`, `cv`, `lang`, `fastfetch`…). Its commands
+read the same data files as the page, so the two cannot disagree; `read` prints the longer essays the page no
+longer shows in full. Its seeded `help` output renders on the server, so without JavaScript it is still text.
 
 ## Develop and deploy
 

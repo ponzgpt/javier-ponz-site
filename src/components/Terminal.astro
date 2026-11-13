@@ -89,7 +89,7 @@ const ffHtml = `<span class="ff"><span class="art" aria-hidden="true"><span clas
   + `<span class="ffinfo">${factsHtml}</span></span>`;
 
 // `read <topic>`: a pages.mjs essay block flattened to plain lines.
-const strip = (html) => String(html).replace(/<\/(p|h2|h3|cite)>/g, '\n').replace(/<cite>/g, '— ').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').split('\n').map((l) => l.trim()).filter(Boolean);
+const strip = (html) => String(html).replace(/<\/(p|h2|h3|cite)>/g, '\n').replace(/<cite>/g, '\n— ').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').split('\n').map((l) => l.trim()).filter(Boolean);
 const readTopic = (block) => {
   const b = pages[block][lang];
   const lines = [];
