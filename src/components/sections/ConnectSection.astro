@@ -1,0 +1,75 @@
+---
+// 06 · Connect. The working terminal (last, by design), then how to reach
+// him, availability and the standard. Copy buttons are progressive: without
+// JS the values are plain, selectable text.
+import { pages } from '../../data/pages.mjs';
+import Terminal from '../Terminal.astro';
+import SectionHead from '../SectionHead.astro';
+
+const { lang = 'en' } = Astro.props;
+const c = pages.connect[lang];
+const p = pages.contact[lang];
+---
+<section class="sec" id="connect" aria-labelledby="connect-title">
+  <div class="shell">
+    <SectionHead id="connect-title" p={{ ...p, kicker: c.kicker }} />
+    <div class="connect-grid">
+      <div class="reveal">
+        <p class="label">{c.termLabel}</p>
+        <Terminal lang={lang} />
+      </div>
+      <div class="reveal">
+        <p class="label">{p.coordsLabel}</p>
+        <ul class="coords">
+          {p.rows.map((r) => (
+            <li>
+              <span class="meta">{r.time}</span>
+              <div>
+                {r.href ? <a href={r.href} target="_blank" rel="noreferrer">{r.h3}</a> : <span class="mono">{r.h3}</span>}
+                <p>{r.p}</p>
+              </div>
+              <button type="button" class="copy-btn" data-copy={r.copy} data-copied-label={p.copiedLabel} data-failed-label={p.copyFailedLabel}>{p.copyLabel}</button>
+            </li>
+          ))}
+        </ul>
+        <p class="label">{p.availabilityLabel}</p>
+        <div class="avail" set:html={p.availability.replace(/h2>/g, 'h3>')} />
+        <p class="standard">{p.final}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.copy-btn');
+    if (!btn || btn.disabled) return;
+    var original = btn.textContent;
+    function flash(label) {
+      btn.textContent = label || original;
+      btn.disabled = true;
+      setTimeout(function () { btn.textContent = original; btn.disabled = false; }, 1600);
+    }
+    if (!navigator.clipboard) { flash(btn.dataset.failedLabel); return; }
+    navigator.clipboard.writeText(btn.dataset.copy).then(
+      function () { flash(btn.dataset.copiedLabel); },
+      function () { flash(btn.dataset.failedLabel); });
+  });
+</script>
+
+<style is:global>
+  .connect-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:32px;align-items:start}
+  .coords{list-style:none;margin:0 0 26px;padding:0;border-top:1px solid var(--line)}
+  .coords li{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+  .coords .meta{padding-top:2px}
+  .coords a,.coords .mono{font-family:var(--font-mono);font-size:14px}
+  .coords p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+  .copy-btn{height:28px;padding:0 10px;background:none;border:1px solid var(--line);color:var(--muted);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .copy-btn:hover{border-color:var(--accent2);color:var(--fg)}
+  .copy-btn:disabled{border-color:var(--accent);color:var(--accent);cursor:default}
+  .avail h3{font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:28px;line-height:1;margin:0 0 8px}
+  .avail p{margin:0 0 18px;font-size:15px}
+  .standard{margin:0;padding:16px 18px;border-left:2px solid var(--accent);background:var(--surface);font-size:15px}
+  @media (max-width:1000px){.connect-grid{grid-template-columns:1fr}}
+  @media (max-width:480px){.coords li{grid-template-columns:1fr auto}.coords li > .meta{grid-column:1/-1}}
+</style>

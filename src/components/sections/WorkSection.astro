@@ -1,0 +1,65 @@
+---
+// 02 · Work. Cards from `projects` in site.ts: the lead three large (order in
+// pages.mjs `work.lead`), everything else smaller. Live link first, source
+// second, and the `by` line on every card says who wrote the code. The two
+// Hermes plugins live in 01 · Now, so they are not repeated here.
+import { pages } from '../../data/pages.mjs';
+import { projects } from '../../data/site';
+import { pick } from '../../data/i18n.mjs';
+import SectionHead from '../SectionHead.astro';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.work[lang];
+const inNow = ['Psychopomp', 'Sabbath'];
+const all = projects.map((x) => pick(x, lang));
+const lead = p.lead.map((t: string) => all.find((x) => x.title === t)).filter(Boolean);
+const rest = all.filter((x) => !p.lead.includes(x.title) && !inNow.includes(x.title));
+---
+<section class="sec" id="work" aria-labelledby="work-title">
+  <div class="shell">
+    <SectionHead id="work-title" p={p} />
+    <div class="work-lead">
+      {lead.map((x) => (
+        <article class="card reveal">
+          <span class="meta">{x.icon} {x.kind} · {x.status}</span>
+          <h3>{x.title}</h3>
+          <p>{x.description}</p>
+          <p class="links">
+            {x.live && <a href={x.live} target="_blank" rel="noreferrer">{p.live}</a>}
+            <a href={x.url} target="_blank" rel="noreferrer">{p.source}</a>
+            <span class="by">{x.by}</span>
+          </p>
+        </article>
+      ))}
+    </div>
+    <p class="label also-label">{p.alsoLabel}</p>
+    <div class="work-rest">
+      {rest.map((x) => (
+        <article class="card small reveal">
+          <span class="meta">{x.icon} {x.kind} · {x.status}</span>
+          <h3>{x.title}</h3>
+          <p>{x.description}</p>
+          <p class="links">
+            {x.live && <a href={x.live} target="_blank" rel="noreferrer">{p.live}</a>}
+            <a href={x.url} target="_blank" rel="noreferrer">{p.source}</a>
+            <span class="by">{x.by}</span>
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .work-lead{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .work-lead .card{display:flex;flex-direction:column}
+  .work-lead .card .links{margin-top:auto;padding-top:14px}
+  .also-label{margin:34px 0 12px}
+  .work-rest{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .card.small{padding:16px}
+  .card.small h3{font-size:21px}
+  .card.small p{font-size:13.5px;line-height:1.5}
+  .card.small .links{font-size:12px;margin-top:8px}
+  @media (max-width:1000px){.work-lead{grid-template-columns:1fr}.work-rest{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.work-rest{grid-template-columns:1fr}}
+</style>

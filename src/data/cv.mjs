@@ -84,6 +84,9 @@ export const shipped = [
 // prose to read start to finish, and a paragraph forced it into the latter.
 export const cvBuilding = 'Independent since August 2024, in Aberdeen: studying and building in public. Machines Do It Better, my main project (pre-launch): AI agents set up for people on open models and harnesses like Hermes, so they own them. Two Hermes plugins in the Nous Research hackathon; Neuronara, built for my partner, a clinical neurophysiologist. All vibe-coded: I specify, test and ship; AI coding agents write the code. All on a VPS I administer; javierponz.technoir.cloud and github.com/ponzgpt.';
 
+// Each role may carry an `es` layer (see `pick` in i18n.mjs) that the Spanish
+// page's Story section reads for its collapsed bullets. The PDF ignores it and
+// stays English-only.
 export const experience = [
   {
     title: 'Lead In-Store Experience · Apple Retail (secondment, twice)',
@@ -92,7 +95,13 @@ export const experience = [
     bullets: [
       'From the bench into leadership, twice: seven-month secondments taken while holding the Genius role. Worked alongside the management team as the link between them and the floor, running the store from opening to close: staffing and team breaks, customer flow, logistics.',
       'Trained technical and sales staff, ran weekly cross-team alignment and co-owned scheduling optimisation; handled what no procedure covered. Noted by my manager for high visibility with the Support team and store leadership.'
-    ]
+    ],
+    es: {
+      bullets: [
+        'Del banco de trabajo al liderazgo, dos veces: comisiones de siete meses compatibilizadas con el puesto de Genius. Trabajé junto al equipo de dirección como enlace entre ellos y la tienda, llevándola de apertura a cierre: turnos y descansos del equipo, flujo de clientes, logística.',
+        'Formé al personal técnico y de ventas, dirigí la coordinación semanal entre equipos y compartí la optimización de horarios; me ocupé de lo que no cubría ningún procedimiento. Mi responsable destacó mi visibilidad ante el equipo de Soporte y la dirección de la tienda.'
+      ]
+    }
   },
   {
     title: 'Genius · Apple Retail',
@@ -102,7 +111,14 @@ export const experience = [
       'Diagnosed and repaired Mac, iPhone and iPad hardware and software faults, owning each case through post-repair checks; repair times among the shortest on the team while covering front-of-house support; NPS stable and at or above the team average.',
       'Colleagues used my case notes as the example to follow; standardised documentation to Apple guidelines, which shortened their appointments. Proposed repair-room process fixes to store leadership and linked Support with the stockroom on dead-on-arrival parts.',
       'Mentored newer technicians and new Geniuses through shadowing and case feedback; trusted by Lead Geniuses to run floor resourcing and walk-in triage.'
-    ]
+    ],
+    es: {
+      bullets: [
+        'Diagnostiqué y reparé fallos de hardware y software en Mac, iPhone y iPad, llevando cada caso hasta las comprobaciones posteriores a la reparación; tiempos de reparación entre los más cortos del equipo mientras cubría el soporte de cara al público; NPS estable y en la media del equipo o por encima.',
+        'Mis compañeros usaban mis notas de caso como el ejemplo a seguir; estandaricé la documentación según las pautas de Apple, lo que acortó sus citas. Propuse a la dirección mejoras de proceso en la sala de reparaciones y conecté Soporte con el almacén en las piezas defectuosas de origen.',
+        'Mentoricé a técnicos y Geniuses nuevos con acompañamiento y feedback sobre casos; los Lead Geniuses me confiaban la asignación de recursos en tienda y el triaje de clientes sin cita.'
+      ]
+    }
   },
   {
     title: 'AppleCare Support Advisor · Apple',
@@ -111,7 +127,13 @@ export const experience = [
     bullets: [
       'Remote, asynchronous support: Tier 1 by phone, email and chat, several cases at once, each owned from first contact to resolution under structured troubleshooting and documentation standards.',
       'Escalated what Tier 1 could not resolve: documented the case, briefed Tier 2 first, then a live three-way handoff with the customer.'
-    ]
+    ],
+    es: {
+      bullets: [
+        'Soporte remoto y asíncrono: Tier 1 por teléfono, correo y chat, varios casos a la vez, cada uno llevado del primer contacto a la resolución con estándares estructurados de resolución de incidencias y documentación.',
+        'Escalaba lo que Tier 1 no podía resolver: documentaba el caso, informaba antes a Tier 2 y después hacía el traspaso a tres en directo con el cliente.'
+      ]
+    }
   },
   {
     title: 'Specialist, then Technical Specialist · Apple Retail',
@@ -119,7 +141,10 @@ export const experience = [
     where: 'Parquesur, Madrid',
     bullets: [
       'Foundations in diagnosis, consultative support and execution under pressure.'
-    ]
+    ],
+    es: {
+      bullets: ['Fundamentos de diagnóstico, soporte consultivo y ejecución bajo presión.']
+    }
   }
 ];
 

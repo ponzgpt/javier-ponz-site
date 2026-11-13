@@ -1,0 +1,88 @@
+---
+// 04 · Story. The timeline from site.ts, compact; for each Apple role, the CV
+// bullets (cv.mjs `experience`, matched on the English title) sit behind a
+// native <details>. Then study and certifications, and the three skill groups
+// with the note that keeps them honest.
+import { pages } from '../../data/pages.mjs';
+import { timeline, credentials, skillGroups } from '../../data/site';
+import { experience } from '../../data/cv.mjs';
+import { pick } from '../../data/i18n.mjs';
+import SectionHead from '../SectionHead.astro';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.story[lang];
+const rows = timeline.map((item) => ({
+  ...pick(item, lang),
+  role: pick(experience.find((e) => e.title === item.title), lang)
+}));
+const creds = credentials.map((c) => pick(c, lang));
+const groups = skillGroups.map((g) => pick(g, lang));
+---
+<section class="sec" id="story" aria-labelledby="story-title">
+  <div class="shell">
+    <SectionHead id="story-title" p={p} />
+    <div class="story-grid">
+    <ol class="timeline">
+      {rows.map((r) => (
+        <li class="reveal">
+          <span class="when">{r.date}</span>
+          <div>
+            <h3>{r.title}</h3>
+            <p>{r.text}</p>
+            {r.role && (
+              <details>
+                <summary>{p.detailsLabel}</summary>
+                <ul>{r.role.bullets.map((b: string) => <li>{b}</li>)}</ul>
+              </details>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+    <div class="story-side">
+      <div class="reveal">
+        <p class="label">{p.studyLabel}</p>
+        <ul class="creds">
+          {creds.map((c) => <li><strong>{c.title}</strong><span class="meta">{c.org}{c.org && ' · '}{c.date}{c.status && ' · ' + c.status}</span></li>)}
+        </ul>
+      </div>
+      <div class="reveal">
+        <p class="label">{p.skillsLabel}</p>
+        {groups.map((g) => (
+          <div class="skillgroup">
+            <h3>{g.name}</h3>
+            <p>{g.items.join(' · ')}</p>
+          </div>
+        ))}
+        <p class="meta skills-note">{p.skillsNote}</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .story-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:40px;align-items:start}
+  .timeline{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .timeline > li{display:grid;grid-template-columns:140px minmax(0,1fr);gap:18px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .when{font-family:var(--font-mono);font-size:12px;color:var(--accent2);padding-top:4px}
+  .timeline h3{font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1.05;text-transform:uppercase;margin:0 0 4px}
+  .timeline p{margin:0;font-size:14px;line-height:1.55}
+  .timeline details{margin-top:5px}
+  .timeline summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;color:var(--accent);width:max-content}
+  .timeline summary:hover{text-decoration:underline}
+  .timeline details ul{margin:10px 0 0;padding-left:18px;font-size:14.5px;max-width:76ch}
+  .timeline details li{margin:0 0 6px}
+  .timeline details li::marker{color:var(--accent2)}
+  .story-side > div + div{margin-top:28px}
+  .creds{list-style:none;margin:0;padding:0}
+  .creds li{display:flex;flex-direction:column;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .creds strong{font-weight:600}
+  .skillgroup h3{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);margin:0 0 4px;font-weight:400}
+  .skillgroup p{margin:0 0 14px;font-size:14px}
+  .skills-note{font-family:var(--font-body);font-size:13.5px;max-width:70ch}
+  @media (max-width:1000px){.story-grid{grid-template-columns:1fr}}
+  @media (max-width:800px){
+    .timeline > li{grid-template-columns:1fr;gap:4px}
+  }
+</style>

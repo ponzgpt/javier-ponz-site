@@ -1,235 +1,33 @@
-// Visual skins for the site.
+// The site's one palette: "tech noir". Night, sodium street light, rain on
+// glass. Dark only.
 //
-// A skin is four colours and two typefaces. Everything else in the stylesheet
-// is derived from those with color-mix(), so adding a skin means adding an
-// object here and nothing else — no new CSS, no new components.
+// Four colours and the fonts. Everything else in the stylesheet derives from
+// these with color-mix(), so changing the look means editing this object and
+// nothing else: no new CSS, no new components. (There used to be five
+// selectable skins; they were retired in favour of one identity.)
 //
-// ── Adding a skin ────────────────────────────────────────────────────────────
-//   1. Append an object below. `id` becomes the [data-skin] attribute value and
-//      the localStorage value, so keep it short, lowercase and stable.
-//   2. If it needs a typeface that isn't already loaded, add its @fontsource
-//      import in src/layouts/Layout.astro. Faces already loaded:
-//      Courier Prime, JetBrains Mono, Cormorant Garamond, Chakra Petch.
-//   3. Check contrast. `fg`, `accent` and `accent2` must each reach 4.5:1
-//      against `bg`, and the derived --muted (fg mixed 28% toward bg) must too.
-//      That last one is the trap: a mid-grey body colour that passes on a black
-//      ground fails on a navy one.
-//
-// The first entry is the default for a visitor who has never chosen.
+// Contrast rule, enforced by `npm run check:skins`: `fg`, `accent`, `accent2`
+// and the derived --muted (fg mixed MUTED_TOWARD_BG toward bg) each keep at
+// least 4.5:1 against `bg`.
 
-// Each skin carries a `sprite`: a tiny pixel character that crosses the screen
-// now and then while you scroll. Grids are rows of digits, '.' meaning empty,
-// each digit indexing `ink`. Kept as strings because that is the cheapest thing
-// to read, diff and edit by hand.
-//
-// Nous leads: the default look matches the CV and the job it is aimed at. Omakase stays
-// referential (Omarchy's own name for its default look); the others are named plainly after
-// what they borrow a look from.
+export const palette = {
+  bg: '#0B0A10',       // warm near-black with a violet tint
+  fg: '#ECE6DA',       // bone
+  accent: '#FFB23E',   // sodium amber
+  accent2: '#A58BFF',  // electric violet
+  display: "'Big Shoulders Display','Arial Narrow',Impact,sans-serif",
+  mono: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace",
+  body: "Inter,'Helvetica Neue',Arial,sans-serif"
+};
 
-export const skins = [
-  {
-    id: 'nous',
-    name: 'Nous',
-    note: 'Hermes blue on paper, after nousresearch.com',
-    sprite: {
-      // A Hermes wing in pixels: the open-source agent this site keeps coming back to.
-      ink: { 1: 'var(--accent)', 2: 'var(--accent2)' },
-      grid: [
-        '...........1111',
-        '........1111111',
-        '......111111112',
-        '....11111111122',
-        '..1111111111222',
-        '.111111111122..',
-        '11111111222....',
-        '.1111222.......'
-      ]
-    },
-    link: { href: 'https://nousresearch.com', label: 'Nous Research' },
-    // Paper, navy text and Hermes blue, as on Nous's own job postings (#fafafe, #000091, #0000f2).
-    bg: '#FAFAFE',
-    fg: '#000091',
-    accent: '#0000F2',
-    accent2: '#5757B7',
-    display: "'Big Shoulders Display','Arial Narrow',sans-serif",
-    body: "Inter,'Helvetica Neue',Arial,sans-serif"
-  },
-  {
-    id: 'omarchy',
-    name: 'Omakase',
-    note: 'Tokyo Night, the Omarchy default',
-    sprite: {
-      // The Omarchy icon itself (icon.png in omacom/omarchy), traced to a grid
-      // by sampling its pixels — a single-stroke maze/spiral square. Its own
-      // green is #9ece6a, which is exactly this skin's accent2, so the sprite
-      // needs no colour of its own beyond that token.
-      ink: { 1: 'var(--accent2)' },
-      grid: [
-        '1111111111111',
-        '1.....1.....1',
-        '1.11111...1.1',
-        '1.1.......1.1',
-        '1.1.......1.1',
-        '1.1.......1.1',
-        '111.......1.1',
-        '1.1.......1.1',
-        '1.1.......1.1',
-        '1.1.......1.1',
-        '1.111111111.1',
-        '1.....1.....1',
-        '1111111.11111'
-      ]
-    },
-    link: { href: 'https://omarchy.org', label: 'Omarchy' },
-    // Omarchy's own tokyo-night theme, themes/tokyo-night/colors.toml in
-    // omacom/omarchy — background/foreground/accent/green, verbatim.
-    bg: '#1a1b26',
-    fg: '#a9b1d6',
-    accent: '#7aa2f7',
-    accent2: '#9ece6a',
-    // Optional: the rest of that same colors.toml, for spots with several
-    // items side by side (currently just .tag) where one accent reads as
-    // flat. Not part of the 4-token contract — a skin with no `rainbow`
-    // just gets accent2 repeated, so this is opt-in for skins that want it.
-    rainbow: ['#f7768e', '#eb927b', '#e0af68', '#9ece6a', '#449dab', '#7aa2f7', '#ad8ee6'],
-    display: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace",
-    body: "'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace"
-  },
-  {
-    id: 'hermes',
-    name: 'Hermes',
-    note: 'The Hermes Agent CLI',
-    sprite: {
-      // The caduceus — wings, staff, twined snakes. The Hermes CLI draws one in
-      // ASCII on startup (HERMES_CADUCEUS in banner.py), which is where the
-      // skin's name comes from. Not Nous's mark: it is Hermes' own, and older.
-      ink: { 1: 'var(--accent)', 2: 'var(--accent2)' },
-      grid: [
-        '.......2.......',
-        '......111......',
-        '.......1.......',
-        '.11.........11.',
-        '11111.....11111',
-        '.11111.1.11111.',
-        '..111..1..111..',
-        '.....2.1.2.....',
-        '......212......',
-        '.......1.......',
-        '......212......',
-        '.....2.1.2.....',
-        '......212......',
-        '.......1.......',
-        '......111......'
-      ]
-    },
-    link: { href: 'https://hermes.nousresearch.com', label: 'Hermes Agent' },
-    // Values taken from the CLI's own built-in "default" skin,
-    // hermes_cli/skin_engine.py → _BUILTIN_SKINS["default"].
-    bg: '#0E1216',
-    fg: '#FFF8DC',       // banner_text / prompt
-    accent: '#FFD700',   // banner_title, response_border
-    accent2: '#CD7F32',  // banner_border, input_rule
-    display: "'Courier Prime','Courier New',Courier,monospace",
-    body: "'Courier Prime','Courier New',Courier,monospace"
-  },
-  {
-    id: 'stormlight',
-    name: 'Stormlight',
-    note: 'Roshar after a highstorm',
-    sprite: {
-      // Syl: a windspren, a ribbon of light with a bright core and a trail.
-      // 1 accent, 2 the bright core, 3 the misty falloff around it.
-      ink: { 1: 'var(--accent)', 2: '#FFFFFF', 3: 'color-mix(in srgb, var(--accent) 45%, transparent)' },
-      grid: [
-        '........3333..........',
-        '.......311113.........',
-        '......31222213........',
-        '.....3122112133.....33',
-        '....33121331213....331',
-        '....312133312213..3313',
-        '...312213..31213333113',
-        '33331213...33121331233',
-        '31312213....312211213.',
-        '3122213......31222113.',
-        '.31113.......3311113..',
-        '..333..........3333...'
-      ]
-    },
-    link: { href: 'https://www.brandonsanderson.com/', label: 'Brandon Sanderson' },
-    // Stormlight held in a sphere: a cold blue-white glow on storm-dark night,
-    // with Radiant gold. Not from a published palette — this one is mine.
-    bg: '#0C1120',
-    fg: '#DCE3EC',
-    accent: '#8FE3F5',
-    accent2: '#C9A227',
-    display: "'Cormorant Garamond',Garamond,Georgia,serif",
-    body: "'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif",
-    scale: 1.06
-  },
-  {
-    id: 'halflife',
-    name: 'Black Mesa',
-    note: 'Black Mesa, 1998',
-    sprite: {
-      // The lambda, in Valve orange. It replaced a headcrab, which at this size
-      // read as a generic pixel bug rather than as Half-Life.
-      ink: { 1: 'var(--accent)' },
-      grid: [
-        '......11..............',
-        '.....1111.............',
-        '......111.............',
-        '......1111............',
-        '.......1111...........',
-        '.......1111...........',
-        '........1111..........',
-        '........1111..........',
-        '........11111.........',
-        '.......1111111........',
-        '.......111.111........',
-        '......1111.1111.......',
-        '......111...1111......',
-        '.....1111...1111......',
-        '.....111.....1111.....',
-        '....1111......111.....',
-        '....111.......1111....',
-        '...1111........1111...',
-        '...111.........1111...',
-        '..1111..........1111..',
-        '..111............111..',
-        '..111............111..'
-      ]
-    },
-    link: { href: 'https://www.half-life.com/', label: 'Half-Life' },
-    // Valve orange on tarmac, with the hazard amber off the HEV suit HUD.
-    bg: '#0B0A08',
-    fg: '#D6CFC4',
-    accent: '#F5821F',
-    accent2: '#FFB000',
-    display: "'Chakra Petch','Arial Narrow',Impact,sans-serif",
-    body: "'Courier Prime','Courier New',Courier,monospace"
-  }
-];
+/** --muted is fg mixed this far toward bg. One number, read by the CSS and the check. */
+export const MUTED_TOWARD_BG = 0.28;
 
-export const defaultSkin = skins[0].id;
-
-// Fixed slot count so the CSS that consumes --rainbow-N (Layout.astro) can be
-// written once as literal :nth-of-type rules. A skin with no `rainbow` gets
-// accent2 in every slot, which is the same flat look as before it existed.
-const RAINBOW_SLOTS = 7;
-
-/** The [data-skin] blocks, generated so the data file stays the only source. */
-export function skinCss() {
-  const vars = (s) => {
-    const rainbow = s.rainbow ?? [s.accent2];
-    const rainbowVars = Array.from(
-      { length: RAINBOW_SLOTS },
-      (_, i) => `--rainbow-${i + 1}:${rainbow[i % rainbow.length]}`
-    ).join(';');
-    return `--bg:${s.bg};--fg:${s.fg};--accent:${s.accent};--accent2:${s.accent2};` +
-      `--font-display:${s.display};--font-body:${s.body};--scale:${s.scale ?? 1};${rainbowVars}`;
-  };
-  return [
-    `:root{${vars(skins[0])}}`,
-    ...skins.map((s) => `[data-skin="${s.id}"]{${vars(s)}}`)
-  ].join('\n');
+/** The :root block, generated so this file stays the only source. */
+export function paletteCss() {
+  const p = palette;
+  const fgShare = Math.round((1 - MUTED_TOWARD_BG) * 100);
+  return `:root{--bg:${p.bg};--fg:${p.fg};--accent:${p.accent};--accent2:${p.accent2};` +
+    `--font-display:${p.display};--font-mono:${p.mono};--font-body:${p.body};` +
+    `--muted:color-mix(in srgb, var(--fg) ${fgShare}%, var(--bg))}`;
 }

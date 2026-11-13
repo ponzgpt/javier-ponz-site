@@ -1,0 +1,8 @@
+---
+// Kicker ("01 · NOW"), a title with one italic accent phrase, and the lede.
+// Every section block in pages.mjs carries these same fields.
+const { p, id } = Astro.props;
+---
+<p class="kicker">{p.kicker}</p>
+<h2 class="sec-title" id={id}>{p.h}<em>{p.em}</em>{p.end}</h2>
+{p.lede && <p class="lede">{p.lede}</p>}

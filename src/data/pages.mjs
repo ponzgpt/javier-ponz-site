@@ -1,54 +1,251 @@
-// Page prose, one { en, es } pair per section. Each language is a hero
-// (kicker / heading / underlined word / standfirst) and a list of sections —
-// a label, a wrapper class, and its inner HTML. Consumed by the components
-// in src/components/sections/, which read pages.<name>[lang].
+// Page prose, one { en, es } pair per block. Consumed by HomePage.astro, the
+// section components in src/components/sections/ and the terminal.
 //
-// Data-driven sections (the CV rows, the project cards, the timeline, the
-// skill groups, the achievements) are not here: those live with their data
-// in cv.mjs and site.ts.
+// The page is one screen of hero and six numbered sections: 01 now, 02 work,
+// 03 rig, 04 story, 05 notes, 06 connect. Each section block below has a
+// kicker (numbered to match the scroll order in HomePage.astro), a title in
+// three parts (`h`, the italic accent phrase `em`, `end`) and its own labels.
 //
-// Section order is Home → About → Experience → Projects → Skills →
-// Achievements → Newsletter → Contact, and the kickers number themselves
-// 01…07 from About down. Change the order in HomePage.astro and the kickers
-// here together, or the numbering lies.
+// Data-driven content (projects, timeline, skills, credentials, achievements,
+// the CV) is not here: it lives with its data in site.ts and cv.mjs.
+//
+// The `about`, `experience` and `newsletter` essays are no longer printed on
+// the page in full; the terminal's `read` command prints them, so nothing in
+// this file is unreachable.
 
 const P = (...paras) => paras.map((t) => `<p>${t}</p>`).join('\n');
 
+// The Now section's figures, with their sources. Timestamps are UTC, from the
+// public timeline of NousResearch/hermes-agent#152559 and #152560. The
+// published hour counts are derived, not typed (see hoursBetween), and
+// scripts/check-skins.mjs asserts them.
+export const NOW_FACTS = {
+  tests: { psychopomp: 18, sabbath: 13 },
+  prs: [152559, 152560],
+  opened: '2026-11-10T10:05Z',
+  reviewed: '2026-11-11T00:07Z',
+  fixed: '2026-11-11T11:59Z'
+};
+export const PR_URL = 'https://github.com/NousResearch/hermes-agent/pull/';
+
+/** Whole hours between two ISO timestamps, rounded to the nearest hour. */
+export function hoursBetween(a, b) {
+  return Math.round((Date.parse(b) - Date.parse(a)) / 3.6e6);
+}
+
 export const pages = {
-  /* ─────────────────────────────────────────────────────────── index ── */
+  /* ─────────────────────────────────────────────────────────── hero ── */
   home: {
     en: {
       title: 'Javier Ponz · ex-Apple Genius, open agents, things that ship',
       desc: "Hi! I'm Javier, ex-Apple Genius. Ten years fixing people's tech; now I help people and their AI agents get unstuck. Hermes user, plugin builder, vibe coder.",
-      kicker: 'Meat-proxy · human-in-the-loop · slop-refiner',
-      tagline: "Hi! I'm ", taglineSerif: 'Javier', taglineEnd: '.',
-      lede: "Ex-Apple Genius. Ten years fixing people's tech; now I help people and their AI agents get unstuck.",
-      support: 'Hermes runs my day and I build plugins for it. Vibe coder, proud of it. Open source must win.',
-      ctas: [
-        { href: '{projects}', label: 'See the work' },
-        { href: '{contact}', label: 'Get in touch', alt: true },
-        { href: '/javier-ponz-prado-cv.pdf', label: 'CV', alt: true, ext: true }
-      ]
+      prompt: 'whoami',
+      line: "Ex-Apple | 10 years fixing people's tech. Now exploring the intersection of ASI, Neuroscience & Post-Labor Economics.",
+      cv: 'CV',
+      portraitLabel: 'ASCII portrait of Javier Ponz',
+      scroll: '↓ scroll',
+      marquee: ['ASI', 'NEUROSCIENCE', 'POST-LABOR ECONOMICS', 'OPEN AGENTS', 'HERMES AGENT', 'SOVEREIGN STACK', 'LOCAL INFERENCE', 'OMARCHY', 'SUPPORT', 'TECH NOIR']
     },
     es: {
       title: 'Javier Ponz · ex-Genius de Apple, agentes abiertos, cosas que funcionan',
       desc: '¡Hola! Soy Javier, ex-Genius de Apple. Diez años arreglando la tecnología de la gente; ahora ayudo a las personas y a sus agentes de IA a desatascarse. Usuario de Hermes, hago plugins, vibe coder.',
-      kicker: 'Meat-proxy · human-in-the-loop · slop-refiner',
-      tagline: '¡Hola! Soy ', taglineSerif: 'Javier', taglineEnd: '.',
-      lede: 'Ex-Genius de Apple. Diez años arreglando la tecnología de la gente; ahora ayudo a las personas y a sus agentes de IA a desatascarse.',
-      support: 'Hermes me organiza el día y le hago plugins. Vibe coder, y a mucha honra. El open source tiene que ganar.',
-      ctas: [
-        { href: '{projects}', label: 'Ver el trabajo' },
-        { href: '{contact}', label: 'Hablamos', alt: true },
-        { href: '/javier-ponz-prado-cv.pdf', label: 'CV', alt: true, ext: true }
+      prompt: 'whoami',
+      line: 'Ex-Apple | 10 años arreglando la tecnología de la gente. Ahora exploro la intersección entre la ASI, la neurociencia y la economía post-laboral.',
+      cv: 'CV',
+      portraitLabel: 'Retrato ASCII de Javier Ponz',
+      scroll: '↓ bajar',
+      marquee: ['ASI', 'NEUROCIENCIA', 'ECONOMÍA POST-LABORAL', 'AGENTES ABIERTOS', 'HERMES AGENT', 'INFRAESTRUCTURA SOBERANA', 'INFERENCIA LOCAL', 'OMARCHY', 'SOPORTE', 'TECH NOIR']
+    }
+  },
+
+  /* ─────────────────────────────────────────────────────── 01 · now ── */
+  now: {
+    en: {
+      kicker: '01 · NOW', h: 'Open agents. ', em: 'Two Hermes plugins', end: '.',
+      lede: 'Psychopomp and Sabbath, built for the Nous Research plugin hackathon and tested end to end on my own Hermes, in Desktop and Telegram.',
+      status: 'Both catalog PRs are open and awaiting re-review. Nothing is merged yet.',
+      repo: 'source ↗',
+      stats: {
+        tests: 'tests', testsSrc: (a, b) => `${a} psychopomp + ${b} sabbath`,
+        prs: 'catalog PRs', prsSrc: 'hermes-agent',
+        review: 'to maintainer review', reviewSrc: 'opened 10 Nov 10:05 → reviewed 11 Nov 00:07 UTC',
+        fixes: 'to fixes shipped', fixesSrc: 'reviewed 00:07 → fixes pinned 11:59 UTC'
+      },
+      hUnit: 'h',
+      replayLabel: 'Illustrative session · /sabbath',
+      replayNote: 'Hand-authored replay, not a recording.',
+      replayAgain: 'replay',
+      replayWho: { cmd: '› ', you: 'you  ', bot: 'hermes  ' },
+      replay: [
+        ['cmd', '/sabbath'],
+        ['bot', "Goodnight. It's Sabbath: I'm resting with you until tomorrow."],
+        ['bot', 'My scheduled jobs are paused. Anything that comes in, I set aside.'],
+        ['you', 'anything good to watch tonight?'],
+        ['bot', 'Plenty. A film, a walk, a long read? Anything but work.'],
+        ['cmd', '/sabbath ox'],
+        ['bot', 'The ox is in the well. Handling just this one, then back to rest.'],
+        ['sep', '— end of the day —'],
+        ['bot', 'Digest: everything I set aside today, in one gentle list.']
+      ]
+    },
+    es: {
+      kicker: '01 · AHORA', h: 'Agentes abiertos. ', em: 'Dos plugins de Hermes', end: '.',
+      lede: 'Psychopomp y Sabbath, hechos para el hackathon de plugins de Nous Research y probados de principio a fin en mi propio Hermes, en Desktop y Telegram.',
+      status: 'Las dos PRs al catálogo están abiertas, pendientes de una nueva revisión. Aún no hay nada fusionado.',
+      repo: 'código ↗',
+      stats: {
+        tests: 'tests', testsSrc: (a, b) => `${a} psychopomp + ${b} sabbath`,
+        prs: 'PRs al catálogo', prsSrc: 'hermes-agent',
+        review: 'hasta la revisión', reviewSrc: 'abierta 10 nov 10:05 → revisada 11 nov 00:07 UTC',
+        fixes: 'hasta publicar los arreglos', fixesSrc: 'revisada 00:07 → arreglos fijados 11:59 UTC'
+      },
+      hUnit: 'h',
+      replayLabel: 'Sesión ilustrativa · /sabbath',
+      replayNote: 'Repetición escrita a mano, no una grabación.',
+      replayAgain: 'repetir',
+      replayWho: { cmd: '› ', you: 'tú  ', bot: 'hermes  ' },
+      replay: [
+        ['cmd', '/sabbath'],
+        ['bot', 'Buenas noches. Es Sabbath: descanso contigo hasta mañana.'],
+        ['bot', 'Mis tareas programadas están en pausa. Lo que llegue, lo aparco.'],
+        ['you', '¿algo bueno que ver esta noche?'],
+        ['bot', 'Mucho. ¿Una película, un paseo, una lectura larga? Todo menos trabajo.'],
+        ['cmd', '/sabbath ox'],
+        ['bot', 'El buey ha caído al pozo. Me ocupo solo de esto y vuelvo a descansar.'],
+        ['sep', '— al acabar el día —'],
+        ['bot', 'Resumen: todo lo que aparqué hoy, en una sola lista tranquila.']
       ]
     }
   },
 
+  /* ────────────────────────────────────────────────────── 02 · work ── */
+  work: {
+    en: {
+      kicker: '02 · WORK', h: 'Things that ', em: 'ship', end: '.',
+      lede: "Small products, a couple of games, a wiki. I'm a vibe coder: I decide, specify, test and ship; AI coding agents write the code. Every card says so, and names any upstream work.",
+      // Titles from site.ts `projects`, in the order they lead the section.
+      lead: ['Neuronara', 'Machines Do It Better', 'Post-Labor Wiki'],
+      live: 'live ↗', source: 'source ↗', alsoLabel: 'Also built'
+    },
+    es: {
+      kicker: '02 · TRABAJO', h: 'Cosas que ', em: 'funcionan', end: '.',
+      lede: 'Productos pequeños, un par de juegos, una wiki. Soy vibe coder: decido, especifico, pruebo y publico; el código lo escriben agentes de IA. Cada ficha lo dice y nombra el trabajo ajeno del que parte.',
+      lead: ['Neuronara', 'Machines Do It Better', 'Post-Labor Wiki'],
+      live: 'en vivo ↗', source: 'código ↗', alsoLabel: 'También hecho'
+    }
+  },
+
+  /* ─────────────────────────────────────────────────────── 03 · rig ── */
+  rig: {
+    en: {
+      kicker: '03 · RIG', h: 'The ', em: 'sovereign', end: ' stack.',
+      lede: 'The machine I work on, the server everything here runs on, and the tools I run every day but did not write.',
+      sceneLabel: 'A torus knot rendered as amber ASCII characters. Drag, or use the arrow keys, to spin it.',
+      sceneHint: 'drag to spin',
+      machineLabel: 'Workstation',
+      vpsLabel: 'Server',
+      vps: 'A VPS I administer: Docker, Docker Swarm, Dokploy, Traefik and nginx. Every *.technoir.cloud link on this page runs there.',
+      runningLabel: 'Running daily, did not write',
+      labLabel: 'Local inference',
+      lab: 'A two-rig local inference setup, being rebuilt after a period offline: a real laboratory and a learning project, not a production endpoint anyone can call today.'
+    },
+    es: {
+      kicker: '03 · EQUIPO', h: 'Infraestructura ', em: 'soberana', end: '.',
+      lede: 'La máquina en la que trabajo, el servidor donde corre todo lo de aquí y las herramientas que uso a diario pero no he escrito.',
+      sceneLabel: 'Un nudo tórico dibujado con caracteres ASCII ámbar. Arrastra, o usa las flechas, para girarlo.',
+      sceneHint: 'arrastra para girar',
+      machineLabel: 'Estación de trabajo',
+      vpsLabel: 'Servidor',
+      vps: 'Un VPS que administro yo: Docker, Docker Swarm, Dokploy, Traefik y nginx. Todos los enlaces *.technoir.cloud de esta página corren ahí.',
+      runningLabel: 'Uso a diario, no lo he escrito',
+      labLabel: 'Inferencia local',
+      lab: 'Un montaje de inferencia local de dos equipos, en reconstrucción tras un tiempo apagado: un laboratorio de verdad y un proyecto de aprendizaje, no un endpoint de producción al que nadie pueda llamar hoy.'
+    }
+  },
+
+  /* ───────────────────────────────────────────────────── 04 · story ── */
+  story: {
+    en: {
+      kicker: '04 · STORY', h: 'Ten years at the Genius Bar, ', em: 'then agents', end: '.',
+      lede: "Apple first, because it's the strongest evidence. Then the move into AI, and what I'm studying while I make it.",
+      detailsLabel: 'What the role involved',
+      studyLabel: 'Study and certification',
+      skillsLabel: 'Skills',
+      skillsNote: 'Split three ways on purpose. Nothing in the second or third group is experience I have already had. The third is what I am starting next, learned with an LLM and an agent harness beside me and aimed at the 20% that makes a system run: enough to deploy it, read what the harness proposes and catch it when it is wrong.'
+    },
+    es: {
+      kicker: '04 · HISTORIA', h: 'Diez años en el Genius Bar, ', em: 'después agentes', end: '.',
+      lede: 'Apple primero, porque es la prueba más sólida. Después, el salto a la IA y lo que estudio mientras lo doy.',
+      detailsLabel: 'En qué consistía el puesto',
+      studyLabel: 'Formación y certificaciones',
+      skillsLabel: 'Competencias',
+      skillsNote: 'Separado en tres a propósito. Nada del segundo ni del tercer grupo es experiencia que ya tenga. El tercero es lo que empiezo ahora, con un LLM y un arnés de agentes al lado y buscando el 20% que hace funcionar un sistema: lo justo para desplegarlo, leer lo que propone el arnés y pillarlo cuando se equivoca.'
+    }
+  },
+
+  /* ───────────────────────────────────────────────────── 05 · notes ── */
+  notes: {
+    en: {
+      kicker: '05 · FIELD NOTES', h: 'ASI, neuroscience, ', em: 'post-labor economics', end: '.',
+      lede: "Interests, not credentials. Each column links to what I've built or written around it.",
+      // `project` is a title from site.ts `projects`; `note` shortens its description.
+      columns: [
+        { h: 'ASI', items: [
+          { project: 'ASI Rush', note: 'A clicker about the real race to AI, from beige PCs in a garage to superintelligence.' },
+          { newsletter: true, note: 'Machines Do It Better, the newsletter: hot topics around AI agents. Paused; the archive is up.' }
+        ] },
+        { h: 'Neuroscience', items: [
+          { project: 'Neuronara', note: 'Cited answers over the standards of clinical neurophysiology, built for my partner, a clinical neurophysiologist.' },
+          { project: 'Hyperexcitability atlas', note: 'A study atlas of the EURO-NMD webinar on muscle hyperexcitability and cramps.' }
+        ] },
+        { h: 'Post-labor economics', items: [
+          { project: 'Post-Labor Wiki', note: 'A visual, source-first wiki on post-labor economics and the post-work society, a citation behind every claim.' }
+        ] }
+      ],
+      milestonesLabel: 'Milestones'
+    },
+    es: {
+      kicker: '05 · CUADERNO DE CAMPO', h: 'ASI, neurociencia, ', em: 'economía post-laboral', end: '.',
+      lede: 'Intereses, no credenciales. Cada columna enlaza a lo que he construido o escrito a su alrededor.',
+      columns: [
+        { h: 'ASI', items: [
+          { project: 'ASI Rush', note: 'Un clicker sobre la carrera real hacia la IA, de los PCs beige en un garaje a la superinteligencia.' },
+          { newsletter: true, note: 'Machines Do It Better, la newsletter: temas calientes sobre agentes de IA. En pausa; el archivo sigue en línea.' }
+        ] },
+        { h: 'Neurociencia', items: [
+          { project: 'Neuronara', note: 'Respuestas con citas sobre los estándares de la neurofisiología clínica, construido para mi pareja, neurofisióloga clínica.' },
+          { project: 'Hyperexcitability atlas', note: 'Un atlas de estudio del webinar de EURO-NMD sobre hiperexcitabilidad muscular y calambres.' }
+        ] },
+        { h: 'Economía post-laboral', items: [
+          { project: 'Post-Labor Wiki', note: 'Una wiki visual y con fuentes sobre economía post-laboral y la sociedad post-trabajo, con una cita detrás de cada afirmación.' }
+        ] }
+      ],
+      milestonesLabel: 'Hitos'
+    }
+  },
+
+  /* ─────────────────────────────────────────────────── 06 · connect ── */
+  connect: {
+    en: {
+      kicker: '06 · CONNECT',
+      termLabel: 'A working terminal. It reads the same data as this page.',
+      footer: '© 2026 Javier Ponz · built with AI coding agents; I specify and test · some effects from the libraries catalogued at Uncommon Web (webdev.teknium.io)',
+      howLabel: 'How this was made ↗'
+    },
+    es: {
+      kicker: '06 · CONTACTO',
+      termLabel: 'Un terminal que funciona. Lee los mismos datos que esta página.',
+      footer: '© 2026 Javier Ponz · hecho con agentes de IA; yo especifico y pruebo · algunos efectos de las librerías recogidas en Uncommon Web (webdev.teknium.io)',
+      howLabel: 'Cómo está hecho ↗'
+    }
+  },
+
+  /* ── Below: the longer essays, printed in full by the terminal's `read`
+        command, plus the newsletter and contact data the page still shows. */
+
   /* ─────────────────────────────────────────────────────────── about ── */
   about: {
     en: {
-      kicker: '01 / About',
       epigraph: '“The future is already here. It\'s just not evenly distributed.”<cite>William Gibson</cite>',
       h1: 'The machine should be ', serif: 'shaped',
       h1end: ' by the needs of the person that commands it.',
@@ -71,7 +268,6 @@ export const pages = {
       ]
     },
     es: {
-      kicker: '01 / Perfil',
       epigraph: '«El futuro ya está aquí. Solo que no está repartido por igual.»<cite>William Gibson</cite>',
       h1: 'La máquina debería estar ', serif: 'moldeada',
       h1end: ' por las necesidades de quien la gobierna.',
@@ -98,7 +294,7 @@ export const pages = {
   /* ────────────────────────────────────────────────────── experience ── */
   experience: {
     en: {
-      kicker: '02 / Experience', h1: 'A decade of diagnosis, support and ', serif: 'removing obstacles', h1end: '.',
+      h1: 'A decade of diagnosis, support and ', serif: 'removing obstacles', h1end: '.',
       lede: "Apple first, because it's the strongest evidence. Then the move into AI, and what I'm studying while I make it.",
       sections: [
         { label: 'Apple Retail Spain · 2014–2024', cls: 'copy', html: P(
@@ -112,7 +308,7 @@ export const pages = {
       educationLabel: 'Study and certification'
     },
     es: {
-      kicker: '02 / Experiencia', h1: 'Una década de diagnóstico, soporte y ', serif: 'quitar obstáculos', h1end: '.',
+      h1: 'Una década de diagnóstico, soporte y ', serif: 'quitar obstáculos', h1end: '.',
       lede: 'Apple primero, porque es la prueba más sólida. Después, el salto a la IA y lo que estudio mientras lo doy.',
       sections: [
         { label: 'Apple Retail España · 2014–2024', cls: 'copy', html: P(
@@ -127,55 +323,10 @@ export const pages = {
     }
   },
 
-  /* ───────────────────────────────────────────────────────── projects ── */
-  // The old standalone Workbench and Memento Mori case-study pages, merged
-  // into one section: running/shipped cards, then the case study as a
-  // subsection (its own #case-study anchor) instead of a separate page.
-  projects: {
-    en: {
-      kicker: '03 / Projects', h1: 'Things I am ', serif: 'making', h1end: '.',
-      lede: 'Hermes plugins, small products and a couple of games. Each one says what it is, what it isn\'t, and links to the code.',
-      authorship: "I'm a vibe coder: I decide, specify, test and ship; AI coding agents write the code. Every card says so, and names any upstream work.",
-      runningLabel: 'Running daily', projectsLabel: 'Built', alsoLabel: 'Also built'
-    },
-    es: {
-      kicker: '03 / Proyectos', h1: 'Cosas que estoy ', serif: 'haciendo', h1end: '.',
-      lede: 'Plugins para Hermes, productos pequeños y un par de juegos. Cada uno dice lo que es, lo que no es, y enlaza al código.',
-      authorship: 'Soy vibe coder: decido, especifico, pruebo y publico; el código lo escriben agentes de IA. Cada ficha lo dice y nombra el trabajo ajeno del que parte.',
-      runningLabel: 'Uso a diario', projectsLabel: 'Hecho', alsoLabel: 'También hecho'
-    }
-  },
-
-  /* ─────────────────────────────────────────────────────────── skills ── */
-  skills: {
-    en: {
-      kicker: '04 / Skills', h1: 'What I know, what I am ', serif: 'learning', h1end: ', and what I am building towards.',
-      lede: 'Split three ways on purpose. Nothing in the second or third group is experience I have already had. The third is what I am starting next, learned with an LLM and an agent harness beside me and aimed at the 20% that makes a system run: enough to deploy it, read what the harness proposes and catch it when it is wrong.'
-    },
-    es: {
-      kicker: '04 / Competencias', h1: 'Lo que sé, lo que estoy ', serif: 'aprendiendo', h1end: ', y hacia dónde construyo.',
-      lede: 'Separado en tres a propósito. Nada del segundo ni del tercer grupo es experiencia que ya tenga. El tercero es lo que empiezo ahora, con un LLM y un arnés de agentes al lado y buscando el 20% que hace funcionar un sistema: lo justo para desplegarlo, leer lo que propone el arnés y pillarlo cuando se equivoca.'
-    }
-  },
-
-  /* ───────────────────────────────────────────────────── achievements ── */
-  achievements: {
-    en: {
-      kicker: '05 / Achievements', h1: 'Evidence over ', serif: 'theatre', h1end: '.',
-      lede: 'Ten years at Apple Retail. Genius, then Lead. Two Hermes plugins in the Nous Research hackathon. Small products shipped and documented while I learn.',
-      label: 'Milestones'
-    },
-    es: {
-      kicker: '05 / Logros', h1: 'Pruebas antes que ', serif: 'teatro', h1end: '.',
-      lede: 'Diez años en Apple Retail. Genius y después Lead. Dos plugins de Hermes en el hackathon de Nous Research. Productos pequeños publicados y documentados mientras aprendo.',
-      label: 'Hitos'
-    }
-  },
-
   /* ─────────────────────────────────────────────────────── newsletter ── */
   newsletter: {
     en: {
-      kicker: '06 / Newsletter', h1: 'Machines Do It Better: ', serif: 'the signal', h1end: '.',
+      h1: 'Machines Do It Better: ', serif: 'the signal', h1end: '.',
       lede: 'Notes from the machine: agents, sovereignty, open systems, learning in public, and the strange work of making technology answer to its owner.',
       statusLabel: 'Status', status: "Paused. It started as technoirNews on Substack and moved to beehiiv as Machines Do It Better; the archive is still up. It'll be back once Hermes does more of the legwork.",
       readLabel: 'Read it',
@@ -196,7 +347,7 @@ export const pages = {
       ]
     },
     es: {
-      kicker: '06 / Newsletter', h1: 'Machines Do It Better: ', serif: 'the signal', h1end: '.',
+      h1: 'Machines Do It Better: ', serif: 'the signal', h1end: '.',
       lede: 'Notas desde la máquina: agentes, soberanía, sistemas abiertos, aprender en público, y el trabajo raro de conseguir que la tecnología le responda a su dueño.',
       statusLabel: 'Estado', status: 'En pausa. Empezó como technoirNews en Substack y pasó a beehiiv como Machines Do It Better; el archivo sigue en línea. Volverá cuando Hermes haga más del trabajo de campo.',
       readLabel: 'Léela',
@@ -221,7 +372,7 @@ export const pages = {
   /* ───────────────────────────────────────────────────────── contact ── */
   contact: {
     en: {
-      kicker: '07 / Contact', h1: 'If the system has to make sense to ', serif: 'the person', h1end: ' using it, get in touch.',
+      h: 'If the system has to make sense to ', em: 'the person', end: ' using it, get in touch.',
       lede: "I'm in Aberdeen, Scotland, and remote suits me. I'm looking for support, customer-facing and agent operations work around open agents and practical AI. LinkedIn and X DMs are open.",
       coordsLabel: 'Coordinates',
       rows: [
@@ -238,7 +389,7 @@ export const pages = {
       final: 'Good technical work leaves people with more clarity and control than before. That is the standard.'
     },
     es: {
-      kicker: '07 / Contacto', h1: 'Si el sistema tiene que tener sentido para ', serif: 'la persona', h1end: ' que lo usa, escríbeme.',
+      h: 'Si el sistema tiene que tener sentido para ', em: 'la persona', end: ' que lo usa, escríbeme.',
       lede: 'Vivo en Aberdeen, Escocia, y el remoto me viene bien. Busco trabajo de soporte, de cara al cliente y de operaciones con agentes, alrededor de agentes abiertos e IA práctica. Los mensajes de LinkedIn y X están abiertos.',
       coordsLabel: 'Coordenadas',
       rows: [

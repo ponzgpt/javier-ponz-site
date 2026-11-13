@@ -1,49 +1,39 @@
 ---
-import { skins, defaultSkin, skinCss } from '../data/skins.mjs';
+import { paletteCss } from '../data/skins.mjs';
 import { ui } from '../data/ui.mjs';
+import { pages } from '../data/pages.mjs';
 import { locales, localeHome } from '../data/i18n.mjs';
 import MusicPlayer from '../components/MusicPlayer.astro';
+// Fonts are self-hosted (fontsource): no request to Google, so the "no
+// tracking" promise holds. Big Shoulders for the poster type, JetBrains Mono
+// for anything a terminal would print, Inter for running prose.
+import '@fontsource/big-shoulders-display/700';
+import '@fontsource/big-shoulders-display/800';
+import '@fontsource/inter/400';
+import '@fontsource/inter/600';
+import '@fontsource/jetbrains-mono/400';
+import '@fontsource/jetbrains-mono/700';
 
 interface Props { title: string; description?: string; lang?: string }
 const { title, description = 'Javier Ponz: ex-Apple Genius, open agents, things that ship.', lang = 'en' } = Astro.props;
 const t = ui[lang];
+const c = pages.connect[lang];
 const locale = locales.find((l) => l.code === lang) ?? locales[0];
+const other = locales.find((l) => l.code !== lang) ?? locales[0];
 const site = 'https://javierponz.technoir.cloud';
 const canonical = site + localeHome(lang);
-// Anchors into the single long page, not routes — see data/routes.mjs TOKENS.
-// Anchors are identical on every locale, so nav hrefs need no lang-prefixing.
-const navPaths = ['#about', '#experience', '#projects', '#skills', '#achievements', '#newsletter', '#contact'];
-const nav: [string, string][] = navPaths.map((p, i) => [p, t.nav[i]]);
-const ids = skins.map((s) => s.id);
-// Each skin's sprite travels with the destination it links to, so the floating
-// character and where it sends you can never drift apart.
-const sprites = Object.fromEntries(skins.map((s) => [s.id, { ...s.sprite, link: s.link }]));
-// Fonts are self-hosted (fontsource): no request to Google, so the "no
-// tracking" promise holds. Browsers only download the faces a skin uses.
-import '@fontsource/big-shoulders-display/300';
-import '@fontsource/big-shoulders-display/400';
-import '@fontsource/big-shoulders-display/500';
-import '@fontsource/inter/400';
-import '@fontsource/inter/500';
-import '@fontsource/inter/600';
-import '@fontsource/courier-prime/400';
-import '@fontsource/courier-prime/700';
-import '@fontsource/jetbrains-mono/400';
-import '@fontsource/jetbrains-mono/700';
-import '@fontsource/cormorant-garamond/500';
-import '@fontsource/cormorant-garamond/600';
-import '@fontsource/cormorant-garamond/700';
-import '@fontsource/chakra-petch/500';
-import '@fontsource/chakra-petch/700';
+// Anchors into the single long page; identical in every locale.
+const navIds = ['#now', '#work', '#rig', '#story', '#notes', '#connect'];
+const nav: [string, string][] = navIds.map((p, i) => [p, t.nav[i]]);
 ---
 <!doctype html>
-<html lang={locale.html} data-skin={defaultSkin}>
+<html lang={locale.html}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#1a1b26" />
+  <meta name="theme-color" content="#0b0a10" />
   <link rel="canonical" href={canonical} />
   {locales.map((l) => (
     <link rel="alternate" hreflang={l.code} href={site + localeHome(l.code)} />
@@ -54,635 +44,198 @@ import '@fontsource/chakra-petch/700';
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content={locale.html.replace('-', '_')} />
-  <meta property="og:image" content="https://javierponz.technoir.cloud/og-omakase.jpg" />
+  <meta property="og:image" content={site + '/og-omakase.jpg'} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://javierponz.technoir.cloud/og-omakase.jpg" />
+  <meta name="twitter:image" content={site + '/og-omakase.jpg'} />
   <title>{title}</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <script is:inline>
-    /* A stale #section in the URL (an earlier nav click, browser history, an
-       address-bar autocomplete) makes the browser jump straight past the
-       home view on load — before any of our own JS runs. Force the top on
-       every fresh load instead; in-page nav clicks still scroll normally
-       afterwards, since that's a later, user-initiated navigation. */
+    /* Effects are progressive enhancement: the `js` class is what lets the
+       stylesheet hide content for the scroll reveal. Without JavaScript the
+       class never appears and everything is simply visible. */
+    document.documentElement.classList.add('js');
+    /* A stale #section in the URL makes the browser jump past the hero on a
+       fresh load; start at the top instead. In-page nav clicks still scroll. */
     if (location.hash) {
       history.scrollRestoration = 'manual';
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      addEventListener('load', function () {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      });
+      addEventListener('load', function () { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); });
     }
-  </script>
-  <script is:inline define:vars={{ ids, defaultSkin }}>
-    /* Apply the chosen skin before first paint, so the page never shows the
-       default and then repaints into the chosen one. The [data-skin] blocks are
-       already in the stylesheet, so setting the attribute is the whole job.
-       ?skin=<id> wins over the saved value and is then remembered, which is how
-       you send someone a link that opens in a particular skin. */
-    var chosen = null;
-    try {
-      var q = new URLSearchParams(location.search).get('skin');
-      if (ids.indexOf(q) > -1) { chosen = q; localStorage.setItem('jp-skin', q); }
-      else { var s = localStorage.getItem('jp-skin'); if (ids.indexOf(s) > -1) chosen = s; }
-    } catch (e) { /* private mode or blocked storage: the default is fine */ }
-    document.documentElement.dataset.skin = chosen || defaultSkin;
   </script>
 </head>
 <body>
   <a class="skip" href="#main">{t.skip}</a>
   <header class="site-header" id="site-header">
     <div class="shell navbar">
-      <a class="brand" href={localeHome(lang)}><span class="caret" aria-hidden="true">&#10095;</span><span class="word">javier-ponz</span></a>
-
-      <nav aria-label="Primary" class="nav-links">{nav.map(([to, name]) => (
-        <a href={to}>{name}</a>
-      ))}</nav>
-
+      <a class="brand" href={localeHome(lang)}><span class="brand-at">javier@</span>techn0ir<span class="brand-cur" aria-hidden="true"></span></a>
+      <nav aria-label="Primary" class="nav-links">{nav.map(([to, name]) => <a href={to}>{name}</a>)}</nav>
       <div class="nav-actions">
-        <details class="icon-picker" id="skinpicker">
-          <summary class="icon-btn" aria-label={t.skinLabel} title={t.skinLabel}>
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 4C7.03 4 3 7.76 3 12.4c0 3.6 2.44 6.6 5.8 7.4.62.15 1.2-.32 1.2-.96 0-.5-.36-.9-.8-1.05-.5-.17-.8-.66-.68-1.17.12-.5.62-.8 1.13-.67.58.15 1.19.23 1.82.23 4.42 0 8-3.4 8-7.6C21 8.02 16.9 4 12 4Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
-              <circle cx="8.6" cy="9.6" r="1.15" fill="currentColor" />
-              <circle cx="12.4" cy="7.7" r="1.15" fill="currentColor" />
-              <circle cx="15.6" cy="9.9" r="1.15" fill="currentColor" />
-              <circle cx="15.2" cy="13.6" r="1.15" fill="currentColor" />
-            </svg>
-          </summary>
-          <div class="icon-panel skinmenu" role="menu">
-            {skins.map((s) => (
-              <button type="button" role="menuitemradio" data-skin-set={s.id} aria-checked={s.id === defaultSkin}>
-                <span class="sw" style={`background:${s.accent};box-shadow:inset 0 0 0 1px ${s.accent2}`}></span>
-                <span class="sk-name">{s.name}</span>
-              </button>
-            ))}
-          </div>
-        </details>
-
-        <details class="icon-picker" id="langpicker">
-          <summary class="icon-btn" aria-label={t.langLabel} title={t.langLabel}>
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5" />
-              <path d="M3.5 12h17M12 3.5c2.2 2.3 3.5 5.2 3.5 8.5s-1.3 6.2-3.5 8.5c-2.2-2.3-3.5-5.2-3.5-8.5S9.8 5.8 12 3.5Z" stroke="currentColor" stroke-width="1.5" />
-            </svg>
-          </summary>
-          <div class="icon-panel langmenu" role="menu">
-            {locales.map((l) => (
-              <a class="lang-opt" role="menuitemradio" aria-checked={l.code === lang} href={localeHome(l.code)}>
-                <span class="lang-code">{l.label}</span><span class="lang-name">{l.name}</span>
-              </a>
-            ))}
-          </div>
-        </details>
-
+        <a class="lang-switch" href={localeHome(other.code)} hreflang={other.code} lang={other.html} aria-label={`${t.langLabel}: ${other.name}`}>{other.label}</a>
         <a class="icon-btn" href="https://github.com/ponzgpt" target="_blank" rel="noreferrer" aria-label={t.githubLabel} title={t.githubLabel}>
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" />
-          </svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" /></svg>
         </a>
-
         <button type="button" class="icon-btn nav-toggle" id="navToggle" aria-label={t.menuLabel} aria-expanded="false" aria-controls="mobileNav">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
         </button>
       </div>
     </div>
-
-    <nav aria-label="Primary (mobile)" class="mobile-nav" id="mobileNav" hidden>
+    <nav aria-label="Primary (mobile)" class="mobile-nav shell" id="mobileNav" hidden>
       {nav.map(([to, name]) => <a href={to}>{name}</a>)}
     </nav>
   </header>
-  <main id="main" class="shell"><slot /></main>
-  <footer class="statusbar"><div class="shell sb">
-    <span><b>javier-ponz</b> <span class="sep">&#9474;</span> {t.status} <span class="sep">&#9474;</span> {t.openToWork}</span>
-    <span><a href="https://github.com/ponzgpt">{t.footerLinks[0]}</a> <span class="sep">&#9474;</span> <a href="https://www.linkedin.com/in/javierponz">{t.footerLinks[1]}</a> <span class="sep">&#9474;</span> <a href="https://x.com/sudotechnoir">{t.footerLinks[2]}</a></span>
+
+  <main id="main"><slot /></main>
+
+  <footer class="site-footer"><div class="shell foot">
+    <p>{c.footer}</p>
+    <p><a href="https://github.com/ponzgpt/javier-ponz-site#how-this-was-made" target="_blank" rel="noreferrer">{c.howLabel}</a></p>
   </div></footer>
   <MusicPlayer lang={lang} />
 
-  <script is:inline define:vars={{ sprites }}>
-    /* Each skin has a pixel character that bounces around the viewport
-       forever, DVD-logo style — independent of scrolling. Built as SVG
-       rects from the grid in skins.mjs, position driven by a single rAF
-       loop (transform only, stays on the compositor), and skipped entirely
-       for anyone who asked for reduced motion. It's a real link: hovering
-       glows it in the sprite's own colour, clicking opens omarchy.org. */
-    (function () {
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (reduce.matches) return;
-
-      /* The four grids are different shapes (13x13 up to 22x22), so a fixed
-         cell size would render them at wildly different sizes — the lambda
-         nearly twice the Omarchy mark. Derive the cell from a target for the
-         longest side instead, so every sprite occupies the same box. Phones
-         get a smaller, slower one: the desktop size is a fifth of a 390px
-         screen, and the desktop speed crosses it in about five seconds. */
-      function metrics() {
-        var small = innerWidth <= 760;
-        return { target: small ? 46 : 78, base: small ? 30 : 50.4, spread: small ? 18 : 31.2 };
-      }
-      var M = metrics();
-
-      function build(id) {
-        var s = sprites[id];
-        if (!s) return null;
-        var w = s.grid[0].length, h = s.grid.length;
-        var CELL = M.target / Math.max(w, h);
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-        svg.setAttribute('width', w * CELL);
-        svg.setAttribute('height', h * CELL);
-        svg.setAttribute('shape-rendering', 'crispEdges');
-        svg.setAttribute('aria-hidden', 'true');
-        for (var y = 0; y < h; y++) {
-          for (var x = 0; x < w; x++) {
-            var ch = s.grid[y][x];
-            if (ch === '.') continue;
-            var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            r.setAttribute('x', x); r.setAttribute('y', y);
-            r.setAttribute('width', 1); r.setAttribute('height', 1);
-            r.setAttribute('fill', s.ink[ch]);
-            svg.appendChild(r);
-          }
-        }
-        return { svg: svg, w: w * CELL, h: h * CELL, link: s.link };
-      }
-
-      var wrap = null, built = null, x = 0, y = 0, vx = 0, vy = 0, last = 0;
-
-      /* Swap in the sprite belonging to `id`, keeping the current position and
-         heading so switching skin morphs the character in flight rather than
-         teleporting it. Called once on load and again on every skin change. */
-      function mount(id) {
-        var b = build(id);
-        if (!b) return false;
-        var first = !wrap;
-        built = b;
-        if (first) {
-          wrap = document.createElement('div');
-          wrap.className = 'spren';
-          document.body.appendChild(wrap);
-          x = Math.random() * Math.max(1, innerWidth - b.w);
-          y = Math.random() * Math.max(1, innerHeight - b.h);
-          var speed = M.base + Math.random() * M.spread; // px/s
-          var angle = Math.random() * Math.PI * 2;
-          vx = Math.cos(angle) * speed;
-          vy = Math.sin(angle) * speed;
-          last = performance.now();
-        }
-        wrap.textContent = '';
-        var link = document.createElement('a');
-        link.href = b.link.href;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.setAttribute('aria-label', b.link.label + ' (opens in a new tab)');
-        link.appendChild(b.svg);
-        wrap.appendChild(link);
-        return first;
-      }
-
-      function bounce() {
-        if (!mount(document.documentElement.dataset.skin)) return;
-        document.addEventListener('jp:skin', function (e) { mount(e.detail); });
-
-        /* Crossing the desktop/mobile threshold (rotating a phone, resizing a
-           window) has to resize the sprite and rescale its speed, or it stays
-           at whichever size the page happened to load at. */
-        var resizeTimer;
-        addEventListener('resize', function () {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(function () {
-            var next = metrics();
-            if (next.target === M.target) return;
-            var scaled = (next.base + next.spread / 2) / (M.base + M.spread / 2);
-            vx *= scaled; vy *= scaled;
-            M = next;
-            mount(document.documentElement.dataset.skin);
-            x = Math.min(x, Math.max(0, innerWidth - built.w));
-            y = Math.min(y, Math.max(0, innerHeight - built.h));
-          }, 150);
-        });
-
-        function tick(now) {
-          var dt = Math.min(0.05, (now - last) / 1000);
-          last = now;
-          x += vx * dt; y += vy * dt;
-          var maxX = innerWidth - built.w, maxY = innerHeight - built.h;
-          if (x <= 0) { x = 0; vx = Math.abs(vx); }
-          else if (x >= maxX) { x = maxX; vx = -Math.abs(vx); }
-          if (y <= 0) { y = 0; vy = Math.abs(vy); }
-          else if (y >= maxY) { y = maxY; vy = -Math.abs(vy); }
-          wrap.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      }
-      bounce();
-    })();
-  </script>
-
   <script is:inline>
-    /* Omarchy-style header: always visible (the page is long, and every
-       anchor lives behind this nav), background fades in from transparent to
-       a blurred surface tint once you've scrolled a little, instead of
-       hiding on scroll-down. */
     (function () {
+      /* Header: a blurred surface once you have scrolled past the very top. */
       var header = document.getElementById('site-header');
-      if (!header) return;
-      function update() {
-        if (window.scrollY > 24) header.classList.add('scrolled');
-        else header.classList.remove('scrolled');
-      }
+      function update() { header.classList.toggle('scrolled', window.scrollY > 24); }
       update();
       addEventListener('scroll', update, { passive: true });
-    })();
-  </script>
 
-  <script is:inline>
-    /* The landing block's cursor-reactive glow: just two CSS custom
-       properties, throttled to one write per animation frame — the browser
-       does the rest via the radial-gradient already in the stylesheet. */
-    (function () {
-      var el = document.getElementById('landing');
-      if (!el) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var raf = null, mx = '50%', my = '15%';
-      el.addEventListener('pointermove', function (e) {
-        var r = el.getBoundingClientRect();
-        // The glow's background lives on a full-viewport-wide ::before now
-        // (see .landing::before), so its horizontal coordinate space is the
-        // viewport, not this element's own (narrower) box.
-        mx = (e.clientX / window.innerWidth * 100).toFixed(1) + '%';
-        my = ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%';
-        if (raf) return;
-        raf = requestAnimationFrame(function () {
-          el.style.setProperty('--mx', mx);
-          el.style.setProperty('--my', my);
-          raf = null;
-        });
-      });
-    })();
-  </script>
-
-  <script is:inline>
-    /* Mobile nav: a hamburger toggles a stacked link list under the bar.
-       Closes itself after a link is clicked (anchors don't navigate away). */
-    (function () {
+      /* Mobile nav: the hamburger toggles a stacked list; closes after a pick. */
       var btn = document.getElementById('navToggle');
       var panel = document.getElementById('mobileNav');
-      if (!btn || !panel) return;
       function close() { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
-      function open() { panel.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
-      btn.addEventListener('click', function () { panel.hidden ? open() : close(); });
+      btn.addEventListener('click', function () {
+        var open = panel.hidden;
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+      });
       panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { close(); btn.focus(); } });
-    })();
-  </script>
 
-  <script is:inline>
-    (function () {
-      var picker = document.getElementById('skinpicker');
-      if (!picker) return;
-      var buttons = picker.querySelectorAll('[data-skin-set]');
-      function paint(id) {
-        document.documentElement.dataset.skin = id;
-        buttons.forEach(function (b) { b.setAttribute('aria-checked', String(b.dataset.skinSet === id)); });
+      /* Scroll reveal. Anything marked .reveal fades up once it enters the
+         viewport; with no IntersectionObserver, or reduced motion, it is
+         simply shown (the stylesheet also never hides it without JS). */
+      var items = document.querySelectorAll('.reveal');
+      var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (still || !('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('in'); });
+        return;
       }
-      buttons.forEach(function (b) {
-        b.addEventListener('click', function () {
-          var id = b.dataset.skinSet;
-          paint(id);
-          // The floating sprite belongs to the skin, so it has to be rebuilt
-          // here; without this it kept whichever character it was born with.
-          document.dispatchEvent(new CustomEvent('jp:skin', { detail: id }));
-          try { localStorage.setItem('jp-skin', id); } catch (e) {}
-          // Reflect the choice in the URL too, so copying the address bar
-          // shares this skin instead of whoever opens it defaulting to Omakase.
-          var url = new URL(location.href);
-          url.searchParams.set('skin', id);
-          history.replaceState(null, '', url);
-          picker.open = false;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
         });
-      });
-      paint(document.documentElement.dataset.skin || 'nous');
-      document.addEventListener('click', function (e) {
-        if (picker.open && !picker.contains(e.target)) picker.open = false;
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && picker.open) { picker.open = false; picker.querySelector('summary').focus(); }
-      });
-    })();
-  </script>
-
-  <script is:inline>
-    /* Language picker is plain <a> links to the other locale's home route —
-       no client state to sync, just close it after a click or click-outside,
-       same as the skin picker's disclosure behaviour. */
-    (function () {
-      var picker = document.getElementById('langpicker');
-      if (!picker) return;
-      picker.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () { picker.open = false; });
-      });
-      document.addEventListener('click', function (e) {
-        if (picker.open && !picker.contains(e.target)) picker.open = false;
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && picker.open) { picker.open = false; picker.querySelector('summary').focus(); }
-      });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      items.forEach(function (el) { io.observe(el); });
     })();
   </script>
 </body>
 </html>
 
-<style is:global set:html={skinCss()}></style>
+<style is:global set:html={paletteCss()}></style>
 
 <style is:global>
-/* Everything below is written against six tokens — --bg --fg --accent --accent2
-   --font-display --font-body — which src/data/skins.mjs sets per skin. Nothing
-   here names a colour directly, so adding a skin needs no CSS at all.
-   --muted is --fg mixed 28% toward --bg: the lightest mix that still clears
-   4.5:1 on all four grounds, Tokyo Night being the tight one. */
+/* Written against the tokens paletteCss() sets from src/data/skins.mjs:
+   --bg --fg --accent --accent2 --muted and three font stacks. Nothing below
+   names a colour directly; every other shade is a color-mix() of those. */
 :root{
-  --surface:  color-mix(in srgb, var(--bg), var(--fg) 5%);
-  --raised:   color-mix(in srgb, var(--bg), var(--fg) 9%);
-  --line:     color-mix(in srgb, var(--bg), var(--fg) 16%);
-  --muted:    color-mix(in srgb, var(--fg) 72%, var(--bg));
-  --strong:   color-mix(in srgb, var(--accent), #fff 8%);
-  /* Tokyo Night's violet. A skin with no `rainbow` array gets accent2 in every
-     slot (skins.mjs), so anything painted --violet has to be something that was
-     accent2 already — then the other three skins look exactly as they did and
-     only Omarchy, which owns the colour, gains it. */
-  --violet:   var(--rainbow-7);
-  --max:1120px;
+  --surface: color-mix(in srgb, var(--bg), var(--fg) 4%);
+  --raised:  color-mix(in srgb, var(--bg), var(--fg) 8%);
+  --line:    color-mix(in srgb, var(--bg), var(--fg) 15%);
+  --glow:    color-mix(in srgb, var(--accent) 22%, transparent);
+  --max: 1200px;
+  --gutter: 48px;
 }
 *{box-sizing:border-box}
-html{background:var(--bg);color:var(--fg);font-family:var(--font-body);scroll-behavior:smooth}
-body{margin:0;line-height:1.6;font-size:calc(15.5px * var(--scale,1));background:var(--bg);overflow-x:hidden}
-a{color:inherit;text-decoration-color:var(--accent2);text-underline-offset:3px}
-a:hover{color:var(--accent);text-decoration:underline}
-::selection{background:color-mix(in srgb, var(--accent) 30%, var(--bg));color:var(--fg)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.shell{width:min(calc(100% - 44px),var(--max));margin:auto}
-
-/* header, in Omarchy's own shape: always sticky, transparent over the hero,
-   a blurred surface tint once scrolled (.scrolled, toggled by the script
-   above) instead of hiding on scroll-down — the nav stays one glance away
-   on a page this long. */
-.site-header{
-  position:sticky;top:0;z-index:20;
-  background:transparent;border-bottom:1px solid transparent;
-  transition:background-color .2s ease,border-color .2s ease;
-}
-.site-header.scrolled{
-  background:color-mix(in srgb, var(--bg) 86%, transparent);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-bottom-color:var(--line);
-}
-.navbar{min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:2px;font-family:var(--font-display);font-weight:700;letter-spacing:.02em;text-decoration:none;color:var(--accent);flex:none}
-.brand:hover{text-decoration:none}
-.brand .caret{color:var(--accent2)}
-.nav-links{display:flex;gap:2px;flex:1}
-.nav-links a{
-  font-family:var(--font-display);font-size:12px;text-decoration:none;color:var(--muted);
-  padding:8px 12px;border-radius:9px;transition:background-color .15s ease,color .15s ease;
-}
-.nav-links a:hover{background:var(--surface);color:var(--fg);text-decoration:none}
-.nav-actions{display:flex;align-items:center;gap:4px;flex:none}
-.skip{position:absolute;left:-999px}
-.skip:focus{left:12px;top:12px;background:var(--accent);color:var(--bg);padding:8px;z-index:4}
-
-/* rounded icon buttons — the omarchy.org nav's defining shape */
-.icon-btn{
-  display:inline-flex;align-items:center;justify-content:center;flex:none;
-  width:36px;height:36px;border-radius:9px;border:0;background:none;color:var(--muted);
-  cursor:pointer;transition:background-color .15s ease,color .15s ease;
-}
-.icon-btn svg{width:19px;height:19px}
-.icon-btn:hover{background:var(--surface);color:var(--fg)}
-.icon-btn[aria-expanded="true"]{background:var(--surface);color:var(--fg)}
-.nav-toggle{display:none}
-
-/* icon-triggered popovers — <details> so the disclosure and its keyboard
-   behaviour are native. Shared by the theme and language pickers. */
-.icon-picker{position:relative}
-.icon-picker summary{list-style:none}
-.icon-picker summary::-webkit-details-marker{display:none}
-.icon-panel{
-  position:absolute;right:0;top:calc(100% + 8px);z-index:30;min-width:210px;
-  background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:5px;
-  display:flex;flex-direction:column;gap:1px;
-}
-.icon-panel button,.icon-panel .lang-opt{
-  position:relative;display:flex;align-items:center;gap:10px;
-  background:none;border:0;border-radius:8px;cursor:pointer;text-align:left;padding:9px 30px 9px 10px;
-  color:var(--fg);font-family:inherit;font-size:13px;text-decoration:none;
-}
-.icon-panel button:hover,.icon-panel .lang-opt:hover{background:var(--surface);text-decoration:none}
-.sw{width:11px;height:11px;flex:none;border-radius:2px;background:var(--accent);box-shadow:inset 0 0 0 1px var(--accent2)}
-.icon-panel .sk-name,.icon-panel .lang-name{font-family:var(--font-display)}
-.icon-panel [aria-checked="true"] .sk-name,
-.icon-panel [aria-checked="true"] .lang-name{color:var(--accent)}
-.icon-panel [aria-checked="true"]::after{content:"\2713";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:12px}
-.lang-code{font-family:var(--font-display);font-weight:700;width:22px;flex:none;color:var(--accent2)}
-
-/* mobile nav — a stacked list under the bar, toggled by the hamburger */
-.mobile-nav{flex-direction:column;padding:4px 0 16px;border-top:1px solid var(--line)}
-.mobile-nav a{padding:12px 4px;font-family:var(--font-display);font-size:14px;color:var(--fg);text-decoration:none}
-.mobile-nav[hidden]{display:none}
-
-/* the block banner, ramped from accent to accent2 */
-.banner{
-  display:block;margin:14px 0 4px;line-height:1;font-weight:700;white-space:pre;
-  overflow-x:auto;overflow-y:hidden;
-  font-size:min(2.9vw,24px);font-family:'Courier Prime','Courier New',monospace;
-  color:var(--accent);
-  background:linear-gradient(180deg,var(--accent) 0%,var(--accent) 34%,var(--strong) 34%,var(--strong) 67%,var(--accent2) 67%);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-@supports not (background-clip:text){.banner{-webkit-text-fill-color:currentColor}}
+html{background:var(--bg);color:var(--fg);font-family:var(--font-body);scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;line-height:1.6;font-size:16px;background:var(--bg);overflow-x:hidden}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--accent2);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+::selection{background:color-mix(in srgb, var(--accent) 35%, var(--bg));color:var(--fg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.shell{width:min(calc(100% - var(--gutter)), var(--max));margin-inline:auto}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-999px;z-index:50}
+.skip:focus{left:12px;top:12px;background:var(--accent);color:var(--bg);padding:8px 12px}
+.mono{font-family:var(--font-mono)}
 
-.kicker,.label{font-family:var(--font-display);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2)}
-/* The section eyebrow stays accent2; the sub-section labels down the left rail
-   go violet. They recur in every section at the same position, so the colour
-   reads as structure rather than decoration, and it separates the two tiers
-   that until now looked identical. */
-.label{color:var(--violet)}
-.label::before{content:"\25CF ";color:var(--accent)}
-
-/* Full-bleed section bands inside a fixed-width column, alternating shades
-   instead of the old border-top rule. A box-shadow-spread version of this
-   shipped first but Safari visibly mis-sized very large spreads — this is
-   the standard, cross-browser-safe trick instead: a ::before pinned to the
-   section's own top/bottom (so it can never drift from the section's real
-   extent) and centred at 100vw via left:50%/translateX(-50%). `isolation`
-   gives each section its own stacking context so z-index:-1 only tucks the
-   pseudo behind that section's own text, never under an earlier sibling's.
-   .landing (the terminal + tagline block) is exempt — it gets its own
-   interactive background below — so the rhythm starts fresh right after it. */
-main > section:not(.landing){position:relative;isolation:isolate}
-main > section:not(.landing)::before{
-  content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;
-  transform:translateX(-50%);z-index:-1;
+/* Film grain: one static SVG-noise tile over everything, never in the way. */
+body::after{
+  content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
 }
-main > section:not(.landing):nth-of-type(even)::before{background:var(--raised)}
-main > section:not(.landing):nth-of-type(odd)::before{background:var(--bg)}
 
-/* The landing block: a soft glow that follows the cursor (JS sets --mx/--my
-   on pointer move), same spirit as omarchy.org's reactive hero — skipped
-   under reduced-motion, where the plain --bg already set as the base layer
-   is all that shows. */
-.landing{position:relative;isolation:isolate}
-.landing::before{
-  content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;
-  transform:translateX(-50%);z-index:-1;
-  background:
-    radial-gradient(760px circle at var(--mx,50%) var(--my,15%), color-mix(in srgb, var(--accent) 30%, transparent), transparent 65%),
-    var(--bg);
-}
-.hero{padding:76px 0 70px;max-width:900px}
-.hero h1,.hero h2{font-family:var(--font-display);font-size:clamp(34px,5.4vw,58px);line-height:1.06;letter-spacing:-.03em;margin:20px 0 26px;font-weight:700;color:var(--accent)}
-.tagline{font-family:var(--font-display);font-size:clamp(22px,3.2vw,32px);line-height:1.2;letter-spacing:-.02em;margin:26px 0 24px;font-weight:700;color:var(--fg)}
-.serif{font:inherit;color:var(--accent2);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--accent2)}
-.lede{font-size:calc(19px * var(--scale,1));max-width:700px}
-.grid{display:grid;grid-template-columns:190px 1fr;gap:60px;padding:64px 0}
-.grid h2{font-family:var(--font-display);font-size:clamp(26px,3.6vw,32px);line-height:1.1;letter-spacing:-.03em;margin:0 0 24px;color:var(--accent)}
-.copy{max-width:760px;font-size:calc(16px * var(--scale,1))}
-.copy p{margin:0 0 18px}
-/* One attributed quote, set apart from Javier's own prose rather than
-   blended into it — a left rule and italics is the plainest way to do that
-   without a new font dependency, so it reads the same in every skin. */
-.copy blockquote,.prose blockquote,.hero blockquote{margin:22px 0;padding:2px 0 2px 18px;border-left:2px solid var(--accent2);font-style:italic}
-.copy blockquote cite,.prose blockquote cite,.hero blockquote cite{display:block;margin-top:6px;font-style:normal;font-family:var(--font-display);font-size:13px;color:var(--muted)}
-/* Sits above the heading rather than the usual body copy, so it needs its
-   own top/bottom rhythm instead of the shared 22px — a real gap under the
-   kicker rather than the ~11px a bare <p> margin collapses down to, then
-   room before the h1 that follows it. */
-.hero blockquote{margin:28px 0 22px;max-width:640px;font-size:calc(17px * var(--scale,1))}
+/* ── header ─────────────────────────────────────────────────────────── */
+.site-header{position:sticky;top:0;z-index:30;border-bottom:1px solid transparent;transition:background-color .2s ease,border-color .2s ease;font-family:var(--font-mono);font-size:13px}
+.site-header.scrolled{background:color-mix(in srgb, var(--bg) 84%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+.navbar{min-height:58px;display:flex;align-items:center;gap:24px}
+.brand{color:var(--accent);text-decoration:none;font-weight:700;white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand-at{color:var(--muted);font-weight:400}
+.brand-cur{display:inline-block;width:.55em;height:1em;margin-left:2px;vertical-align:-2px;background:var(--accent);animation:blink 1.1s steps(1) infinite}
+.nav-links{display:flex;gap:2px;flex:1;justify-content:center}
+.nav-links a,.mobile-nav a{color:var(--muted);text-decoration:none;padding:8px 10px}
+.nav-links a:hover,.mobile-nav a:hover{color:var(--fg);text-decoration:underline;text-decoration-color:var(--accent)}
+.nav-actions{display:flex;align-items:center;gap:6px;margin-left:auto}
+.lang-switch{color:var(--fg);text-decoration:none;border:1px solid var(--line);padding:5px 9px;line-height:1}
+.lang-switch:hover{border-color:var(--accent);text-decoration:none}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:0;background:none;color:var(--muted);cursor:pointer}
+.icon-btn svg{width:19px;height:19px}
+.icon-btn:hover,.icon-btn[aria-expanded="true"]{color:var(--fg)}
+.nav-toggle{display:none}
+.mobile-nav{display:flex;flex-direction:column;padding:4px 0 14px;border-top:1px solid var(--line)}
+.mobile-nav[hidden]{display:none}
+@keyframes blink{50%{opacity:0}}
 
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{position:relative;background:var(--surface);border:1px solid var(--line);padding:22px;min-height:170px}
-a.card,a.row{text-decoration:none}
-a.card:hover{border-color:var(--accent2);background:var(--raised)}
-a.card:hover h3{color:var(--accent)}
-.card-icon{
-  position:absolute;top:16px;right:16px;display:grid;place-items:center;
-  width:30px;height:30px;border:1px solid var(--line);color:var(--accent2);
-  font-family:var(--font-display);font-size:15px;line-height:1;
-}
-a.card:hover .card-icon{border-color:var(--accent2);color:var(--accent)}
-.card h3{font-family:var(--font-display);font-size:19px;line-height:1.15;margin:20px 0 8px;color:var(--accent2)}
-.card p{font-size:14px;color:var(--fg);margin:0;opacity:.85}
-.meta{font-family:var(--font-display);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.byline{color:var(--accent2);text-transform:none;letter-spacing:0}
+/* ── sections ───────────────────────────────────────────────────────── */
+.sec{padding:56px 0 8px;position:relative}
+.kicker{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;color:var(--accent2)}
+.kicker::after{content:"";flex:1;height:1px;background:var(--line)}
+.sec-title{font-family:var(--font-display);font-weight:800;text-transform:uppercase;font-size:clamp(40px,5vw,64px);line-height:.95;letter-spacing:.005em;margin:0 0 16px;max-width:30ch}
+.sec-title em{font-style:italic;color:var(--accent)}
+.lede{max-width:70ch;font-size:17px;margin:0 0 24px;color:var(--fg)}
+.label{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.meta{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--font-mono);font-size:13px;margin:12px 0 0}
 
-.rows{border-top:1px solid var(--line);min-width:0}
-.row>*{min-width:0}
-.row{display:grid;grid-template-columns:150px 1fr 90px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px;overflow-wrap:anywhere;align-items:start}
-.row h3{font-family:var(--font-display);color:var(--accent2);margin:0 0 6px;font-size:17px}
-.row time,.row span:last-child{color:var(--muted)}
-a.row:hover{background:var(--surface)}
-a.row:hover h3{color:var(--accent)}
-/* contact.astro: the row itself is a plain div now, with a link (laid out via
-   display:contents so it doesn't break the 3-column grid) plus a sibling
-   copy button in the third column — a link can't contain another button. */
-.row-link{display:contents;text-decoration:none;color:inherit}
-.row-link:hover h3{color:var(--accent)}
-.copy-btn{
-  justify-self:end;align-self:center;height:30px;padding:0 12px;
-  background:none;border:1px solid var(--line);color:var(--muted);
-  font-family:var(--font-display);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-  cursor:pointer;
-}
-.copy-btn:hover{border-color:var(--accent2);color:var(--accent2)}
-.copy-btn:disabled{border-color:var(--accent);color:var(--accent);cursor:default}
+/* Cards, with a CRT scanline sweep on hover: a bright band runs top to
+   bottom over a faint static raster. CSS only. */
+.card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);padding:22px}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:repeating-linear-gradient(0deg, color-mix(in srgb, var(--fg) 5%, transparent) 0 1px, transparent 1px 3px)}
+.card::after{content:"";position:absolute;left:0;right:0;top:-40%;height:40%;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 16%, transparent) 70%, color-mix(in srgb, var(--accent) 30%, transparent) 72%, transparent 74%)}
+.card:hover,.card:focus-within{border-color:color-mix(in srgb, var(--accent) 55%, var(--line))}
+.card:hover::before,.card:focus-within::before{opacity:1}
+.card:hover::after,.card:focus-within::after{opacity:1;animation:sweep 1.4s linear infinite}
+@keyframes sweep{from{transform:translateY(0)}to{transform:translateY(350%)}}
+.card h3{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1;margin:10px 0 8px;text-transform:uppercase;letter-spacing:.01em}
+.card p{margin:0;font-size:15px}
+.by{color:var(--accent2)}
+.links .by{font-size:12px}
 
-.notice{border:1px solid var(--accent);background:var(--surface);padding:22px;font-size:17px;max-width:760px}
+/* Scroll reveal (only ever hidden when JS is running; see the head script) */
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
 
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-/* …unless the chips are the section's whole content (Skills, Newsletter
-   topics), where the 14px would push them out of line with their label. */
-.grid > .tags{margin-top:0}
-.tag{font-family:var(--font-display);font-size:12px;border:1px solid var(--line);padding:4px 10px;color:var(--accent2);overflow-wrap:anywhere}
-/* Cycles through a skin's --rainbow-1..7 (skins.mjs); a skin with no
-   `rainbow` array gets accent2 in every slot, so this is a no-op for it. */
-.tag:nth-of-type(7n+1){color:var(--rainbow-1)}
-.tag:nth-of-type(7n+2){color:var(--rainbow-2)}
-.tag:nth-of-type(7n+3){color:var(--rainbow-3)}
-.tag:nth-of-type(7n+4){color:var(--rainbow-4)}
-.tag:nth-of-type(7n+5){color:var(--rainbow-5)}
-.tag:nth-of-type(7n+6){color:var(--rainbow-6)}
-.tag:nth-of-type(7n){color:var(--rainbow-7)}
-.skillgroup{margin:0 0 28px}
-.skillgroup h3{font-family:var(--font-display);font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0;color:var(--accent2)}
+/* ── footer ─────────────────────────────────────────────────────────── */
+.site-footer{border-top:1px solid var(--line);margin-top:40px}
+.foot{padding:22px 0 90px;display:flex;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.foot p{margin:0;max-width:80ch}
 
-.prose{max-width:760px;font-size:calc(16px * var(--scale,1))}
-.prose h2{font-family:var(--font-display);font-size:26px;line-height:1.12;letter-spacing:-.03em;margin:38px 0 16px;color:var(--accent)}
-.prose h3{font-family:var(--font-display);font-size:17px;margin:28px 0 10px;color:var(--violet)}
-.prose p,.prose li{margin:0 0 16px}
-.prose ul{padding-left:20px}
-.prose li::marker{color:var(--accent2)}
-.prose code{font-family:'Courier Prime','Courier New',monospace;background:var(--surface);border:1px solid var(--line);padding:2px 6px;font-size:14px;color:var(--accent2)}
-
-.shot{margin:0 0 34px}
-.shot img{width:100%;height:auto;display:block;border:1px solid var(--line)}
-.shot a:hover{background:none}
-.shot figcaption{font-family:var(--font-display);font-size:12px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}
-
-.statusbar{background:var(--surface);border-top:1px solid var(--line);margin-top:20px}
-.sb{padding:12px 0;color:var(--muted);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--font-display);font-size:12px}
-.sb b{color:var(--accent);font-weight:700}
-.sb .sep{color:var(--accent2)}
-.sb a{color:var(--muted);text-decoration:none}
-.sb a:hover{color:var(--accent);text-decoration:underline}
-
-@media(max-width:760px){
+@media (max-width:720px){
+  :root{--gutter:32px}
   .nav-links{display:none}
   .nav-toggle{display:inline-flex}
-  .mobile-nav:not([hidden]){display:flex}
-  .navbar{min-height:56px}
+  .sec{padding:56px 0 12px}
+  .lede{font-size:17px}
 }
-/* Below ~420px, brand + four icon buttons no longer both fit on one row —
-   drop the wordmark and keep just the caret, same as the mobile nav already
-   trims down to a hamburger. */
-@media(max-width:420px){
-  .brand .word{display:none}
-}
-@media(max-width:900px){
-  .hero{padding:52px 0}
-  .grid{display:block;padding:48px 0}
-  .label{margin-bottom:18px;display:block}
-  .cards{grid-template-columns:1fr}
-  .row{grid-template-columns:90px 1fr}
-  .row span:last-child{display:none}
-  .sb{display:block}
-  .sb span{display:block;margin-bottom:6px}
-}
-/* the skin's pixel character, crossing the screen */
-/* Position (translate) is driven entirely by the bounce script's rAF loop
-   now, not a CSS keyframe crossing the screen once — top/left:0 is just
-   the transform origin it translates from. */
-.spren{
-  position:fixed;top:0;left:0;z-index:1;pointer-events:auto;
-  opacity:.8;
-  will-change:transform;
-}
-.spren a{display:block;cursor:pointer}
-.spren svg{display:block;transition:filter .2s;animation:spren-pulse 9s ease-in-out infinite}
-/* Most of the cycle sits at the resting glow and then flares briefly, so the
-   sprite catches the eye now and then instead of throbbing continuously. */
-@keyframes spren-pulse{
-  0%,82%,100%{filter:drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent))}
-  91%{filter:drop-shadow(0 0 17px var(--accent2)) drop-shadow(0 0 7px var(--accent2))}
-}
-.spren:hover svg{animation:none;filter:drop-shadow(0 0 18px var(--accent2)) drop-shadow(0 0 8px var(--accent2))}
-@media(prefers-reduced-motion:reduce){
+@media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .spren{display:none}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .js .reveal{opacity:1;transform:none}
 }
 </style>

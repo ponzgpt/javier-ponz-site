@@ -1,12 +1,9 @@
 ---
-// A fixed music control, bottom-left — a small terminal panel, not a pill:
-// track marquee on top, a gradient/peak-hold VU meter in the middle, CLI-
-// style transport + volume buttons on the bottom row. Colours read from
-// the active skin's own tokens (--accent2 and two --rainbow steps) rather
-// than fixed hex, so it matches Omakase by default and still fits every
-// other skin — same principle the fastfetch card and workspaces already
-// follow. Background is 65% opaque + a blur, so the page shows through
-// instead of sitting as a flat card on top of it.
+// A fixed music control, bottom-left. Collapsed by default to one small
+// button, so it never covers content on a phone; the button opens a panel
+// with the track title, a gradient/peak-hold meter and transport + volume.
+// Meter colours come from the palette tokens (--accent2 → --accent → --fg).
+// While the panel is closed the meter draws nothing at all.
 //
 // No Audio element or AudioContext exists until the first click —
 // verified that browsers zero out an AnalyserNode fed by a natively muted
@@ -24,6 +21,10 @@ const { lang = 'en' } = Astro.props;
 const t = ui[lang];
 ---
 <div class="music-player">
+  <button type="button" class="music-fab" id="musicFab" aria-expanded="false" aria-controls="musicPanel" aria-label={t.musicOpen} title={t.musicOpen}>
+    <span aria-hidden="true">♪</span><span class="music-live" aria-hidden="true"></span>
+  </button>
+  <div class="music-panel" id="musicPanel" hidden>
   <div class="music-row music-row-title">
     <span class="music-note" aria-hidden="true">♪</span>
     <div class="music-title-wrap" id="musicTitleWrap">
@@ -72,6 +73,7 @@ const t = ui[lang];
       </button>
     </div>
   </div>
+  </div>
 </div>
 
 <script is:inline>
@@ -90,25 +92,18 @@ const t = ui[lang];
     var iconPause = document.getElementById('musicIconPause');
     var titleWrap = document.getElementById('musicTitleWrap');
     var titleEl = document.getElementById('musicTitle');
-    if (!player || !btn || !eq || !window.AudioContext) return;
+    var fab = document.getElementById('musicFab');
+    var panel = document.getElementById('musicPanel');
+    if (!player || !btn || !eq || !window.AudioContext) { if (player) player.hidden = true; return; }
     var ctx2d = eq.getContext('2d');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var BARS = 24;
 
-    // Colours come from the active skin's own tokens — --accent2 for the
-    // low end, two --rainbow steps for mid/high — read fresh whenever the
-    // skin changes, rather than fixed hex. Matches Omakase (Tokyo Night)
-    // by default and still fits every other skin, same as the fastfetch
-    // card and the btop/tree workspaces.
-    var COLOR_LOW = '#9ece6a', COLOR_MID = '#e0af68', COLOR_HIGH = '#f7768e';
-    function refreshColors() {
-      var cs = getComputedStyle(document.documentElement);
-      COLOR_LOW = cs.getPropertyValue('--accent2').trim() || COLOR_LOW;
-      COLOR_MID = cs.getPropertyValue('--rainbow-3').trim() || COLOR_MID;
-      COLOR_HIGH = cs.getPropertyValue('--rainbow-1').trim() || COLOR_HIGH;
-    }
-    refreshColors();
-    new MutationObserver(refreshColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-skin'] });
+    var cs = getComputedStyle(document.documentElement);
+    var COLOR_LOW = cs.getPropertyValue('--accent2').trim() || '#a58bff';
+    var COLOR_MID = cs.getPropertyValue('--accent').trim() || '#ffb23e';
+    var COLOR_HIGH = cs.getPropertyValue('--fg').trim() || '#ece6da';
+    function isOpen() { return !panel.hidden; }
 
     // CC0 (nova head, Suno-generated) — see archive.org/details/<id> per
     // track for the original upload and its licence statement.
@@ -233,7 +228,7 @@ const t = ui[lang];
       var values = [];
       for (var i = 0; i < BARS; i++) values.push(freq[Math.floor((i * freq.length) / BARS)] / 255);
       renderMeter(values);
-      raf = requestAnimationFrame(drawBars);
+      raf = isOpen() ? requestAnimationFrame(drawBars) : null;
     }
     var idleTimer = null, idleT = 0;
     // A bass-heavy fake shape (taller on the left, like a real spectrum)
@@ -249,7 +244,7 @@ const t = ui[lang];
         return Math.max(0.04, Math.min(0.98, base + osc + noise));
       });
       renderMeter(values);
-      idleTimer = setTimeout(drawIdleAnimated, 110);
+      idleTimer = isOpen() ? setTimeout(drawIdleAnimated, 110) : null;
     }
     function stopIdle() {
       if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
@@ -267,27 +262,42 @@ const t = ui[lang];
       btn.setAttribute('aria-pressed', 'true');
       btn.setAttribute('aria-label', btn.dataset.muteLabel);
       player.classList.add('playing');
+      fab.classList.add('playing');
       statusDot.classList.add('playing');
       iconPlay.style.display = 'none'; iconPause.style.display = '';
       stopIdle();
-      if (!reduce && !raf) drawBars();
+      if (!reduce && !raf && isOpen()) drawBars();
     }
     function mute() {
       playing = false;
       btn.setAttribute('aria-pressed', 'false');
       btn.setAttribute('aria-label', btn.dataset.playLabel);
       player.classList.remove('playing');
+      fab.classList.remove('playing');
       statusDot.classList.remove('playing');
       iconPlay.style.display = ''; iconPause.style.display = 'none';
       if (gain) rampTo(0);
       if (raf) { cancelAnimationFrame(raf); raf = null; }
-      if (reduce) drawFlat(); else if (!idleTimer) drawIdleAnimated();
+      if (reduce || !isOpen()) drawFlat(); else if (!idleTimer) drawIdleAnimated();
     }
     // The template's placeholder text is just a guess at what track will
     // load — reflect whichever one shuffling actually picked, immediately,
     // not only once build()/step() first runs from a click.
     setTitle(current);
-    if (reduce) drawFlat(); else drawIdleAnimated();
+    drawFlat();
+    function startMeter() {
+      if (reduce) { drawFlat(); return; }
+      if (playing) { if (!raf) drawBars(); } else if (!idleTimer) drawIdleAnimated();
+    }
+    fab.addEventListener('click', function () {
+      var open = panel.hidden;
+      panel.hidden = !open;
+      fab.setAttribute('aria-expanded', String(open));
+      if (open) { setTitle(current); startMeter(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); fab.focus(); }
+    });
     btn.addEventListener('click', function () { playing ? mute() : play(); });
     prevBtn.addEventListener('click', function () { step(-1); });
     nextBtn.addEventListener('click', function () { step(1); });
@@ -302,51 +312,36 @@ const t = ui[lang];
 </script>
 
 <style is:global>
-  .music-player{
-    position:fixed;left:18px;bottom:18px;z-index:15;
-    display:flex;flex-direction:column;gap:7px;
-    width:272px;padding:10px 12px;border-radius:10px;
-    border:2px solid var(--accent2);
-    background:color-mix(in srgb, var(--bg) 65%, transparent);
-    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  }
+  .music-player{position:fixed;left:16px;bottom:16px;z-index:25;display:flex;flex-direction:column-reverse;align-items:flex-start;gap:8px}
+  .music-fab{position:relative;width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);background:color-mix(in srgb, var(--bg) 80%, transparent);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--accent);font-size:18px;cursor:pointer}
+  .music-fab:hover,.music-fab[aria-expanded="true"]{border-color:var(--accent)}
+  .music-live{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:transparent}
+  .music-fab.playing .music-live{background:var(--accent2);box-shadow:0 0 6px var(--accent2)}
+  .music-panel{display:flex;flex-direction:column;gap:7px;width:272px;padding:10px 12px;border:1px solid var(--line);
+    background:color-mix(in srgb, var(--bg) 85%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .music-panel[hidden]{display:none}
   .music-row{display:flex;align-items:center;gap:8px}
   .music-row-title{gap:6px}
-  .music-note{color:var(--accent2);font-size:13px;flex:none;line-height:1}
+  .music-note{color:var(--accent);font-size:13px;flex:none;line-height:1}
   .music-title-wrap{flex:1;min-width:0;overflow:hidden;position:relative}
-  .music-title{
-    display:inline-block;white-space:nowrap;
-    font-family:var(--font-display);font-size:11.5px;color:var(--accent2);
-  }
+  .music-title{display:inline-block;white-space:nowrap;font-family:var(--font-mono);font-size:11.5px;color:var(--fg)}
   .music-title-wrap.marquee .music-title{animation:music-marquee 11s linear infinite}
   @keyframes music-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media(prefers-reduced-motion:reduce){.music-title-wrap.marquee .music-title{animation:none}}
   .music-eq{display:block;width:100%;height:46px}
   .music-row-controls{justify-content:space-between}
   .music-transport{display:flex;align-items:center;gap:5px;flex:none}
-  /* One button family. Transport (prev/play/next) is one identical size
-     and colour throughout — .music-btn-lg on all three, no primary/
-     secondary distinction — while the volume +/- pair stays the smaller
-     outlined style. */
-  .music-btn{
-    display:flex;align-items:center;justify-content:center;flex:none;
-    border-radius:6px;cursor:pointer;color:var(--accent2);
-  }
-  .music-btn-lg{width:32px;height:32px;background:var(--accent2);color:var(--bg);border:0}
+  .music-btn{display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer;color:var(--accent)}
+  .music-btn-lg{width:32px;height:32px;background:var(--accent);color:var(--bg);border:0}
   .music-btn-lg svg{width:17px;height:17px}
-  .music-btn-sm{width:22px;height:22px;background:none;border:1.5px solid var(--accent2)}
+  .music-btn-sm{width:22px;height:22px;background:none;border:1px solid var(--accent)}
   .music-btn-sm svg{width:12px;height:12px}
-  .music-btn-sm:hover{background:color-mix(in srgb, var(--accent2), transparent 85%)}
+  .music-btn-sm:hover{background:color-mix(in srgb, var(--accent), transparent 85%)}
   .music-status{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none}
   .music-status.playing{background:var(--accent2);box-shadow:0 0 6px var(--accent2)}
   .music-vol{display:flex;align-items:center;gap:5px;flex:none}
-  .music-vol-bar{width:40px;height:7px;border-radius:3px;background:var(--raised);overflow:hidden;flex:none}
-  .music-vol-fill{display:block;height:100%;background:var(--accent2);width:55%}
-  .music-vol-pct{font-family:var(--font-display);font-size:10px;color:var(--muted);width:26px;flex:none;text-align:right}
-  @media(max-width:640px){
-    .music-player{width:auto;padding:8px}
-    .music-row-title,.music-status,.music-vol,.music-secondary-transport{display:none}
-    .music-eq{width:64px;height:26px}
-    .music-row-controls{justify-content:center}
-  }
+  .music-vol-bar{width:40px;height:7px;background:var(--raised);overflow:hidden;flex:none}
+  .music-vol-fill{display:block;height:100%;background:var(--accent);width:55%}
+  .music-vol-pct{font-family:var(--font-mono);font-size:10px;color:var(--muted);width:28px;flex:none;text-align:right}
+  @media (max-width:400px){.music-panel{width:calc(100vw - 32px)}}
 </style>

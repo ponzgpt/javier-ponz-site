@@ -1,24 +1,20 @@
 // UI strings and terminal data, one object per language. English is `ui.en`,
 // Spanish `ui.es` — components read `ui[lang]`. Command *names* the terminal
-// accepts (help, whoami, ls, skin, lang…) stay identical in both languages,
+// accepts (help, whoami, ls, read, lang…) stay identical in both languages,
 // since they are typed, not read; only their descriptions and arguments
 // translate.
 
 const EN = {
-  nav: ['about', 'experience', 'projects', 'skills', 'achievements', 'newsletter', 'contact'],
+  // Path-style labels; the anchors themselves (#now …) are the same in every language.
+  nav: ['/now', '/work', '/rig', '/story', '/notes', '/connect'],
   skip: 'Skip to content',
-  skinLabel: "Change the site's theme",
   langLabel: 'Change language',
   githubLabel: 'Javier on GitHub',
   menuLabel: 'Menu',
-  wsLabel: 'Simulated workspaces',
-  wsHint: 'ctrl + n',
-  status: 'aberdeen, scotland',
-  openToWork: 'open to work',
-  footerLinks: ['github', 'linkedin', 'x'],
   pausedTag: '(paused)',
   treeHint: 'real repos — see <b>projects</b> for details.',
   treeThisSite: 'this site',
+  musicOpen: 'Music player',
   musicPlay: 'Play ambient music',
   musicMute: 'Mute',
   musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
@@ -30,7 +26,7 @@ const EN = {
   musicVolUp: 'Volume up',
   // terminal
   term: {
-    title: 'jpp — ~',
+    title: 'javier@techn0ir: ~',
     online: 'online',
     hint: 'Type <b>help</b> to see the list of commands.',
     // The real category boxes Javier's own fastfetch prints (Hardware /
@@ -68,13 +64,12 @@ const EN = {
       },
       {
         title: 'Age / Uptime / Update',
-        color: 'rainbow-7',
+        color: 'fg',
         rows: [
           ['OS Age', '36 years'],
           // Placeholder only — the client script in Terminal.astro
           // overwrites this every second with HH:MM:SS elapsed since a
-          // fixed 5:30am Europe/London reference, using the same clock
-          // tick that already drives the waybar clock above.
+          // fixed 5:30am Europe/London reference.
           ['Uptime', '00:00:00'],
           ['Update', 'Sunday, September 13 2026 at 20:51']
         ]
@@ -87,13 +82,13 @@ const EN = {
       ['projects', 'what I built, and who wrote it'],
       ['running', 'what I run every day'],
       ['skills', 'demonstrated, learning, and direction'],
+      ['read [topic]', 'the longer notes: about, apple, newsletter'],
       ['cv', 'profile and the PDF'],
       ['contact', 'LinkedIn, X, GitHub'],
-      ['skin [name]', 'change the look, or list the options'],
       ['lang [code]', 'switch language: en, es'],
-      ['fastfetch', 'the banner again (workspace 1)'],
-      ['btop', 'a simulated resource monitor (workspace 2)'],
-      ['tree', 'the real repos, as a file tree (workspace 3)'],
+      ['fastfetch', 'portrait, wordmark and machine specs'],
+      ['btop', 'a simulated resource monitor'],
+      ['tree', 'the real repos, as a file tree'],
       ['clear', 'wipe the scrollback']
     ],
     strings: {
@@ -105,11 +100,10 @@ const EN = {
       source: 'source ↗',
       upstream: 'upstream ↗',
       dlPdf: 'download the PDF ↓',
-      skinsCurrent: 'Skins (current: ',
-      skinsHint: '  skin <name>   or use the picker in the header',
-      noSkin: 'skin: no skin called ',
+      topics: 'Topics:',
+      noTopic: 'read: no topic called ',
       langsCurrent: 'Languages (current: ',
-      langsHint: '  lang <code>   or use the picker in the header',
+      langsHint: '  lang <code>   or use the switch in the header',
       noLang: 'lang: no language called ',
       sudo: 'Nice try. Leading is serving, not sudo.'
     }
@@ -117,31 +111,32 @@ const EN = {
   // page names used by `ls` and `open` — the id (first item) is a slug, kept
   // identical across languages so `open about` works either way.
   pages: [
-    ['about', '#about', 'who I am, and the principle under it'],
-    ['experience', '#experience', 'Apple Retail, the transition, the study'],
-    ['projects', '#projects', 'what I run, what I built, and the case study'],
-    ['skills', '#skills', 'demonstrated, learning, and direction'],
-    ['achievements', '#achievements', 'milestones and proof'],
-    ['newsletter', '#newsletter', 'Machines Do It Better: the signal'],
-    ['contact', '#contact', 'how to reach me']
+    ['now', '#now', 'two Hermes plugins, with their sources'],
+    ['work', '#work', 'what I built, and who wrote it'],
+    ['rig', '#rig', 'the machine, the server, what I run daily'],
+    ['story', '#story', 'Apple Retail, the transition, the study, skills'],
+    ['notes', '#notes', 'ASI, neuroscience, post-labor economics; milestones'],
+    ['connect', '#connect', 'this terminal, and how to reach me']
+  ],
+  // `read <topic>`: the longer essays from pages.mjs, printed as text.
+  // Value is the pages.mjs block the topic reads.
+  topics: [
+    ['about', 'about', 'who I am, the principle, what I believe'],
+    ['apple', 'experience', 'ten years at Apple Retail, then Aberdeen'],
+    ['newsletter', 'newsletter', 'Machines Do It Better, and the notes behind it']
   ]
 };
 
 const ES = {
-  nav: ['perfil', 'experiencia', 'proyectos', 'competencias', 'logros', 'newsletter', 'contacto'],
+  nav: ['/ahora', '/trabajo', '/equipo', '/historia', '/notas', '/contacto'],
   skip: 'Ir al contenido',
-  skinLabel: 'Cambiar el aspecto del sitio',
   langLabel: 'Cambiar de idioma',
   githubLabel: 'Javier en GitHub',
   menuLabel: 'Menú',
-  wsLabel: 'Espacios de trabajo simulados',
-  wsHint: 'ctrl + n',
-  status: 'aberdeen, escocia',
-  openToWork: 'disponible',
-  footerLinks: ['github', 'linkedin', 'x'],
   pausedTag: '(pausado)',
   treeHint: 'repos reales — mira <b>projects</b> para más detalles.',
   treeThisSite: 'este sitio',
+  musicOpen: 'Reproductor de música',
   musicPlay: 'Reproducir música ambiental',
   musicMute: 'Silenciar',
   musicCredit: 'nova head — "Crown of the Horizon" (CC0)',
@@ -152,7 +147,7 @@ const ES = {
   musicVolDown: 'Bajar volumen',
   musicVolUp: 'Subir volumen',
   term: {
-    title: 'jpp — ~',
+    title: 'javier@techn0ir: ~',
     online: 'en línea',
     hint: 'Escribe <b>help</b> para ver la lista de comandos.',
     factGroups: [
@@ -186,13 +181,12 @@ const ES = {
       },
       {
         title: 'Age / Uptime / Update',
-        color: 'rainbow-7',
+        color: 'fg',
         rows: [
           ['OS Age', '36 años'],
           // Solo un valor provisional — el script cliente en Terminal.astro
           // lo sustituye cada segundo por las HH:MM:SS transcurridas desde
-          // una referencia fija de las 5:30am hora de Europe/London, con
-          // el mismo tick que ya mueve el reloj de la waybar de arriba.
+          // una referencia fija de las 5:30am hora de Europe/London.
           ['Uptime', '00:00:00'],
           ['Update', 'domingo, 13 de septiembre de 2026 a las 20:51']
         ]
@@ -205,13 +199,13 @@ const ES = {
       ['projects', 'lo que he hecho, y quién lo escribió'],
       ['running', 'lo que uso a diario'],
       ['skills', 'demostrado, aprendiendo, y hacia dónde voy'],
+      ['read [tema]', 'las notas largas: about, apple, newsletter'],
       ['cv', 'perfil y el PDF'],
       ['contact', 'LinkedIn, X, GitHub'],
-      ['skin [nombre]', 'cambiar el aspecto, o ver las opciones'],
       ['lang [código]', 'cambiar de idioma: en, es'],
-      ['fastfetch', 'el banner otra vez (espacio 1)'],
-      ['btop', 'un monitor de recursos simulado (espacio 2)'],
-      ['tree', 'los repos reales, como árbol de ficheros (espacio 3)'],
+      ['fastfetch', 'retrato, logotipo y especificaciones'],
+      ['btop', 'un monitor de recursos simulado'],
+      ['tree', 'los repos reales, como árbol de ficheros'],
       ['clear', 'limpiar la pantalla']
     ],
     strings: {
@@ -223,9 +217,8 @@ const ES = {
       source: 'código ↗',
       upstream: 'proyecto original ↗',
       dlPdf: 'descargar el PDF ↓',
-      skinsCurrent: 'Aspectos (actual: ',
-      skinsHint: '  skin <nombre>   o usa el selector de la cabecera',
-      noSkin: 'skin: no hay ningún aspecto llamado ',
+      topics: 'Temas:',
+      noTopic: 'read: no hay ningún tema llamado ',
       langsCurrent: 'Idiomas (actual: ',
       langsHint: '  lang <código>   o usa el selector de la cabecera',
       noLang: 'lang: no hay ningún idioma llamado ',
@@ -233,13 +226,17 @@ const ES = {
     }
   },
   pages: [
-    ['about', '#about', 'quién soy, y el principio que hay debajo'],
-    ['experience', '#experience', 'Apple Retail, el cambio de rumbo, la formación'],
-    ['projects', '#projects', 'lo que uso, lo que he hecho, y el caso práctico'],
-    ['skills', '#skills', 'demostrado, aprendiendo, y hacia dónde voy'],
-    ['achievements', '#achievements', 'hitos y pruebas'],
-    ['newsletter', '#newsletter', 'Machines Do It Better: the signal'],
-    ['contact', '#contact', 'cómo contactarme']
+    ['now', '#now', 'dos plugins de Hermes, con sus fuentes'],
+    ['work', '#work', 'lo que he hecho, y quién lo escribió'],
+    ['rig', '#rig', 'la máquina, el servidor, lo que uso a diario'],
+    ['story', '#story', 'Apple Retail, el cambio de rumbo, la formación, competencias'],
+    ['notes', '#notes', 'ASI, neurociencia, economía post-laboral; hitos'],
+    ['connect', '#connect', 'este terminal, y cómo contactarme']
+  ],
+  topics: [
+    ['about', 'about', 'quién soy, el principio, en lo que creo'],
+    ['apple', 'experience', 'diez años en Apple Retail, luego Aberdeen'],
+    ['newsletter', 'newsletter', 'Machines Do It Better, y las notas detrás']
   ]
 };
 

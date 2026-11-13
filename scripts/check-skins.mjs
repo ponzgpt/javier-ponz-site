@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 /**
- * One runnable check for the skin system.
- *
- * Skins are data, and the two ways data like this breaks silently are a ragged
- * pixel grid (renders as a torn sprite) and a colour pairing that fails
- * contrast on one ground but not another. Both are caught here.
+ * Contrast check for the palette in src/data/skins.mjs, plus a test for the
+ * derived figures in the Now section (they are computed from timestamps, so a
+ * typo in the data would silently change a published claim).
  *
  *   node scripts/check-skins.mjs
  */
 import assert from 'node:assert/strict';
-import { skins, defaultSkin, skinCss } from '../src/data/skins.mjs';
+import { palette, MUTED_TOWARD_BG, paletteCss } from '../src/data/skins.mjs';
+import { NOW_FACTS, hoursBetween } from '../src/data/pages.mjs';
 
 const lin = (c) => (c /= 255) <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
 const lum = (hex) => {
@@ -20,57 +19,32 @@ const ratio = (a, b) => {
   const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m);
   return (x + 0.05) / (y + 0.05);
 };
-// --muted is --fg mixed 28% toward --bg; mirror that here so the check tracks
-// the stylesheet rather than a number someone typed twice.
+// Mirrors the color-mix() that paletteCss() writes for --muted.
 const mix = (a, b, p) =>
   '#' + [1, 3, 5].map((i) => {
     const v = Math.round(parseInt(a.slice(i, i + 2), 16) * (1 - p) + parseInt(b.slice(i, i + 2), 16) * p);
     return v.toString(16).padStart(2, '0');
   }).join('');
 
-assert.ok(skins.length > 0, 'no skins defined');
-assert.ok(skins.some((s) => s.id === defaultSkin), `defaultSkin "${defaultSkin}" is not a skin`);
-assert.equal(new Set(skins.map((s) => s.id)).size, skins.length, 'duplicate skin id');
+for (const key of ['bg', 'fg', 'accent', 'accent2']) {
+  assert.match(palette[key], /^#[0-9a-fA-F]{6}$/, `palette.${key} must be a 6-digit hex`);
+}
+for (const key of ['display', 'mono', 'body']) assert.ok(palette[key], `palette.${key} missing`);
 
 let failures = 0;
-for (const s of skins) {
-  for (const key of ['id', 'name', 'note', 'bg', 'fg', 'accent', 'accent2', 'display', 'body', 'sprite', 'link']) {
-    assert.ok(s[key], `${s.id}: missing "${key}"`);
-  }
-  // The sprite is a real link, so a skin without a destination would render an
-  // <a href="undefined"> that silently goes nowhere.
-  assert.match(s.link.href, /^https:\/\/\S+$/, `${s.id}.link.href must be an https URL`);
-  assert.ok(s.link.label, `${s.id}.link.label is what the screen reader announces`);
-  for (const key of ['bg', 'fg', 'accent', 'accent2']) {
-    assert.match(s[key], /^#[0-9a-fA-F]{6}$/, `${s.id}.${key} must be a 6-digit hex`);
-  }
-
-  // sprite grid: rectangular, and every digit has an ink
-  const { grid, ink } = s.sprite;
-  assert.ok(Array.isArray(grid) && grid.length, `${s.id}: empty sprite grid`);
-  const widths = new Set(grid.map((r) => r.length));
-  assert.equal(widths.size, 1, `${s.id}: ragged sprite grid, widths ${[...widths].join('/')}`);
-  for (const row of grid) {
-    for (const ch of row) {
-      if (ch === '.') continue;
-      assert.ok(ink[ch], `${s.id}: sprite uses "${ch}" with no ink entry`);
-    }
-  }
-
-  // contrast, including the derived --muted and any optional rainbow hues
-  const checks = { fg: s.fg, accent: s.accent, accent2: s.accent2, muted: mix(s.fg, s.bg, 0.28) };
-  (s.rainbow ?? []).forEach((hex, i) => { checks[`rainbow[${i}]`] = hex; });
-  for (const [name, hex] of Object.entries(checks)) {
-    const r = ratio(hex, s.bg);
-    if (r < 4.5) {
-      console.error(`  FAIL  ${s.id}.${name} ${hex} on ${s.bg} = ${r.toFixed(2)}:1 (needs 4.5)`);
-      failures++;
-    } else {
-      console.log(`  ok    ${s.id}.${name} ${hex} = ${r.toFixed(2)}:1`);
-    }
-  }
+const checks = { fg: palette.fg, accent: palette.accent, accent2: palette.accent2, muted: mix(palette.fg, palette.bg, MUTED_TOWARD_BG) };
+for (const [name, hex] of Object.entries(checks)) {
+  const r = ratio(hex, palette.bg);
+  if (r < 4.5) { console.error(`  FAIL  ${name} ${hex} on ${palette.bg} = ${r.toFixed(2)}:1 (needs 4.5)`); failures++; }
+  else console.log(`  ok    ${name} ${hex} = ${r.toFixed(2)}:1`);
 }
-
-assert.ok(skinCss().includes(`[data-skin="${skins.at(-1).id}"]`), 'skinCss() dropped a skin');
+assert.ok(paletteCss().startsWith(':root{--bg:'), 'paletteCss() shape changed');
 assert.equal(failures, 0, `${failures} contrast failure(s)`);
-console.log(`\n${skins.length} skins ok`);
+
+// Now section: the published figures must follow from their sources.
+const { tests, opened, reviewed, fixed } = NOW_FACTS;
+assert.equal(tests.psychopomp + tests.sabbath, 31, 'test total');
+assert.equal(hoursBetween(opened, reviewed), 14, 'opened → review');
+assert.equal(hoursBetween(reviewed, fixed), 12, 'review → fixes');
+assert.equal(hoursBetween('2026-01-01T00:00Z', '2026-01-01T00:29Z'), 0, 'rounds to nearest hour');
+console.log('\npalette ok · now-section figures ok');

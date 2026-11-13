@@ -1,14 +1,15 @@
 ---
 // An actual shell, not a picture of one. The commands read the same data
 // files the rest of the site renders from, so the terminal cannot drift out
-// of date with the sections beneath it.
+// of date with the sections around it. `read` prints the longer essays from
+// pages.mjs that the page itself no longer shows in full.
 //
-// The seeded `fastfetch` output is rendered server-side, so the page is
-// complete and readable at rest — with JavaScript off, or for a crawler,
-// this is a normal <pre> full of real text.
+// The seeded `help` output is rendered server-side, so the box is complete
+// and readable at rest: with JavaScript off it is a normal <pre> of text.
 import { projects, running, skillGroups } from '../data/site';
 import { person, profile, personEs, profileEs } from '../data/cv.mjs';
-import { skins } from '../data/skins.mjs';
+import { portrait, banner } from '../data/portrait.mjs';
+import { pages } from '../data/pages.mjs';
 import { ui, fastfetchIcons } from '../data/ui.mjs';
 import { locales, pick } from '../data/i18n.mjs';
 
@@ -18,120 +19,11 @@ const name = person.name;
 const location = lang === 'en' ? person.location : personEs.location;
 const headline = lang === 'en' ? person.headline : personEs.headline;
 const profileLine = lang === 'en' ? profile[1] : profileEs[1];
+const PROMPT = 'javier@techn0ir:~$';
 const CONTACT_LABEL_ES = { Email: 'Correo', Phone: 'Teléfono', Site: 'Sitio' };
 
-// A tone-ramp rendering of Javier's photo, above the wordmark.
-//
-// Three things this needs that the earlier versions got wrong. The wall is
-// flood-filled away from the borders, so luminance maps DIRECTLY — bright skin
-// becomes dense glyphs. Inverting instead (to drop the wall for free) is what
-// turned the face into a void inside a wall of ink. It is drawn at 88 columns,
-// because likeness at this scale is mostly a resolution problem. And it gets
-// its own font-size, PORTRAIT_EM below, so those columns occupy exactly the
-// width of the 44-column wordmark underneath.
-//
-// The tone work is what makes the face legible rather than a wash: a global
-// gamma drops the mid-tone hair back so it stops competing with the lit
-// forehead; a black crush deepens the lenses without blowing out that
-// forehead, which a global contrast curve would; and a local-contrast pass
-// (large-radius high-pass, blended back toward the global image) gives the
-// nose, mouth and beard their own contrast independent of the hair, since
-// they all sit in one narrow mid-tone band that the downsample flattens
-// further. The ramp deliberately has no leading space: with one, the
-// faintest tone mapped to blank whatever the floor was, so the dark hair
-// above the forehead never rendered and the head looked shaved. Blankness
-// is the floor's job alone, which the background mask makes safe.
-// The grid is generated at a cell aspect of 0.6, not the usual 0.5: JetBrains
-// Mono's advance is 0.6em and .face sets line-height:1, so assuming a cell is
-// twice as tall as it is wide produced too few rows and squashed the face
-// vertically. The source is cropped to the shape the layout can give it
-// rather than scaled into place, so what remains keeps its proportions.
-// A final pass trims the source to the part that actually renders: the
-// extreme left and right are dark hair that falls below the floor, and those
-// blank columns strip off, which would otherwise leave the drawn portrait
-// narrower than its crop. Regenerate with scratchpad/hero7.py.
-const portrait = `                                           .:.:.......
-                                   ......................
-                               ......  .:...            ..:.
-                            .. ..   .-+#%%%@%*+=:.      .  :.
-                           ..    .-#@@@@@@@@@@@@@@%+:   -:  :.
-                          ...  .+@@@%#####%%###%%%@@@*.  -..:-.
-                        .:.:. -@@%**##***####*######%@#:  ...:-.
-                       ...:  -@%***##**#*###########%%%*.  .::-:.
-                      .: .. :@%*##%%#######%%#######%#*+..=-+=+-::.
-                      --.:  %@%#%#%@%##**####%%@@@@@@++*..-::-==.:-:.
-                     :: .. :@@@%#@%%####*#**+*+*****#*+- ....::-:.:--:
-                    :..    -**++++-==+**=:.::-=+++++++=:   . ..::::----
-                    :   :-=+++++=-. .=**-.=++******##%%%+.  . ..:=-.--:-.
-                   :: :-=#@@#****##. +#= -**+***######%%@%.     -*:..::=-
-                  .=: .   .-*##*+++.:@@@:  :=*=--::::...:-:.  :--= .:----
-                 .==         :-... :@@@@-          ..::...  ..:*+..=+-=.::
-                .-=.      .       .@@@%@%.          =#:..:.. .--. :=+==.:=:
-               .--:.             .#@@@%%@#.     ....=#-::.=:.=*-: ..-==.-+=-
-              .-:-.  --:: ....   #@@@@@%#%+-.   ...:::--.:+::-+=.   :--::-==.
-              -=-=. .%@+=.::.  .*@##**#%@@*+*=.    ..:..-#=..=+: . .:=+:.:-=-.
-             .=:-=-  .=::.   .-**-=---:.=##*#%#+-:...:-*#=: :+-:: ..--==.:=---
-             .:-=:-.   ..:.:=*#%+..::-.  :=*%%%%###****+--..:=.::. -:-:--.:---:
-             -:-+:...   :%##%%@@#.  -::::=+%@%%%#%###*++--...: ..-..::=---:::-=:
-             :.-+:.     .##%%@%+=.:.::-:-=%@@@%%%%%###*==-.  :....::---=:-::::--
-            .:.:-:..    .*%%%@*:--=..::::.=#%%%@%%#%##*+=:   :-....:-=+=:.::-::-
-            .-..:-.     .*%%%%+:...-=...  -=+**#%%%%##*+-.   .--:=:.::.::..:-::-.
-            .:. :.     ..+@#+=--......:::::..:=+*%%%%**+:......=.:--.:: .:..-::=-
-            :: ...     ..-#-+:..=*#%@@@%#%#+-..::#@%#*+=....--*-...:.:=..:::-:-=+-.
-            ::.-.      ..-+**..*%*=-:::--++##+..:+@%#+=:...-+##. :. :-=:.::--==--==.
-           ..---.       :--+=:-#*+-:.::-=+##*=:::+*+++-.  -*#%=...:..-+:-+--=-----=
-          ..=+::.      .::.:+----===:+.-**++===--=---+:...==*=....=..-=*+:-=-=:==-=.
-        .:.:#+-:..     .:...::.-++*:*+:++#%#+=----==-+....:=:...::.-:==+-:=*--=-=--=.
-       .::.:+-=-. .  ........::=+*=*+-=*+##%@*--:--=--:...:-:..:.--.:+*:=:=+:.=------:.
-       ::*:.+=--:.   . ..:: .:-=*--*::-++=+##*-:-=-:.......--::. .-::-=.-::-:-..:-=+:-=.
-      .+=-.:@+::..    ...:.:::=+=:+-::-*+--=+--.:::.::.... .=++.   :..:-:::::++-:-+=.:-+.
-      .+-::.=%:...   ....-=-:+==-:=-.--##-:==.:::. .-:..... .*@*-.....:=+:::.:*@+-+.:::=+
-       :.:+ .-..:.. ..::-==-:#-:-++::--+#=:+:.:-: .:.....:..  =+=:=-:::.=%*=::.+++: .::-=:
-       .: +: :...   ..:-=:--:#-:-=+:---=*=-=..=-.......::.... .+*=+::::..-##+: .:#-..:::.::.
-       :..%..-.-.  ..:-=:=*.:*=-:=-..:::=--:..=:.......:..... :%%%* :-.:. :##=. :%*:=-.:=.::
-      .: +* ::::.....-=-=*- ----.-:...:::-::.:=:.:. ...... .. :=-=: :::-:.=+%*..-%%:--:.==.::
-    ..-::-:.--:  ...:--:*:.::.--.::....::-::.-=..:..............:. .-..=+--+%:. .*@+.:-:.-=.-
-    . .-+#@=-:.  ...==-+--------:....::.-:=..:.::.:.............:..::. .=:-+-.:..:#*=::=:-- .
-    . :@@@%+:... .:-===-:-.-*==-:--..--.:--.::..:.:::...:.......+=:.......-:.::.. -%*..:-:- ..
-    . .+@+-=::.  .:..:..+:-++:=:--:.---:---:==...::::-::-..... :+==:. ... .--:-=. :++--:=++#.:.  .
-    .  .:*:++... .  .:::=======---:-.---::-+-:..:=+--=---.... ..*#*#.-++*=::- .:: .+=::--::%+:-::.
-   ..  ..:..-:.. ....:=-=-:--:: ::.....:-::=-:.:=+**+=-..::..:===#*-:==-=*:-+-.:=.:::.:=-:.-+#%--
-       .:.-:...   . ... ....:. .:. .. ...::.:---=*##=:...:::.+**.:: ..:.:-:.-*.-*:-+#..-:..::-++-.
-      .:..-- ... ......:. ......:+-=+===:::::-=+*+-.....:-.::-+:.:..::-.-+-::=-+*=-#*:::==:::::-=:..
-    ..:.:::: ......  -%*....   .:*#******====+#=:....:::.::.::-..:.:::--.:=.:*-.+*===.=::-::---++-:.
-   ...-+=:..::..... +@= .... ....+#*****+++**+:.-%%@...:..-..:--:- .:::-+=-:==-.-==#%:-=--:-.:.:-:*:
-    ..#=. -+:.::.. .@#  .... ....-******+++=: -@@@%= .-::.:..-----=:.-.:==:.-:. :-+%%=:+##=:::-+*+-:.
-   :=.=+:.-:.::. . +@. ..... ............    +@@= ....:-::::-::..:=+=-:.:=. :+:-.:=*@+.-=**+: ..:-.:.
-  .:....::...:-.. .@- ....... ..........    +@@- ..::::-=-:.::..-*-::-=: =-.:=+-.:-=%+:=-=:-*-.... .--:..
-:== ..-::  . ==.  *# .:::-:=-....:.......  :@@- ..:::.:::.......-%@-. :-:=+..*%: :=+=::+.-*--#=+@: =+..:
-:%%..-..  .:=+.  :@: :+-==:-.#: ....-.    .%@- ..:.......:===.-:..:::.:+-....@-..::=.-====+=.=:.-:..:-. .
-:@@-:=::..:-:.   %* .....:-::@=  ..:-=:.. *@#  ..    . ..-..-::%+..::-+:.:..:+:...--:-=+#**+.-   ....:
-.**....:....  . =@.::    .::.+%..=:......:@@=      ..:-::- ::. :=-:::=*:..-:=+:--:+=-:==+*=.:.          ...
- :==+. .....   :@-.-==:-=:.  -*#+. ..... *@@:  .:---===:=-.::::. .--==-:.:+*.-.:--%@#=-=**=:=:
-.-:::  .. .:: .@+.::::::-:: .**=..:---...@@@. ::::--==-:=:..---::.:--.:.=%#=. ...-*#%*=:--:  .
- :. ......  -.*@.::....     #%=..=-:.   -@@@. :::::=----=:  ::....::::..=+.   ..:....:==-::                  .
- .. .::.:... +@-.:........:=@+:.=:.     #@@% .::::==-:--:-.....:.:..::...:......:=--..-.:=-:.
--. :::.....::@* .....:-:---#*+ ::.  .. :@@@- :::-==-----.::.::::.-:..=+..::....:.:-:...::-:..
-.. .-::: .:.%@. ...:--::-.-*#..-:..... =@@@. :---==----=-:-..:...:...*#...:::::::.:-...-+-. :=:      ..
- ...:::. ..=@+ ..:---:-=-:#@=.-:...::. #@@% .:-====:=------+:..::::::-+:.:-=::--.:--.-=...::-=-.  .:
-.. .:::..::@@. ::--::-=:.*%#.::.....:..@@@* :=---==----==:--::.:::-:::-::-=**=::----:.-=-:===:===:         . .
- ...=..:..%@+ :---:.-=..-%%-.-:....::.-@@@+.:=---==-=-=-=:::-::-:::---:..::--:=:=+--=:--====:=+-=:        ::
-  .==::: +@@. :--::--.::*%#.-:...:-:. +@@@-.-----=-========---::::-:-::::.:::--.:=*--.::=-:-:-=--=:      ..
-. .=:::..@@+ ::-::==..:-%@:.:....-::. #@@@..:--:-::--===--+=:-::-----::--:-==-:..--:--::==-.:--=+=.
-. -:... +@@..::::-=:.::+%# :....:-:. :@@@*.::--:---:-=-:-==---::----::-:::--:::.-=-.-.:::-+=====-     .`;
-
-const banner = `     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗
-     ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
-     ██║███████║██║   ██║██║█████╗  ██████╔╝
-██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
-╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
- ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝
-██████╗  ██████╗ ███╗   ██╗███████╗
-██╔══██╗██╔═══██╗████╗  ██║╚══███╔╝
-██████╔╝██║   ██║██╔██╗ ██║  ███╔╝
-██╔═══╝ ██║   ██║██║╚██╗██║ ███╔╝
-██║     ╚██████╔╝██║ ╚████║███████╗
-╚═╝      ╚═════╝ ╚═╝  ╚═══╝╚══════╝`;
+// The portrait and the wordmark live in data/portrait.mjs, shared with the hero
+// and scripts/build-og.py.
 
 // Omarchy Quattro ships fastfetch, not neofetch, with output boxed into
 // titled sections (etc/fastfetch/config.jsonc in omacom/omarchy) — a plain
@@ -196,6 +88,20 @@ const factsHtml = groups.map((g) => [
 const ffHtml = `<span class="ff"><span class="art" aria-hidden="true"><span class="face" style="font-size:${PORTRAIT_EM}em">${portrait}</span>\n<span class="mark" style="font-size:${BANNER_EM}em">${banner}</span></span>`
   + `<span class="ffinfo">${factsHtml}</span></span>`;
 
+// `read <topic>`: a pages.mjs essay block flattened to plain lines.
+const strip = (html) => String(html).replace(/<\/(p|h2|h3|cite)>/g, '\n').replace(/<cite>/g, '— ').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').split('\n').map((l) => l.trim()).filter(Boolean);
+const readTopic = (block) => {
+  const b = pages[block][lang];
+  const lines = [];
+  if (b.epigraph) lines.push(...strip(b.epigraph), '');
+  if (b.h1) lines.push({ h: b.h1 + b.serif + b.h1end });
+  if (b.lede) lines.push(b.lede);
+  if (b.status) lines.push('', b.status);
+  for (const sec of b.sections ?? []) lines.push('', { h: sec.label }, ...strip(sec.html));
+  return lines;
+};
+const topics = t.topics.map(([id, block, note]) => ({ id, note, lines: readTopic(block) }));
+
 // Everything the client-side commands need, and nothing more.
 const data = {
   name, location, headline,
@@ -206,7 +112,7 @@ const data = {
   contact: person.contact.filter((c) => !c.private).map((c) => ({ l: lang === 'es' ? (CONTACT_LABEL_ES[c.label] ?? c.label) : c.label, v: c.value, h: c.href })),
   pages: t.pages,
   cvPath: '/javier-ponz-prado-cv.pdf',
-  skins: skins.map((x) => ({ id: x.id, name: x.name, note: x.note })),
+  topics,
   langs: locales.map((l) => ({ id: l.code, name: l.name, home: l.code === 'en' ? '/' : `/${l.code}/` })),
   curLang: lang,
   help: t.term.help,
@@ -215,44 +121,26 @@ const data = {
   treeHint: t.treeHint,
   treeThisSite: t.treeThisSite,
   ffHtml,
-  hint: t.term.hint
+  hint: t.term.hint,
+  prompt: PROMPT
 };
 ---
 <section class="term-wrap" aria-labelledby="term-title">
   <div class="win">
-    <div class="bar waybar">
-      <span id="term-title" class="sr-only">{t.term.title}</span>
-      <span class="ws-group" role="group" aria-label={t.wsLabel}>
-        <button type="button" class="ws active" data-ws="1" aria-pressed="true">1</button>
-        <button type="button" class="ws" data-ws="2" aria-pressed="false">2</button>
-        <button type="button" class="ws" data-ws="3" aria-pressed="false">3</button>
-        <span class="ws-hint">{t.wsHint}</span>
-      </span>
-      <span class="clock" id="waybar-clock" aria-hidden="true">&nbsp;</span>
-      <span class="tray" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 8-5 4V5l5 4L7 15" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 17.5a1 1 0 100 2 1 1 0 000-2Z" fill="currentColor"/><path d="M8.5 15a5 5 0 017 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M5.5 12a9 9 0 0113 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 10v4h3l4 4V6l-4 4H4Z" fill="currentColor"/><path d="M14.5 9.5a4 4 0 010 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M17 7a7 7 0 010 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </span>
-    </div>
+    <div class="bar"><span id="term-title">{t.term.title}</span><span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
     <div class="term" id="term">
       <div class="out-wrap">
-        <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">jpp ~ <b>❯</b> fastfetch</span>
-
-<Fragment set:html={ffHtml} />
-
+        <pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">{PROMPT} help</span>
+<span class="k">{t.term.strings.commands}</span>
+{t.term.help.map(([c, d]) => `  ${c.padEnd(16)}${d}\n`).join('')}
 <span class="hint" set:html={t.term.hint} />
 </pre>
-        <!-- Shown/hidden by JS (updateFade in the client script) whenever the
-             box actually has more content below the fold — otherwise, on a
-             phone, the portrait+wordmark alone can fill the capped height and
-             the specs underneath are invisible with no sign they exist. -->
         <div class="scroll-fade" aria-hidden="true">
           <svg viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
       </div>
       <form class="line" id="term-form" autocomplete="off">
-        <label for="term-in">jpp ~ <b>❯</b></label>
+        <label for="term-in">{PROMPT}</label>
         <span class="cursor" aria-hidden="true"></span>
         <input id="term-in" name="c" type="text" spellcheck="false" autocapitalize="off"
                aria-describedby="term-title" placeholder="help" />
@@ -262,38 +150,21 @@ const data = {
 </section>
 
 <script is:inline>
-  /* The waybar imitation's clock — Aberdeen local time (Europe/London),
-     not the visitor's own, since the point is "what's on Javier's screen
-     right now" rather than a generic clock widget. Ticks every second, and
-     the same tick also drives the fastfetch Uptime row: not the OS's
-     uptime, but elapsed time since a fixed 5:30am reference in that same
-     Aberdeen clock — one Intl formatter and one interval doing both jobs
-     rather than a second one computing the same hour/minute/second again.
-     Uptime's element is looked up fresh every tick rather than cached,
-     because it is destroyed and rebuilt whenever workspace 1 re-renders
-     (switching back to it clears #term-out and reinserts the seeded
-     fastfetch HTML) — a harmless no-op while workspace 2 or 3 is showing. */
+  /* The fastfetch "Uptime" row is not the OS's uptime but time since Javier
+     woke up: elapsed since a fixed 5:30 Europe/London. It only exists while
+     fastfetch output is on screen, so it is looked up fresh each tick. */
   (function () {
-    var clockEl = document.getElementById('waybar-clock');
-    var fmt = new Intl.DateTimeFormat('en-US', {
-      timeZone: 'Europe/London', weekday: 'short', day: '2-digit', month: 'short',
-      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
-    });
+    var fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     function pad2(n) { return (n < 10 ? '0' : '') + n; }
-    function tick() {
+    setInterval(function () {
+      var upEl = document.getElementById('ff-uptime');
+      if (!upEl || document.hidden) return;
       var p = {};
       fmt.formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
-      if (clockEl) clockEl.textContent = p.weekday + ' ' + p.day + ' ' + p.month + '  ' + p.hour + ':' + p.minute + ':' + p.second;
-
-      var upEl = document.getElementById('ff-uptime');
-      if (upEl) {
-        var secs = (+p.hour) * 3600 + (+p.minute) * 60 + (+p.second) - (5 * 3600 + 30 * 60);
-        if (secs < 0) secs += 24 * 3600;
-        upEl.textContent = pad2(Math.floor(secs / 3600)) + ':' + pad2(Math.floor(secs / 60) % 60) + ':' + pad2(secs % 60);
-      }
-    }
-    tick();
-    setInterval(tick, 1000);
+      var secs = (+p.hour) * 3600 + (+p.minute) * 60 + (+p.second) - (5 * 3600 + 30 * 60);
+      if (secs < 0) secs += 24 * 3600;
+      upEl.textContent = pad2(Math.floor(secs / 3600)) + ':' + pad2(Math.floor(secs / 60) % 60) + ':' + pad2(secs % 60);
+    }, 1000);
   })();
 </script>
 
@@ -361,10 +232,8 @@ const data = {
     out.appendChild(el);
   }
 
-  // Hyprland-style workspaces: 1 is the seeded fastfetch view, 2/3 are
-  // simulated tools (btop, tree) built from the same `data` every other
-  // command reads from, so they can't drift from the real project list.
-  var wsButtons = document.querySelectorAll('.ws[data-ws]');
+  // Three full-box views (fastfetch, btop, tree), built from the same `data`
+  // every other command reads, so they cannot drift from the project list.
   var CMD_ECHO = { '1': 'fastfetch', '2': 'btop', '3': 'ls -la ~/code' };
   var btopInterval = null;
 
@@ -513,7 +382,7 @@ const data = {
     write('');
     var cmd2 = document.createElement('span');
     cmd2.className = 'cmd';
-    cmd2.textContent = 'jpp ~/code/javier-ponz-site ❯ tree -L 3\n';
+    cmd2.textContent = 'javier@techn0ir:~/code/javier-ponz-site$ tree -L 3\n';
     out.appendChild(cmd2);
     writeHtml(accent('javier-ponz-site'));
     // Three levels rather than two, and the real filenames: the terminal is a
@@ -547,36 +416,19 @@ const data = {
   }
 
   var RENDER = { '1': renderFastfetch, '2': renderBtop, '3': renderTree };
-  function setActiveWs(n) {
-    wsButtons.forEach(function (b) {
-      var on = b.dataset.ws === n;
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-pressed', String(on));
-    });
-  }
   function switchWorkspace(n) {
     if (!RENDER[n]) return;
-    setActiveWs(n);
     out.innerHTML = '';
     var el = document.createElement('span');
     el.className = 'cmd';
-    el.textContent = 'jpp ~ ❯ ' + CMD_ECHO[n] + '\n\n';
+    el.textContent = data.prompt + ' ' + CMD_ECHO[n] + '\n\n';
     out.appendChild(el);
     RENDER[n]();
     fitOut();
     out.scrollTop = 0;
     if (btopInterval) { clearInterval(btopInterval); btopInterval = null; }
-    if (n === '2') btopInterval = setInterval(renderBtopBody, 2500);
+    if (n === '2') btopInterval = setInterval(function () { if (!document.hidden) renderBtopBody(); }, 2500);
   }
-  wsButtons.forEach(function (b) {
-    b.addEventListener('click', function () { switchWorkspace(b.dataset.ws); });
-  });
-  document.addEventListener('keydown', function (e) {
-    // Best-effort only: most browsers already reserve Cmd/Ctrl+1..3 for
-    // switching tabs and consume the combo before it reaches page JS.
-    if (!(e.metaKey || e.ctrlKey)) return;
-    if (e.key === '1' || e.key === '2' || e.key === '3') switchWorkspace(e.key);
-  });
 
   var commands = {
     fastfetch: function () { switchWorkspace('1'); },
@@ -636,28 +488,17 @@ const data = {
     contact: function () {
       data.contact.forEach(function (c) { if (c.h) link(pad(c.l, 10) + c.v, c.h); else write('  ' + pad(c.l, 10) + c.v); });
     },
-    skin: function (arg) {
-      var ids = data.skins.map(function (s) { return s.id; });
-      if (!arg) {
-        write(data.s.skinsCurrent + document.documentElement.dataset.skin + ')', 'k');
-        data.skins.forEach(function (s) { write('  ' + pad(s.id, 12) + s.name + ' — ' + s.note); });
-        write('');
-        write(data.s.skinsHint);
+    read: function (arg) {
+      var hit = data.topics.filter(function (x) { return x.id === arg; })[0];
+      if (!arg || !hit) {
+        if (arg) write(data.s.noTopic + '"' + arg + '"', 'err');
+        write(data.s.topics, 'k');
+        data.topics.forEach(function (x) { write('  read ' + pad(x.id, 12) + x.note); });
         return;
       }
-      if (ids.indexOf(arg) < 0) { write(data.s.noSkin + '"' + arg + '"', 'err'); return; }
-      document.documentElement.dataset.skin = arg;
-      try { localStorage.setItem('jp-skin', arg); } catch (e) {}
-      var url = new URL(location.href);
-      url.searchParams.set('skin', arg);
-      history.replaceState(null, '', url);
-      var picker = document.getElementById('skinpicker');
-      if (picker) {
-        picker.querySelectorAll('[data-skin-set]').forEach(function (b) {
-          b.setAttribute('aria-checked', String(b.dataset.skinSet === arg));
-        });
-      }
-      write('skin → ' + arg);
+      hit.lines.forEach(function (l) {
+        if (l && l.h) write(l.h, 'who'); else write(l);
+      });
     },
     lang: function (arg) {
       var ids = data.langs.map(function (l) { return l.id; });
@@ -671,8 +512,6 @@ const data = {
       if (ids.indexOf(arg) < 0) { write(data.s.noLang + '"' + arg + '"', 'err'); return; }
       var hit = data.langs.filter(function (l) { return l.id === arg; })[0];
       var url = new URL(hit.home, location.origin);
-      var curSkin = new URL(location.href).searchParams.get('skin');
-      if (curSkin) url.searchParams.set('skin', curSkin);
       write('lang → ' + arg + ' …');
       setTimeout(function () { location.href = url.toString(); }, 220);
     },
@@ -686,11 +525,11 @@ const data = {
     var arg = (parts.shift() || '').toLowerCase();
     var el = document.createElement('span');
     el.className = 'cmd';
-    el.textContent = 'jpp ~ ❯ ' + raw + '\n';
+    el.textContent = data.prompt + ' ' + raw + '\n';
     out.appendChild(el);
     if (!cmd) { fitOut(); return; }
     if (commands[cmd]) commands[cmd](arg);
-    else write(cmd + ': command not found. Try help.', 'err');
+    else write(cmd + data.s.notFound, 'err');
     write('');
     fitOut();
   }
@@ -715,8 +554,8 @@ const data = {
       var typed = input.value.trim();
       var head = typed.split(/\s+/)[0];
       var pool = typed.indexOf(' ') > -1
-        ? (head === 'skin'
-            ? data.skins.map(function (x) { return 'skin ' + x.id; })
+        ? (head === 'read'
+            ? data.topics.map(function (x) { return 'read ' + x.id; })
             : head === 'lang'
               ? data.langs.map(function (x) { return 'lang ' + x.id; })
               : data.pages.map(function (x) { return 'open ' + x[0]; }))
@@ -740,129 +579,47 @@ const data = {
 </script>
 
 <style is:global>
-  /* Global rather than Astro-scoped: .art/.k/.v/.box/.ff/.ffinfo are all
-     generated server-side as raw HTML (set:html) for the seeded fastfetch
-     output, so they never carry Astro's scoping attribute — scoped rules
-     would silently fail to match them. */
-  .term-wrap{padding:44px 0 8px}
-  .win{
-    --term-bg:color-mix(in srgb, var(--bg), #000 22%);
-    border:2px solid var(--accent2);border-radius:10px;overflow:hidden;
-    background:var(--term-bg);
-  }
-  /* Hyprland windows carry no title bar of their own — it's a tiling WM.
-     What sits above this one is a Waybar imitation instead: workspace
-     pills left, a live clock centre, a tray right, same as the real thing
-     running above every window on Javier's actual desktop. */
-  .waybar{
-    display:flex;align-items:center;gap:14px;
-    padding:7px 12px;border-bottom:1px solid var(--line);
-    background:var(--surface);font-family:var(--font-display);font-size:11.5px;
-    color:var(--muted);letter-spacing:.04em;
-  }
-  .ws-group{display:flex;gap:5px;align-items:center;flex:none}
-  /* Quieter than the workspace pips beside it — a hint, not a control. */
-  .ws-hint{font-size:10px;font-weight:400;opacity:.55;margin-left:3px;letter-spacing:.02em}
-  .ws{
-    min-width:18px;height:18px;padding:0 5px;border-radius:3px;
-    display:inline-flex;align-items:center;justify-content:center;
-    border:1px solid var(--line);font-weight:700;
-    background:none;color:var(--muted);font-family:inherit;font-size:inherit;
-    cursor:pointer;
-  }
-  .ws:hover{border-color:var(--accent2);color:var(--fg)}
-  .ws.active{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-  .clock{flex:1;text-align:center;color:var(--fg);opacity:.85;font-variant-numeric:tabular-nums;white-space:nowrap}
-  .tray{display:flex;align-items:center;gap:10px;flex:none}
-  .tray svg{width:14px;height:14px;display:block}
-
-  .term{padding:16px 18px 14px;font-family:'Courier Prime','Courier New',monospace}
-  .out{
-    margin:0;white-space:pre-wrap;word-break:break-word;
-    font-size:13px;line-height:1.5;color:var(--fg);
-    /* Height is set in JS (fitOut, below), not fixed here: workspace 1
-       (fastfetch, with the portrait) and workspace 2/3 (btop, the file tree)
-       are never the same length, and any single number picked by hand is
-       wrong for one of them the moment either changes — as happened twice
-       already, once clipping the mobile viewport and once clipping the
-       fastfetch hint on desktop. fitOut measures whatever is actually in the
-       box after every render and sizes to that instead, with a cap only on
-       narrow viewports (see fitOut) so it can never take over a phone
-       screen; on a normal desktop it simply fits, however tall that is. The
-       transition is what stops that from feeling like a jump when it
-       changes, which was the original complaint switching workspaces. */
-    overflow:auto;scrollbar-width:thin;transition:height .18s ease;
-  }
-  /* A capped box (mostly on a phone, where the portrait+wordmark alone can
-     already fill it) looks exactly like a finished box with nothing hinting
-     that the specs are still below — no partial line, no visible scrollbar
-     on iOS/Android until a finger is already on it. updateFade (in the
-     client script) toggles .show whenever out.scrollTop hasn't reached the
-     bottom yet, on the same box .win already paints, so the edge disappears
-     into it rather than leaving a seam. */
+  /* Global rather than scoped: .art/.k/.v/.box/.ff/.ffinfo are generated as
+     raw HTML (set:html, innerHTML), so they never carry Astro's scope. */
+  .win{--term-bg:color-mix(in srgb, var(--bg), #000 35%);border:1px solid var(--line);background:var(--term-bg);box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent), 0 30px 80px -40px var(--glow)}
+  .win .bar{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+  .bar-dots{display:flex;gap:6px}
+  .bar-dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+  .bar-dots i:first-child{background:var(--accent)}
+  .term{padding:14px 16px 12px;font-family:var(--font-mono)}
+  .out{margin:0;white-space:pre-wrap;word-break:break-word;font-size:12.5px;line-height:1.55;color:var(--fg);
+    /* Height is measured in JS (fitOut) after every render, capped on narrow
+       screens; the transition keeps view switches from jumping. */
+    overflow:auto;scrollbar-width:thin;max-height:480px;transition:height .18s ease}
   .out-wrap{position:relative}
-  .scroll-fade{
-    position:absolute;left:0;right:0;bottom:0;height:34px;
-    display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;
-    background:linear-gradient(180deg,transparent,var(--term-bg) 75%);
-    color:var(--muted);pointer-events:none;opacity:0;transition:opacity .2s ease;
-  }
+  .scroll-fade{position:absolute;left:0;right:0;bottom:0;height:34px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;
+    background:linear-gradient(180deg,transparent,var(--term-bg) 75%);color:var(--muted);pointer-events:none;opacity:0;transition:opacity .2s ease}
   .scroll-fade.show{opacity:1}
   .scroll-fade svg{width:13px;height:13px}
-  @media(prefers-reduced-motion:reduce){.scroll-fade{transition:none}}
   .out .cmd{color:var(--muted)}
-  .out .cmd b{color:var(--accent);font-weight:700}
-  /* logo left, fastfetch-style facts right — real fastfetch's own layout */
-  .out .ff{display:flex;align-items:flex-start;gap:28px;margin:6px 0 12px}
-  .out .art{
-    display:block;flex:none;white-space:pre;font-size:min(1.7vw,17px);line-height:1;font-weight:700;
-    margin:0;overflow-x:auto;overflow-y:hidden;color:var(--accent);
-    /* One continuous ramp over the whole box (portrait, then the wordmark
-       under it), not the old three flat bands — repeating a stop's position
-       (e.g. "accent 34%, strong 34%") is what forced a hard edge there
-       instead of a blend. A single stop per colour lets the browser
-       interpolate the whole way down, and violet (the same token the
-       section labels use) now carries the middle of it. */
-    background:linear-gradient(180deg,var(--accent) 0%,var(--violet) 50%,var(--accent2) 100%);
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  }
-  @supports not (background-clip:text){.out .art{-webkit-text-fill-color:currentColor}}
-  .out .face,
-  .out .mark{display:block;white-space:pre;line-height:1}
+  .out .ff{display:flex;align-items:flex-start;gap:24px;margin:6px 0 12px}
+  .out .art{display:block;flex:none;white-space:pre;font-size:min(1.1vw,12px);line-height:1;font-weight:700;margin:0;overflow-x:auto;overflow-y:hidden;
+    background:linear-gradient(180deg,var(--accent) 0%,var(--accent2) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  @supports not (background-clip:text){.out .art{-webkit-text-fill-color:currentColor;color:var(--accent)}}
+  .out .face,.out .mark{display:block;white-space:pre;line-height:1}
   .out .ffinfo{display:block;flex:1;min-width:0}
   .out .k{color:var(--accent2)}
   .out .v{color:var(--fg)}
   .out .box{color:var(--muted)}
+  .out .who{color:var(--accent)}
   .out .err{color:var(--muted)}
-  .out .hint{display:block;margin-top:14px;color:var(--muted)}
+  .out .hint{display:block;margin-top:10px;color:var(--muted)}
   .out .hint b{color:var(--accent);font-weight:700}
-  .out a{color:var(--accent);text-decoration:underline;text-decoration-color:var(--accent2)}
-
-  .line{display:flex;align-items:baseline;gap:9px;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
-  .line label{color:var(--muted);font-size:13px;white-space:nowrap}
-  .line label b{color:var(--accent)}
-  /* Blinks until the line gets focus, to invite the first click — a real
-     caret takes over once the input is actually active. */
-  .cursor{width:8px;height:15px;flex:none;align-self:center;background:var(--accent2)}
-  .line:not(:focus-within) .cursor{animation:term-cursor-blink 1s step-end infinite}
+  .out a{color:var(--accent);text-decoration-color:var(--accent2)}
+  .line{display:flex;align-items:baseline;gap:9px;margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+  .line label{color:var(--accent2);font-size:12.5px;white-space:nowrap}
+  /* A block cursor invites the first click; the real caret takes over on focus. */
+  .cursor{width:8px;height:15px;flex:none;align-self:center;background:var(--accent)}
+  .line:not(:focus-within) .cursor{animation:blink 1.1s steps(1) infinite}
   .line:focus-within .cursor{display:none}
-  @keyframes term-cursor-blink{50%{opacity:0}}
-  @media(prefers-reduced-motion:reduce){.cursor{animation:none}}
-  .line input{
-    flex:1;min-width:0;background:none;border:0;outline:none;
-    color:var(--fg);font:inherit;font-size:13px;caret-color:var(--accent);
-  }
-  .line input::placeholder{color:var(--muted);opacity:.7}
-  .line:focus-within{border-top-color:var(--accent2)}
-
-  @media (max-width:860px){
-    .out .ff{flex-direction:column;gap:10px}
-    .out .art{font-size:min(2.5vw,17px)}
-  }
-  @media (max-width:700px){
-    .term-wrap{padding-top:28px}
-    .tray{display:none}
-    .clock{text-align:left}
-    .out{font-size:12px}
-  }
+  .line input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--fg);font:inherit;font-size:13px;caret-color:var(--accent)}
+  .line input::placeholder{color:var(--muted)}
+  .line:focus-within{border-top-color:var(--accent)}
+  @media (max-width:860px){.out .ff{flex-direction:column;gap:10px}.out .art{font-size:min(1.6vw,12px)}}
+  @media (max-width:700px){.out{font-size:11.5px}}
 </style>

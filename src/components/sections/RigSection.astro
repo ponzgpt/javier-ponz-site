@@ -1,0 +1,130 @@
+---
+// 03 · Rig. The workstation facts (the same rows the terminal's fastfetch
+// prints, from ui.mjs), the server, and what runs daily. Centrepiece: a
+// three.js torus knot drawn through AsciiEffect (src/scripts/rig-ascii.ts),
+// loaded only when the section approaches the viewport. Until then, and for
+// anyone without JS or WebGL, a static ASCII wireframe rendered here at build
+// time holds the same box, so nothing shifts and nothing is ever blank.
+import { pages } from '../../data/pages.mjs';
+import { ui } from '../../data/ui.mjs';
+import { running } from '../../data/site';
+import { pick } from '../../data/i18n.mjs';
+import SectionHead from '../SectionHead.astro';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.rig[lang];
+// Hardware and Software. The third fastfetch box (age, a fake uptime, last
+// update) stays in the terminal: it is flavour, not a spec.
+const groups = ui[lang].term.factGroups.slice(0, 2);
+const daily = running.map((r) => pick(r, lang));
+
+// Static fallback: an icosahedron's 30 edges, rotated and projected onto a
+// character grid, nearer edges in denser glyphs.
+function wireframe(cols = 72, rows = 30) {
+  const f = (1 + Math.sqrt(5)) / 2;
+  const v = [[-1, f, 0], [1, f, 0], [-1, -f, 0], [1, -f, 0], [0, -1, f], [0, 1, f], [0, -1, -f], [0, 1, -f], [f, 0, -1], [f, 0, 1], [-f, 0, -1], [-f, 0, 1]];
+  const rot = ([x, y, z]: number[]) => {
+    const a = 0.6, b = 0.35;
+    const x1 = x * Math.cos(a) + z * Math.sin(a), z1 = -x * Math.sin(a) + z * Math.cos(a);
+    return [x1, y * Math.cos(b) - z1 * Math.sin(b), y * Math.sin(b) + z1 * Math.cos(b)];
+  };
+  const pts = v.map(rot);
+  const grid = Array.from({ length: rows }, () => Array(cols).fill(' '));
+  const depth = Array.from({ length: rows }, () => Array(cols).fill(-Infinity));
+  const ramp = '.:-=+*#%@';
+  const plot = (x: number, y: number, z: number, ch?: string) => {
+    const c = Math.round(cols / 2 + x * cols * 0.19), r = Math.round(rows / 2 - y * rows * 0.26);
+    if (r < 0 || r >= rows || c < 0 || c >= cols || z < depth[r][c]) return;
+    depth[r][c] = z;
+    grid[r][c] = ch ?? ramp[Math.max(0, Math.min(ramp.length - 1, Math.round((z + f) / (2 * f) * (ramp.length - 1))))];
+  };
+  for (let i = 0; i < v.length; i++) for (let j = i + 1; j < v.length; j++) {
+    const d = Math.hypot(v[i][0] - v[j][0], v[i][1] - v[j][1], v[i][2] - v[j][2]);
+    if (Math.abs(d - 2) > 0.01) continue; // edges are the pairs at distance 2
+    const [a, b] = [pts[i], pts[j]];
+    for (let s = 0; s <= 80; s++) {
+      const t = s / 80;
+      plot(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t);
+    }
+  }
+  pts.forEach(([x, y, z]) => plot(x, y, z + 0.01, '@'));
+  return grid.map((r) => r.join('').replace(/\s+$/, '')).join('\n');
+}
+const fallback = wireframe();
+---
+<section class="sec" id="rig" aria-labelledby="rig-title">
+  <div class="shell">
+    <SectionHead id="rig-title" p={p} />
+    <div class="rig-grid">
+      <figure class="scene reveal">
+        <div class="scene-box" id="rigScene" tabindex="0" role="img" aria-label={p.sceneLabel}>
+          <pre class="scene-fallback" aria-hidden="true">{fallback}</pre>
+        </div>
+        <figcaption class="meta">{p.sceneHint}</figcaption>
+      </figure>
+      <div class="specs reveal">
+        <p class="label">{p.machineLabel}</p>
+        {groups.map((g) => (
+          <p class="facts-h">{g.title}</p>
+          <dl class="facts">
+            {g.rows.map(([k, val]) => <><dt>{k}</dt><dd>{val}</dd></>)}
+          </dl>
+        ))}
+      </div>
+    </div>
+    <div class="running">
+      <article class="card small reveal"><span class="meta">{p.vpsLabel}</span><h3>VPS</h3><p>{p.vps}</p></article>
+      <article class="card small reveal"><span class="meta">{p.labLabel}</span><h3>{p.labLabel}</h3><p>{p.lab}</p></article>
+      {daily.map((r) => (
+        <article class="card small reveal">
+          <span class="meta">{p.runningLabel}</span>
+          <h3>{r.title}</h3>
+          <p>{r.description}</p>
+          <p class="meta by">{r.icon} {r.kind} · {r.status} · {r.by}</p>
+          <p class="links"><a href={r.url} target="_blank" rel="noreferrer">{r.url.replace('https://', '')} ↗</a></p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Lazy: three.js is only fetched when the scene is about to be seen, and
+  // only if this browser can give it a WebGL context at all.
+  const host = document.getElementById('rigScene');
+  const probe = document.createElement('canvas');
+  const gl = probe.getContext('webgl2') || probe.getContext('webgl');
+  if (host && gl && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      import('../../scripts/rig-ascii').then((m) => m.mountRig(host)).catch(() => { /* fallback stays */ });
+    }, { rootMargin: '500px 0px' });
+    io.observe(host);
+  }
+</script>
+
+<style is:global>
+  .rig-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:start}
+  .scene{margin:0}
+  .scene-box{position:relative;height:400px;overflow:hidden;border:1px solid var(--line);background:#000;cursor:grab;touch-action:pan-y;
+    display:flex;align-items:center;justify-content:center;color:var(--accent)}
+  .scene-box:active{cursor:grabbing}
+  .scene-box::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgb(0 0 0 / .22) 0 1px, transparent 1px 3px)}
+  .scene-fallback{margin:0;font-family:var(--font-mono);font-size:12px;line-height:1.15;color:var(--accent)}
+  .scene-box.live .scene-fallback{display:none}
+  /* AsciiEffect writes inline styles (Courier New, its own size); the font
+     family is the only one worth overriding. JetBrains Mono shares Courier's
+     0.6em advance, so the grid still lines up. */
+  .scene-box table{font-family:var(--font-mono) !important;color:var(--accent);text-shadow:0 0 5px color-mix(in srgb, var(--accent) 50%, transparent)}
+  .scene figcaption{margin-top:8px}
+  .facts{display:grid;grid-template-columns:auto 1fr;gap:3px 16px;margin:0 0 18px;font-family:var(--font-mono);font-size:12.5px}
+  .facts dt{color:var(--accent2)}
+  .facts dd{margin:0;color:var(--fg);overflow-wrap:anywhere}
+  .facts-h{font-family:var(--font-mono);color:var(--muted);font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:4px;margin:0 0 8px}
+  .spec-p{margin:0 0 18px;font-size:15px}
+  .running{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
+  @media (max-width:1000px){.rig-grid{grid-template-columns:1fr}.running{grid-template-columns:1fr 1fr}}
+  @media (max-width:640px){.scene-box{height:320px}.scene-fallback{font-size:8px}.running{grid-template-columns:1fr}}
+</style>

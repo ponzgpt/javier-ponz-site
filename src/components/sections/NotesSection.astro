@@ -1,0 +1,75 @@
+---
+// 05 · Field notes. Three columns of interests, each linking to what exists
+// in the data; then the newsletter (status, link, topics) and the milestones
+// from site.ts `achievements`. The newsletter's longer essays are printed by
+// the terminal's `read newsletter`.
+import { pages } from '../../data/pages.mjs';
+import { projects, achievements } from '../../data/site';
+import { pick } from '../../data/i18n.mjs';
+import { expand } from '../../data/routes.mjs';
+import SectionHead from '../SectionHead.astro';
+
+const { lang = 'en' } = Astro.props;
+const p = pages.notes[lang];
+const nl = pages.newsletter[lang];
+const nlRow = nl.rows[0];
+const byTitle = (t: string) => pick(projects.find((x) => x.title === t), lang);
+const columns = p.columns.map((c: any) => ({
+  h: c.h,
+  items: c.items.map((i: any) => {
+    if (i.newsletter) return { title: 'Machines Do It Better', href: expand(nlRow.href), note: i.note };
+    const x = byTitle(i.project);
+    return { title: x.title, href: x.live ?? x.url, note: i.note };
+  })
+}));
+const milestones = achievements.map((a) => pick(a, lang));
+---
+<section class="sec" id="notes" aria-labelledby="notes-title">
+  <div class="shell">
+    <SectionHead id="notes-title" p={p} />
+    <div class="note-cols">
+      {columns.map((c: any, i: number) => (
+        <div class="note-col reveal">
+          <p class="note-n">0{i + 1}</p>
+          <h3>{c.h}</h3>
+          <ul>
+            {c.items.map((it: any) => <li><a href={it.href} target="_blank" rel="noreferrer">{it.title} ↗</a><span>{it.note}</span></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="newsletter reveal">
+      <p class="label">{nl.statusLabel}</p>
+      <p class="nl-status">{nl.status} <a href={expand(nlRow.href)} target="_blank" rel="noreferrer">{nlRow.h3}</a></p>
+      <p class="meta">{nl.topicsLabel}: {nl.topics.join(' · ')}</p>
+    </div>
+
+    <p class="label also-label">{p.milestonesLabel}</p>
+    <ul class="milestones">
+      {milestones.map((m) => <li class="reveal"><span class="when">{m.date}</span><strong>{m.title}</strong><span>{m.text}</span></li>)}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+  .note-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .note-col{padding:18px 20px 6px}
+  .note-col + .note-col{border-left:1px solid var(--line)}
+  .note-n{font-family:var(--font-mono);font-size:12px;color:var(--accent2);margin:0}
+  .note-col h3{font-family:var(--font-display);font-weight:800;font-size:34px;line-height:1;text-transform:uppercase;margin:6px 0 16px;color:var(--accent)}
+  .note-col ul{list-style:none;margin:0;padding:0}
+  .note-col li{display:flex;flex-direction:column;gap:4px;margin:0 0 16px;font-size:14.5px}
+  .note-col li a{font-family:var(--font-mono);font-size:13px}
+  .newsletter{margin:24px 0 0;padding:16px 20px;border:1px solid var(--line);background:var(--surface)}
+  .nl-status{margin:0 0 10px;max-width:80ch}
+  .milestones{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+  .milestones li{display:flex;flex-direction:column;gap:3px;padding:12px;border:1px solid var(--line);font-size:13px;line-height:1.5}
+  .milestones strong{font-weight:600}
+  @media (max-width:1000px){.milestones{grid-template-columns:1fr 1fr}}
+  @media (max-width:800px){
+    .note-cols{grid-template-columns:1fr}
+    .note-col + .note-col{border-left:0;border-top:1px solid var(--line)}
+  }
+  @media (max-width:520px){.milestones{grid-template-columns:1fr}}
+</style>
