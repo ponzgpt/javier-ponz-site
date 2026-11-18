@@ -3,7 +3,8 @@
 // - a built page lacks its `lang` or its hreflang alternates (en, es, x-default);
 // - an internal href/src in dist does not resolve to a file (or a same-page #anchor to an id);
 // - "nerion" or "gmail" appears anywhere in dist;
-// - the Email tab does not carry jponz@proton.me.
+// - the Email tab does not carry jponz@proton.me;
+// - a frozen page in dist/v lacks noindex or its banner, links outside its copy, or has an unresolved asset or old contact detail.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -77,5 +78,26 @@ for (const f of files) {
   if (m) fail(`${relative(dist, f)}: contains "${m[0]}"`);
 }
 
+// 6. the frozen earlier versions in dist/v: noindex, the archive banner, links that stay inside their copy,
+//    asset paths in CSS url() and in scripts that resolve, and no old contact details.
+const vdir = join(dist, 'v');
+const resolves = (p) => { const abs = join(dist, p); return p.endsWith('/') ? existsSync(join(abs, 'index.html')) : existsSync(abs) && statSync(abs).isFile() || existsSync(join(abs, 'index.html')); };
+for (const f of files.filter((f) => f.startsWith(vdir + '/'))) {
+  const rel = relative(dist, f), s = readFileSync(f).toString('latin1');
+  const m = s.match(/\+34|tel:/i);
+  if (m && /\.(html|js|css|txt|json)$/.test(f)) fail(`${rel}: contains "${m[0]}"`);
+  if (f.endsWith('.css')) for (const [, u] of s.matchAll(/url\(["']?(\/[^"')]+)["']?\)/g)) if (!resolves(u.split(/[?#]/)[0])) fail(`${rel}: url(${u}) does not resolve`);
+  if (!/\.(html|js)$/.test(f)) continue;
+  for (const [, u] of s.matchAll(/["'`](\/v\/[^"'`\s?#]+)/g)) if (!resolves(u)) fail(`${rel}: ${u} does not resolve`);
+  if (!f.endsWith('.html')) continue;
+  if (!/<meta name="robots" content="noindex">/.test(s)) fail(`${rel}: noindex missing`);
+  if (rel === 'v/index.html') continue;
+  if (!/<div id="v-archive" role="note"/.test(s)) fail(`${rel}: archive banner missing`);
+  const page = s.replace(/<div id="v-archive"[\s\S]*?<\/div>/, '');
+  for (const [, u] of page.matchAll(/\s(?:href|src|srcset)="(\/(?!\/)[^"]*)"/g)) {
+    if (!u.startsWith('/v/') && u !== '/javier-ponz-prado-cv.pdf') fail(`${rel}: ${u} leaves the frozen copy`);
+  }
+}
+
 if (errors.length) { console.error('check-site failed:\n- ' + errors.join('\n- ')); process.exit(1); }
-console.log(`check-site: ok (copy parity, ${html.length} pages, hreflang, links, no stale address, email tab)`);
+console.log(`check-site: ok (copy parity, ${html.length} pages, hreflang, links, no stale address, email tab, frozen versions)`);

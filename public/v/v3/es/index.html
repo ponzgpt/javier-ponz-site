@@ -1,0 +1,922 @@
+<!DOCTYPE html><html lang="es-ES"><head><meta name="robots" content="noindex"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="¡Hola! Soy Javier, ex-Genius de Apple. Diez años arreglando la tecnología de la gente; ahora ayudo a las personas y a sus agentes de IA a desatascarse. Usuario de Hermes, hago plugins, vibe coder."><meta name="color-scheme" content="dark"><meta name="theme-color" content="#0b0a10"><link rel="canonical" href="https://javierponz.technoir.cloud/es/"><link rel="alternate" hreflang="en" href="https://javierponz.technoir.cloud/"><link rel="alternate" hreflang="es" href="https://javierponz.technoir.cloud/es/"><link rel="alternate" hreflang="x-default" href="https://javierponz.technoir.cloud/"><meta property="og:title" content="Javier Ponz · ex-Genius de Apple, agentes abiertos, cosas que funcionan"><meta property="og:description" content="¡Hola! Soy Javier, ex-Genius de Apple. Diez años arreglando la tecnología de la gente; ahora ayudo a las personas y a sus agentes de IA a desatascarse. Usuario de Hermes, hago plugins, vibe coder."><meta property="og:url" content="https://javierponz.technoir.cloud/es/"><meta property="og:type" content="website"><meta property="og:locale" content="es_ES"><meta property="og:image" content="https://javierponz.technoir.cloud/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://javierponz.technoir.cloud/og.jpg"><title>Javier Ponz · ex-Genius de Apple, agentes abiertos, cosas que funcionan</title><link rel="icon" href="/v/v3/favicon.svg" type="image/svg+xml"><script>
+    /* Effects are progressive enhancement: the `js` class is what lets the
+       stylesheet hide content for the scroll reveal. Without JavaScript the
+       class never appears and everything is simply visible. */
+    document.documentElement.classList.add('js');
+    /* A stale #section in the URL makes the browser jump past the hero on a
+       fresh load; start at the top instead. In-page nav clicks still scroll. */
+    if (location.hash) {
+      history.scrollRestoration = 'manual';
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      addEventListener('load', function () { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); });
+    }
+  </script><link rel="stylesheet" href="/v/v3/_astro/HomePage.BumEtBKJ.css"><link rel="stylesheet" href="/v/v3/_astro/Layout.BtpyuM_t.css"></head><body><div id="v-archive" role="note" lang="es"><style>#v-archive{all:initial;display:block;position:relative;z-index:2147483647;box-sizing:border-box;width:100%;margin:0;padding:6px 16px;font:13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;text-align:center;background:#f1f1ee;color:#1c1c1a;border-bottom:1px solid #b7b7b0}#v-archive a{all:unset;display:inline-block;margin-left:14px;color:#1b3d8c;text-decoration:underline;text-underline-offset:2px;cursor:pointer;white-space:nowrap}#v-archive a:hover{text-decoration-thickness:2px}#v-archive a:focus-visible{outline:2px solid currentColor;outline-offset:2px}@media (prefers-color-scheme:dark){#v-archive{background:#1b1c1e;color:#e7e7e3;border-bottom-color:#3c3d41}#v-archive a{color:#a8c0ff}}</style>Versión archivada · 13 – 17 nov 2026. Los datos eran ciertos entonces.<a href="/v/v2/es/">← anterior</a><a href="/v/sketch-a/">siguiente →</a><a href="/es/">sitio actual →</a></div><a class="skip" href="#main">Ir al contenido</a><header class="site-header" id="site-header"><div class="shell navbar"><a class="brand" href="/v/v3/es/"><span class="brand-at">javier@</span>techn0ir<span class="brand-cur" aria-hidden="true"></span></a><nav aria-label="Primary" class="nav-links"><a href="#now">/ahora</a><a href="#work">/trabajo</a><a href="#rig">/equipo</a><a href="#story">/historia</a><a href="#notes">/notas</a><a href="#connect">/contacto</a></nav><div class="nav-actions"><a class="lang-switch" href="/v/v3/" hreflang="en" lang="en-GB" aria-label="Cambiar de idioma: English">EN</a><a class="icon-btn" href="https://github.com/ponzgpt" target="_blank" rel="noreferrer" aria-label="Javier en GitHub" title="Javier en GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"></path></svg></a><button type="button" class="icon-btn nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false" aria-controls="mobileNav"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></div></div><nav aria-label="Primary (mobile)" class="mobile-nav shell" id="mobileNav" hidden><a href="#now">/ahora</a><a href="#work">/trabajo</a><a href="#rig">/equipo</a><a href="#story">/historia</a><a href="#notes">/notas</a><a href="#connect">/contacto</a></nav></header><main id="main"><section class="hero" aria-labelledby="hero-name"><div class="hero-fx" id="heroFx" aria-hidden="true"></div><div class="blinds" aria-hidden="true"></div><div class="shell hero-grid"><div class="hero-text"><p class="prompt"><span class="who">javier@techn0ir</span>:<span class="path">~</span>$ whoami</p><h1 class="name" id="hero-name">Javier Ponz<span class="name-cur" aria-hidden="true">_</span></h1><p class="line">Ex-Apple | 10 años arreglando la tecnología de la gente. Ahora exploro la intersección entre la ASI, la neurociencia y la economía post-laboral.</p><ul class="chips"><li><a class="chip" href="https://x.com/sudotechnoir" target="_blank" rel="noreferrer">X <span aria-hidden="true">↗</span></a></li><li><a class="chip" href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></li><li><a class="chip" href="https://www.linkedin.com/in/javierponz" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></li><li><a class="chip" href="/javier-ponz-prado-cv.pdf" target="_blank" rel="noreferrer">CV <span aria-hidden="true">↗</span></a></li><li><span class="chip chip-plain">Discord: sudotechnoir</span></li></ul></div><pre class="portrait" id="portrait" tabindex="0" role="img" aria-label="Retrato ASCII de Javier Ponz">                                           .:.:.......
+                                   ......................
+                               ......  .:...            ..:.
+                            .. ..   .-+#%%%@%*+=:.      .  :.
+                           ..    .-#@@@@@@@@@@@@@@%+:   -:  :.
+                          ...  .+@@@%#####%%###%%%@@@*.  -..:-.
+                        .:.:. -@@%**##***####*######%@#:  ...:-.
+                       ...:  -@%***##**#*###########%%%*.  .::-:.
+                      .: .. :@%*##%%#######%%#######%#*+..=-+=+-::.
+                      --.:  %@%#%#%@%##**####%%@@@@@@++*..-::-==.:-:.
+                     :: .. :@@@%#@%%####*#**+*+*****#*+- ....::-:.:--:
+                    :..    -**++++-==+**=:.::-=+++++++=:   . ..::::----
+                    :   :-=+++++=-. .=**-.=++******##%%%+.  . ..:=-.--:-.
+                   :: :-=#@@#****##. +#= -**+***######%%@%.     -*:..::=-
+                  .=: .   .-*##*+++.:@@@:  :=*=--::::...:-:.  :--= .:----
+                 .==         :-... :@@@@-          ..::...  ..:*+..=+-=.::
+                .-=.      .       .@@@%@%.          =#:..:.. .--. :=+==.:=:
+               .--:.             .#@@@%%@#.     ....=#-::.=:.=*-: ..-==.-+=-
+              .-:-.  --:: ....   #@@@@@%#%+-.   ...:::--.:+::-+=.   :--::-==.
+              -=-=. .%@+=.::.  .*@##**#%@@*+*=.    ..:..-#=..=+: . .:=+:.:-=-.
+             .=:-=-  .=::.   .-**-=---:.=##*#%#+-:...:-*#=: :+-:: ..--==.:=---
+             .:-=:-.   ..:.:=*#%+..::-.  :=*%%%%###****+--..:=.::. -:-:--.:---:
+             -:-+:...   :%##%%@@#.  -::::=+%@%%%#%###*++--...: ..-..::=---:::-=:
+             :.-+:.     .##%%@%+=.:.::-:-=%@@@%%%%%###*==-.  :....::---=:-::::--
+            .:.:-:..    .*%%%@*:--=..::::.=#%%%@%%#%##*+=:   :-....:-=+=:.::-::-
+            .-..:-.     .*%%%%+:...-=...  -=+**#%%%%##*+-.   .--:=:.::.::..:-::-.
+            .:. :.     ..+@#+=--......:::::..:=+*%%%%**+:......=.:--.:: .:..-::=-
+            :: ...     ..-#-+:..=*#%@@@%#%#+-..::#@%#*+=....--*-...:.:=..:::-:-=+-.
+            ::.-.      ..-+**..*%*=-:::--++##+..:+@%#+=:...-+##. :. :-=:.::--==--==.
+           ..---.       :--+=:-#*+-:.::-=+##*=:::+*+++-.  -*#%=...:..-+:-+--=-----=
+          ..=+::.      .::.:+----===:+.-**++===--=---+:...==*=....=..-=*+:-=-=:==-=.
+        .:.:#+-:..     .:...::.-++*:*+:++#%#+=----==-+....:=:...::.-:==+-:=*--=-=--=.
+       .::.:+-=-. .  ........::=+*=*+-=*+##%@*--:--=--:...:-:..:.--.:+*:=:=+:.=------:.
+       ::*:.+=--:.   . ..:: .:-=*--*::-++=+##*-:-=-:.......--::. .-::-=.-::-:-..:-=+:-=.
+      .+=-.:@+::..    ...:.:::=+=:+-::-*+--=+--.:::.::.... .=++.   :..:-:::::++-:-+=.:-+.
+      .+-::.=%:...   ....-=-:+==-:=-.--##-:==.:::. .-:..... .*@*-.....:=+:::.:*@+-+.:::=+
+       :.:+ .-..:.. ..::-==-:#-:-++::--+#=:+:.:-: .:.....:..  =+=:=-:::.=%*=::.+++: .::-=:
+       .: +: :...   ..:-=:--:#-:-=+:---=*=-=..=-.......::.... .+*=+::::..-##+: .:#-..:::.::.
+       :..%..-.-.  ..:-=:=*.:*=-:=-..:::=--:..=:.......:..... :%%%* :-.:. :##=. :%*:=-.:=.::
+      .: +* ::::.....-=-=*- ----.-:...:::-::.:=:.:. ...... .. :=-=: :::-:.=+%*..-%%:--:.==.::
+    ..-::-:.--:  ...:--:*:.::.--.::....::-::.-=..:..............:. .-..=+--+%:. .*@+.:-:.-=.-
+    . .-+#@=-:.  ...==-+--------:....::.-:=..:.::.:.............:..::. .=:-+-.:..:#*=::=:-- .
+    . :@@@%+:... .:-===-:-.-*==-:--..--.:--.::..:.:::...:.......+=:.......-:.::.. -%*..:-:- ..
+    . .+@+-=::.  .:..:..+:-++:=:--:.---:---:==...::::-::-..... :+==:. ... .--:-=. :++--:=++#.:.  .
+    .  .:*:++... .  .:::=======---:-.---::-+-:..:=+--=---.... ..*#*#.-++*=::- .:: .+=::--::%+:-::.
+   ..  ..:..-:.. ....:=-=-:--:: ::.....:-::=-:.:=+**+=-..::..:===#*-:==-=*:-+-.:=.:::.:=-:.-+#%--
+       .:.-:...   . ... ....:. .:. .. ...::.:---=*##=:...:::.+**.:: ..:.:-:.-*.-*:-+#..-:..::-++-.
+      .:..-- ... ......:. ......:+-=+===:::::-=+*+-.....:-.::-+:.:..::-.-+-::=-+*=-#*:::==:::::-=:..
+    ..:.:::: ......  -%*....   .:*#******====+#=:....:::.::.::-..:.:::--.:=.:*-.+*===.=::-::---++-:.
+   ...-+=:..::..... +@= .... ....+#*****+++**+:.-%%@...:..-..:--:- .:::-+=-:==-.-==#%:-=--:-.:.:-:*:
+    ..#=. -+:.::.. .@#  .... ....-******+++=: -@@@%= .-::.:..-----=:.-.:==:.-:. :-+%%=:+##=:::-+*+-:.
+   :=.=+:.-:.::. . +@. ..... ............    +@@= ....:-::::-::..:=+=-:.:=. :+:-.:=*@+.-=**+: ..:-.:.
+  .:....::...:-.. .@- ....... ..........    +@@- ..::::-=-:.::..-*-::-=: =-.:=+-.:-=%+:=-=:-*-.... .--:..
+:== ..-::  . ==.  *# .:::-:=-....:.......  :@@- ..:::.:::.......-%@-. :-:=+..*%: :=+=::+.-*--#=+@: =+..:
+:%%..-..  .:=+.  :@: :+-==:-.#: ....-.    .%@- ..:.......:===.-:..:::.:+-....@-..::=.-====+=.=:.-:..:-. .
+:@@-:=::..:-:.   %* .....:-::@=  ..:-=:.. *@#  ..    . ..-..-::%+..::-+:.:..:+:...--:-=+#**+.-   ....:
+.**....:....  . =@.::    .::.+%..=:......:@@=      ..:-::- ::. :=-:::=*:..-:=+:--:+=-:==+*=.:.          ...
+ :==+. .....   :@-.-==:-=:.  -*#+. ..... *@@:  .:---===:=-.::::. .--==-:.:+*.-.:--%@#=-=**=:=:
+.-:::  .. .:: .@+.::::::-:: .**=..:---...@@@. ::::--==-:=:..---::.:--.:.=%#=. ...-*#%*=:--:  .
+ :. ......  -.*@.::....     #%=..=-:.   -@@@. :::::=----=:  ::....::::..=+.   ..:....:==-::                  .
+ .. .::.:... +@-.:........:=@+:.=:.     #@@% .::::==-:--:-.....:.:..::...:......:=--..-.:=-:.
+-. :::.....::@* .....:-:---#*+ ::.  .. :@@@- :::-==-----.::.::::.-:..=+..::....:.:-:...::-:..
+.. .-::: .:.%@. ...:--::-.-*#..-:..... =@@@. :---==----=-:-..:...:...*#...:::::::.:-...-+-. :=:      ..
+ ...:::. ..=@+ ..:---:-=-:#@=.-:...::. #@@% .:-====:=------+:..::::::-+:.:-=::--.:--.-=...::-=-.  .:
+.. .:::..::@@. ::--::-=:.*%#.::.....:..@@@* :=---==----==:--::.:::-:::-::-=**=::----:.-=-:===:===:         . .
+ ...=..:..%@+ :---:.-=..-%%-.-:....::.-@@@+.:=---==-=-=-=:::-::-:::---:..::--:=:=+--=:--====:=+-=:        ::
+  .==::: +@@. :--::--.::*%#.-:...:-:. +@@@-.-----=-========---::::-:-::::.:::--.:=*--.::=-:-:-=--=:      ..
+. .=:::..@@+ ::-::==..:-%@:.:....-::. #@@@..:--:-::--===--+=:-::-----::--:-==-:..--:--::==-.:--=+=.
+. -:... +@@..::::-=:.::+%# :....:-:. :@@@*.::--:---:-=-:-==---::----::-:::--:::.-=-.-.:::-+=====-     .</pre></div><a class="scroll-cue" href="#now">↓ bajar</a></section><div class="marquee" role="presentation"><div class="marquee-track"><p class="marquee-set"><span>ASI</span><span>NEUROCIENCIA</span><span>ECONOMÍA POST-LABORAL</span><span>AGENTES ABIERTOS</span><span>HERMES AGENT</span><span>INFRAESTRUCTURA SOBERANA</span><span>INFERENCIA LOCAL</span><span>OMARCHY</span><span>SOPORTE</span><span>TECH NOIR</span></p><p class="marquee-set" aria-hidden="true"><span>ASI</span><span>NEUROCIENCIA</span><span>ECONOMÍA POST-LABORAL</span><span>AGENTES ABIERTOS</span><span>HERMES AGENT</span><span>INFRAESTRUCTURA SOBERANA</span><span>INFERENCIA LOCAL</span><span>OMARCHY</span><span>SOPORTE</span><span>TECH NOIR</span></p></div></div><script>
+  /* The portrait sits dithered: a fixed random subset of its glyphs is swapped
+     for noise. Hover or focus eases that subset to zero, so the face resolves;
+     leaving lets it dissolve back. Only runs while easing, never idles. With
+     reduced motion it jumps between the two states instead of easing. */
+  (function () {
+    var el = document.getElementById('portrait');
+    if (!el) return;
+    var clean = el.textContent;
+    var RAMP = '.:-=+*#%@';
+    var NOISY = 0.5;
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var seed = [];
+    for (var i = 0; i < clean.length; i++) seed.push(Math.random());
+    var level = NOISY, target = NOISY, raf = 0, last = 0;
+    function paint() {
+      var out = '';
+      for (var i = 0; i < clean.length; i++) {
+        var ch = clean[i];
+        out += (ch !== ' ' && ch !== '\n' && seed[i] < level) ? RAMP[(Math.random() * RAMP.length) | 0] : ch;
+      }
+      el.textContent = out;
+    }
+    function step(now) {
+      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      var dir = target > level ? 1 : -1;
+      level += dir * dt * 1.1;
+      if ((dir > 0 && level >= target) || (dir < 0 && level <= target)) level = target;
+      paint();
+      raf = level === target ? 0 : requestAnimationFrame(step);
+    }
+    function go(t) {
+      target = t;
+      if (still) { level = t; paint(); return; }
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(step); }
+    }
+    paint();
+    el.addEventListener('pointerenter', function () { go(0); });
+    el.addEventListener('pointerleave', function () { if (document.activeElement !== el) go(NOISY); });
+    el.addEventListener('focus', function () { go(0); });
+    el.addEventListener('blur', function () { go(NOISY); });
+  })();
+</script><script type="module" src="/v/v3/_astro/Hero.astro_astro_type_script_index_0_lang.BiGBlh_G.js"></script><section class="sec" id="now" aria-labelledby="now-title"><div class="shell"><p class="kicker">01 · AHORA</p><h2 class="sec-title" id="now-title">Agentes abiertos. <em>Dos plugins de Hermes</em>.</h2><p class="lede">Psychopomp y Sabbath, hechos para el hackathon de plugins de Nous Research y probados de principio a fin en mi propio Hermes, en Desktop y Telegram.</p><div class="plugins reveal"><article class="card plugin"><span class="meta">☤ plugin de Hermes · en el hackathon</span><h3>Psychopomp</h3><p>Cada semana Hermes te ayuda a escribir una página de tu vida. Si un día te quedas en silencio para siempre, lleva tus palabras a la gente que quieres, pero solo cuando tu testigo envía un código. Se llama como el otro oficio de Hermes: guía de almas. Probado en mi propio Hermes, en Desktop y Telegram, y presentado al hackathon de plugins de Nous Research.</p><p class="meta by">vibe-coded: especificado y probado por mí, escrito por un agente</p><p class="links"><a href="https://github.com/ponzgpt/psychopomp" target="_blank" rel="noreferrer">código ↗</a></p></article><article class="card plugin"><span class="meta">☾ plugin de Hermes · en el hackathon</span><h3>Sabbath</h3><p>Tu agente nunca descansa. Ahora descansa contigo. Una vez por semana Hermes te da las buenas noches en el móvil, pausa sus propias tareas programadas, te acompaña en todo menos en el trabajo y aparca lo demás. Al acabar el día, un único resumen tranquilo. Y si el buey cae al pozo: /sabbath ox.</p><p class="meta by">vibe-coded: especificado y probado por mí, escrito por un agente</p><p class="links"><a href="https://github.com/ponzgpt/sabbath" target="_blank" rel="noreferrer">código ↗</a></p></article></div><div class="now-grid"><div class="reveal"><ul class="stats"><li><span class="fig">31</span><span class="what">tests</span><span class="src"><a href="https://github.com/ponzgpt/psychopomp" target="_blank" rel="noreferrer">18 psychopomp</a> + <a href="https://github.com/ponzgpt/sabbath" target="_blank" rel="noreferrer">13 sabbath</a></span></li><li><span class="fig">2</span><span class="what">PRs al catálogo</span><span class="src">hermes-agent <a href="https://github.com/NousResearch/hermes-agent/pull/152559" target="_blank" rel="noreferrer">#152559</a> · <a href="https://github.com/NousResearch/hermes-agent/pull/152560" target="_blank" rel="noreferrer">#152560</a></span></li><li><span class="fig">14 h</span><span class="what">hasta la revisión</span><span class="src"><a href="https://github.com/NousResearch/hermes-agent/pull/152559" target="_blank" rel="noreferrer">abierta 10 nov 10:05 → revisada 11 nov 00:07 UTC</a></span></li><li><span class="fig">12 h</span><span class="what">hasta publicar los arreglos</span><span class="src"><a href="https://github.com/NousResearch/hermes-agent/pull/152559" target="_blank" rel="noreferrer">revisada 00:07 → arreglos fijados 11:59 UTC</a></span></li></ul><p class="status"><span class="dot" aria-hidden="true"></span>Las dos PRs al catálogo están abiertas, pendientes de una nueva revisión. Aún no hay nada fusionado.</p></div><figure class="replay reveal"><div class="replay-bar"><span>Sesión ilustrativa · /sabbath</span><button type="button" class="replay-btn" id="replayBtn" hidden>↻ repetir</button></div><pre class="replay-out" id="replayOut"><span class="r-cmd">› /sabbath
+</span><span class="r-bot">hermes  Buenas noches. Es Sabbath: descanso contigo hasta mañana.
+</span><span class="r-bot">hermes  Mis tareas programadas están en pausa. Lo que llegue, lo aparco.
+</span><span class="r-you">tú  ¿algo bueno que ver esta noche?
+</span><span class="r-bot">hermes  Mucho. ¿Una película, un paseo, una lectura larga? Todo menos trabajo.
+</span><span class="r-cmd">› /sabbath ox
+</span><span class="r-bot">hermes  El buey ha caído al pozo. Me ocupo solo de esto y vuelvo a descansar.
+</span><span class="r-sep">— al acabar el día —
+</span><span class="r-bot">hermes  Resumen: todo lo que aparqué hoy, en una sola lista tranquila.
+</span></pre><figcaption>Repetición escrita a mano, no una grabación.</figcaption></figure></div></div></section><script>
+  /* Typewriter for the replay. The full session is already in the HTML (so it
+     reads without JS and for screen readers); this blanks it and types it back
+     once it scrolls into view. Reduced motion: leave it as written. */
+  (function () {
+    var out = document.getElementById('replayOut');
+    var btn = document.getElementById('replayBtn');
+    if (!out || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    var lines = Array.prototype.map.call(out.children, function (s) { return { cls: s.className, text: s.textContent }; });
+    out.setAttribute('aria-busy', 'true');
+    var timer = 0;
+    function play() {
+      clearTimeout(timer);
+      out.textContent = '';
+      btn.hidden = true;
+      var li = 0, ci = 0, span = null;
+      (function tick() {
+        if (li >= lines.length) { btn.hidden = false; out.removeAttribute('aria-busy'); return; }
+        var line = lines[li];
+        if (!span) { span = document.createElement('span'); span.className = line.cls; out.appendChild(span); }
+        ci++;
+        span.textContent = line.text.slice(0, ci);
+        if (ci >= line.text.length) { li++; ci = 0; span = null; timer = setTimeout(tick, line.cls === 'r-cmd' ? 500 : 260); }
+        else timer = setTimeout(tick, line.cls === 'r-bot' ? 14 : 55);
+      })();
+    }
+    var io = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { io.disconnect(); play(); }
+    }, { threshold: 0.4 });
+    io.observe(out);
+    btn.addEventListener('click', play);
+  })();
+</script><section class="sec" id="work" aria-labelledby="work-title"><div class="shell"><p class="kicker">02 · TRABAJO</p><h2 class="sec-title" id="work-title">Cosas que <em>funcionan</em>.</h2><p class="lede">Productos pequeños, un par de juegos, una wiki. Soy vibe coder: decido, especifico, pruebo y publico; el código lo escriben agentes de IA. Cada ficha lo dice y nombra el trabajo ajeno del que parte.</p><div class="work-lead"><article class="card reveal"><span class="meta">◎ búsqueda clínica · en uso</span><h3>Neuronara</h3><p>Respuestas con citas sobre los estándares de la neurofisiología clínica: EEG, EMG/ENG, potenciales evocados, sueño, monitorización intraoperatoria. Construido para mi pareja, neurofisióloga clínica, y mejorado en un ciclo de feedback con ella: cada fallo que reporta se reproduce, se arregla y se añade al conjunto de evaluación para que no vuelva.</p><p class="links"><a href="https://neuronara.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/neuronara" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article><article class="card reveal"><span class="meta">◆ proyecto principal · en marcha</span><h3>Machines Do It Better</h3><p>Hacia dónde voy: agentes de IA personales y para negocios, montados sobre modelos y frameworks abiertos como Hermes, para que la cuenta, los datos y la elección de modelo sean tuyos. El reflejo del Genius Bar aplicado a los agentes: que funcione, explicártelo y dejarte el control. En prelanzamiento; los primeros pilotos son familia y amigos.</p><p class="links"><a href="https://mdib.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/machines-do-it-better" target="_blank" rel="noreferrer">código ↗</a><span class="by">mío; web hecha en vibe coding</span></p></article><article class="card reveal"><span class="meta">¶ wiki · creciendo</span><h3>Post-Labor Wiki</h3><p>Una wiki visual y con fuentes sobre economía post-laboral y la sociedad post-trabajo: líneas de tiempo, gráficas y memes en vez de muros de texto, y una cita detrás de cada afirmación. Se publica sección a sección.</p><p class="links"><a href="https://post-labor-wiki.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/post-labor-wiki" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article></div><p class="label also-label">También hecho</p><div class="work-rest"><article class="card small reveal"><span class="meta">▲ juego de navegador · en producción</span><h3>ASI Rush</h3><p>Un clicker sobre la carrera real hacia la IA: de los PCs beige en un garaje, pasando por los inviernos de la IA, las GPUs y los transformers, hasta la superinteligencia. Los laboratorios rivales compiten contigo y tu laboratorio cambia de época a tu alrededor.</p><p class="links"><a href="https://asi-rush.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/asi-rush" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article><article class="card small reveal"><span class="meta">☢ juego para agentes · en producción</span><h3>BRINK</h3><p>Un juego determinista de escalada nuclear con arsenales publicados y distancias reales, jugable en el navegador o por cualquier agente con MCP, Hermes incluido: una forma de ver cómo se comportan los agentes bajo presión.</p><p class="links"><a href="https://brink.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/brink" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article><article class="card small reveal"><span class="meta">▥ aplicación web · en producción</span><h3>StacksNRacks</h3><p>Hardware para IA local, con precios de esta semana: niveles de presupuesto para correr LLMs en casa, tokens por segundo por euro estimados y equipos de la comunidad enviados como issues de GitHub.</p><p class="links"><a href="https://stacksnracks.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/stacksnracks" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article><article class="card small reveal"><span class="meta">▣ aplicación web · publicado</span><h3>Memento Mori</h3><p>Una visualización privada de esperanza de vida, en el navegador: un empujón para actuar, sin pretender predecir nada de nadie. Sin backend, sin cuentas, sin analítica.</p><p class="links"><a href="https://memento.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/memento-mori" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article><article class="card small reveal"><span class="meta">∿ atlas de estudio · en producción</span><h3>Hyperexcitability atlas</h3><p>Un atlas de estudio interactivo del webinar de EURO-NMD sobre hiperexcitabilidad muscular y calambres, para neurofisiólogos clínicos: dónde empieza, qué oye el EMG y por qué ocurre.</p><p class="links"><a href="https://hyperexcitability.technoir.cloud/" target="_blank" rel="noreferrer">en vivo ↗</a><a href="https://github.com/ponzgpt/hyperexcitability" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article><article class="card small reveal"><span class="meta">▤ paquete de skills · activo</span><h3>Mental Models Toolkit</h3><p>Treinta modelos mentales legibles por máquina para decisiones y comprobaciones de riesgo, empaquetados como skill pack de agente y validados contra esquema en CI.</p><p class="links"><a href="https://github.com/ponzgpt/mental-models-toolkit" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: modelos elegidos por mí, escrito por un agente</span></p></article><article class="card small reveal"><span class="meta">⚚ kit para Hermes · archivado</span><h3>hermes-contributions</h3><p>Lo primero que hice alrededor de Hermes, bajo un mismo techo: un script de arranque, una portada que se comporta como la CLI, una guía de modelos y un kit PKM, con una comprobación que rompe el build cuando cambia un dato citado de upstream.</p><p class="links"><a href="https://github.com/ponzgpt/hermes-contributions" target="_blank" rel="noreferrer">código ↗</a><span class="by">vibe-coded: especificado por mí, escrito por un agente</span></p></article></div></div></section><section class="sec" id="rig" aria-labelledby="rig-title"><div class="shell"><p class="kicker">03 · EQUIPO</p><h2 class="sec-title" id="rig-title">Infraestructura <em>soberana</em>.</h2><p class="lede">La máquina en la que trabajo, el servidor donde corre todo lo de aquí y las herramientas que uso a diario pero no he escrito.</p><div class="rig-grid"><figure class="scene reveal"><div class="scene-box" id="rigScene" tabindex="0" role="img" aria-label="Un nudo tórico dibujado con caracteres ASCII ámbar. Arrastra, o usa las flechas, para girarlo."><pre class="scene-fallback" aria-hidden="true">
+
+                                       ==***+++++
+                             ---=###******     **+
+                       -*-%#######             =*++
+                      --%%%%%                  =#  ++
+                     -##-%  %%%%:              -#   ++
+                   --## :%      %%%%:          -#    ++
+                  =###  :%         %%%%:.      :%     ++
+                 =##    :%             %@@@.   :%      ++
+                =*#     :%                @@@@@.@       ++
+               **       :%                  ..@@@@:      ++
+             +**        :%               ... @@@@ @%%%-    +
+            +**         :%            ... @@@@ .@    ####*= ++
+           +*           :@         .... @@@    .@        ****++
+          ++            :@      .... @@@@      .@            ++
+          +****=        .@    ... @@@@         :%           ++
+           ++ *####-    .@ .... @@@            :%         =++
+             +    #%%%: .@.. @@@               :%        =*+
+              ++      %@@@@@@                  :%       **
+               ++       :@@@@..                :%     =**
+                ++      :@   @@@@:             :%    -**
+                 ++     -%      @%%%%:         :%  --**
+                  ++    -%          %%%%%      :% --##
+                   ++   -#              %%%%:  :%-##
+                    ++  =#                  %%#####
+                      ++=*             ----#######
+                       ++*     ==********###
+                        +++++++***
+</pre></div><figcaption class="meta">arrastra para girar</figcaption></figure><div class="specs reveal"><p class="label">Estación de trabajo</p><p class="facts-h">Hardware</p><dl class="facts"><dt>PC</dt><dd>montaje propio</dd><dt>CPU</dt><dd>AMD Ryzen 9 9900X3D (24) @ 5,58 GHz</dd><dt>GPU</dt><dd>NVIDIA GeForce RTX 5090</dd><dt>Display</dt><dd>3840x2160 @ 120 Hz en 42&quot;</dd><dt>Disk</dt><dd>127,13 GiB / 1,82 TiB (7%) - btrfs</dd><dt>Disk</dt><dd>0 B / 1,82 TiB (0%) - btrfs</dd><dt>Memory</dt><dd>9,36 GiB / 60,46 GiB (15%)</dd><dt>Swap</dt><dd>0 B / 120,91 GiB (0%)</dd></dl><p class="facts-h">Software</p><dl class="facts"><dt>OS</dt><dd>Omarchy 4.0.3-1</dd><dt>Channel</dt><dd>stable</dd><dt>Kernel</dt><dd>Linux 7.2.3-arch1-3</dd><dt>WM</dt><dd>Hyprland 0.56.2 (Wayland)</dd><dt>Terminal</dt><dd>foot 1.28.0</dd><dt>Packages</dt><dd>1045 (pacman)</dd><dt>Theme</dt><dd>Tokyo Night</dd><dt>Font</dt><dd>JetBrainsMono Nerd Font (12pt)</dd></dl></div></div><div class="running"><article class="card small reveal"><span class="meta">Servidor</span><h3>VPS</h3><p>Un VPS que administro yo: Docker, Docker Swarm, Dokploy, Traefik y nginx. Todos los enlaces *.technoir.cloud de esta página corren ahí.</p></article><article class="card small reveal"><span class="meta">Inferencia local</span><h3>Inferencia local</h3><p>Un montaje de inferencia local de dos equipos, en reconstrucción tras un tiempo apagado: un laboratorio de verdad y un proyecto de aprendizaje, no un endpoint de producción al que nadie pueda llamar hoy.</p></article><article class="card small reveal"><span class="meta">Uso a diario, no lo he escrito</span><h3>Hermes Agent</h3><p>Mi agente principal, Syl, corre en Hermes Cloud a través de Nous Portal; entré en la beta de Portal entre sus primeros usuarios. Flujos programados, skills que edito como Markdown y tools que son servidores que puedo leer.</p><p class="meta by">◉ framework de agentes · diario · Nous Research · yo lo opero</p><p class="links"><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noreferrer">github.com/NousResearch/hermes-agent ↗</a></p></article><article class="card small reveal"><span class="meta">Uso a diario, no lo he escrito</span><h3>Omarchy</h3><p>Mi sistema principal, junto a Arch y Fedora. Un escritorio que espera que lo edites, no que lo aguantes. La máquina tiene que ser moldeable antes de que un agente pueda hacer gran cosa con ella.</p><p class="meta by">⌘ sistema operativo · diario · Basecamp / DHH · yo lo uso</p><p class="links"><a href="https://omarchy.org" target="_blank" rel="noreferrer">omarchy.org ↗</a></p></article></div></div></section><script type="module" src="/v/v3/_astro/RigSection.astro_astro_type_script_index_0_lang.BP_1TVpQ.js"></script><section class="sec" id="story" aria-labelledby="story-title"><div class="shell"><p class="kicker">04 · HISTORIA</p><h2 class="sec-title" id="story-title">Diez años en el Genius Bar, <em>después agentes</em>.</h2><p class="lede">Apple primero, porque es la prueba más sólida. Después, el salto a la IA y lo que estudio mientras lo doy.</p><div class="story-grid"><ol class="timeline"><li class="reveal"><span class="when">Sep 2014 – Feb 2018</span><div><h3>Specialist y luego Technical Specialist · Apple Retail</h3><p>Parquesur, Madrid. Fundamentos de diagnóstico, venta consultiva y ejecución diaria bajo presión.</p><details><summary>En qué consistía el puesto</summary><ul><li>Fundamentos de diagnóstico, soporte consultivo y ejecución bajo presión.</li></ul></details></div></li><li class="reveal"><span class="when">Mar 2018 – Aug 2024</span><div><h3>Genius · Apple Retail</h3><p>Parquesur, Leganés. Seis años y medio como base técnica de la tienda: diagnóstico avanzado en los casos que nadie más había resuelto, traduciéndolos para personas con niveles de conocimiento muy distintos, y formando a los técnicos más nuevos.</p><details><summary>En qué consistía el puesto</summary><ul><li>Diagnostiqué y reparé fallos de hardware y software en Mac, iPhone y iPad, llevando cada caso hasta las comprobaciones posteriores a la reparación; tiempos de reparación entre los más cortos del equipo mientras cubría el soporte de cara al público; NPS estable y en la media del equipo o por encima.</li><li>Mis compañeros usaban mis notas de caso como el ejemplo a seguir; estandaricé la documentación según las pautas de Apple, lo que acortó sus citas. Propuse a la dirección mejoras de proceso en la sala de reparaciones y conecté Soporte con el almacén en las piezas defectuosas de origen.</li><li>Mentoricé a técnicos y Geniuses nuevos con acompañamiento y feedback sobre casos; los Lead Geniuses me confiaban la asignación de recursos en tienda y el triaje de clientes sin cita.</li></ul></details></div></li><li class="reveal"><span class="when">Mar – Jun 2020</span><div><h3>AppleCare Support Advisor · Apple</h3><p>En remoto, durante la COVID, como voluntario. Casos simultáneos bajo estándares estructurados de resolución de incidencias y documentación, trabajando sin tienda física alrededor.</p><details><summary>En qué consistía el puesto</summary><ul><li>Soporte remoto y asíncrono: Tier 1 por teléfono, correo y chat, varios casos a la vez, cada uno llevado del primer contacto a la resolución con estándares estructurados de resolución de incidencias y documentación.</li><li>Escalaba lo que Tier 1 no podía resolver: documentaba el caso, informaba antes a Tier 2 y después hacía el traspaso a tres en directo con el cliente.</li></ul></details></div></li><li class="reveal"><span class="when">Feb – Aug 2023 · Feb – Aug 2024</span><div><h3>Responsable de Experiencia en Tienda · Apple Retail (comisión de servicio, dos veces)</h3><p>Primero Xanadú, después Parquesur. Dos comisiones de liderazgo de siete meses compatibilizadas con el puesto de Genius: planificación, recursos, eventos, coordinación y las situaciones que no encajaban en ningún procedimiento. Liderar consistía en quitar obstáculos; luego, vuelta al banco de trabajo.</p><details><summary>En qué consistía el puesto</summary><ul><li>Del banco de trabajo al liderazgo, dos veces: comisiones de siete meses compatibilizadas con el puesto de Genius. Trabajé junto al equipo de dirección como enlace entre ellos y la tienda, llevándola de apertura a cierre: turnos y descansos del equipo, flujo de clientes, logística.</li><li>Formé al personal técnico y de ventas, dirigí la coordinación semanal entre equipos y compartí la optimización de horarios; me ocupé de lo que no cubría ningún procedimiento. Mi responsable destacó mi visibilidad ante el equipo de Soporte y la dirección de la tienda.</li></ul></details></div></li><li class="reveal"><span class="when">Aug 2024</span><div><h3>Aberdeen, Escocia</h3><p>Me mudé al Reino Unido y empecé una transición deliberada hacia la IA y el desarrollo full stack.</p></div></li><li class="reveal"><span class="when">Aug 2024 – now</span><div><h3>IA, herramientas para agentes y construir en público</h3><p>Estudiando IA y full stack en la Universidad Rey Juan Carlos a través de Racks University, levantando Machines Do It Better, escribiendo una newsletter (technoirNews, luego Machines Do It Better; en pausa) y publicando productos pequeños que llegan a producción.</p></div></li><li class="reveal"><span class="when">Nov 2026</span><div><h3>Dos plugins de Hermes · hackathon de Nous Research</h3><p>Psychopomp y Sabbath, probados de principio a fin en mi propio Hermes y enviados al catálogo de plugins de Hermes.</p></div></li></ol><div class="story-side"><div class="reveal"><p class="label">Formación y certificaciones</p><ul class="creds"><li><strong>Especialista en Inteligencia Artificial</strong><span class="meta">Universidad Rey Juan Carlos, a través de Racks University (adscrita a IUNIT) · Oct 2024 – Dec 2026 · en curso</span></li><li><strong>Desarrollador Full Stack de IA</strong><span class="meta">Universidad Rey Juan Carlos, a través de Racks University (adscrita a IUNIT) · Sep 2025 – Dec 2026 · en curso</span></li><li><strong>Ingeniería Industrial (Electrónica y Automática)</strong><span class="meta">Universidad Politécnica de Madrid · 80 ECTS superados · título sin terminar</span></li><li><strong>Apple Certified Mac Technician (ACMT) · Apple Certified iOS Technician (ACiT)</strong><span class="meta">Apple · Certificado</span></li></ul></div><div class="reveal"><p class="label">Competencias</p><div class="skillgroup"><h3>Demostrado en la práctica</h3><p>Diagnóstico y resolución de incidencias técnicas · Soporte técnico consultivo · Traducir tecnología compleja para gente no técnica · Documentación y comunicación técnica clara · Productos web pequeños desplegados en producción · Flujos con agentes, herramientas MCP y skills · Testing y controles de publicación · Mentoría y liderazgo de equipos</p></div><div class="skillgroup"><h3>Aprendiendo ahora</h3><p>IA y desarrollo Full Stack · JavaScript / TypeScript · Python · Astro · Linux: Arch, Fedora, Omarchy · Bash, redes y SSH · Docker, Traefik y nginx · GitHub Actions y CI · Automatización, evaluación y sistemas abiertos</p></div><div class="skillgroup"><h3>Hacia dónde voy</h3><p>Operaciones e implementación con agentes · Soberanía digital y tecnología privada y personalizada · Inferencia local y servido de modelos · vLLM y pesos abiertos cuantizados · Kubernetes y orquestación de contenedores · Despliegue de servicios con agentes y su infraestructura · Un homelab propio: hardware, topología, redes, Proxmox · Herramientas para que personas normales y pequeños negocios usen la tecnología con más control</p></div><p class="meta skills-note">Separado en tres a propósito. Nada del segundo ni del tercer grupo es experiencia que ya tenga. El tercero es lo que empiezo ahora, con un LLM y un arnés de agentes al lado y buscando el 20% que hace funcionar un sistema: lo justo para desplegarlo, leer lo que propone el arnés y pillarlo cuando se equivoca.</p></div></div></div></div></section><section class="sec" id="notes" aria-labelledby="notes-title"><div class="shell"><p class="kicker">05 · CUADERNO DE CAMPO</p><h2 class="sec-title" id="notes-title">ASI, neurociencia, <em>economía post-laboral</em>.</h2><p class="lede">Intereses, no credenciales. Cada columna enlaza a lo que he construido o escrito a su alrededor.</p><div class="note-cols"><div class="note-col reveal"><p class="note-n">01</p><h3>ASI</h3><ul><li><a href="https://asi-rush.technoir.cloud/" target="_blank" rel="noreferrer">ASI Rush ↗</a><span>Un clicker sobre la carrera real hacia la IA, de los PCs beige en un garaje a la superinteligencia.</span></li><li><a href="https://machinesdoitbetter.beehiiv.com" target="_blank" rel="noreferrer">Machines Do It Better ↗</a><span>Machines Do It Better, la newsletter: temas calientes sobre agentes de IA. En pausa; el archivo sigue en línea.</span></li></ul></div><div class="note-col reveal"><p class="note-n">02</p><h3>Neurociencia</h3><ul><li><a href="https://neuronara.technoir.cloud/" target="_blank" rel="noreferrer">Neuronara ↗</a><span>Respuestas con citas sobre los estándares de la neurofisiología clínica, construido para mi pareja, neurofisióloga clínica.</span></li><li><a href="https://hyperexcitability.technoir.cloud/" target="_blank" rel="noreferrer">Hyperexcitability atlas ↗</a><span>Un atlas de estudio del webinar de EURO-NMD sobre hiperexcitabilidad muscular y calambres.</span></li></ul></div><div class="note-col reveal"><p class="note-n">03</p><h3>Economía post-laboral</h3><ul><li><a href="https://post-labor-wiki.technoir.cloud/" target="_blank" rel="noreferrer">Post-Labor Wiki ↗</a><span>Una wiki visual y con fuentes sobre economía post-laboral y la sociedad post-trabajo, con una cita detrás de cada afirmación.</span></li></ul></div></div><div class="newsletter reveal"><p class="label">Estado</p><p class="nl-status">En pausa. Empezó como technoirNews en Substack y pasó a beehiiv como Machines Do It Better; el archivo sigue en línea. Volverá cuando Hermes haga más del trabajo de campo. <a href="https://machinesdoitbetter.beehiiv.com" target="_blank" rel="noreferrer">machinesdoitbetter.beehiiv.com ↗</a></p><p class="meta">Temas: Agentes y Hermes Agent · Soberanía digital · Omarchy, Linux y sistemas abiertos · Adopción práctica de la IA · Construir, desplegar y aprender en público · Fallos, límites y decisiones de diseño</p></div><p class="label also-label">Hitos</p><ul class="milestones"><li class="reveal"><span class="when">Diez años</span><strong>Apple Retail España · 2014–2024</strong><span>Cinco puestos en una década, seis años y medio de ellos como Genius: la base técnica de la tienda.</span></li><li class="reveal"><span class="when">Dos veces</span><strong>Responsable de Experiencia en Tienda</strong><span>Dos comisiones de liderazgo de siete meses, ambas compatibilizadas con el puesto de Genius, y devueltas después.</span></li><li class="reveal"><span class="when">Nov 2026</span><strong>Dos plugins de Hermes</strong><span>Psychopomp y Sabbath, hechos para el hackathon de plugins de Nous Research y probados de principio a fin en mi propio Hermes. PRs al catálogo abiertas.</span></li><li class="reveal"><span class="when">En uso</span><strong>Neuronara</strong><span>Una herramienta de referencia clínica con una usuaria real, neurofisióloga clínica, mejorada en un ciclo de feedback con ella; cada arreglo queda fijado por una pregunta de evaluación.</span></li><li class="reveal"><span class="when">En curso</span><strong>IA y desarrollo Full Stack</strong><span>Dos programas en la Universidad Rey Juan Carlos a través de Racks University, ambos hasta diciembre de 2026.</span></li></ul></div></section><section class="sec" id="connect" aria-labelledby="connect-title"><div class="shell"><p class="kicker">06 · CONTACTO</p><h2 class="sec-title" id="connect-title">Si el sistema tiene que tener sentido para <em>la persona</em> que lo usa, escríbeme.</h2><p class="lede">Vivo en Aberdeen, Escocia, y el remoto me viene bien. Busco trabajo de soporte, de cara al cliente y de operaciones con agentes, alrededor de agentes abiertos e IA práctica. Los mensajes de LinkedIn y X están abiertos.</p><div class="connect-grid"><div class="reveal"><p class="label">Un terminal que funciona. Lee los mismos datos que esta página.</p><section class="term-wrap" aria-labelledby="term-title"><div class="win"><div class="bar"><span id="term-title">javier@techn0ir: ~</span><span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="term" id="term"><div class="out-wrap"><pre class="out" id="term-out" tabindex="0" role="log" aria-live="polite"><span class="cmd">javier@techn0ir:~$ help</span>
+<span class="k">Comandos:</span>
+  whoami          la versión breve
+  ls              páginas de este sitio
+  open &lt;página&gt;   ir a una de ellas
+  projects        lo que he hecho, y quién lo escribió
+  running         lo que uso a diario
+  skills          demostrado, aprendiendo, y hacia dónde voy
+  read [tema]     las notas largas: about, apple, newsletter
+  cv              perfil y el PDF
+  contact         LinkedIn, X, GitHub
+  lang [código]   cambiar de idioma: en, es
+  fastfetch       retrato, logotipo y especificaciones
+  btop            un monitor de recursos simulado
+  tree            los repos reales, como árbol de ficheros
+  clear           limpiar la pantalla
+
+<span class="hint">Escribe <b>help</b> para ver la lista de comandos.</span>
+</pre><div class="scroll-fade" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div><form class="line" id="term-form" autocomplete="off"><label for="term-in">javier@techn0ir:~$</label><span class="cursor" aria-hidden="true"></span><input id="term-in" name="c" type="text" spellcheck="false" autocapitalize="off" aria-describedby="term-title" placeholder="help"></form></div></div></section><script>
+  /* The fastfetch "Uptime" row is not the OS's uptime but time since Javier
+     woke up: elapsed since a fixed 5:30 Europe/London. It only exists while
+     fastfetch output is on screen, so it is looked up fresh each tick. */
+  (function () {
+    var fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+    setInterval(function () {
+      var upEl = document.getElementById('ff-uptime');
+      if (!upEl || document.hidden) return;
+      var p = {};
+      fmt.formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      var secs = (+p.hour) * 3600 + (+p.minute) * 60 + (+p.second) - (5 * 3600 + 30 * 60);
+      if (secs < 0) secs += 24 * 3600;
+      upEl.textContent = pad2(Math.floor(secs / 3600)) + ':' + pad2(Math.floor(secs / 60) % 60) + ':' + pad2(secs % 60);
+    }, 1000);
+  })();
+</script><script>(function(){const data = {"name":"Javier Ponz","location":"Aberdeen, Escocia, Reino Unido","headline":"Soporte técnico · ingeniería de soporte · operaciones con agentes","profile":"Se me da mejor ser la persona entre la gente y sus máquinas: traducir lo que quiere decir el ingeniero, lo que prometió la venta, y lo que la persona realmente tiene en la pantalla. La mayoría de los fallos de soporte son fallos de traducción, no técnicos.","projects":[{"t":"Machines Do It Better","k":"proyecto principal","s":"en marcha","by":"mío; web hecha en vibe coding","d":"Hacia dónde voy: agentes de IA personales y para negocios, montados sobre modelos y frameworks abiertos como Hermes, para que la cuenta, los datos y la elección de modelo sean tuyos. El reflejo del Genius Bar aplicado a los agentes: que funcione, explicártelo y dejarte el control. En prelanzamiento; los primeros pilotos son familia y amigos.","u":"https://github.com/ponzgpt/machines-do-it-better"},{"t":"Psychopomp","k":"plugin de Hermes","s":"en el hackathon","by":"vibe-coded: especificado y probado por mí, escrito por un agente","d":"Cada semana Hermes te ayuda a escribir una página de tu vida. Si un día te quedas en silencio para siempre, lleva tus palabras a la gente que quieres, pero solo cuando tu testigo envía un código. Se llama como el otro oficio de Hermes: guía de almas. Probado en mi propio Hermes, en Desktop y Telegram, y presentado al hackathon de plugins de Nous Research.","u":"https://github.com/ponzgpt/psychopomp"},{"t":"Sabbath","k":"plugin de Hermes","s":"en el hackathon","by":"vibe-coded: especificado y probado por mí, escrito por un agente","d":"Tu agente nunca descansa. Ahora descansa contigo. Una vez por semana Hermes te da las buenas noches en el móvil, pausa sus propias tareas programadas, te acompaña en todo menos en el trabajo y aparca lo demás. Al acabar el día, un único resumen tranquilo. Y si el buey cae al pozo: /sabbath ox.","u":"https://github.com/ponzgpt/sabbath"},{"t":"Neuronara","k":"búsqueda clínica","s":"en uso","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Respuestas con citas sobre los estándares de la neurofisiología clínica: EEG, EMG/ENG, potenciales evocados, sueño, monitorización intraoperatoria. Construido para mi pareja, neurofisióloga clínica, y mejorado en un ciclo de feedback con ella: cada fallo que reporta se reproduce, se arregla y se añade al conjunto de evaluación para que no vuelva.","u":"https://github.com/ponzgpt/neuronara"},{"t":"ASI Rush","k":"juego de navegador","s":"en producción","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Un clicker sobre la carrera real hacia la IA: de los PCs beige en un garaje, pasando por los inviernos de la IA, las GPUs y los transformers, hasta la superinteligencia. Los laboratorios rivales compiten contigo y tu laboratorio cambia de época a tu alrededor.","u":"https://github.com/ponzgpt/asi-rush"},{"t":"Post-Labor Wiki","k":"wiki","s":"creciendo","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Una wiki visual y con fuentes sobre economía post-laboral y la sociedad post-trabajo: líneas de tiempo, gráficas y memes en vez de muros de texto, y una cita detrás de cada afirmación. Se publica sección a sección.","u":"https://github.com/ponzgpt/post-labor-wiki"},{"t":"BRINK","k":"juego para agentes","s":"en producción","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Un juego determinista de escalada nuclear con arsenales publicados y distancias reales, jugable en el navegador o por cualquier agente con MCP, Hermes incluido: una forma de ver cómo se comportan los agentes bajo presión.","u":"https://github.com/ponzgpt/brink"},{"t":"StacksNRacks","k":"aplicación web","s":"en producción","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Hardware para IA local, con precios de esta semana: niveles de presupuesto para correr LLMs en casa, tokens por segundo por euro estimados y equipos de la comunidad enviados como issues de GitHub.","u":"https://github.com/ponzgpt/stacksnracks"},{"t":"Memento Mori","k":"aplicación web","s":"publicado","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Una visualización privada de esperanza de vida, en el navegador: un empujón para actuar, sin pretender predecir nada de nadie. Sin backend, sin cuentas, sin analítica.","u":"https://github.com/ponzgpt/memento-mori"},{"t":"Hyperexcitability atlas","k":"atlas de estudio","s":"en producción","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Un atlas de estudio interactivo del webinar de EURO-NMD sobre hiperexcitabilidad muscular y calambres, para neurofisiólogos clínicos: dónde empieza, qué oye el EMG y por qué ocurre.","u":"https://github.com/ponzgpt/hyperexcitability"},{"t":"Mental Models Toolkit","k":"paquete de skills","s":"activo","by":"vibe-coded: modelos elegidos por mí, escrito por un agente","d":"Treinta modelos mentales legibles por máquina para decisiones y comprobaciones de riesgo, empaquetados como skill pack de agente y validados contra esquema en CI.","u":"https://github.com/ponzgpt/mental-models-toolkit"},{"t":"hermes-contributions","k":"kit para Hermes","s":"archivado","by":"vibe-coded: especificado por mí, escrito por un agente","d":"Lo primero que hice alrededor de Hermes, bajo un mismo techo: un script de arranque, una portada que se comporta como la CLI, una guía de modelos y un kit PKM, con una comprobación que rompe el build cuando cambia un dato citado de upstream.","u":"https://github.com/ponzgpt/hermes-contributions"}],"running":[{"t":"Hermes Agent","k":"framework de agentes","by":"Nous Research · yo lo opero","d":"Mi agente principal, Syl, corre en Hermes Cloud a través de Nous Portal; entré en la beta de Portal entre sus primeros usuarios. Flujos programados, skills que edito como Markdown y tools que son servidores que puedo leer.","u":"https://github.com/NousResearch/hermes-agent"},{"t":"Omarchy","k":"sistema operativo","by":"Basecamp / DHH · yo lo uso","d":"Mi sistema principal, junto a Arch y Fedora. Un escritorio que espera que lo edites, no que lo aguantes. La máquina tiene que ser moldeable antes de que un agente pueda hacer gran cosa con ella.","u":"https://omarchy.org"}],"skills":[{"g":"Demostrado en la práctica","items":["Diagnóstico y resolución de incidencias técnicas","Soporte técnico consultivo","Traducir tecnología compleja para gente no técnica","Documentación y comunicación técnica clara","Productos web pequeños desplegados en producción","Flujos con agentes, herramientas MCP y skills","Testing y controles de publicación","Mentoría y liderazgo de equipos"]},{"g":"Aprendiendo ahora","items":["IA y desarrollo Full Stack","JavaScript / TypeScript","Python","Astro","Linux: Arch, Fedora, Omarchy","Bash, redes y SSH","Docker, Traefik y nginx","GitHub Actions y CI","Automatización, evaluación y sistemas abiertos"]},{"g":"Hacia dónde voy","items":["Operaciones e implementación con agentes","Soberanía digital y tecnología privada y personalizada","Inferencia local y servido de modelos","vLLM y pesos abiertos cuantizados","Kubernetes y orquestación de contenedores","Despliegue de servicios con agentes y su infraestructura","Un homelab propio: hardware, topología, redes, Proxmox","Herramientas para que personas normales y pequeños negocios usen la tecnología con más control"]}],"contact":[{"l":"LinkedIn","v":"linkedin.com/in/javierponz","h":"https://www.linkedin.com/in/javierponz"},{"l":"GitHub","v":"github.com/ponzgpt","h":"https://github.com/ponzgpt"},{"l":"X","v":"x.com/sudotechnoir","h":"https://x.com/sudotechnoir"},{"l":"Discord","v":"sudotechnoir (Nous Discord)"},{"l":"Sitio","v":"javierponz.technoir.cloud","h":"https://javierponz.technoir.cloud/"}],"pages":[["now","#now","dos plugins de Hermes, con sus fuentes"],["work","#work","lo que he hecho, y quién lo escribió"],["rig","#rig","la máquina, el servidor, lo que uso a diario"],["story","#story","Apple Retail, el cambio de rumbo, la formación, competencias"],["notes","#notes","ASI, neurociencia, economía post-laboral; hitos"],["connect","#connect","este terminal, y cómo contactarme"]],"cvPath":"/javier-ponz-prado-cv.pdf","topics":[{"id":"about","note":"quién soy, el principio, en lo que creo","lines":["«El futuro ya está aquí. Solo que no está repartido por igual.»","— William Gibson","",{"h":"La máquina debería estar moldeada por las necesidades de quien la gobierna."},"Me importa el espacio entre las personas y sus máquinas. Los agentes y las herramientas abiertas pueden devolverle el control a quien las usa. No a la plataforma, ni a quien crea tener derecho a decidir por ti.","",{"h":"Trayectoria"},"Diez años entre las personas y sus máquinas.","Apple me enseñó a diagnosticar rápido, explicarlo claro y poner a la persona primero. Por el camino dejé de ver al Genius como alguien que repara el producto y empecé a verlo como alguien que resuelve lo que de verdad necesita quien tiene delante. El mismo objetivo ahora, otra superficie: agentes, automatizaciones y la infraestructura que hay debajo.","Quiero una máquina que funcione en cuanto la enciendo y que me deje abrirla cuando me apetezca. Comodidad y control no son opuestos. Los pesos y las herramientas abiertas importan por lo mismo: quien los controla decide dónde está el techo.","",{"h":"El principio"},"Liderar es servir.","Quitar lo que le estorba a alguien y dejarle con más control del que tenía. En un banco de reparación, en un equipo o dentro de un sistema. Y liderar no es imponer tu criterio, por correcto que sea. Es sacar la mejor idea de todos.","",{"h":"En lo que creo"},"El open source tiene que ganar. Tu máquina, tus datos, tus llaves, tu agente.","La libertad primero. Confío en que cada cual maneje sus herramientas, su dinero y sus propios errores.","Optimista con la tecnología: construir más rápido, en abierto y con las personas al mando.","Mediterráneo hasta la médula: mitos griegos, calzadas romanas, fiestas de guardar. Se cuela en lo que hago, desde un plugin con el nombre del segundo oficio de Hermes hasta otro que guarda un día de descanso.","El viaje antes que el destino.","",{"h":"Fuera del trabajo"},"Metalhead, adicto al café, montando y haciendo overclocking de PCs desde adolescente. El mismo instinto detrás de Omarchy, GrapheneOS, salir de Google y el homelab que estoy diseñando. El coche de mis sueños sigue siendo un Honda Civic."]},{"id":"apple","note":"diez años en Apple Retail, luego Aberdeen","lines":[{"h":"Una década de diagnóstico, soporte y quitar obstáculos."},"Apple primero, porque es la prueba más sólida. Después, el salto a la IA y lo que estudio mientras lo doy.","",{"h":"Apple Retail España · 2014–2024"},"Specialist, Technical Specialist, Genius y responsable de Experiencia en Tienda, todo en Madrid. Casi toda la década fui Genius: diagnóstico avanzado, triaje de reparaciones, casos que ya habían podido con otro, y explicárselo todo a gente con niveles técnicos muy distintos.","Cuando la COVID cerró las tiendas me ofrecí voluntario para el soporte remoto de AppleCare: varios casos a la vez por teléfono, correo y chat, cada uno llevado hasta resolverlo. Como Lead llevé la tienda junto a dirección, de apertura a cierre, y me ocupé de todo lo que no cubría ningún procedimiento.","La lección útil fue sencilla: la respuesta técnicamente correcta y la respuesta útil no siempre son la misma frase.","",{"h":"Aberdeen, Escocia · desde 2024"},"Me mudé de Madrid a Aberdeen y me lancé de lleno a la IA. Aprendo construyendo: apps pequeñas, herramientas para agentes, plugins para Hermes, despliegues en mi propio servidor y documentación que cuenta lo que pasó de verdad. También empecé una newsletter, technoirNews en Substack, luego Machines Do It Better en beehiiv. De momento está en pausa."]},{"id":"newsletter","note":"Machines Do It Better, y las notas detrás","lines":[{"h":"Machines Do It Better: the signal."},"Notas desde la máquina: agentes, soberanía, sistemas abiertos, aprender en público, y el trabajo raro de conseguir que la tecnología le responda a su dueño.","","En pausa. Empezó como technoirNews en Substack y pasó a beehiiv como Machines Do It Better; el archivo sigue en línea. Volverá cuando Hermes haga más del trabajo de campo.","",{"h":"Omarchy / sistemas abiertos"},"Prefiero ordenadores que se puedan editar, no solo tolerar. La configuración en texto plano, los ficheros legibles y un dueño capaz de entender el sistema son ventajas prácticas, no decoración estética.","",{"h":"Hermes Agent"},"Opero Hermes Agent a diario y construyo herramientas y skills a su alrededor. La pregunta interesante no es si un agente puede dar una respuesta convincente. Es si el flujo se puede inspeccionar, si los permisos están claros y si el fallo sigue siendo visible.","Hermes Agent lo construye Nous Research. Lo mío es usarlo, hacerle plugins y herramientas, y dejar por escrito lo que aprendo. No el proyecto en sí.","",{"h":"Inferencia local / homelab"},"Estoy reconstruyendo un montaje de inferencia local de dos equipos tras un tiempo apagado. Es un laboratorio de verdad y un proyecto de aprendizaje, no un endpoint de producción al que nadie pueda llamar hoy.","El trabajo alrededor toca Linux, Bash, redes, SSH, Docker, servido de modelos, y las partes poco lucidas de mantener una máquina comprensible."]}],"langs":[{"id":"en","name":"English","home":"/v/v3/"},{"id":"es","name":"Español","home":"/v/v3/es/"}],"curLang":"es","help":[["whoami","la versión breve"],["ls","páginas de este sitio"],["open \u003cpágina>","ir a una de ellas"],["projects","lo que he hecho, y quién lo escribió"],["running","lo que uso a diario"],["skills","demostrado, aprendiendo, y hacia dónde voy"],["read [tema]","las notas largas: about, apple, newsletter"],["cv","perfil y el PDF"],["contact","LinkedIn, X, GitHub"],["lang [código]","cambiar de idioma: en, es"],["fastfetch","retrato, logotipo y especificaciones"],["btop","un monitor de recursos simulado"],["tree","los repos reales, como árbol de ficheros"],["clear","limpiar la pantalla"]],"s":{"commands":"Comandos:","notFound":": no existe ese comando. Prueba help.","noPage":"open: no hay ninguna página llamada ","tryLs":". Prueba ls.","opening":"abriendo ","source":"código ↗","upstream":"proyecto original ↗","dlPdf":"descargar el PDF ↓","topics":"Temas:","noTopic":"read: no hay ningún tema llamado ","langsCurrent":"Idiomas (actual: ","langsHint":"  lang \u003ccódigo>   o usa el selector de la cabecera","noLang":"lang: no hay ningún idioma llamado ","sudo":"Buen intento. Liderar es servir, no sudo."},"pausedTag":"(pausado)","treeHint":"repos reales — mira \u003cb>projects\u003c/b> para más detalles.","treeThisSite":"este sitio","ffHtml":"\u003cspan class=\"ff\">\u003cspan class=\"art\" aria-hidden=\"true\">\u003cspan class=\"face\" style=\"font-size:0.3560em\">                                           .:.:.......\n                                   ......................\n                               ......  .:...            ..:.\n                            .. ..   .-+#%%%@%*+=:.      .  :.\n                           ..    .-#@@@@@@@@@@@@@@%+:   -:  :.\n                          ...  .+@@@%#####%%###%%%@@@*.  -..:-.\n                        .:.:. -@@%**##***####*######%@#:  ...:-.\n                       ...:  -@%***##**#*###########%%%*.  .::-:.\n                      .: .. :@%*##%%#######%%#######%#*+..=-+=+-::.\n                      --.:  %@%#%#%@%##**####%%@@@@@@++*..-::-==.:-:.\n                     :: .. :@@@%#@%%####*#**+*+*****#*+- ....::-:.:--:\n                    :..    -**++++-==+**=:.::-=+++++++=:   . ..::::----\n                    :   :-=+++++=-. .=**-.=++******##%%%+.  . ..:=-.--:-.\n                   :: :-=#@@#****##. +#= -**+***######%%@%.     -*:..::=-\n                  .=: .   .-*##*+++.:@@@:  :=*=--::::...:-:.  :--= .:----\n                 .==         :-... :@@@@-          ..::...  ..:*+..=+-=.::\n                .-=.      .       .@@@%@%.          =#:..:.. .--. :=+==.:=:\n               .--:.             .#@@@%%@#.     ....=#-::.=:.=*-: ..-==.-+=-\n              .-:-.  --:: ....   #@@@@@%#%+-.   ...:::--.:+::-+=.   :--::-==.\n              -=-=. .%@+=.::.  .*@##**#%@@*+*=.    ..:..-#=..=+: . .:=+:.:-=-.\n             .=:-=-  .=::.   .-**-=---:.=##*#%#+-:...:-*#=: :+-:: ..--==.:=---\n             .:-=:-.   ..:.:=*#%+..::-.  :=*%%%%###****+--..:=.::. -:-:--.:---:\n             -:-+:...   :%##%%@@#.  -::::=+%@%%%#%###*++--...: ..-..::=---:::-=:\n             :.-+:.     .##%%@%+=.:.::-:-=%@@@%%%%%###*==-.  :....::---=:-::::--\n            .:.:-:..    .*%%%@*:--=..::::.=#%%%@%%#%##*+=:   :-....:-=+=:.::-::-\n            .-..:-.     .*%%%%+:...-=...  -=+**#%%%%##*+-.   .--:=:.::.::..:-::-.\n            .:. :.     ..+@#+=--......:::::..:=+*%%%%**+:......=.:--.:: .:..-::=-\n            :: ...     ..-#-+:..=*#%@@@%#%#+-..::#@%#*+=....--*-...:.:=..:::-:-=+-.\n            ::.-.      ..-+**..*%*=-:::--++##+..:+@%#+=:...-+##. :. :-=:.::--==--==.\n           ..---.       :--+=:-#*+-:.::-=+##*=:::+*+++-.  -*#%=...:..-+:-+--=-----=\n          ..=+::.      .::.:+----===:+.-**++===--=---+:...==*=....=..-=*+:-=-=:==-=.\n        .:.:#+-:..     .:...::.-++*:*+:++#%#+=----==-+....:=:...::.-:==+-:=*--=-=--=.\n       .::.:+-=-. .  ........::=+*=*+-=*+##%@*--:--=--:...:-:..:.--.:+*:=:=+:.=------:.\n       ::*:.+=--:.   . ..:: .:-=*--*::-++=+##*-:-=-:.......--::. .-::-=.-::-:-..:-=+:-=.\n      .+=-.:@+::..    ...:.:::=+=:+-::-*+--=+--.:::.::.... .=++.   :..:-:::::++-:-+=.:-+.\n      .+-::.=%:...   ....-=-:+==-:=-.--##-:==.:::. .-:..... .*@*-.....:=+:::.:*@+-+.:::=+\n       :.:+ .-..:.. ..::-==-:#-:-++::--+#=:+:.:-: .:.....:..  =+=:=-:::.=%*=::.+++: .::-=:\n       .: +: :...   ..:-=:--:#-:-=+:---=*=-=..=-.......::.... .+*=+::::..-##+: .:#-..:::.::.\n       :..%..-.-.  ..:-=:=*.:*=-:=-..:::=--:..=:.......:..... :%%%* :-.:. :##=. :%*:=-.:=.::\n      .: +* ::::.....-=-=*- ----.-:...:::-::.:=:.:. ...... .. :=-=: :::-:.=+%*..-%%:--:.==.::\n    ..-::-:.--:  ...:--:*:.::.--.::....::-::.-=..:..............:. .-..=+--+%:. .*@+.:-:.-=.-\n    . .-+#@=-:.  ...==-+--------:....::.-:=..:.::.:.............:..::. .=:-+-.:..:#*=::=:-- .\n    . :@@@%+:... .:-===-:-.-*==-:--..--.:--.::..:.:::...:.......+=:.......-:.::.. -%*..:-:- ..\n    . .+@+-=::.  .:..:..+:-++:=:--:.---:---:==...::::-::-..... :+==:. ... .--:-=. :++--:=++#.:.  .\n    .  .:*:++... .  .:::=======---:-.---::-+-:..:=+--=---.... ..*#*#.-++*=::- .:: .+=::--::%+:-::.\n   ..  ..:..-:.. ....:=-=-:--:: ::.....:-::=-:.:=+**+=-..::..:===#*-:==-=*:-+-.:=.:::.:=-:.-+#%--\n       .:.-:...   . ... ....:. .:. .. ...::.:---=*##=:...:::.+**.:: ..:.:-:.-*.-*:-+#..-:..::-++-.\n      .:..-- ... ......:. ......:+-=+===:::::-=+*+-.....:-.::-+:.:..::-.-+-::=-+*=-#*:::==:::::-=:..\n    ..:.:::: ......  -%*....   .:*#******====+#=:....:::.::.::-..:.:::--.:=.:*-.+*===.=::-::---++-:.\n   ...-+=:..::..... +@= .... ....+#*****+++**+:.-%%@...:..-..:--:- .:::-+=-:==-.-==#%:-=--:-.:.:-:*:\n    ..#=. -+:.::.. .@#  .... ....-******+++=: -@@@%= .-::.:..-----=:.-.:==:.-:. :-+%%=:+##=:::-+*+-:.\n   :=.=+:.-:.::. . +@. ..... ............    +@@= ....:-::::-::..:=+=-:.:=. :+:-.:=*@+.-=**+: ..:-.:.\n  .:....::...:-.. .@- ....... ..........    +@@- ..::::-=-:.::..-*-::-=: =-.:=+-.:-=%+:=-=:-*-.... .--:..\n:== ..-::  . ==.  *# .:::-:=-....:.......  :@@- ..:::.:::.......-%@-. :-:=+..*%: :=+=::+.-*--#=+@: =+..:\n:%%..-..  .:=+.  :@: :+-==:-.#: ....-.    .%@- ..:.......:===.-:..:::.:+-....@-..::=.-====+=.=:.-:..:-. .\n:@@-:=::..:-:.   %* .....:-::@=  ..:-=:.. *@#  ..    . ..-..-::%+..::-+:.:..:+:...--:-=+#**+.-   ....:\n.**....:....  . =@.::    .::.+%..=:......:@@=      ..:-::- ::. :=-:::=*:..-:=+:--:+=-:==+*=.:.          ...\n :==+. .....   :@-.-==:-=:.  -*#+. ..... *@@:  .:---===:=-.::::. .--==-:.:+*.-.:--%@#=-=**=:=:\n.-:::  .. .:: .@+.::::::-:: .**=..:---...@@@. ::::--==-:=:..---::.:--.:.=%#=. ...-*#%*=:--:  .\n :. ......  -.*@.::....     #%=..=-:.   -@@@. :::::=----=:  ::....::::..=+.   ..:....:==-::                  .\n .. .::.:... +@-.:........:=@+:.=:.     #@@% .::::==-:--:-.....:.:..::...:......:=--..-.:=-:.\n-. :::.....::@* .....:-:---#*+ ::.  .. :@@@- :::-==-----.::.::::.-:..=+..::....:.:-:...::-:..\n.. .-::: .:.%@. ...:--::-.-*#..-:..... =@@@. :---==----=-:-..:...:...*#...:::::::.:-...-+-. :=:      ..\n ...:::. ..=@+ ..:---:-=-:#@=.-:...::. #@@% .:-====:=------+:..::::::-+:.:-=::--.:--.-=...::-=-.  .:\n.. .:::..::@@. ::--::-=:.*%#.::.....:..@@@* :=---==----==:--::.:::-:::-::-=**=::----:.-=-:===:===:         . .\n ...=..:..%@+ :---:.-=..-%%-.-:....::.-@@@+.:=---==-=-=-=:::-::-:::---:..::--:=:=+--=:--====:=+-=:        ::\n  .==::: +@@. :--::--.::*%#.-:...:-:. +@@@-.-----=-========---::::-:-::::.:::--.:=*--.::=-:-:-=--=:      ..\n. .=:::..@@+ ::-::==..:-%@:.:....-::. #@@@..:--:-::--===--+=:-::-----::--:-==-:..--:--::==-.:--=+=.\n. -:... +@@..::::-=:.::+%# :....:-:. :@@@*.::--:---:-=-:-==---::----::-:::--:::.-=-.-.:::-+=====-     .\u003c/span>\n\u003cspan class=\"mark\" style=\"font-size:0.8900em\">     ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗\n     ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗\n     ██║███████║██║   ██║██║█████╗  ██████╔╝\n██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗\n╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║\n ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝\n██████╗  ██████╗ ███╗   ██╗███████╗\n██╔══██╗██╔═══██╗████╗  ██║╚══███╔╝\n██████╔╝██║   ██║██╔██╗ ██║  ███╔╝\n██╔═══╝ ██║   ██║██║╚██╗██║ ███╔╝\n██║     ╚██████╔╝██║ ╚████║███████╗\n╚═╝      ╚═════╝ ╚═╝  ╚═══╝╚══════╝\u003c/span>\u003c/span>\u003cspan class=\"ffinfo\">\u003cspan class=\"box\">┌────────────────────────────Hardware────────────────────────────┐\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">▣ PC           \u003c/span>\u003cspan class=\"v\">montaje propio\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">│ ├▧ CPU       \u003c/span>\u003cspan class=\"v\">AMD Ryzen 9 9900X3D (24) @ 5,58 GHz\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">│ ├◆ GPU       \u003c/span>\u003cspan class=\"v\">NVIDIA GeForce RTX 5090\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">│ ├▭ Display   \u003c/span>\u003cspan class=\"v\">3840x2160 @ 120 Hz en 42\"\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">│ ├▨ Disk      \u003c/span>\u003cspan class=\"v\">127,13 GiB / 1,82 TiB (7%) - btrfs\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">│ ├▨ Disk      \u003c/span>\u003cspan class=\"v\">0 B / 1,82 TiB (0%) - btrfs\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">│ ├◧ Memory    \u003c/span>\u003cspan class=\"v\">9,36 GiB / 60,46 GiB (15%)\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent2)\">└ └⇅ Swap      \u003c/span>\u003cspan class=\"v\">0 B / 120,91 GiB (0%)\u003c/span>\n\u003cspan class=\"box\">└────────────────────────────────────────────────────────────────┘\u003c/span>\n\n\u003cspan class=\"box\">┌────────────────────────────Software────────────────────────────┐\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">⌘ OS           \u003c/span>\u003cspan class=\"v\">Omarchy 4.0.3-1\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">│ ├⌂ Channel   \u003c/span>\u003cspan class=\"v\">stable\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">│ ├⚙ Kernel    \u003c/span>\u003cspan class=\"v\">Linux 7.2.3-arch1-3\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">│ ├⊞ WM        \u003c/span>\u003cspan class=\"v\">Hyprland 0.56.2 (Wayland)\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">│ ├◫ Terminal  \u003c/span>\u003cspan class=\"v\">foot 1.28.0\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">│ ├▥ Packages  \u003c/span>\u003cspan class=\"v\">1045 (pacman)\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">│ ├◐ Theme     \u003c/span>\u003cspan class=\"v\">Tokyo Night\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--accent)\">└ └◨ Font      \u003c/span>\u003cspan class=\"v\">JetBrainsMono Nerd Font (12pt)\u003c/span>\n\u003cspan class=\"box\">└────────────────────────────────────────────────────────────────┘\u003c/span>\n\n\u003cspan class=\"box\">┌─────────────────────Age / Uptime / Update──────────────────────┐\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--fg)\">◷ OS Age       \u003c/span>\u003cspan class=\"v\">36 años\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--fg)\">│ ├◔ Uptime    \u003c/span>\u003cspan class=\"v\" id=\"ff-uptime\">00:00:00\u003c/span>\n\u003cspan class=\"k\" style=\"color:var(--fg)\">└ └↻ Update    \u003c/span>\u003cspan class=\"v\">domingo, 13 de septiembre de 2026 a las 20:51\u003c/span>\n\u003cspan class=\"box\">└────────────────────────────────────────────────────────────────┘\u003c/span>\u003c/span>\u003c/span>","hint":"Escribe \u003cb>help\u003c/b> para ver la lista de comandos.","prompt":"javier@techn0ir:~$"};
+
+(function () {
+  var out = document.getElementById('term-out');
+  var form = document.getElementById('term-form');
+  var input = document.getElementById('term-in');
+  var fade = document.querySelector('.scroll-fade');
+  if (!out || !form || !input) return;
+
+  // Whenever there's more of the box below the visible edge — mainly on a
+  // phone, where the portrait+wordmark alone can already fill the capped
+  // height, leaving the specs underneath invisible with nothing hinting they
+  // exist. 1px of slack absorbs sub-pixel rounding so it doesn't flicker at
+  // the exact bottom.
+  function updateFade() {
+    if (fade) fade.classList.toggle('show', out.scrollHeight - out.scrollTop - out.clientHeight > 1);
+  }
+
+  // Measured, not guessed: the three workspaces (and typed commands, which
+  // keep appending to whichever is showing) are never the same length, and a
+  // hand-picked pixel height is wrong for one of them the moment any of them
+  // changes — this box has already been clipped on desktop and trapped
+  // scroll on mobile from exactly that. Read the real content height after
+  // every render instead, and only cap it on a narrow viewport, where
+  // letting it fill the screen is the actual problem; a normal desktop has
+  // the room, so it just gets to be as tall as it needs to be.
+  function fitOut() {
+    // scrollHeight already reports the content's full height regardless of
+    // the box's own current (explicit or clipped) height, so there is no
+    // need to release it to 'auto' first — doing that would also force an
+    // intermediate reflow the .out transition could snap through instead of
+    // animating smoothly from its previous height.
+    var natural = out.scrollHeight;
+    var cap = innerWidth <= 700 ? innerHeight * 0.5 : Infinity;
+    out.style.height = Math.round(Math.min(natural, cap)) + 'px';
+    updateFade();
+  }
+  out.addEventListener('scroll', updateFade, { passive: true });
+
+  var history = [], hpos = 0;
+
+  function write(text, cls) {
+    var el = document.createElement('span');
+    if (cls) el.className = cls;
+    el.textContent = text + '\n';
+    out.appendChild(el);
+  }
+  function writeHtml(html, cls) {
+    var el = document.createElement('span');
+    if (cls) el.className = cls;
+    el.innerHTML = html + '\n';
+    out.appendChild(el);
+  }
+  function link(label, href, note) {
+    var el = document.createElement('span');
+    var a = document.createElement('a');
+    a.href = href; a.textContent = label;
+    if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noreferrer'; }
+    el.appendChild(document.createTextNode('  '));
+    el.appendChild(a);
+    if (note) el.appendChild(document.createTextNode('  ' + note));
+    el.appendChild(document.createTextNode('\n'));
+    out.appendChild(el);
+  }
+
+  // Three full-box views (fastfetch, btop, tree), built from the same `data`
+  // every other command reads, so they cannot drift from the project list.
+  var CMD_ECHO = { '1': 'fastfetch', '2': 'btop', '3': 'ls -la ~/code' };
+  var btopInterval = null;
+
+  // Colour, like workspace 1's fastfetch card, not a flat single tone:
+  // .k/.box are the same classes that card already defines (accent2
+  // labels, muted borders) — reused here rather than inventing new ones.
+  // pad()/width math measure *visible* length so a row can carry
+  // `<span>` markup and still line up in the grid.
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function visibleLen(s) { return String(s).replace(/<[^>]*>/g, '').length; }
+  function pad(s, w) { return s + ' '.repeat(Math.max(0, w - visibleLen(s))); }
+  function tag(cls, text) { return '<span class="' + cls + '">' + esc(text) + '</span>'; }
+  function label(text) { return tag('k', text); }
+  function accent(text) { return '<span style="color:var(--accent)">' + esc(text) + '</span>'; }
+
+  function box(title, width, rows) {
+    var rem = Math.max(0, width - title.length - 2);
+    var l = Math.floor(rem / 2);
+    var top = tag('box', '┌' + '─'.repeat(l) + ' ' + title + ' ' + '─'.repeat(rem - l) + '┐');
+    var bottom = tag('box', '└' + '─'.repeat(width) + '┘');
+    var body = rows.map(function (r) { return tag('box', '│ ') + pad(r, width - 2) + tag('box', '│'); }).join('\n');
+    return top + '\n' + body + '\n' + bottom;
+  }
+  // Two boxes of possibly different height, joined line-by-line — real
+  // btop tiles MEM/DISKS/PROC side by side rather than stacking them.
+  function sideBySide(a, b, gap) {
+    gap = ' '.repeat(gap || 2);
+    var al = a.split('\n'), bl = b.split('\n');
+    var aw = Math.max.apply(null, al.map(visibleLen));
+    var n = Math.max(al.length, bl.length);
+    var out2 = [];
+    for (var i = 0; i < n; i++) out2.push(pad(al[i] || '', aw) + gap + (bl[i] || ''));
+    return out2.join('\n');
+  }
+  function bar(pct, width) {
+    width = width || 21;
+    var filled = Math.max(0, Math.min(width, Math.round(width * pct / 100)));
+    return '█'.repeat(filled) + '░'.repeat(width - filled);
+  }
+  function jitter(base, spread) {
+    return Math.max(2, Math.min(98, base + (Math.random() * 2 - 1) * spread));
+  }
+
+  function renderFastfetch() {
+    out.insertAdjacentHTML('beforeend', data.ffHtml);
+    write('');
+    var hintEl = document.createElement('span');
+    hintEl.className = 'hint';
+    hintEl.innerHTML = data.hint;
+    out.appendChild(hintEl);
+  }
+
+  // A btop-style layout: one CPU box with a two-column core grid (real
+  // btop's own convention once you have more than 4-6 cores), then MEM and
+  // DISKS tiled side by side, then PROC — same shape as the actual Omarchy
+  // Quattro desktop, not just a single flat box.
+  // Numbers taken from Javier's actual rig (Ryzen 9 9900X3D, 60.5 GiB RAM,
+  // a 1.82 TiB btrfs root, a read-only external mount pinned at 100%) rather
+  // than invented, so the simulated monitor at least describes a real machine.
+  // All 24 threads, not a sample of 8: the terminal is a fixed height now, and
+  // a real btop on this machine fills that height rather than leaving two
+  // thirds of the window empty. Same reason for the GPU and NET boxes below —
+  // btop draws them, and they are the panels a 5090 owner would actually watch.
+  var CORES = [], MEM = 12, VRAM = 34, START = Date.now();
+  for (var ci = 0; ci < 24; ci++) CORES.push(8 + Math.random() * 70);
+  var NET_DOWN = 6.2, NET_UP = 1.1;
+  function uptimeStr() {
+    var s = Math.floor((Date.now() - START) / 1000);
+    return Math.floor(s / 60) + 'm ' + (s % 60) + 's';
+  }
+  function renderBtopBody() {
+    var old = document.getElementById('btop-live');
+    CORES = CORES.map(function (c) { return jitter(c, 6); });
+    MEM = jitter(MEM, 3); VRAM = jitter(VRAM, 4);
+    NET_DOWN = Math.max(0.1, jitter(NET_DOWN, 2)); NET_UP = Math.max(0.1, jitter(NET_UP, 0.6));
+    // three columns of eight, which is how btop lays out a core count this high
+    var coreLines = [], PER = 8;
+    for (var i = 0; i < PER; i++) {
+      var row = '';
+      for (var c = 0; c < 3; c++) {
+        var n = c * PER + i;
+        var cell = label((n < 10 ? 'c0' : 'c') + n) + ' ' + bar(CORES[n], 8) + pad(' ' + Math.round(CORES[n]) + '%', 5);
+        row += c < 2 ? pad(cell, 21) : cell;
+      }
+      coreLines.push(row);
+    }
+    var load = (CORES.reduce(function (a, c) { return a + c; }, 0) / CORES.length / 100).toFixed(2);
+    var cpuBox = box('cpu — ryzen 9 9900x3d (24) — load ' + load + ' — up ' + uptimeStr(), 62, coreLines);
+    var gpuTemp = Math.round(jitter(54, 4)), gpuUtil = jitter(VRAM + 18, 8);
+    var gpuBox = box('gpu — rtx 5090', 30, [
+      label('util ') + bar(gpuUtil, 10) + ' ' + Math.round(gpuUtil) + '%',
+      label('vram ') + bar(VRAM, 10) + ' ' + Math.round(VRAM) + '%',
+      label('temp ') + gpuTemp + '°C   ' + label('fan ') + Math.round(jitter(38, 5)) + '%'
+    ]);
+    var netBox = box('net — wlan0', 30, [
+      label('down ') + NET_DOWN.toFixed(1) + ' MiB/s  ' + bar(Math.min(100, NET_DOWN * 8), 6),
+      label('up   ') + NET_UP.toFixed(1) + ' MiB/s  ' + bar(Math.min(100, NET_UP * 20), 6),
+      label('total') + '  412 GiB down / 38 GiB up'
+    ]);
+    var memBox = box('mem', 30, [
+      label('total') + '  60.5G',
+      label('used ') + bar(MEM, 10) + ' ' + Math.round(MEM) + '%',
+      label('avail') + '  ' + (60.5 * (1 - MEM / 100)).toFixed(1) + 'G'
+    ]);
+    var rootPct = jitter(4, 1);
+    var disksBox = box('disks', 30, [
+      label('/    ') + bar(rootPct, 10) + ' ' + Math.round(rootPct) + '%',
+      label('/home') + bar(jitter(31, 2), 10) + ' 31%',
+      label('iso  ') + bar(100, 10) + ' 100%'
+    ]);
+    var procBox = box('proc', 62, [
+      tag('box', 'PID     CMD                          CPU%    MEM%    USER'),
+      label('1024') + '    hermes-agent --daemon        ' + pad(jitter(9, 3).toFixed(1), 8) + '2.1     javier',
+      label('1187') + '    astro dev --host             ' + pad(jitter(3, 2).toFixed(1), 8) + '1.4     javier',
+      label('1402') + '    hyprland                     ' + pad(jitter(2.2, 1).toFixed(1), 8) + '1.9     javier',
+      label('2044') + '    ollama serve ' + data.pausedTag + pad('', 15 - data.pausedTag.length) + '0.0     0.0     javier',
+      label('2390') + '    nginx: worker process        ' + pad(jitter(0.6, 0.4).toFixed(1), 8) + '0.3     http',
+      label('3102') + '    fzf                          0.1     0.1     javier'
+    ]);
+    var html = cpuBox + '\n\n' + sideBySide(gpuBox, netBox, 2) + '\n\n'
+      + sideBySide(memBox, disksBox, 2) + '\n\n' + procBox;
+    var el = old || document.createElement('span');
+    el.id = 'btop-live';
+    el.innerHTML = html;
+    if (!old) out.appendChild(el);
+  }
+  function renderBtop() {
+    renderBtopBody();
+  }
+
+  // A two-command filesystem view, like Omarchy's own file manager + tree
+  // pane: a coloured `ls -la` of the real repos first, then a real `tree`
+  // of this very site's own layout underneath.
+  function folderName(url) { return url.split('/').pop(); }
+  function renderTree() {
+    var items = data.projects.map(function (p) { return { name: folderName(p.u), tag: p.s }; });
+    items.push({ name: 'javier-ponz-site', tag: data.treeThisSite });
+    writeHtml(tag('box', 'Permissions  Size  User     Name'));
+    items.forEach(function (it) {
+      writeHtml(tag('box', 'drwxr-xr-x   -     javier   ') + pad(label(it.name + '/'), 25) + accent('[' + it.tag + ']'));
+    });
+    write('');
+    var hintEl = document.createElement('span');
+    hintEl.innerHTML = data.treeHint + '\n';
+    out.appendChild(hintEl);
+    write('');
+    var cmd2 = document.createElement('span');
+    cmd2.className = 'cmd';
+    cmd2.textContent = 'javier@techn0ir:~/code/javier-ponz-site$ tree -L 3\n';
+    out.appendChild(cmd2);
+    writeHtml(accent('javier-ponz-site'));
+    // Three levels rather than two, and the real filenames: the terminal is a
+    // fixed height now, so this is the depth that fills the window — and a
+    // tree of directory names alone tells a reader nothing about the project.
+    ['├── src',
+      '│   ├── components',
+      '│   │   ├── sections',
+      '│   │   └── Terminal.astro',
+      '│   ├── data',
+      '│   │   ├── pages.mjs',
+      '│   │   ├── site.ts',
+      '│   │   ├── skins.mjs',
+      '│   │   └── ui.mjs',
+      '│   ├── layouts',
+      '│   └── pages',
+      '├── public',
+      '│   ├── audio',
+      '│   └── favicon.svg',
+      '├── scripts',
+      '├── docs',
+      '└── Dockerfile'
+    ].forEach(function (l) {
+      var m = l.match(/^([│├└─\s]+)(.*)$/);
+      var name = m ? m[2] : l;
+      var isDir = name.indexOf('.') === -1;
+      writeHtml(m ? tag('box', m[1]) + (isDir ? accent(name) : label(name)) : accent(name));
+    });
+    write('');
+    writeHtml(tag('box', '8 directories, 23 files'));
+  }
+
+  var RENDER = { '1': renderFastfetch, '2': renderBtop, '3': renderTree };
+  function switchWorkspace(n) {
+    if (!RENDER[n]) return;
+    out.innerHTML = '';
+    var el = document.createElement('span');
+    el.className = 'cmd';
+    el.textContent = data.prompt + ' ' + CMD_ECHO[n] + '\n\n';
+    out.appendChild(el);
+    RENDER[n]();
+    fitOut();
+    out.scrollTop = 0;
+    if (btopInterval) { clearInterval(btopInterval); btopInterval = null; }
+    if (n === '2') btopInterval = setInterval(function () { if (!document.hidden) renderBtopBody(); }, 2500);
+  }
+
+  var commands = {
+    fastfetch: function () { switchWorkspace('1'); },
+    btop: function () { switchWorkspace('2'); },
+    tree: function () { switchWorkspace('3'); },
+    help: function () {
+      write(data.s.commands, 'k');
+      data.help.forEach(function (c) { write('  ' + pad(c[0], 16) + c[1]); });
+    },
+    whoami: function () {
+      write(data.name + ' — ' + data.location, 'who');
+      write(data.headline, 'k');
+      write('');
+      write(data.profile);
+    },
+    ls: function () {
+      data.pages.forEach(function (p) { link(pad(p[0], 12) + p[2], p[1]); });
+    },
+    open: function (arg) {
+      var hit = data.pages.filter(function (p) { return p[0] === arg; })[0];
+      if (!hit) { write(data.s.noPage + '"' + (arg || '') + '"' + data.s.tryLs, 'err'); return; }
+      write(data.s.opening + hit[1] + ' …');
+      setTimeout(function () { location.href = hit[1]; }, 220);
+    },
+    projects: function () {
+      data.projects.forEach(function (p) {
+        write('');
+        write(p.t + '  [' + p.s + ' · ' + p.k + ']', 'who');
+        write('  ' + p.by, 'k');
+        write('  ' + p.d);
+        link(data.s.source, p.u);
+      });
+    },
+    running: function () {
+      data.running.forEach(function (r) {
+        write('');
+        write(r.t + '  [' + r.k + ']', 'who');
+        write('  ' + r.by, 'k');
+        write('  ' + r.d);
+        link(data.s.upstream, r.u);
+      });
+    },
+    skills: function () {
+      data.skills.forEach(function (s) {
+        write('');
+        write(s.g, 'who');
+        write('  ' + s.items.join(', '));
+      });
+    },
+    cv: function () {
+      write(data.headline, 'who');
+      write('');
+      write(data.profile);
+      write('');
+      link(data.s.dlPdf, data.cvPath);
+    },
+    contact: function () {
+      data.contact.forEach(function (c) { if (c.h) link(pad(c.l, 10) + c.v, c.h); else write('  ' + pad(c.l, 10) + c.v); });
+    },
+    read: function (arg) {
+      var hit = data.topics.filter(function (x) { return x.id === arg; })[0];
+      if (!arg || !hit) {
+        if (arg) write(data.s.noTopic + '"' + arg + '"', 'err');
+        write(data.s.topics, 'k');
+        data.topics.forEach(function (x) { write('  read ' + pad(x.id, 12) + x.note); });
+        return;
+      }
+      hit.lines.forEach(function (l) {
+        if (l && l.h) write(l.h, 'who'); else write(l);
+      });
+    },
+    lang: function (arg) {
+      var ids = data.langs.map(function (l) { return l.id; });
+      if (!arg) {
+        write(data.s.langsCurrent + data.curLang + ')', 'k');
+        data.langs.forEach(function (l) { write('  ' + pad(l.id, 12) + l.name); });
+        write('');
+        write(data.s.langsHint);
+        return;
+      }
+      if (ids.indexOf(arg) < 0) { write(data.s.noLang + '"' + arg + '"', 'err'); return; }
+      var hit = data.langs.filter(function (l) { return l.id === arg; })[0];
+      var url = new URL(hit.home, location.origin);
+      write('lang → ' + arg + ' …');
+      setTimeout(function () { location.href = url.toString(); }, 220);
+    },
+    clear: function () { out.textContent = ''; },
+    sudo: function () { write(data.s.sudo, 'err'); }
+  };
+
+  function run(raw) {
+    var parts = raw.trim().split(/\s+/);
+    var cmd = (parts.shift() || '').toLowerCase();
+    var arg = (parts.shift() || '').toLowerCase();
+    var el = document.createElement('span');
+    el.className = 'cmd';
+    el.textContent = data.prompt + ' ' + raw + '\n';
+    out.appendChild(el);
+    if (!cmd) { fitOut(); return; }
+    if (commands[cmd]) commands[cmd](arg);
+    else write(cmd + data.s.notFound, 'err');
+    write('');
+    fitOut();
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var raw = input.value;
+    if (raw.trim()) { history.push(raw); hpos = history.length; }
+    input.value = '';
+    run(raw);
+    out.scrollTop = out.scrollHeight;
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowUp' && hpos > 0) { e.preventDefault(); input.value = history[--hpos]; }
+    else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (hpos < history.length - 1) input.value = history[++hpos];
+      else { hpos = history.length; input.value = ''; }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      var typed = input.value.trim();
+      var head = typed.split(/\s+/)[0];
+      var pool = typed.indexOf(' ') > -1
+        ? (head === 'read'
+            ? data.topics.map(function (x) { return 'read ' + x.id; })
+            : head === 'lang'
+              ? data.langs.map(function (x) { return 'lang ' + x.id; })
+              : data.pages.map(function (x) { return 'open ' + x[0]; }))
+        : Object.keys(commands);
+      var hits = pool.filter(function (c) { return c.indexOf(typed) === 0; });
+      if (hits.length === 1) input.value = hits[0] + ' ';
+      else if (hits.length > 1) { run(typed); write(hits.join('  ')); write(''); fitOut(); }
+    }
+  });
+
+  // Establishes the box's real height against the SSR fastfetch content
+  // already sitting in the DOM, then keeps it correct across an orientation
+  // flip or the browser window being resized past the 700px cap threshold.
+  fitOut();
+  var fitResizeTimer;
+  addEventListener('resize', function () {
+    clearTimeout(fitResizeTimer);
+    fitResizeTimer = setTimeout(fitOut, 120);
+  });
+})();
+})();</script></div><div class="reveal"><p class="label">Coordenadas</p><ul class="coords"><li><span class="meta">GitHub</span><div><a href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">github.com/ponzgpt ↗</a><p>Proyectos, experimentos, el rastro del código.</p></div><button type="button" class="copy-btn" data-copy="https://github.com/ponzgpt" data-copied-label="Copiado" data-failed-label="No se pudo copiar">Copiar</button></li><li><span class="meta">LinkedIn</span><div><a href="https://www.linkedin.com/in/javierponz" target="_blank" rel="noreferrer">javierponz ↗</a><p>Trabajo, colaboración, una pregunta pensada. Mensajes abiertos.</p></div><button type="button" class="copy-btn" data-copy="https://www.linkedin.com/in/javierponz" data-copied-label="Copiado" data-failed-label="No se pudo copiar">Copiar</button></li><li><span class="meta">X</span><div><a href="https://x.com/sudotechnoir" target="_blank" rel="noreferrer">@sudotechnoir ↗</a><p>Agentes abiertos, Hermes, lo que estoy construyendo. En conversación con la comunidad de Nous.</p></div><button type="button" class="copy-btn" data-copy="https://x.com/sudotechnoir" data-copied-label="Copiado" data-failed-label="No se pudo copiar">Copiar</button></li><li><span class="meta">Discord</span><div><span class="mono">sudotechnoir</span><p>El mismo nombre en el Discord de Nous Research.</p></div><button type="button" class="copy-btn" data-copy="sudotechnoir" data-copied-label="Copiado" data-failed-label="No se pudo copiar">Copiar</button></li></ul><p class="label">Disponibilidad</p><div class="avail"><h3>Disponible para el puesto adecuado, desde ya.</h3>
+      <p>Independiente, así que sin preaviso que cumplir. Aberdeen, Escocia, de camino desde Madrid, en horario de Reino Unido. El remoto me viene bien, viajo sin problema, y me trasladaría si tuviera sentido también para mi pareja.</p></div><p class="standard">Un buen trabajo técnico deja a las personas con más claridad y más control del que tenían antes. Ese es el criterio.</p></div></div></div></section><script>
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.copy-btn');
+    if (!btn || btn.disabled) return;
+    var original = btn.textContent;
+    function flash(label) {
+      btn.textContent = label || original;
+      btn.disabled = true;
+      setTimeout(function () { btn.textContent = original; btn.disabled = false; }, 1600);
+    }
+    if (!navigator.clipboard) { flash(btn.dataset.failedLabel); return; }
+    navigator.clipboard.writeText(btn.dataset.copy).then(
+      function () { flash(btn.dataset.copiedLabel); },
+      function () { flash(btn.dataset.failedLabel); });
+  });
+</script></main><footer class="site-footer"><div class="shell foot"><p>© 2026 Javier Ponz · hecho con agentes de IA; yo especifico y pruebo · algunos efectos de las librerías recogidas en Uncommon Web (webdev.teknium.io)</p><p><a href="https://github.com/ponzgpt/javier-ponz-site#how-this-was-made" target="_blank" rel="noreferrer">Cómo está hecho ↗</a></p></div></footer><div class="music-player"><button type="button" class="music-fab" id="musicFab" aria-expanded="false" aria-controls="musicPanel" aria-label="Reproductor de música" title="Reproductor de música"><span aria-hidden="true">♪</span><span class="music-live" aria-hidden="true"></span></button><div class="music-panel" id="musicPanel" hidden><div class="music-row music-row-title"><span class="music-note" aria-hidden="true">♪</span><div class="music-title-wrap" id="musicTitleWrap"><span class="music-title" id="musicTitle">Crown of the Horizon</span></div></div><canvas id="musicEq" width="248" height="46" class="music-eq" aria-hidden="true"></canvas><div class="music-row music-row-controls"><div class="music-transport"><button type="button" id="musicPrev" class="music-btn music-btn-lg music-secondary-transport" aria-label="Pista anterior" title="Pista anterior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M17.5 6.75v10.5L8.5 12l9-5.25Z" fill="currentColor"></path></svg></button><button type="button" id="musicToggle" class="music-btn music-btn-lg" aria-pressed="false" aria-label="Reproducir música ambiental" data-play-label="Reproducir música ambiental" data-mute-label="Silenciar"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path id="musicIconPlay" d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"></path><g id="musicIconPause" style="display:none"><rect x="6.5" y="5.5" width="4" height="13" rx="1" fill="currentColor"></rect><rect x="14" y="5.5" width="4" height="13" rx="1" fill="currentColor"></rect></g></svg></button><button type="button" id="musicNext" class="music-btn music-btn-lg music-secondary-transport" aria-label="Pista siguiente" title="Pista siguiente"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 6.5v11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path><path d="M6.5 6.75v10.5l9-5.25Z" fill="currentColor"></path></svg></button></div><span class="music-status" id="musicStatus" aria-hidden="true"></span><div class="music-vol"><button type="button" id="musicVolDown" class="music-btn music-btn-sm" aria-label="Bajar volumen" title="Bajar volumen"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 10H4v4h2M6 10l6-5v14l-6-5" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path></svg></button><span class="music-vol-bar" aria-hidden="true"><span class="music-vol-fill" id="musicVolFill"></span></span><span class="music-vol-pct" id="musicVolPct">55%</span><button type="button" id="musicVolUp" class="music-btn music-btn-sm" aria-label="Subir volumen" title="Subir volumen"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 10H4v4h2M6 10l6-5v14l-6-5" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path><path d="M17 9a5 5 0 010 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></button></div></div></div></div><script>
+  (function () {
+    var player = document.querySelector('.music-player');
+    var btn = document.getElementById('musicToggle');
+    var prevBtn = document.getElementById('musicPrev');
+    var nextBtn = document.getElementById('musicNext');
+    var volDownBtn = document.getElementById('musicVolDown');
+    var volUpBtn = document.getElementById('musicVolUp');
+    var volFill = document.getElementById('musicVolFill');
+    var volPct = document.getElementById('musicVolPct');
+    var statusDot = document.getElementById('musicStatus');
+    var eq = document.getElementById('musicEq');
+    var iconPlay = document.getElementById('musicIconPlay');
+    var iconPause = document.getElementById('musicIconPause');
+    var titleWrap = document.getElementById('musicTitleWrap');
+    var titleEl = document.getElementById('musicTitle');
+    var fab = document.getElementById('musicFab');
+    var panel = document.getElementById('musicPanel');
+    if (!player || !btn || !eq || !window.AudioContext) { if (player) player.hidden = true; return; }
+    var ctx2d = eq.getContext('2d');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var BARS = 24;
+
+    var cs = getComputedStyle(document.documentElement);
+    var COLOR_LOW = cs.getPropertyValue('--accent2').trim() || '#a58bff';
+    var COLOR_MID = cs.getPropertyValue('--accent').trim() || '#ffb23e';
+    var COLOR_HIGH = cs.getPropertyValue('--fg').trim() || '#ece6da';
+    function isOpen() { return !panel.hidden; }
+
+    // CC0 (nova head, Suno-generated) — see archive.org/details/<id> per
+    // track for the original upload and its licence statement.
+    var TRACKS = [
+      { file: '/v/v3/audio/crown-of-the-horizon.mp3', title: 'Crown of the Horizon', genre: 'Synthwave' },
+      { file: '/v/v3/audio/neon-eyes.mp3', title: 'Neon Eyes', genre: 'Synthwave' },
+      { file: '/v/v3/audio/electric-bloom.mp3', title: 'Electric Bloom', genre: 'Synthwave' },
+      { file: '/v/v3/audio/digital-dream.mp3', title: 'Digital Dream', genre: 'Synthwave' },
+      { file: '/v/v3/audio/signal-void.mp3', title: 'Signal Void', genre: 'Darksynth' },
+      { file: '/v/v3/audio/static-crown.mp3', title: 'Static Crown', genre: 'Darksynth' }
+    ];
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+    var order = shuffle(TRACKS.map(function (_, i) { return i; }));
+    var pos = 0, current = TRACKS[order[0]];
+
+    var audio = null, actx = null, analyser = null, gain = null, freq = null, raf = null, playing = false;
+    var volume = 0.55;
+
+    function setVolumeUi() {
+      var pct = Math.round(volume * 100);
+      volFill.style.width = pct + '%';
+      volPct.textContent = pct + '%';
+    }
+    setVolumeUi();
+
+    // Measures the *single* copy of "artist — title (genre)" first, only
+    // duplicating (for the seamless -50% loop) when it would actually
+    // overflow — a double-rAF wait avoids a font/layout race leaving
+    // scrollWidth read too early, and a forced reflow before re-adding the
+    // animation class means it reliably restarts instead of ever freezing
+    // mid-scroll on a track change.
+    function setTitle(track) {
+      var text = 'nova head — ' + track.title + ' (' + track.genre + ')';
+      titleWrap.classList.remove('marquee');
+      titleEl.textContent = text;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          if (titleEl.scrollWidth > titleWrap.clientWidth) {
+            titleEl.textContent = text + '     •     ' + text;
+            void titleWrap.offsetWidth;
+            titleWrap.classList.add('marquee');
+          }
+        });
+      });
+      btn.title = text + ' — CC0, archive.org';
+    }
+
+    function build() {
+      if (audio) return;
+      audio = new Audio();
+      audio.preload = 'none';
+      audio.addEventListener('ended', function () { step(1); });
+      actx = new AudioContext();
+      analyser = actx.createAnalyser();
+      analyser.fftSize = 64;
+      freq = new Uint8Array(analyser.frequencyBinCount);
+      gain = actx.createGain();
+      gain.gain.value = 0;
+      actx.createMediaElementSource(audio).connect(analyser);
+      analyser.connect(gain);
+      gain.connect(actx.destination);
+      audio.src = current.file;
+      setTitle(current);
+    }
+
+    // dir: +1 next, -1 previous — both just move the shuffled pointer;
+    // going past either end reshuffles rather than repeating the same order.
+    function step(dir) {
+      pos += dir;
+      if (pos >= order.length) { order = shuffle(TRACKS.map(function (_, i) { return i; })); pos = 0; }
+      if (pos < 0) { order = shuffle(TRACKS.map(function (_, i) { return i; })); pos = order.length - 1; }
+      current = TRACKS[order[pos]];
+      setTitle(current);
+      if (!audio) return;
+      audio.src = current.file;
+      if (playing) audio.play().catch(function () {});
+    }
+
+    function rampTo(v) {
+      var now = actx.currentTime;
+      gain.gain.cancelScheduledValues(now);
+      gain.gain.setValueAtTime(gain.gain.value, now);
+      gain.gain.linearRampToValueAtTime(v, now + 0.4);
+    }
+    function setVolume(v) {
+      volume = Math.max(0, Math.min(1, v));
+      setVolumeUi();
+      if (playing && gain) gain.gain.value = volume;
+    }
+
+    // Continuous gradient bars (green→amber→pink, bottom to top) with a
+    // decaying peak-hold dash per bar — not discrete LED squares. Peaks
+    // persist across idle/real so the meter never visually "resets".
+    var peaks = new Array(BARS).fill(0);
+    function renderMeter(values) {
+      var w = eq.width, h = eq.height, gap = 2, bw = (w - gap * (BARS - 1)) / BARS;
+      ctx2d.clearRect(0, 0, w, h);
+      var grad = ctx2d.createLinearGradient(0, h, 0, 0);
+      grad.addColorStop(0, COLOR_LOW);
+      grad.addColorStop(0.65, COLOR_MID);
+      grad.addColorStop(1, COLOR_HIGH);
+      for (var i = 0; i < BARS; i++) {
+        var v = values[i];
+        peaks[i] = v >= peaks[i] ? v : Math.max(0, peaks[i] - 0.012);
+        var barH = Math.max(1.5, v * h);
+        ctx2d.fillStyle = grad;
+        ctx2d.fillRect(i * (bw + gap), h - barH, bw, barH);
+        var peakY = Math.max(1, h - peaks[i] * h);
+        ctx2d.fillStyle = COLOR_HIGH;
+        ctx2d.fillRect(i * (bw + gap), peakY - 1, bw, 1.4);
+      }
+    }
+    function drawBars() {
+      analyser.getByteFrequencyData(freq);
+      var values = [];
+      for (var i = 0; i < BARS; i++) values.push(freq[Math.floor((i * freq.length) / BARS)] / 255);
+      renderMeter(values);
+      raf = isOpen() ? requestAnimationFrame(drawBars) : null;
+    }
+    var idleTimer = null, idleT = 0;
+    // A bass-heavy fake shape (taller on the left, like a real spectrum)
+    // plus per-bar sine oscillation and noise — crosses into amber and
+    // occasional pink on the leading bars, same as genuine playback.
+    var idlePhase = new Array(BARS).fill(0).map(function () { return Math.random() * Math.PI * 2; });
+    var idleBase = new Array(BARS).fill(0).map(function (_, i) { return 0.8 - (i / BARS) * 0.55; });
+    function drawIdleAnimated() {
+      idleT += 0.12;
+      var values = idleBase.map(function (base, i) {
+        var osc = Math.sin(idleT * (1.3 + i * 0.05) + idlePhase[i]) * 0.22;
+        var noise = (Math.random() - 0.5) * 0.1;
+        return Math.max(0.04, Math.min(0.98, base + osc + noise));
+      });
+      renderMeter(values);
+      idleTimer = isOpen() ? setTimeout(drawIdleAnimated, 110) : null;
+    }
+    function stopIdle() {
+      if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+    }
+    function drawFlat() {
+      renderMeter(new Array(BARS).fill(0));
+    }
+
+    function play() {
+      build();
+      if (actx.state !== 'running') actx.resume();
+      audio.play().catch(function () {});
+      rampTo(volume);
+      playing = true;
+      btn.setAttribute('aria-pressed', 'true');
+      btn.setAttribute('aria-label', btn.dataset.muteLabel);
+      player.classList.add('playing');
+      fab.classList.add('playing');
+      statusDot.classList.add('playing');
+      iconPlay.style.display = 'none'; iconPause.style.display = '';
+      stopIdle();
+      if (!reduce && !raf && isOpen()) drawBars();
+    }
+    function mute() {
+      playing = false;
+      btn.setAttribute('aria-pressed', 'false');
+      btn.setAttribute('aria-label', btn.dataset.playLabel);
+      player.classList.remove('playing');
+      fab.classList.remove('playing');
+      statusDot.classList.remove('playing');
+      iconPlay.style.display = ''; iconPause.style.display = 'none';
+      if (gain) rampTo(0);
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      if (reduce || !isOpen()) drawFlat(); else if (!idleTimer) drawIdleAnimated();
+    }
+    // The template's placeholder text is just a guess at what track will
+    // load — reflect whichever one shuffling actually picked, immediately,
+    // not only once build()/step() first runs from a click.
+    setTitle(current);
+    drawFlat();
+    function startMeter() {
+      if (reduce) { drawFlat(); return; }
+      if (playing) { if (!raf) drawBars(); } else if (!idleTimer) drawIdleAnimated();
+    }
+    fab.addEventListener('click', function () {
+      var open = panel.hidden;
+      panel.hidden = !open;
+      fab.setAttribute('aria-expanded', String(open));
+      if (open) { setTitle(current); startMeter(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); fab.focus(); }
+    });
+    btn.addEventListener('click', function () { playing ? mute() : play(); });
+    prevBtn.addEventListener('click', function () { step(-1); });
+    nextBtn.addEventListener('click', function () { step(1); });
+    volDownBtn.addEventListener('click', function () { setVolume(volume - 0.1); });
+    volUpBtn.addEventListener('click', function () { setVolume(volume + 0.1); });
+    document.addEventListener('visibilitychange', function () {
+      if (!audio) return;
+      if (document.hidden && playing) audio.pause();
+      else if (!document.hidden && playing) audio.play().catch(function () {});
+    });
+  })();
+</script><script>
+    (function () {
+      /* Header: a blurred surface once you have scrolled past the very top. */
+      var header = document.getElementById('site-header');
+      function update() { header.classList.toggle('scrolled', window.scrollY > 24); }
+      update();
+      addEventListener('scroll', update, { passive: true });
+
+      /* Mobile nav: the hamburger toggles a stacked list; closes after a pick. */
+      var btn = document.getElementById('navToggle');
+      var panel = document.getElementById('mobileNav');
+      function close() { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+      btn.addEventListener('click', function () {
+        var open = panel.hidden;
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      panel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { close(); btn.focus(); } });
+
+      /* Scroll reveal. Anything marked .reveal fades up once it enters the
+         viewport; with no IntersectionObserver, or reduced motion, it is
+         simply shown (the stylesheet also never hides it without JS). */
+      var items = document.querySelectorAll('.reveal');
+      var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (still || !('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+  </script></body></html><style>:root{--bg:#0B0A10;--fg:#ECE6DA;--accent:#FFB23E;--accent2:#A58BFF;--font-display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--font-body:Inter,'Helvetica Neue',Arial,sans-serif;--muted:color-mix(in srgb, var(--fg) 72%, var(--bg))}</style>

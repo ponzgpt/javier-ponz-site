@@ -264,6 +264,7 @@ button.tab{-webkit-appearance:none;appearance:none}
 .mcard p:last-child{margin:0}
 .mcard .go{font-weight:700}
 .made{max-width:62ch;font-size:var(--t-s);color:var(--ink-2);margin-top:32px}
+.earlier{max-width:62ch;font-size:var(--t-xs);color:var(--ink-2);margin-top:8px}
 @media (max-width:980px){
   .tl li{grid-template-columns:110px 28px minmax(0,1fr)}
   .tl .aside{grid-column:3}

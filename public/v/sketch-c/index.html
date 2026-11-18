@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ponz Three Desktops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Arimo:ital,wght@0,400;0,700;1,400&family=Fira+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* Palettes: every colour lives here. 2026 (tiling Linux) is the default and the no-JS look. */
+:root{
+  --l-desk:#16161e;--l-pane:#1a1b26;--l-fg:#c0caf5;--l-dim:#9aa5ce;--l-blue:#7aa2f7;--l-purple:#bb9af7;--l-orange:#ff9e64;--l-green:#9ece6a;--l-border:#3b4261;--l-bar:#111219;
+  --w-teal:#008080;--w-grey:#c0c0c0;--w-dark:#808080;--w-darker:#0a0a0a;--w-light:#dfdfdf;--w-white:#ffffff;--w-navy:#000080;--w-blue:#1084d0;--w-black:#000000;--w-inact1:#4a4a4a;--w-inact2:#6d6d6d;--w-link:#0000a8;--w-mark:#ffff9c;--w-maroon:#800000;
+  --m-desk1:#86aedd;--m-desk2:#2f5f9e;--m-stripe1:#e9e9e9;--m-stripe2:#f6f6f6;--m-white:#ffffff;--m-ink:#1d1d1f;--m-muted:#4f4f55;--m-line:#b5b5b5;--m-link:#1a56b8;--m-red:#e0574f;--m-amber:#e3a72f;--m-green:#5fb547;--m-gel1:#a9d2ff;--m-gel2:#2f74d0;--m-shadow:rgba(0,0,0,.38);--m-dock:rgba(255,255,255,.82);--m-bar:rgba(255,255,255,.94);
+  --flash:#05060a;--scan:rgba(255,255,255,.07);
+  color-scheme:dark;
+  --desk:var(--l-desk);--desk-ink:var(--l-fg);--bar:var(--l-bar);--bar-ink:var(--l-fg);
+  --pane:var(--l-pane);--text:var(--l-fg);--muted:var(--l-dim);--link:var(--l-blue);--accent:var(--l-purple);
+  --main:var(--l-orange);--focus:var(--l-orange);--rule:var(--l-border);--ok:var(--l-green);
+  --f-ui:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;--f-body:var(--f-ui);--f-head:var(--f-ui);
+}
+:root.e98{color-scheme:light;--desk:var(--w-teal);--desk-ink:var(--w-white);--bar:var(--w-grey);--bar-ink:var(--w-black);--pane:var(--w-white);--text:var(--w-black);--muted:#3a3a3a;--link:var(--w-link);--accent:var(--w-navy);--main:var(--w-maroon);--focus:var(--w-black);--rule:var(--w-dark);--ok:#006400;
+  --f-ui:"Pixelify Sans","Courier New",monospace;--f-body:Arimo,Arial,Helvetica,sans-serif;--f-head:"Pixelify Sans",Arial,sans-serif}
+:root.e04{color-scheme:light;--desk:var(--m-desk2);--desk-ink:var(--m-white);--bar:var(--m-bar);--bar-ink:var(--m-ink);--pane:var(--m-white);--text:var(--m-ink);--muted:var(--m-muted);--link:var(--m-link);--accent:var(--m-gel2);--main:var(--m-gel2);--focus:var(--m-gel2);--rule:var(--m-line);--ok:#2e7d32;
+  --f-ui:"Fira Sans","Lucida Grande","Helvetica Neue",Arial,sans-serif;--f-body:var(--f-ui);--f-head:var(--f-ui)}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--text);font:15px/1.6 var(--f-body);-webkit-text-size-adjust:100%}
+a{color:var(--link);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{font-family:var(--f-head);line-height:1.2;margin:0 0 .5em}
+p{margin:0 0 .8em}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9000;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding-block:5px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background:var(--bar);color:var(--bar-ink);font:12.5px/1.4 var(--f-ui);border-bottom:1px solid var(--rule)}
+.brand{font-weight:700;white-space:nowrap}
+.idea{flex:1 1 260px;min-width:0;color:var(--muted)}
+.e98 .idea,.e04 .idea{color:inherit}
+.era{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.era span{font-weight:700}
+.era button{border:1px solid var(--rule);background:transparent;padding:3px 9px;font-size:13px;font-weight:700;letter-spacing:.02em}
+.era button[aria-pressed=true]{background:var(--main);color:var(--pane);border-color:var(--main)}
+.clock{white-space:nowrap;font-variant-numeric:tabular-nums}
+.keys{color:var(--muted);white-space:nowrap}
+.dock{display:none}
+.js .dock{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.dock button{display:flex;align-items:center;gap:6px;border:0;background:transparent;padding:1px 7px;font-size:12.5px;white-space:nowrap}
+.dock .n{color:var(--l-blue)}
+.dock button[aria-current=true]{background:var(--l-border);color:var(--l-fg)}
+.dock button.off{opacity:.75;text-decoration:line-through}
+.dock .lb{display:none}
+@media (min-width:1500px){.dock .lb{display:inline}}
+
+/* ---------- desktop ---------- */
+.desk{position:relative;padding-block:12px 24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:10px;align-items:start;
+  background-image:radial-gradient(var(--rule) 1px,transparent 1.5px);background-size:22px 22px}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.icons{display:none}
+.win{background:var(--pane);color:var(--text);border:2px solid var(--rule);min-width:0;container-type:inline-size;scroll-margin-top:60px}
+.win[hidden]{display:none!important}
+.win.active{border-color:var(--l-blue)}
+.win.main{border-color:var(--main)}
+.tb{display:flex;align-items:center;gap:8px;padding:5px 12px 0;font:12.5px/1.6 var(--f-ui);color:var(--muted);user-select:none}
+.tb .ti{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tb .ti b{color:var(--l-blue);font-weight:400;margin-right:6px}
+.tb .badge{color:var(--main);font-weight:700}
+.ctl{display:flex;gap:4px}
+.ctl button{border:0;background:transparent;color:var(--muted);padding:0 6px;font:13px/1.4 var(--f-ui)}
+.ctl button:hover{color:var(--l-orange)}
+.bd{padding:10px 18px 16px}
+.icon-g{font-family:var(--f-ui)}
+
+/* content */
+.kick{font:12.5px/1.5 var(--f-ui);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4em}
+h1{font-size:clamp(1.9rem,3.4vw,2.6rem);color:var(--text)}
+h2{font-size:1.25rem}
+h3{font-size:1rem;margin-top:1.1em}
+.hero{font-size:1.08rem;font-weight:700;color:var(--accent)}
+.e98 .hero{color:var(--w-navy)}
+.seek{border-left:3px solid var(--main);padding-left:10px}
+.links{list-style:none;padding:0;margin:.6em 0 0;display:flex;flex-wrap:wrap;gap:6px 8px}
+.links a,.links span{display:inline-block;padding:3px 10px;border:1px solid var(--rule);text-decoration:none;font:13px/1.5 var(--f-ui);color:var(--link)}
+.links span{color:var(--text)}
+.quote{font-size:1.2rem;font-weight:700;line-height:1.35;margin:.2em 0 .6em}
+.status{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:.4em 0 .9em}
+.status li{font:12.5px/1.5 var(--f-ui);padding:2px 8px;border:1px dashed var(--main)}
+.cta{display:inline-block;font-weight:700;padding:6px 14px;background:var(--main);color:var(--pane);text-decoration:none}
+.e98 .cta{color:var(--w-white)}
+.plugs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.8em 0}
+.plug{border:1px solid var(--rule);padding:10px 12px}
+.plug h3{margin:0 0 .3em}
+.plug p{font-size:.94rem;margin-bottom:.4em}
+.log{list-style:none;padding:0;margin:.4em 0 .8em;font:13.5px/1.55 var(--f-ui)}
+.log li{display:grid;grid-template-columns:7.2em 1fr;gap:10px;padding:3px 0;border-bottom:1px dotted var(--rule)}
+.log time{color:var(--ok);font-weight:700}
+.fig{font-size:.95rem}
+.fig strong{font:700 1.5rem/1 var(--f-ui);color:var(--accent);margin-right:4px}
+.src{font-size:.85rem;color:var(--muted)}
+.files{list-style:none;padding:0;margin:.4em 0 .8em}
+.files li{display:grid;grid-template-columns:9.5em 1fr auto;gap:4px 14px;padding:8px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.files .nm{font-weight:700;font-family:var(--f-ui)}
+.files .ds{font-size:.94rem}
+.files .lk{font:13px/1.5 var(--f-ui);white-space:nowrap}
+.hdr{font:12px/1.5 var(--f-ui);color:var(--muted)}
+.tl{list-style:none;padding:0;margin:0}
+.tl li{display:grid;grid-template-columns:7.5em 1fr;gap:10px;padding:6px 0;border-bottom:1px solid var(--rule)}
+.tl .d{font:12.5px/1.6 var(--f-ui);color:var(--muted)}
+.tl b{display:block}
+.tl span{font-size:.93rem}
+.sys{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.art{margin:0;font:13px/1.15 "JetBrains Mono",ui-monospace,monospace;color:var(--accent)}
+.sys dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.93rem}
+.sys dt{font-weight:700;color:var(--accent);font-family:var(--f-ui)}
+.sys dd{margin:0;min-width:0}
+.note{font-size:.9rem;color:var(--muted)}
+.made{font-size:.9rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:.6em;margin-top:.8em}
+.lklist{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+.lklist dt{font-family:var(--f-ui);color:var(--muted)}
+.lklist a{overflow-wrap:anywhere}
+@container (max-width:560px){
+  .plugs{grid-template-columns:1fr}
+  .files li{grid-template-columns:1fr}
+  .files .hdr{display:none}
+  .tl li{grid-template-columns:1fr;gap:0}
+  .sys{grid-template-columns:1fr}
+  .sys .art{display:none}
+}
+
+/* floating (after first drag) */
+.desk.floating{display:block}
+.desk.floating .col{display:contents}
+.desk.floating .win{position:absolute}
+.drag .tb{cursor:grab}
+.dragging,.dragging *{cursor:grabbing!important;user-select:none}
+
+/* ---------- 1998 ---------- */
+.e98 .top{border-bottom:0;box-shadow:inset 0 -1px var(--w-dark),inset 0 1px var(--w-white);font-size:14px}
+.e98 .era button{background:var(--w-grey);border:0;box-shadow:inset -1px -1px var(--w-darker),inset 1px 1px var(--w-white),inset -2px -2px var(--w-dark),inset 2px 2px var(--w-light);padding:3px 12px}
+.e98 .era button[aria-pressed=true]{background:var(--w-light);color:var(--w-black);box-shadow:inset 1px 1px var(--w-darker),inset -1px -1px var(--w-white),inset 2px 2px var(--w-dark)}
+.e98 .clock{padding:2px 10px;box-shadow:inset 1px 1px var(--w-dark),inset -1px -1px var(--w-white)}
+.e98 .keys{display:none}
+.e98 .desk{background-image:none;grid-template-columns:96px minmax(0,1.3fr) minmax(0,1fr);gap:14px;padding-bottom:60px}
+.e98 .dock{position:fixed;left:0;right:0;bottom:0;z-index:9000;background:var(--w-grey);padding:4px max(6px,env(safe-area-inset-left,0px)) calc(4px + env(safe-area-inset-bottom,0px));box-shadow:inset 0 1px var(--w-light),inset 0 2px var(--w-white);overflow-x:auto}
+.e98 .dock button{font:14px/1.5 var(--f-ui);background:var(--w-grey);color:var(--w-black);padding:2px 10px;min-width:110px;box-shadow:inset -1px -1px var(--w-darker),inset 1px 1px var(--w-white),inset -2px -2px var(--w-dark),inset 2px 2px var(--w-light)}
+.e98 .dock button[aria-current=true]{background:var(--w-light);color:var(--w-black);box-shadow:inset 1px 1px var(--w-darker),inset -1px -1px var(--w-white),inset 2px 2px var(--w-dark);font-weight:600}
+.e98 .dock button.off{text-decoration:none;font-style:italic;opacity:1}
+.e98 .dock .n{display:none}
+.e98 .dock .lb{display:inline}
+.e98 .win{background:var(--w-grey);border:0;padding:3px;box-shadow:inset -1px -1px var(--w-darker),inset 1px 1px var(--w-light),inset -2px -2px var(--w-dark),inset 2px 2px var(--w-white)}
+.e98 .tb{background:linear-gradient(90deg,var(--w-inact1),var(--w-inact2));color:var(--w-white);padding:2px 3px 2px 6px;font-size:14px;line-height:1.4}
+.e98 .win.active .tb{background:linear-gradient(90deg,var(--w-navy),var(--w-blue));color:var(--w-white)}
+.e98 .tb .ti b{display:none}
+.e98 .tb .badge{color:var(--w-mark)}
+.e98 .ctl button{width:20px;height:18px;padding:0;background:var(--w-grey);color:var(--w-black);font:700 12px/1 Arimo,Arial,sans-serif;box-shadow:inset -1px -1px var(--w-darker),inset 1px 1px var(--w-white),inset -2px -2px var(--w-dark),inset 2px 2px var(--w-light)}
+.e98 .bd{background:var(--w-white);margin-top:3px;box-shadow:inset 1px 1px var(--w-dark),inset -1px -1px var(--w-light),inset 2px 2px var(--w-darker)}
+.e98 .main .bd{border-top:4px solid var(--w-maroon)}
+.e98 .links a,.e98 .links span{border:0;background:var(--w-grey);color:var(--w-black);box-shadow:inset -1px -1px var(--w-darker),inset 1px 1px var(--w-white),inset -2px -2px var(--w-dark);font-size:14px}
+.e98 .links a{text-decoration:underline}
+.e98 .cta{box-shadow:inset -2px -2px var(--w-black)}
+.e98 .art{color:var(--w-navy)}
+.e98 .sys dt{color:var(--w-navy)}
+.e98 h1{font-weight:600}
+
+/* ---------- 2004 ---------- */
+.e04 .top{border-bottom:1px solid var(--m-line);box-shadow:0 1px 4px rgba(0,0,0,.18);font-size:13.5px}
+.e04 .era button{border-radius:999px;border-color:var(--m-line);background:linear-gradient(var(--m-white),var(--m-stripe1));color:var(--m-ink)}
+.e04 .era button[aria-pressed=true]{background:linear-gradient(var(--m-gel1),var(--m-gel2));color:var(--m-white);border-color:var(--m-gel2)}
+.e04 .keys{display:none}
+.e04 .desk{background:radial-gradient(ellipse at 30% 0%,var(--m-desk1),var(--m-desk2) 70%);grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 92px;gap:22px;padding-top:22px;padding-bottom:110px}
+.e04 .icons{order:3}
+.e04 .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:9000;background:var(--m-dock);border:1px solid var(--m-white);border-radius:14px;padding:6px 10px 3px;gap:8px;box-shadow:0 6px 24px var(--m-shadow);max-width:calc(100vw - 32px);overflow-x:auto}
+.e04 .dock button{flex-direction:column;gap:1px;padding:0 2px;font-size:11px;color:var(--m-ink);background:transparent}
+.e04 .dock .n{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;font:600 20px/1 var(--f-ui);color:var(--m-white);background:linear-gradient(var(--m-gel1),var(--m-gel2));box-shadow:inset 0 1px rgba(255,255,255,.7),0 2px 4px rgba(0,0,0,.3);transition:transform .15s}
+.e04 .dock button:hover .n{transform:translateY(-4px) scale(1.12)}
+.e04 .dock .n::after{content:none}
+.e04 .dock .lb{display:block}
+.e04 .dock .gl{display:none}
+.e04 .dock button[aria-current=true]{background:transparent;color:var(--m-ink)}
+.e04 .dock button[aria-current=true] .lb{font-weight:600}
+.e04 .dock button.off{text-decoration:none;opacity:1}
+.e04 .dock button.off .n{filter:grayscale(1)}
+.e04 .win{border:0;border-radius:9px;overflow:hidden;box-shadow:0 12px 34px var(--m-shadow),0 0 0 1px rgba(0,0,0,.25);background:var(--m-white)}
+.e04 .tb{justify-content:center;padding:4px 10px;color:var(--m-muted);font-size:13.5px;background:repeating-linear-gradient(var(--m-stripe2) 0 1px,var(--m-stripe1) 1px 2px);border-bottom:1px solid var(--m-line);position:relative}
+.e04 .win.active .tb{color:var(--m-ink);background:repeating-linear-gradient(var(--m-white) 0 1px,var(--m-stripe1) 1px 2px),linear-gradient(var(--m-white),var(--m-line))}
+.e04 .tb .ti{flex:0 1 auto;text-align:center}
+.e04 .tb .ti b{display:none}
+.e04 .tb .badge{color:var(--m-white);background:var(--m-gel2);border-radius:8px;padding:0 7px;font-size:11.5px;margin-left:6px}
+.e04 .ctl{position:absolute;left:10px;top:50%;transform:translateY(-50%);gap:7px}
+.e04 .ctl .cls{order:-1}
+.e04 .ctl button{width:13px;height:13px;border-radius:50%;padding:0;font-size:9px;line-height:13px;color:transparent;box-shadow:inset 0 1px 2px rgba(255,255,255,.7),inset 0 -1px 2px rgba(0,0,0,.25),0 0 0 .5px rgba(0,0,0,.4)}
+.e04 .ctl .cls{background:var(--m-red)}.e04 .ctl .min{background:var(--m-amber)}
+.e04 .ctl button:hover{color:var(--m-ink)}
+.e04 .win:not(.active) .ctl button{background:var(--m-line)}
+.e04 .main{box-shadow:0 12px 34px var(--m-shadow),0 0 0 3px var(--m-gel2)}
+.e04 .bd{padding:14px 20px 18px}
+.e04 .links a,.e04 .links span{border-radius:999px;border-color:var(--m-line);background:linear-gradient(var(--m-white),var(--m-stripe1))}
+.e04 .cta{border-radius:999px;background:linear-gradient(var(--m-gel1),var(--m-gel2));color:var(--m-white);box-shadow:inset 0 1px rgba(255,255,255,.6)}
+.e04 .plug,.e04 .status li{border-radius:8px}
+.e04 .seek{border-left-color:var(--m-gel2)}
+.e04 .art{color:var(--m-gel2)}
+.e04 #w-about .sys{text-align:left}
+
+/* desktop icons (1998 + 2004) */
+.e98.js .icons,.e04.js .icons{display:flex;flex-direction:column;gap:14px;list-style:none;margin:0;padding:0}
+.icons button{display:flex;flex-direction:column;align-items:center;gap:4px;width:88px;border:0;background:transparent;color:var(--desk-ink);font:13px/1.25 var(--f-ui);text-align:center;padding:4px 2px}
+.icons .gl{display:grid;place-items:center;width:38px;height:38px;font-size:20px}
+.e98 .icons .gl{background:var(--w-grey);color:var(--w-navy);box-shadow:inset -1px -1px var(--w-darker),inset 1px 1px var(--w-white),inset -2px -2px var(--w-dark);image-rendering:pixelated}
+.e98 .icons button:focus .tx{background:var(--w-navy);outline:1px dotted var(--w-white)}
+.e04 .icons .gl{width:46px;height:46px;border-radius:11px;color:var(--m-white);background:linear-gradient(var(--m-gel1),var(--m-gel2));box-shadow:inset 0 1px rgba(255,255,255,.7),0 3px 6px rgba(0,0,0,.35)}
+.e04 .icons .tx{text-shadow:0 1px 2px rgba(0,0,0,.6)}
+
+/* era switch flash */
+#flash{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;background:repeating-linear-gradient(var(--flash) 0 2px,var(--scan) 2px 3px),var(--flash)}
+
+/* ---------- phones ---------- */
+@media (max-width:719px){
+  .top{gap:6px 10px;padding-block:6px}
+  .idea{order:5;flex-basis:100%;font-size:12px}
+  .clock,.keys{display:none}
+  .desk,.e98 .desk,.e04 .desk{display:flex;flex-direction:column;align-items:stretch;gap:14px;padding-bottom:24px}
+  .col{display:contents}
+  .js .dock,.e98.js .icons,.e04.js .icons,.ctl{display:none!important}
+  #w-whoami{order:1}#w-mdib{order:2}#w-plugins{order:3}#w-work{order:4}#w-history{order:5}#w-about{order:6}#w-links{order:7}
+  .bd{padding:10px 14px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body><div id="v-archive" role="note" lang="en"><style>#v-archive{all:initial;display:block;position:relative;z-index:2147483647;box-sizing:border-box;width:100%;margin:0;padding:6px 16px;font:13px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;text-align:center;background:#f1f1ee;color:#1c1c1a;border-bottom:1px solid #b7b7b0}#v-archive a{all:unset;display:inline-block;margin-left:14px;color:#1b3d8c;text-decoration:underline;text-underline-offset:2px;cursor:pointer;white-space:nowrap}#v-archive a:hover{text-decoration-thickness:2px}#v-archive a:focus-visible{outline:2px solid currentColor;outline-offset:2px}@media (prefers-color-scheme:dark){#v-archive{background:#1b1c1e;color:#e7e7e3;border-bottom-color:#3c3d41}#v-archive a{color:#a8c0ff}}</style>Archived version · 15 Nov 2026. Facts were true then.<a href="/v/sketch-a/">← older</a><a href="/">current site →</a></div>
+
+<header class="top" id="top">
+  <span class="brand">Javier Ponz</span>
+  <ul class="dock" id="dock" aria-label="Open windows"></ul>
+  <span class="idea">Ten years fixing other people's machines. This is mine.</span>
+  <div class="era" role="group" aria-label="Desktop era">
+    <span aria-hidden="true">era</span>
+    <button type="button" data-era="e98" aria-pressed="false">1998</button>
+    <button type="button" data-era="e04" aria-pressed="false">2004</button>
+    <button type="button" data-era="e26" aria-pressed="true">2026</button>
+  </div>
+  <span class="keys" aria-hidden="true">1–7 focus · e era</span>
+  <span class="clock" id="clock"></span>
+</header>
+
+<main class="desk" id="desk">
+  <ul class="icons" id="icons" aria-label="Desktop icons"></ul>
+  <div class="col">
+    <section class="win active" id="w-whoami" data-t="whoami" data-g="@" aria-labelledby="h1">
+      <div class="tb"><span class="ti"><b>1</b>whoami</span></div>
+      <div class="bd">
+        <p class="kick">Aberdeen, Scotland · ex-Apple Genius</p>
+        <h1 id="h1">Javier Ponz</h1>
+        <p class="hero">Ex-Apple | 10 years fixing people's tech. Now exploring the intersection of ASI, Neuroscience &amp; Post-Labor Economics.</p>
+        <p>Now I help people and their AI agents get unstuck. Hermes Agent is my daily driver and I build plugins for it. I specify and test; AI coding agents write the code.</p>
+        <p class="seek"><strong>Looking for:</strong> support, customer-facing and agent operations roles around open agents. Remote suits me; open to the right role, starting now.</p>
+        <ul class="links">
+          <li><a href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/javierponz" target="_blank" rel="noreferrer">LinkedIn</a></li>
+          <li><a href="https://x.com/sudotechnoir" target="_blank" rel="noreferrer">X @sudotechnoir</a></li>
+          <li><a href="/javier-ponz-prado-cv.pdf" target="_blank" rel="noreferrer">CV (PDF)</a></li>
+          <li><span>Discord: sudotechnoir</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="win" id="w-plugins" data-t="plugins.log" data-g="☤" aria-labelledby="h-plugins">
+      <div class="tb"><span class="ti"><b>3</b>plugins.log</span></div>
+      <div class="bd">
+        <p class="kick">Proof · November 2026</p>
+        <h2 id="h-plugins">Two Hermes Agent plugins</h2>
+        <p>Built for the Nous Research plugin hackathon and tested end to end on my own Hermes, in Desktop and Telegram. My spec and tests; agent-written code.</p>
+        <div class="plugs">
+          <div class="plug">
+            <h3>Psychopomp</h3>
+            <p>A weekly page of your life, and a dead man's switch that carries your words to the people you love, only after your witness sends a code.</p>
+            <a href="https://github.com/ponzgpt/psychopomp" target="_blank" rel="noreferrer">github.com/ponzgpt/psychopomp</a>
+          </div>
+          <div class="plug">
+            <h3>Sabbath</h3>
+            <p>Once a week Hermes says goodnight, pauses its own scheduled jobs and keeps you company in anything but work. One gentle digest when the day ends.</p>
+            <a href="https://github.com/ponzgpt/sabbath" target="_blank" rel="noreferrer">github.com/ponzgpt/sabbath</a>
+          </div>
+        </div>
+        <h3>Catalog review, as it happened</h3>
+        <ol class="log">
+          <li><time datetime="2026-11-10">2026-11-10</time><span>Catalog PRs opened: <a href="https://github.com/NousResearch/hermes-agent/pull/152559" target="_blank" rel="noreferrer">#152559</a> and <a href="https://github.com/NousResearch/hermes-agent/pull/152560" target="_blank" rel="noreferrer">#152560</a></span></li>
+          <li><time>+14 h</time><span>Reviewed by the maintainer</span></li>
+          <li><time>+12 h</time><span>Requested fixes shipped</span></li>
+          <li><time>now</time><span>Both PRs open, awaiting re-review</span></li>
+        </ol>
+        <p class="fig"><strong>31</strong> tests between the two plugins (18 + 13). <span class="src">Sources: the two repositories and the two PRs linked above.</span></p>
+      </div>
+    </section>
+
+    <section class="win" id="w-work" data-t="work/" data-g="▤" aria-labelledby="h-work">
+      <div class="tb"><span class="ti"><b>4</b>~/work/</span></div>
+      <div class="bd">
+        <h2 id="h-work">Selected work, live</h2>
+        <ul class="files">
+          <li class="hdr" aria-hidden="true"><span>Name</span><span>What it is</span><span>Open</span></li>
+          <li><span class="nm">Neuronara</span><span class="ds">A deterministic, no-LLM reference search over the standards of clinical neurophysiology, with a bring-your-own-AI handoff. Built for my partner, a clinical neurophysiologist, and fixed miss by miss from her reports.</span><a class="lk" href="https://neuronara.technoir.cloud" target="_blank" rel="noreferrer">neuronara ↗</a></li>
+          <li><span class="nm">OmaDB</span><span class="ds">A hardware compatibility database for Omarchy, the Linux setup this desktop imitates.</span><a class="lk" href="https://omadb.technoir.cloud" target="_blank" rel="noreferrer">omadb ↗</a></li>
+          <li><span class="nm">Post-Labor Wiki</span><span class="ds">A visual, source-first wiki on post-labor economics: timelines, charts and memes, with a citation behind every claim.</span><a class="lk" href="https://post-labor-wiki.technoir.cloud/" target="_blank" rel="noreferrer">wiki ↗</a></li>
+          <li><span class="nm">ASI Rush</span><span class="ds">A clicker about the real race to AI, from beige PCs in a garage to superintelligence, while rival labs race you.</span><a class="lk" href="https://asi-rush.technoir.cloud/" target="_blank" rel="noreferrer">play ↗</a></li>
+          <li><span class="nm">BRINK</span><span class="ds">A deterministic nuclear escalation game, playable in the browser or by any MCP-capable agent, Hermes included.</span><a class="lk" href="https://brink.technoir.cloud/" target="_blank" rel="noreferrer">brink ↗</a></li>
+          <li><span class="nm">StacksNRacks</span><span class="ds">Local AI hardware, priced this week: budget tiers and estimated tokens per second per dollar.</span><a class="lk" href="https://stacksnracks.technoir.cloud/" target="_blank" rel="noreferrer">stacks ↗</a></li>
+        </ul>
+        <p class="note">Also Memento Mori, the Hyperexcitability atlas and more at <a href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">github.com/ponzgpt</a>. Every one specified and tested by me, written by AI coding agents.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="col">
+    <section class="win main" id="w-mdib" data-t="MDIB" data-g="◆" aria-labelledby="h-mdib">
+      <div class="tb"><span class="ti"><b>2</b>mdib <span class="badge">★ main project</span></span></div>
+      <div class="bd">
+        <p class="kick">Main project · pre-launch</p>
+        <h2 id="h-mdib">MDIB · Machines Do It Better</h2>
+        <p class="quote">“You can't paste your clients' data into ChatGPT.”</p>
+        <p>MDIB designs and sets up private AI agents, fitted to one professional's work, that the client owns. Open models and open harnesses like Hermes: the account, the data and the choice of model stay with the client. The Genius Bar reflex, applied to agents: get it working, explain it, leave you in control.</p>
+        <ul class="status" aria-label="Status"><li>pre-launch</li><li>private pilot in preparation</li><li>no paying clients</li></ul>
+        <a class="cta" href="https://mdib.technoir.cloud" target="_blank" rel="noreferrer">mdib.technoir.cloud ↗</a>
+      </div>
+    </section>
+
+    <section class="win" id="w-history" data-t="history" data-g="◷" aria-labelledby="h-history">
+      <div class="tb"><span class="ti"><b>5</b>history</span></div>
+      <div class="bd">
+        <h2 id="h-history">Ten years at Apple, then my own</h2>
+        <ol class="tl">
+          <li><span class="d">2014–2018</span><span><b>Specialist, then Technical Specialist</b>Apple Retail, Madrid. Diagnosis, consultative support, execution under pressure.</span></li>
+          <li><span class="d">2018–2024</span><span><b>Genius</b>Six and a half years as the store's technical baseline: the cases nobody else had resolved, explained to people at every level, and training the technicians who came after me.</span></li>
+          <li><span class="d">2020</span><span><b>AppleCare Support Advisor</b>Remote, a COVID volunteer: concurrent cases under structured troubleshooting and documentation.</span></li>
+          <li><span class="d">2023 · 2024</span><span><b>Lead In-Store Experience</b>Two seven-month secondments while holding the Genius role, then back to the bench.</span></li>
+          <li><span class="d">Aug 2024–now</span><span><b>Independent, Aberdeen</b>Studying AI and Full Stack at Universidad Rey Juan Carlos via Racks University (to Dec 2026), building MDIB and shipping small products.</span></li>
+        </ol>
+        <p class="note" style="margin-top:.7em">Apple Certified Mac Technician · Apple Certified iOS Technician.</p>
+      </div>
+    </section>
+
+    <section class="win" id="w-about" data-t="about this machine" data-g="▣" aria-labelledby="h-about">
+      <div class="tb"><span class="ti"><b>6</b>about this machine</span></div>
+      <div class="bd">
+        <h2 id="h-about">About this machine</h2>
+        <div class="sys">
+<pre class="art" aria-hidden="true">┌────┬───┐
+│    │   │
+│    ├───┤
+│    │   │
+├────┴───┤
+│        │
+└────────┘</pre>
+          <dl>
+            <dt>OS</dt><dd>Omarchy 4.0.3 (Arch Linux)</dd>
+            <dt>WM</dt><dd>Hyprland 0.56, Wayland</dd>
+            <dt>CPU</dt><dd>AMD Ryzen 9 9900X3D (24)</dd>
+            <dt>GPU</dt><dd>NVIDIA GeForce RTX 5090</dd>
+            <dt>Memory</dt><dd>60 GiB</dd>
+            <dt>Display</dt><dd>3840×2160 @ 120 Hz, 42"</dd>
+            <dt>Shell</dt><dd>foot · Tokyo Night · JetBrains Mono</dd>
+          </dl>
+        </div>
+        <h3>Server</h3>
+        <p>A VPS I administer: Docker, Docker Swarm, Dokploy, Traefik and nginx. Every *.technoir.cloud link here runs there.</p>
+        <h3>Runs daily, did not write</h3>
+        <p>Hermes Agent: my main agent, Syl, on Hermes Cloud through Nous Portal. Claude Code and Codex for building. A two-rig local inference setup is offline while I rebuild the hardware.</p>
+      </div>
+    </section>
+
+    <section class="win" id="w-links" data-t="links" data-g="↗" aria-labelledby="h-links">
+      <div class="tb"><span class="ti"><b>7</b>links</span></div>
+      <div class="bd">
+        <h2 id="h-links">Get in touch</h2>
+        <dl class="lklist">
+          <dt>X</dt><dd><a href="https://x.com/sudotechnoir" target="_blank" rel="noreferrer">x.com/sudotechnoir</a> (DMs open)</dd>
+          <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/javierponz" target="_blank" rel="noreferrer">linkedin.com/in/javierponz</a></dd>
+          <dt>GitHub</dt><dd><a href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">github.com/ponzgpt</a></dd>
+          <dt>CV</dt><dd><a href="/javier-ponz-prado-cv.pdf" target="_blank" rel="noreferrer">javier-ponz-prado-cv.pdf</a></dd>
+          <dt>Discord</dt><dd>sudotechnoir, in the Nous Research community</dd>
+        </dl>
+        <p class="made">How this was made: one HTML file, specified and checked by me, written by an AI coding agent. All three eras are hand-written CSS; no logos, no libraries.</p>
+      </div>
+    </section>
+  </div>
+</main>
+<div id="flash" aria-hidden="true"></div>
+
+<script>
+(function(){
+  var root=document.documentElement, desk=document.getElementById('desk'), dock=document.getElementById('dock'), icons=document.getElementById('icons');
+  root.classList.add('js','e26');
+  var wins=[].slice.call(desk.querySelectorAll('.win')), z=10, floating=false;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)'), wide=matchMedia('(min-width: 720px)'), fine=matchMedia('(pointer: fine)');
+  var order=['w-whoami','w-mdib','w-plugins','w-work','w-history','w-about','w-links'];
+  wins.sort(function(a,b){return order.indexOf(a.id)-order.indexOf(b.id)});
+
+  // dock, desktop icons, window controls
+  wins.forEach(function(w,i){
+    var t=w.dataset.t, g=w.dataset.g;
+    var li=document.createElement('li'), b=document.createElement('button');
+    b.type='button'; b.dataset.w=w.id;
+    b.innerHTML='<span class="n" aria-hidden="true"></span><span class="gl" aria-hidden="true"></span><span class="lb"></span>';
+    b.querySelector('.n').textContent=(i+1); b.querySelector('.lb').textContent=t;
+    b.setAttribute('aria-label',t); b.title=t;
+    b.addEventListener('click',function(){dockClick(w)});
+    li.appendChild(b); dock.appendChild(li); w._dock=b;
+    var il=document.createElement('li'), ib=document.createElement('button');
+    ib.type='button'; ib.innerHTML='<span class="gl" aria-hidden="true"></span><span class="tx"></span>';
+    ib.querySelector('.gl').textContent=g; ib.querySelector('.tx').textContent=t;
+    ib.addEventListener('click',function(){show(w,true)});
+    il.appendChild(ib); icons.appendChild(il);
+    var ctl=document.createElement('span'); ctl.className='ctl';
+    ctl.innerHTML='<button type="button" class="min">–</button><button type="button" class="cls">×</button>';
+    ctl.children[0].setAttribute('aria-label','Minimise '+t); ctl.children[1].setAttribute('aria-label','Close '+t);
+    ctl.children[0].addEventListener('click',function(e){e.stopPropagation();hide(w)});
+    ctl.children[1].addEventListener('click',function(e){e.stopPropagation();hide(w)});
+    w.querySelector('.tb').appendChild(ctl);
+    w.addEventListener('pointerdown',function(){raise(w)});
+    w.addEventListener('focusin',function(){raise(w)});
+  });
+  // the 2004 dock shows the glyph inside its tile
+  wins.forEach(function(w){ w._dock.querySelector('.n').dataset.i=w._dock.querySelector('.n').textContent; });
+  function syncDockGlyphs(){
+    var mac=root.classList.contains('e04');
+    wins.forEach(function(w){var n=w._dock.querySelector('.n'); n.textContent=mac?w.dataset.g:n.dataset.i;});
+  }
+
+  function raise(w){
+    if(w.classList.contains('active')&&w.style.zIndex==z) return;
+    z+=1; w.style.zIndex=z;
+    wins.forEach(function(o){var on=o===w; o.classList.toggle('active',on); o._dock.setAttribute('aria-current',on?'true':'false');});
+  }
+  function hide(w){
+    w.hidden=true; w._dock.classList.add('off'); w._dock.setAttribute('aria-current','false');
+    var next=wins.filter(function(o){return !o.hidden}).sort(function(a,b){return (b.style.zIndex|0)-(a.style.zIndex|0)})[0];
+    if(next) raise(next); fitDesk();
+  }
+  function show(w,focus){
+    var was=w.hidden; w.hidden=false; w._dock.classList.remove('off');
+    if(was&&floating&&!w.style.left){
+      var dr=desk.getBoundingClientRect();
+      w.style.left='60px'; w.style.top=Math.max(10,-dr.top+70)+'px'; w.style.width=Math.min(620,desk.clientWidth-90)+'px';
+    }
+    raise(w); fitDesk();
+    if(focus){ w.scrollIntoView({block:'nearest',behavior:reduce.matches?'auto':'smooth'}); var h=w.querySelector('h1,h2'); h.tabIndex=-1; h.focus({preventScroll:true}); }
+  }
+  function dockClick(w){ if(!w.hidden&&w.classList.contains('active')&&wide.matches) hide(w); else show(w,true); }
+
+  // dragging: the first drag freezes the CSS grid into absolute positions
+  function freeze(){
+    if(floating) return;
+    var dr=desk.getBoundingClientRect(), pos=wins.map(function(w){var r=w.getBoundingClientRect();return [r.left-dr.left,r.top-dr.top,r.width]});
+    desk.style.minHeight=desk.offsetHeight+'px';
+    wins.forEach(function(w,i){ if(w.hidden) return; w.style.left=pos[i][0]+'px'; w.style.top=pos[i][1]+'px'; w.style.width=pos[i][2]+'px'; });
+    desk.classList.add('floating'); floating=true;
+  }
+  function unfreeze(){
+    floating=false; desk.classList.remove('floating'); desk.style.minHeight='';
+    wins.forEach(function(w){w.style.left=w.style.top=w.style.width='';});
+  }
+  function fitDesk(){
+    if(!floating) return;
+    var m=0; wins.forEach(function(w){ if(!w.hidden) m=Math.max(m,w.offsetTop+w.offsetHeight); });
+    desk.style.minHeight=(m+60)+'px';
+  }
+  function canDrag(){return wide.matches&&fine.matches}
+  function setDrag(){ root.classList.toggle('drag',canDrag()); if(!wide.matches&&floating) unfreeze(); }
+  wide.addEventListener('change',setDrag); setDrag();
+  wins.forEach(function(w){
+    var tb=w.querySelector('.tb'), sx,sy,ox,oy,id=null;
+    tb.addEventListener('pointerdown',function(e){
+      if(!canDrag()||e.button!==0||e.target.closest('button')) return;
+      freeze(); raise(w); id=e.pointerId; tb.setPointerCapture(id);
+      sx=e.clientX; sy=e.clientY; ox=w.offsetLeft; oy=w.offsetTop; root.classList.add('dragging'); e.preventDefault();
+    });
+    tb.addEventListener('pointermove',function(e){
+      if(e.pointerId!==id) return;
+      var x=Math.min(Math.max(ox+e.clientX-sx,-w.offsetWidth+120),desk.clientWidth-120), y=Math.max(oy+e.clientY-sy,0);
+      w.style.left=x+'px'; w.style.top=y+'px';
+    });
+    function end(e){ if(e.pointerId!==id) return; id=null; root.classList.remove('dragging'); fitDesk(); }
+    tb.addEventListener('pointerup',end); tb.addEventListener('pointercancel',end);
+  });
+
+  // era switch
+  var eraBtns=[].slice.call(document.querySelectorAll('.era button')), cur='e26';
+  function apply(era){
+    root.classList.remove('e98','e04','e26'); root.classList.add(era); cur=era;
+    eraBtns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.era===era?'true':'false')});
+    if(floating) unfreeze(); syncDockGlyphs(); tick();
+  }
+  function setEra(era){
+    if(era===cur) return;
+    var f=document.getElementById('flash');
+    if(reduce.matches||!f.animate){apply(era);return;}
+    // no fill modes: if the tab is throttled the overlay can never get stuck visible
+    f.animate([{opacity:0},{opacity:1}],{duration:140});
+    setTimeout(function(){
+      apply(era);
+      f.animate([{opacity:1,clipPath:'inset(0 0 0 0)'},{opacity:1,clipPath:'inset(49.5% 0 49.5% 0)',offset:.6},{opacity:0,clipPath:'inset(50% 0 50% 0)'}],{duration:320,easing:'ease-in'});
+    },140);
+  }
+  eraBtns.forEach(function(b){b.addEventListener('click',function(){setEra(b.dataset.era)})});
+
+  // keyboard: 1-7 focus a window, e cycles the era
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey||e.metaKey||e.altKey||/INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    var n=parseInt(e.key,10);
+    if(n>=1&&n<=wins.length){show(wins[n-1],true);e.preventDefault();}
+    else if(e.key==='e'){var l=['e98','e04','e26'];setEra(l[(l.indexOf(cur)+1)%3]);}
+  });
+
+  // clock, per era
+  var clock=document.getElementById('clock');
+  function tick(){
+    var d=new Date(), hm=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    clock.textContent= cur==='e26' ? d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+'  '+hm
+      : cur==='e04' ? d.toLocaleDateString('en-GB',{weekday:'short'})+' '+hm : hm;
+  }
+  tick(); setInterval(tick,30000);
+  raise(wins[0]); syncDockGlyphs();
+})();
+</script>
+
+</body>
+</html>

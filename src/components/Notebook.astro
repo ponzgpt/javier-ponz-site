@@ -196,6 +196,7 @@ const cards = [
       {e.theses.slice(5).map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 6}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
     </ol>
     <p class="made" set:html={e.made} />
+    <p class="earlier">{e.earlier} {e.versions.map(([label, href], i) => <>{i > 0 && ' · '}<a href={href}>{label}</a></>)}</p>
   </div>
 </section>
 

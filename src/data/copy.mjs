@@ -205,7 +205,9 @@ const en = {
       ['e/<span class="lam">λ</span>', 'More capable technology, sooner, in more people\'s hands. Progress is something to build, not something to wait for.'],
       ['The classical virtues', 'Prudence, justice, fortitude and temperance: the old Mediterranean virtues are still the best checklist I know. Measure in all things, ambition included.']
     ],
-    made: '<b>How this was made:</b> built with AI coding agents from my spec and my tests. If I can, so can you: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">the source is on GitHub</a>.'
+    made: '<b>How this was made:</b> built with AI coding agents from my spec and my tests. If I can, so can you: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">the source is on GitHub</a>.',
+    earlier: 'Earlier versions of this page:',
+    versions: [['v1', '/v/v1/'], ['v2', '/v/v2/'], ['v3', '/v/v3/'], ['sketch A', '/v/sketch-a/'], ['sketch C', '/v/sketch-c/']]
   },
   notFound: {
     line: 'This page is not in the notebook.',
@@ -389,7 +391,9 @@ const es = {
       ['e/<span class="lam">λ</span>', 'Tecnología más capaz, antes y en manos de más gente. El progreso hay que construirlo, no esperarlo.'],
       ['Las virtudes clásicas', 'Prudencia, justicia, fortaleza y templanza: las viejas virtudes mediterráneas siguen siendo la mejor lista de comprobación que conozco. Mesura en todo, también en la ambición.']
     ],
-    made: '<b>Cómo está hecho:</b> construido con agentes de programación con IA a partir de mi especificación y mis pruebas. Si yo puedo, tú también: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">el código está en GitHub</a>.'
+    made: '<b>Cómo está hecho:</b> construido con agentes de programación con IA a partir de mi especificación y mis pruebas. Si yo puedo, tú también: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">el código está en GitHub</a>.',
+    earlier: 'Versiones anteriores de esta página:',
+    versions: [['v1', '/v/v1/'], ['v2', '/v/v2/es/'], ['v3', '/v/v3/es/'], ['boceto A', '/v/sketch-a/'], ['boceto C', '/v/sketch-c/']]
   },
   notFound: {
     line: 'Esta página no está en el cuaderno.',
