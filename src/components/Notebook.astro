@@ -11,7 +11,7 @@ const c = t.cover, w = t.work, n = t.notes, s = t.stack, e = t.ethos;
 const ext = { target: '_blank', rel: 'noreferrer' };
 const me = { target: '_blank', rel: 'me noreferrer' };
 const forScript = JSON.stringify({ ui: t.ui, work: { review: w.review }, map: t.map }).replace(/</g, '\\u003c');
-const filters = Object.entries(s.filters);
+const shown = shared.issues.slice(0, 3), teased = shared.issues.slice(3, 5);
 const plugins = [
   ['Psychopomp', w.psychopomp, 18, 'https://github.com/ponzgpt/psychopomp', 'https://github.com/NousResearch/hermes-agent/pull/152559', '#152559'],
   ['Sabbath', w.sabbath, 13, 'https://github.com/ponzgpt/sabbath', 'https://github.com/NousResearch/hermes-agent/pull/152560', '#152560']
@@ -149,10 +149,16 @@ const cards = [
     <p class="cap">{n.caption}</p>
     <div class="ruled" data-sketch="ruled"><svg class="ov" aria-hidden="true"></svg>
       <ul class="notes">
-        {shared.issues.map(([title, url], i) => <li><a href={url} {...ext}><b lang="es">{title}</b><span>{n.rows[i].text}</span><small>Beehiiv · {n.rows[i].when} <span class="arr" aria-hidden="true">↗</span></small></a></li>)}
+        {shown.map(([title, url], i) => <li><a href={url} {...ext}><b lang="es">{title}</b><span>{n.rows[i].text}</span><small>Beehiiv · {n.rows[i].when} <span class="arr" aria-hidden="true">↗</span></small></a></li>)}
       </ul>
     </div>
-    <p class="links-row"><a href={shared.newsletter + '/archive'} {...ext}>{n.archive}</a><a href={shared.newsletter + '/subscribe'} {...ext}>{n.subscribe}</a><a href={shared.x} {...ext}>{n.onX}</a><a href={shared.linkedin} {...ext}>{n.onLinkedIn}</a></p>
+    {/* the next two issues, faded out under the list: decorative, so not links, not focusable, hidden from screen readers */}
+    <div class="tease" inert aria-hidden="true">
+      <ul class="notes">
+        {teased.map(([title], i) => <li><div class="row"><b lang="es">{title}</b><span>{n.rows[i + 3].text}</span><small>Beehiiv · {n.rows[i + 3].when}</small></div></li>)}
+      </ul>
+    </div>
+    <p class="links-row tease-links"><a href={shared.newsletter + '/subscribe'} {...ext}>{n.subscribe}</a><a href={shared.newsletter + '/archive'} {...ext}>{n.archive}</a><a href={shared.x} {...ext}>{n.onX}</a></p>
   </div>
 </section>
 
@@ -176,10 +182,6 @@ const cards = [
   </div>
   <div class="map jsonly" id="map">
     <p class="cap">{s.mapCap}</p>
-    <div class="tabs filters jsonly" role="group" aria-label={s.filtersAria} data-tabs>
-      <svg class="ov" aria-hidden="true"></svg>
-      {filters.map(([k, label]) => <button class="tab" type="button" data-layer={k} aria-pressed={k === 'all' ? 'true' : 'false'}>{label}</button>)}
-    </div>
     <div class="stage" id="stage" data-sketch="map"><svg aria-hidden="true"></svg></div>
     <div class="slot"><div class="mcard" data-sketch="frame" aria-live="polite"><svg class="ov" aria-hidden="true"></svg><div class="mc-body"></div></div></div>
   </div>

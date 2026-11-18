@@ -16,6 +16,8 @@ const site = shared.site;
 const home = { en: '/', es: '/es/' };
 const canonical = site + (path ?? home[lang]);
 const other = lang === 'en' ? 'es' : 'en';
+// only the English first page picks a language for the visitor
+const redirect = lang === 'en' && index && !path;
 const person = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -30,6 +32,14 @@ const person = {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  {redirect && <script is:inline>
+    /* nb-lang: a first visit to / from a browser whose first language is Spanish goes to /es/ before the first paint;
+       a choice made with the EN / ES tabs (stored by notebook.js) always wins. /es/ never redirects. */
+    try { var c = null; try { c = localStorage.getItem('nb-lang'); } catch (e) {}
+      var l = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+      if (c === 'es' || (c !== 'en' && /^es(-|_|$)/i.test(l))) location.replace('/es/' + location.search + location.hash);
+    } catch (e) {}
+  </script>}
   <title>{t.meta.title}</title>
   <meta name="description" content={t.meta.description} />
   <meta name="color-scheme" content="light dark" />

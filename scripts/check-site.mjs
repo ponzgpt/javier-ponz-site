@@ -6,8 +6,11 @@
 // - the Email tab does not carry jponz@proton.me;
 // - a frozen page in dist/v lacks noindex or its corner ribbon with the version switcher inside (v1-v6, the right one current,
 //   every link resolving), still has the old ribbon or bottom switcher, links outside its copy, or has an unresolved asset or old contact detail.
+// - the language redirect is missing from /, present on /es/ or 404, or decides wrongly for a few browser languages and stored choices;
+// - p. 6 (or the map strings) names "Syl" or technoir.cloud.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { copy, shared } from '../src/data/copy.mjs';
 
@@ -112,6 +115,34 @@ for (const f of files.filter((f) => f.startsWith(vdir + '/'))) {
   const page = s.replace(/<!--vx-->[\s\S]*?<!--\/vx-->/, '');
   for (const [, u] of page.matchAll(/\s(?:href|src|srcset)="(\/(?!\/)[^"]*)"/g)) {
     if (!u.startsWith('/v/') && u !== '/javier-ponz-prado-cv.pdf') fail(`${rel}: ${u} leaves the frozen copy`);
+  }
+}
+
+// 7. the language redirect: only on /, Spanish-first browsers go to /es/, a stored EN / ES choice always wins
+{
+  const page = (f) => read(join(dist, f));
+  const pick = (s) => (s.match(/<script>\s*\/\* nb-lang:[\s\S]*?<\/script>/) || [''])[0].replace(/^<script>|<\/script>$/g, '');
+  const code = pick(page('index.html'));
+  if (!code) fail('index.html: language redirect script missing');
+  if (pick(page('es/index.html')) || pick(page('404.html'))) fail('es/index.html or 404.html: carries the language redirect');
+  const run = (langs, stored, noStorage) => {
+    let to = null;
+    const localStorage = { getItem: (k) => { if (noStorage) throw new Error('blocked'); return k === 'nb-lang' ? stored : null; } };
+    vm.runInNewContext(code, { localStorage, navigator: { languages: langs, language: langs[0] }, location: { search: '', hash: '#notes', replace: (u) => { to = u; } } });
+    return to;
+  };
+  const cases = [[['es-ES', 'en'], null, false, '/es/#notes'], [['es'], null, true, '/es/#notes'], [['en-GB', 'es'], null, false, null],
+    [['es-ES'], 'en', false, null], [['en-GB'], 'es', false, '/es/#notes'], [['et-EE'], null, false, null]];
+  if (code) for (const [langs, stored, noStorage, want] of cases) {
+    const got = run(langs, stored, noStorage);
+    if (got !== want) fail(`language redirect: ${langs[0]}, stored ${stored}: went to ${got}, expected ${want}`);
+  }
+  // p. 6 and its no-JS list name no private machines or domains
+  for (const f of ['index.html', 'es/index.html']) {
+    const s = page(f), sec = (s.match(/<section[^>]*id="stack"[\s\S]*?<\/section>/) || [''])[0];
+    const json = (s.match(/id="nb-copy"[^>]*>([\s\S]*?)<\/script>/) || ['', '{}'])[1], map = JSON.stringify(JSON.parse(json).map || {});
+    const m = (sec + map).match(/\bSyl\b|technoir\.cloud/);
+    if (m) fail(`${f}: p. 6 names "${m[0]}"`);
   }
 }
 

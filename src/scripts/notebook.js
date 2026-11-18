@@ -16,6 +16,8 @@ function readC(){const cs=getComputedStyle(root),g=n=>cs.getPropertyValue('--'+n
 /* ---------- theme: the folded corner turns the page (session only) ---------- */
 const fold=$('#fold');
 try{const s=sessionStorage.getItem('nb-theme');if(s==='dark'||s==='light')root.setAttribute('data-theme',s)}catch(e){}
+// language: a click on EN or ES is remembered, and wins over the browser's language from then on (see Layout.astro)
+$$('.lang a').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('nb-lang',a.getAttribute('hreflang'))}catch(e){}}));
 const isDark=()=>{const t=root.getAttribute('data-theme');return t?t==='dark':mqDark.matches};
 function syncFold(){const d=isDark();fold.setAttribute('aria-pressed',String(d));fold.setAttribute('aria-label',d?T_.ui.foldToLight:T_.ui.foldToDark);}
 function setTheme(n){root.setAttribute('data-theme',n);try{sessionStorage.setItem('nb-theme',n)}catch(e){}onTheme();}
@@ -33,7 +35,7 @@ fold.addEventListener('click',()=>{
 });
 
 /* ---------- pen: rough.js helpers; every stroke reads token colours; chalk is thicker, rougher, smudged ---------- */
-const blue=()=>({stroke:C.blue}), dash={strokeLineDash:[6,7]}, pencil=()=>({stroke:C.ink2,strokeWidth:1.3,strokeLineDash:[7,6],roughness:.45,disableMultiStroke:true});
+const blue=()=>({stroke:C.blue}), dash={strokeLineDash:[6,7]};
 const solid=()=>({fill:C.card,fillStyle:'solid'});
 const dotHatch=()=>({stroke:C.blue,fill:C.blue,fillStyle:'hachure',hachureGap:3.6,fillWeight:1.1,hachureAngle:-45});
 function pen(svg,seed){
@@ -177,74 +179,66 @@ function picker(stage,list,on){
 function pop(svg,sel){if(RM)return;svg.querySelectorAll(sel).forEach((q,i)=>{if((q.getAttribute('fill')||'none')!=='none'||q.dataset.dash)return;
   q.animate([{strokeDashoffset:+q.dataset.len||0},{strokeDashoffset:q.style.strokeDashoffset||0}],{duration:420,delay:Math.min(i*14,300),easing:'cubic-bezier(.3,.6,.3,1)',fill:'backwards'});});}
 
-/* ---------- p. 6: the machines and what runs on each; facts are read from the no-JS list beside it ---------- */
-// the map: node ids and layers here; their labels come from the copy module
-const NODES=[['syl','am'],['psy','am'],['sab','am'],['mac','hw'],['cc','am'],['oll','am'],['ws','hw'],['loc','am'],['llm','am'],['lab','plan'],
-  ['vps','hw srv'],['sites','srv']].map(([id,L])=>({id,L:L.split(' '),t:M_.nodes[id][0],s:M_.nodes[id][1]}));
-const N=Object.fromEntries(NODES.map(n=>[n.id,n])), SH={loc:'agent',cc:'agent',llm:'model',oll:'model',psy:'tag',sab:'tag',sites:'stack',lab:'lab'};
-const LINK={syl:['https://github.com/NousResearch/hermes-agent',M_.hermesLink],psy:['https://github.com/ponzgpt/psychopomp','github.com/ponzgpt/psychopomp'],sab:['https://github.com/ponzgpt/sabbath','github.com/ponzgpt/sabbath'],sites:['#work',M_.sitesLink]};
-const EDGES=[['mac','syl','am'],['syl','psy','am'],['syl','sab','am'],['mac','ws','hw'],['mac','vps','srv'],['ws','loc','am'],['ws','llm','am'],['ws','lab','plan'],['mac','cc','am'],['mac','oll','am'],['vps','sites','srv'],['ws','mac','plan']];
+/* ---------- p. 6: six things and how they connect; facts are read from the no-JS list beside it ---------- */
+// node ids here; their labels come from the copy module. Six nodes read at a glance, so there are no filters.
+const NODES=['agent','plugins','mac','ws','vps','sites'].map(id=>({id,t:M_.nodes[id][0],s:M_.nodes[id][1]}));
+const N=Object.fromEntries(NODES.map(n=>[n.id,n])), SH={plugins:'tag',sites:'stack'};
+const LINK={agent:['https://github.com/NousResearch/hermes-agent',M_.hermesLink],plugins:['#work',M_.pluginsLink],sites:['#work',M_.sitesLink]};
+const EDGES=[['mac','agent'],['agent','plugins'],['mac','ws'],['mac','vps'],['vps','sites']];
 const ADJ={};NODES.forEach(n=>ADJ[n.id]=new Set());EDGES.forEach(([a,b])=>{ADJ[a].add(b);ADJ[b].add(a)});
-const MAP={layer:'all',
-  inL(id){return this.layer==='all'||N[id].L.includes(this.layer)},
-  ns(id){const c=this.P.cur();if(c)return id===c?'sel':ADJ[c].has(id)?'near':'dim';return this.inL(id)?'on':'dim'},
-  es(e){const c=this.P.cur();if(c)return(e[0]===c||e[1]===c)?'hot':'dim';return(this.layer==='all'||e[2]===this.layer)?'on':'dim'},
-  wide(W){const k=1.4,c1=Math.round(W*.15),c2=Math.round(W/2),c3=W-c1,yb=300,y0=yb+124,r={},sh={},E=[],m=(c1+c2-28)/2,sp=(c,a,b,d)=>({pts:[[c-112,a],[c-112,b],[c-104,b]],dash:d});
-    sh.syl=['cloud',c2,72,220,112];r.syl=[c2-80,36,160,76];r.psy=[c2+152,24,132,34,'tag'];r.sab=[c2+152,76,132,34,'tag'];
-    sh.ws=['tower',c1-45,yb-141,k];sh.mac=['laptop',c2,yb,k];sh.vps=['rack',c3,yb,196,1.3,2];
-    [['ws',c1],['mac',c2],['vps',c3]].forEach(([id,c])=>r[id]=[c-115,yb-150,230,242,'bot']);
-    const it=(id,c,y,h,q)=>r[id]=[c-100,y,214,h,q];it('loc',c1,y0,40);it('llm',c1,y0+54,44,'lft');it('lab',c1,y0+112,48,'lft');it('cc',c2,y0,40);it('oll',c2,y0+54,48,'lft');r.sites=[c3-85,y0,170,56];
-    E[0]={pts:[[c2,yb-114],[c2,134]],arrow:1,lab:[[c2+10,yb-118,M_.talksTo,'start']]};
-    E[1]={pts:[[c2+112,58],[c2+166,41]]};E[2]={pts:[[c2+110,90],[c2+166,93]]};
-    E[3]={pts:[[c1+54,yb-80],[c2-80,yb-80]],lab:[[m,yb-108,'Tailscale','middle'],[m,yb-90,'Sunshine / Moonlight','middle']]};
-    E[11]={pts:[[c1+54,yb-46],[c2-80,yb-46]],dash:1,arrow:1,lab:[[m,yb-24,M_.inference,'middle']]};
-    E[4]={pts:[[c2+82,yb-46],[c3-114,yb-46]],arrow:1,lab:[[(c2+c3)/2,yb-56,M_.deploys,'middle']]};
-    E[5]=sp(c1,yb+96,y0+20);E[5].lab=[[c1-104,y0-8,M_.talksTo,'start']];E[6]=sp(c1,y0+20,y0+76);E[7]=sp(c1,y0+76,y0+136,1);
-    E[8]=sp(c2,yb+96,y0+20);E[9]=sp(c2,y0+20,y0+78);E[10]=sp(c3+19,yb+96,y0+28);
-    return{r,sh,E,lb:[[c3,y0+86,M_.actions,'middle']],H:y0+180};},
-  tree(W){const dc=80,iw=Math.min(240,W-52),r={},sh={},E=[],lb=[],sp=(a,b,d)=>({pts:[[36,a],[36,b],[46,b]],dash:d});let y=4;
-    sh.syl=['cloud',dc,y+38,124,70];r.syl=[4,y,W-8,76,'hdr'];const sy=y+38;y+=88;r.psy=[44,y,112,32,'tag'];r.sab=[166,y,112,32,'tag'];
-    E[1]={pts:[[56,sy+30],[56,y+10]]};E[2]={pts:[[132,sy+24],[178,y+10]]};y+=74;
-    const mt=y,mm=y+40;sh.mac=['laptop',dc,y+76];r.mac=[4,y,W-8,84,'hdr'];const l0=y-14;y+=96;
-    r.cc=[48,y,iw,40];E[8]=sp(mt+86,y+20);y+=52;r.oll=[48,y,iw,48,'lft'];E[9]=sp(y-32,y+24);y+=60;
-    const l3=y+18;y+=70;
-    const wt=y,wm=y+48;sh.ws=['tower',dc-32,y];r.ws=[4,y,W-8,104,'hdr'];y+=116;
-    r.loc=[48,y,Math.min(150,iw),40];E[5]=sp(wt+106,y+20);E[5].lab=W>=270?[[204,y+26,M_.talksTo,'start']]:0;y+=52;
-    r.llm=[48,y,iw,44,'lft'];E[6]=sp(y-32,y+22);y+=56;r.lab=[48,y,iw,48,'lft'];E[7]=sp(y-34,y+24,1);y+=60;
-    const l4=y+26;y+=40;
-    const vt=y,vm=y+36;sh.vps=['rack',dc,y+58,112];r.vps=[4,y,W-8,84,'hdr'];y+=96;r.sites=[48,y,Math.min(200,iw),56];E[10]=sp(vt+86,y+28);
-    lb.push([48,y+80,M_.actions,'start']);
-    E[0]={pts:[[dc-48,mm-12],[10,mm-12],[10,sy],[dc-62,sy]],arrow:1,lab:[[46,l0,M_.talksTo,'start']]};E[3]={pts:[[dc-48,mm],[10,mm],[10,wm],[dc-32,wm]],lab:[[46,l3,'Tailscale · Sunshine / Moonlight','start']]};
-    E[11]={pts:[[dc-48,mm+10],[18,mm+10],[18,wm+14],[dc-32,wm+14]],dash:1,arrow:1,lab:[[46,l3+24,M_.inferenceTree,'start']]};E[4]={pts:[[dc-48,mm+20],[26,mm+20],[26,vm],[dc-58,vm]],arrow:1,lab:[[46,l4,M_.deploys,'start']]};
-    return{r,sh,E,lb,H:y+120};},
+const MAP={
+  ns(id){const c=this.P.cur();if(!c)return'on';return id===c?'sel':ADJ[c].has(id)?'near':'dim'},
+  es(e){const c=this.P.cur();if(!c)return'on';return(e[0]===c||e[1]===c)?'hot':'dim'},
+  // wide: the cloud agent and its plugins on top; workstation, laptop and server in a row; the sites under the server
+  wide(W){const k=1.5,c1=Math.round(W*.16),c2=Math.round(W/2),c3=W-c1,yt=92,yb=390,ys=yb+176,r={},sh={},E=[],m=(c1+c2-42)/2;
+    sh.agent=['cloud',c2,yt,250,124];r.agent=[c2-95,yt-42,190,86];r.plugins=[c2+210,yt-28,210,56,'tag'];
+    sh.ws=['tower',c1-48,yb-152,k];sh.mac=['laptop',c2,yb,k];sh.vps=['rack',c3,yb,210,1.35,2];
+    [['ws',c1],['mac',c2],['vps',c3]].forEach(([id,c])=>r[id]=[c-125,yb-165,250,272,'mach']);
+    r.sites=[c3-90,ys,180,60];
+    E[0]={pts:[[c2,yb-122],[c2,yt+66]],arrow:1,lab:[[c2+12,(yb-122+yt+66)/2+6,M_.talksTo,'start']]};
+    E[1]={pts:[[c2+128,yt],[c2+206,yt]],arrow:1,lab:[[c2+167,yt-12,M_.runs,'middle']]};
+    E[2]={pts:[[c1+58,yb-80],[c2-100,yb-80]],lab:[[m,yb-114,M_.network,'middle']]};
+    E[3]={pts:[[c2+100,yb-62],[c3-124,yb-62]],arrow:1,lab:[[(c2+c3)/2,yb-74,M_.deploys,'middle']]};
+    E[4]={pts:[[c3,yb+116],[c3,ys-16]],arrow:1,lab:[[c3+12,(yb+116+ys-16)/2+6,M_.serves,'start']]};
+    return{r,sh,E,H:ys+90};},
+  // phones: one column, each doodle beside its labels; the laptop's links run down the left edge
+  tree(W){const dc=80,r={},sh={},E=[];let y=4;
+    sh.agent=['cloud',dc,y+38,124,70];r.agent=[4,y,W-8,76,'hdr'];const sy=y+38;y+=104;
+    r.plugins=[64,y,Math.min(220,W-72),48,'tag'];E[1]={pts:[[48,sy+35],[48,y+24],[62,y+24]],arrow:1,lab:[[58,y-8,M_.runs,'start']]};y+=80;
+    const mt=y,mm=y+40;sh.mac=['laptop',dc,y+76];r.mac=[4,y,W-8,84,'hdr'];y+=112;
+    const l3=y;y+=34;
+    const wm=y+48;sh.ws=['tower',dc-32,y];r.ws=[4,y,W-8,108,'hdr'];y+=128;
+    const l4=y;y+=34;
+    const vt=y,vm=y+36;sh.vps=['rack',88,y+52,84,.85];r.vps=[4,y,W-8,84,'hdr'];y+=118;
+    r.sites=[64,y,Math.min(200,W-72),56];E[4]={pts:[[dc+8,vt+60],[dc+8,y-14]],arrow:1,lab:[[dc+20,vt+94,M_.serves,'start']]};
+    E[0]={pts:[[dc-48,mm-12],[8,mm-12],[8,sy],[dc-62,sy]],arrow:1,lab:[[20,mt-10,M_.talksTo,'start']]};
+    E[2]={pts:[[dc-48,mm],[16,mm],[16,wm],[dc-34,wm]],lab:[[32,l3+20,M_.networkTree,'start']]};
+    E[3]={pts:[[dc-48,mm+12],[24,mm+12],[24,vm],[37,vm]],arrow:1,lab:[[32,l4+20,M_.deploys,'start']]};
+    return{r,sh,E,H:y+86};},
   draw(p,W,el,it){const L=W<860?this.tree(W):this.wide(W),P=this.P;
     if(it.lw!==W){it.lw=W;NODES.forEach(n=>place(P.btn[n.id],L.r[n.id]));}
     NODES.forEach(n=>P.btn[n.id].className=`node ${L.r[n.id][4]||''} ${this.ns(n.id)}`);
     const NS_={sel:{stroke:C.blue,strokeWidth:2.2},near:{stroke:C.blue,strokeWidth:1.7},on:{},dim:{stroke:C.faint,strokeWidth:1.1}};
     const ES_={hot:{stroke:C.blue,strokeWidth:1.8},on:{stroke:C.ink2,strokeWidth:1.3},dim:{stroke:C.faint,strokeWidth:1}};
-    NODES.forEach(n=>{const st=this.ns(n.id),[x,y,w,h]=L.r[n.id],d=L.sh[n.id],hot=st==='sel'||st==='near';
-      const s=W_(NS_[st],n.L[0]==='plan'?W_(pencil(),hot?{stroke:C.blue}:st==='dim'?{stroke:C.faint}:{}):{});
+    NODES.forEach(n=>{const st=this.ns(n.id),[x,y,w,h]=L.r[n.id],d=L.sh[n.id],hot=st==='sel'||st==='near',s=NS_[st];
       const g=p.grp(n.id);if(hot)g.setAttribute('data-hot',1);
       switch(d?d[0]:SH[n.id]){
         case 'cloud':p.cloud(d[1],d[2],d[3],d[4],s);break; case 'tower':p.tower(d[1],d[2],s,d[3]);break;
         case 'laptop':p.laptop(d[1],d[2],s,d[3]);break; case 'rack':p.rack(d[1],d[2],d[3],s,d[4],d[5]);break;
-        case 'agent':p.rrect(x,y,w,h,16,s);break; case 'model':p.net(x+10,y+h/2,s,1);break;
         case 'tag':p.poly([[x+14,y],[x+w,y],[x+w,y+h],[x+14,y+h],[x,y+h/2]],s);p.circ(x+12,y+h/2,6,W_(s,{strokeWidth:1}));break;
-        case 'stack':p.rect(x+8,y-8,w,h,W_(s,{strokeWidth:1}));p.rect(x+4,y-4,w,h,W_(s,solid()));p.rect(x,y,w,h,W_(s,solid()));p.line(x+8,y+12,x+w-8,y+12,W_(s,{stroke:st==='dim'?C.faint:C.blue,strokeWidth:1}));break;
-        case 'lab':p.rect(x+3,y+7,28,15,s);p.rect(x+3,y+26,28,15,s);break;}});
-    EDGES.forEach((e,i)=>{const g=L.E[i];if(!g)return;const st=this.es(e),s=W_(ES_[st],g.dash?{strokeLineDash:[7,6],roughness:.45,disableMultiStroke:true}:{}),grp=p.grp('e'+i);if(st==='hot')grp.setAttribute('data-hot',1);
+        case 'stack':p.rect(x+8,y-8,w,h,W_(s,{strokeWidth:1}));p.rect(x+4,y-4,w,h,W_(s,solid()));p.rect(x,y,w,h,W_(s,solid()));p.line(x+8,y+12,x+w-8,y+12,W_(s,{stroke:st==='dim'?C.faint:C.blue,strokeWidth:1}));break;}});
+    EDGES.forEach((e,i)=>{const g=L.E[i];if(!g)return;const st=this.es(e),s=ES_[st],grp=p.grp('e'+i);if(st==='hot')grp.setAttribute('data-hot',1);
       g.arrow?p.arrow(g.pts,s):p.lines(g.pts,s);(g.lab||[]).forEach(([x,y,t,a])=>p.text(x,y,t,'sk-edge halo'+(st==='hot'?' hot':''),a));});
-    p.grp();L.lb.forEach(([x,y,t,a])=>p.text(x,y,t,'sk-type',a));
+    p.grp();
     const sec=el.closest('.spread'),mp=el.closest('.map');sec.style.setProperty('--rh',Math.max(0,mp.getBoundingClientRect().top-sec.getBoundingClientRect().top-24)+'px');
     el.style.height=L.H+'px';return L.H;},
-  update(){const key=this.P.cur()+'|'+this.layer;if(key===this.key)return;this.key=key;render(this.it);pop(this.it.svg,'.ink [data-hot] path');
-    const c=this.P.cur();if(!c)return card(this.cardIt,null);const n=N[c],u=LINK[c];
-    const T=n.t.replace('\n',' '),T2=T.replace(/ · /g,' '+M_.and+' ');
+  update(){const key=String(this.P.cur());if(key===this.key)return;this.key=key;render(this.it);pop(this.it.svg,'.ink [data-hot] path');
+    const c=this.P.cur();if(!c)return card(this.cardIt,null);const n=N[c],u=LINK[c],T=n.t;
+    // a fact that opens with the node's own name ("Laptop: ...") drops it, since the card's title already says it
     const facts=$$(`#stack-list [data-n~="${c}"]`).map(li=>{let f=li.textContent.trim();
-      if(f.startsWith(T2)&&!new RegExp('^\\s*'+M_.and+'(\\s|$)').test(f.slice(T2.length))){f=f.slice(T2.length).replace(/^[\s,:]+/,'');f=f&&f[0].toUpperCase()+f.slice(1);}return f&&f+'.';}).filter(Boolean);
-    card(this.cardIt,{t:T,p:facts,n:M_.connected+' '+[...ADJ[c]].map(k=>N[k].t.replace('\n',' ')).join(', ')+'.',u:u&&u[0],ul:u&&u[1]});},
-  init(){this.P=picker($('#stage'),NODES.map(n=>({id:n.id,html:`<b>${n.t.replace('\n','<br>')}</b>${n.s?`<small>${n.s.replace(/\n/g,'<br>')}</small>`:''}`})),()=>this.update());
-    $$('.filters .tab').forEach(b=>b.addEventListener('click',()=>{this.layer=b.dataset.layer;$$('.filters .tab').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render(byEl.get(b.parentNode));this.update();}));}
+      if(f.startsWith(T+':')){f=f.slice(T.length+1).trim();f=f&&f[0].toUpperCase()+f.slice(1);}return f&&f+'.';}).filter(Boolean);
+    card(this.cardIt,{t:T,p:facts,n:M_.connected+' '+[...ADJ[c]].map(k=>N[k].t).join(', ')+'.',u:u&&u[0],ul:u&&u[1]});},
+  init(){this.P=picker($('#stage'),NODES.map(n=>({id:n.id,html:`<b>${n.t}</b>${n.s?`<small>${n.s.replace(/\n/g,'<br>')}</small>`:''}`})),()=>this.update());}
 };
 
 /* ---------- scroll-scrubbed ink: progress 0 near the bottom edge, 1 at 55% of the viewport ---------- */

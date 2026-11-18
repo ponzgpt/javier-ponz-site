@@ -140,7 +140,6 @@ button.tab{-webkit-appearance:none;appearance:none}
 .h-row h2{margin:0}
 .after{margin:30px 0 0}
 .more{margin:40px 0 0;font-size:var(--t-s)}
-.filters .tab{font-size:var(--t-s);padding:6px 14px 5px}
 .tabs .tab[aria-pressed="true"]{color:var(--link);font-weight:700}
 .slot{margin-top:6px}
 /* tickets */
@@ -191,16 +190,21 @@ button.tab{-webkit-appearance:none;appearance:none}
 /* the notes list */
 .ruled{position:relative;margin-top:8px}
 .notes{list-style:none;margin:0;padding:0;font-size:var(--t-s);line-height:1.45}
-.notes a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 28px;padding:13px 4px 12px;color:inherit;text-decoration:none}
+.notes a,.notes .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 28px;padding:13px 4px 12px;color:inherit;text-decoration:none}
 .notes b{font-family:var(--hand);color:var(--link);font-size:var(--t-l)}
 .notes a:hover b,.notes a:focus-visible b{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 .notes span{color:var(--text-2)}
 .notes small{grid-column:2;grid-row:1/3;white-space:nowrap;align-self:start;padding-top:4px;font-size:14px;color:var(--ink-2)}
 .arr{display:inline-block;width:16px;text-align:center}
 .js .ruled .arr{visibility:hidden}
-@media (max-width:640px){.notes a{grid-template-columns:minmax(0,1fr)}.notes small{grid-column:1;grid-row:auto;padding-top:2px}}
+@media (max-width:640px){.notes a,.notes .row{grid-template-columns:minmax(0,1fr)}.notes small{grid-column:1;grid-row:auto;padding-top:2px}}
+/* the next two issues: about a row and a half, fading into the paper (a mask, so it works on either theme) */
+.tease{max-height:10.6em;overflow:hidden;font-size:var(--t-s);pointer-events:none;user-select:none;-webkit-user-select:none;
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.7),transparent);mask-image:linear-gradient(to bottom,rgba(0,0,0,.7),transparent)}
+.tease li{border-bottom:1px solid var(--rule)}
+.links-row.tease-links{margin-top:4px}
 .cap{font-family:var(--hand);font-size:var(--t-m);line-height:1.35;color:var(--ink-2);margin:22px 0 6px}
-.map>.cap{margin:0 0 12px}
+.map>.cap{margin:0 0 20px}
 /* p. 6: four steps, spec to server */
 .steps{position:relative;margin:4px 0 30px}
 .steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px}
@@ -258,17 +262,15 @@ button.tab{-webkit-appearance:none;appearance:none}
 /* the p. 6 map: full spread width; the margin rule stops above it */
 .spread>.map{grid-column:1/-1;align-self:start;margin-top:4px}
 #stack::before{bottom:auto;height:var(--rh,100%)}
-.filters{flex-wrap:wrap;gap:12px 10px;margin:0 0 18px}
 .stage{position:relative;width:100%}
 .stage>svg{position:absolute;left:0;top:0;width:100%}
 .node{position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1px;background:none;border:0;margin:0;padding:4px 8px;font-family:var(--hand);color:var(--ctl);cursor:pointer;line-height:1.15;-webkit-tap-highlight-color:transparent}
-.node b{font-size:var(--t-m)}
+.node b{font-size:var(--t-l)}
 .node small{font-family:var(--type);font-size:var(--t-xs);color:var(--ink-2);line-height:1.3}
-.node.bot{justify-content:flex-end;padding-bottom:2px}
-.node.lft{align-items:flex-start;text-align:left}
-.node.lft{padding-left:36px}
+/* wide map machines: the button covers the doodle, the labels start just under it (165px down, plus a gap; see MAP.wide) */
+.node.mach{justify-content:flex-start;padding-top:180px}
 .node.hdr{align-items:flex-start;text-align:left;padding:4px 2px 4px 148px}
-.node.tag{padding-left:24px}.node.tag b{font-size:var(--t-s)}
+.node.tag{padding-left:28px}.node.tag b{font-size:var(--t-m)}
 .node.dim b{font-weight:400;color:var(--ink-2)}
 .node.sel b,.node.near b{color:var(--mark-2)}
 .mcard{position:relative;max-width:60ch;margin-top:14px;padding:16px 20px;background:var(--card)}

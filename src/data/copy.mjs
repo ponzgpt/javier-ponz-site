@@ -118,14 +118,13 @@ const en = {
     ],
     archive: 'newsletter archive →',
     subscribe: 'subscribe →',
-    onX: 'on X →',
-    onLinkedIn: 'on LinkedIn →'
+    onX: 'follow me on X →'
   },
   stack: {
     page: 'p. 6 · my stack',
-    note: 'Hermes Agent and Omarchy are other people\'s work. I use them every day.',
+    note: 'My role in this stack: human in the loop, occasional meat proxy.',
     title: 'My stack',
-    sub: 'From spec to server',
+    sub: 'Current workflow',
     stepsAria: 'Four steps: specify, test, agents build, run it',
     steps: [
       ['Specify', 'what it must do, written down'],
@@ -136,59 +135,47 @@ const en = {
     currentHead: 'Current stack',
     // [map node ids this fact belongs to (none when the entry has one item), the fact]
     current: [
-      ['ws', 'Custom workstation: AMD Ryzen 9 9900X3D, NVIDIA RTX 5090, 64 GB RAM'],
-      ['mac', 'MacBook Pro M3 Pro, 18 GB'],
-      ['vps', 'A VPS I administer'],
+      ['mac', 'Laptop: MacBook Pro M3 Pro, 18 GB, on macOS, my daily machine'],
+      ['ws', 'Workstation: a custom build, Ryzen 9 9900X3D, RTX 5090, 64 GB RAM'],
       ['ws', 'Omarchy (Arch Linux, Hyprland) on the workstation'],
-      ['mac', 'macOS on the laptop'],
-      ['syl', 'Hermes Agent: Syl on Hermes Cloud through Nous Portal'],
-      ['loc', 'A local Hermes on the workstation'],
-      ['psy sab', 'Psychopomp and Sabbath, my plugins in the official Hermes catalog'],
-      ['llm', 'Local inference with llama.cpp on the workstation'],
-      ['oll', 'Ollama and LM Studio, tried on the laptop'],
-      ['cc', 'Claude Code and Codex'],
-      ['TypeScript, JavaScript, Python, Astro'],
-      ['vps', 'Docker Swarm, Dokploy, Traefik, nginx'],
-      ['sites', 'GitHub Actions, deploying every *.technoir.cloud site'],
-      ['Tailscale between the laptop and the workstation'],
-      ['Sunshine and Moonlight for remote desktop between my machines']
+      ['ws', 'Local models with llama.cpp on the workstation'],
+      ['mac ws', 'Tailscale, a private network between the laptop and the workstation'],
+      ['vps', 'Server: a VPS I run, with Docker and Traefik'],
+      ['mac vps', 'Deploys go from the laptop to the server'],
+      ['sites', 'My sites: the live projects, served from that server'],
+      ['agent', 'Cloud agent: Hermes Agent on Hermes Cloud'],
+      ['plugins', 'My plugins: Psychopomp and Sabbath, public, in the official Hermes catalog'],
+      ['AI coding agents: Claude Code and Codex'],
+      ['TypeScript, JavaScript, Python, Astro']
     ],
     progressHead: 'In progress',
     progress: [
-      ['lab', 'A home lab, beside the workstation'],
-      ['lab', 'Proxmox on the home lab'],
-      ['inf', 'Local inference from the workstation to the MacBook over Tailscale'],
-      ['vLLM, not tried']
+      ['A home lab, with Proxmox'],
+      ['Local models served from the workstation to the laptop over Tailscale'],
+      ['vLLM, not tried yet']
     ],
-    mapCap: 'What it runs on',
-    filtersAria: 'Show on the map',
-    filters: { all: 'everything', hw: 'hardware', am: 'agents and models', srv: 'serving', plan: 'planned' }
+    mapCap: 'What it runs on'
   },
   // strings the map draws in script (src/scripts/notebook.js)
   map: {
     nodes: {
-      syl: ['Syl', 'Hermes Cloud\nNous Portal'],
-      psy: ['Psychopomp'],
-      sab: ['Sabbath'],
-      mac: ['MacBook Pro', 'M3 Pro · 18 GB\nmacOS'],
-      cc: ['Claude Code · Codex'],
-      oll: ['Ollama · LM Studio', 'tried here'],
-      ws: ['Workstation', 'Ryzen 9 9900X3D\nRTX 5090 · 64 GB\nOmarchy'],
-      loc: ['local Hermes'],
-      llm: ['llama.cpp', 'local inference'],
-      lab: ['home lab', 'Proxmox on it'],
-      vps: ['VPS', 'Docker Swarm\nDokploy · Traefik\nnginx'],
-      sites: ['the sites on\n*.technoir.cloud']
+      agent: ['Cloud agent', 'Hermes Agent\non Hermes Cloud'],
+      plugins: ['My plugins', 'Psychopomp · Sabbath'],
+      mac: ['Laptop', 'daily machine\nmacOS'],
+      ws: ['Workstation', 'custom build\nlocal models · llama.cpp\nOmarchy'],
+      vps: ['Server', 'a VPS I run\nDocker · Traefik'],
+      sites: ['My sites', 'live projects']
     },
     talksTo: 'talks to',
+    runs: 'runs',
+    network: 'private network\nTailscale',
+    networkTree: 'private network · Tailscale',
     deploys: 'deploys',
-    inference: 'local inference\nover Tailscale',
-    inferenceTree: 'local inference over Tailscale',
-    actions: 'deploys arrive from\nGitHub Actions',
+    serves: 'serves',
     hermesLink: 'Hermes Agent on GitHub',
+    pluginsLink: 'the plugins, on p. 4',
     sitesLink: 'the projects, on p. 4',
-    connected: 'Connected to:',
-    and: 'and'
+    connected: 'Connected to:'
   },
   ethos: {
     page: 'p. 7 · ethos',
@@ -309,14 +296,13 @@ const es = {
     ],
     archive: 'archivo de la newsletter →',
     subscribe: 'suscribirse →',
-    onX: 'en X →',
-    onLinkedIn: 'en LinkedIn →'
+    onX: 'sígueme en X →'
   },
   stack: {
     page: 'p. 6 · mi stack',
-    note: 'Hermes Agent y Omarchy son trabajo de otras personas. Los uso todos los días.',
+    note: 'Mi papel en este stack: el humano en el bucle y, a ratos, proxy de carne y hueso.',
     title: 'Mi stack',
-    sub: 'De la especificación al servidor',
+    sub: 'Flujo de trabajo actual',
     stepsAria: 'Cuatro pasos: especificar, probar, los agentes construyen, ponerlo en marcha',
     steps: [
       ['Especificar', 'lo que debe hacer, por escrito'],
@@ -326,58 +312,46 @@ const es = {
     ],
     currentHead: 'Stack actual',
     current: [
-      ['ws', 'Una workstation a medida: AMD Ryzen 9 9900X3D, NVIDIA RTX 5090, 64 GB de RAM'],
-      ['mac', 'MacBook Pro M3 Pro, 18 GB'],
-      ['vps', 'Un VPS que administro'],
+      ['mac', 'Portátil: MacBook Pro M3 Pro, 18 GB, con macOS, mi máquina de diario'],
+      ['ws', 'Workstation: hecha a medida, Ryzen 9 9900X3D, RTX 5090, 64 GB de RAM'],
       ['ws', 'Omarchy (Arch Linux, Hyprland) en la workstation'],
-      ['mac', 'macOS en el portátil'],
-      ['syl', 'Hermes Agent: Syl en Hermes Cloud a través de Nous Portal'],
-      ['loc', 'Un Hermes local en la workstation'],
-      ['psy sab', 'Psychopomp y Sabbath, mis plugins en el catálogo oficial de Hermes'],
-      ['llm', 'Inferencia local con llama.cpp en la workstation'],
-      ['oll', 'Ollama y LM Studio, probados en el portátil'],
-      ['cc', 'Claude Code y Codex'],
-      ['TypeScript, JavaScript, Python, Astro'],
-      ['vps', 'Docker Swarm, Dokploy, Traefik, nginx'],
-      ['sites', 'GitHub Actions, que despliega cada sitio de *.technoir.cloud'],
-      ['Tailscale entre el portátil y la workstation'],
-      ['Sunshine y Moonlight para el escritorio remoto entre mis máquinas']
+      ['ws', 'Modelos locales con llama.cpp en la workstation'],
+      ['mac ws', 'Tailscale, una red privada entre el portátil y la workstation'],
+      ['vps', 'Servidor: un VPS que administro, con Docker y Traefik'],
+      ['mac vps', 'Los despliegues van del portátil al servidor'],
+      ['sites', 'Mis sitios: los proyectos publicados, servidos desde ese servidor'],
+      ['agent', 'Agente en la nube: Hermes Agent en Hermes Cloud'],
+      ['plugins', 'Mis plugins: Psychopomp y Sabbath, públicos, en el catálogo oficial de Hermes'],
+      ['Agentes de programación con IA: Claude Code y Codex'],
+      ['TypeScript, JavaScript, Python, Astro']
     ],
     progressHead: 'En curso',
     progress: [
-      ['lab', 'Un homelab, junto a la workstation'],
-      ['lab', 'Proxmox en el laboratorio de casa'],
-      ['inf', 'Inferencia local desde la workstation al MacBook por Tailscale'],
-      ['vLLM, sin probar']
+      ['Un homelab, con Proxmox'],
+      ['Modelos locales servidos desde la workstation al portátil por Tailscale'],
+      ['vLLM, aún sin probar']
     ],
-    mapCap: 'Dónde corre',
-    filtersAria: 'Mostrar en el mapa',
-    filters: { all: 'todo', hw: 'hardware', am: 'agentes y modelos', srv: 'despliegue', plan: 'previsto' }
+    mapCap: 'Dónde corre'
   },
   map: {
     nodes: {
-      syl: ['Syl', 'Hermes Cloud\nNous Portal'],
-      psy: ['Psychopomp'],
-      sab: ['Sabbath'],
-      mac: ['MacBook Pro', 'M3 Pro · 18 GB\nmacOS'],
-      cc: ['Claude Code · Codex'],
-      oll: ['Ollama · LM Studio', 'probados aquí'],
-      ws: ['Workstation', 'Ryzen 9 9900X3D\nRTX 5090 · 64 GB\nOmarchy'],
-      loc: ['Hermes local'],
-      llm: ['llama.cpp', 'inferencia local'],
-      lab: ['homelab', 'con Proxmox'],
-      vps: ['VPS', 'Docker Swarm\nDokploy · Traefik\nnginx'],
-      sites: ['los sitios en\n*.technoir.cloud']
+      agent: ['Agente en la nube', 'Hermes Agent\nen Hermes Cloud'],
+      plugins: ['Mis plugins', 'Psychopomp · Sabbath'],
+      mac: ['Portátil', 'máquina de diario\nmacOS'],
+      ws: ['Workstation', 'hecha a medida\nmodelos locales · llama.cpp\nOmarchy'],
+      vps: ['Servidor', 'un VPS que administro\nDocker · Traefik'],
+      sites: ['Mis sitios', 'proyectos publicados']
     },
     talksTo: 'habla con',
+    runs: 'ejecuta',
+    network: 'red privada\nTailscale',
+    networkTree: 'red privada · Tailscale',
     deploys: 'despliega',
-    inference: 'inferencia local\npor Tailscale',
-    inferenceTree: 'inferencia local por Tailscale',
-    actions: 'los despliegues llegan\ndesde GitHub Actions',
+    serves: 'sirve',
     hermesLink: 'Hermes Agent en GitHub',
+    pluginsLink: 'los plugins, en la p. 4',
     sitesLink: 'los proyectos, en la p. 4',
-    connected: 'Conectado con:',
-    and: 'y'
+    connected: 'Conectado con:'
   },
   ethos: {
     page: 'p. 7 · ethos',
