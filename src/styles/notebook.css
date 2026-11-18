@@ -50,6 +50,9 @@ p{margin:0 0 1em}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .jsonly{display:none}.js .jsonly{display:block}.js .tabs.jsonly{display:flex}.js .nojs{display:none}
 .book{max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 72px;overflow-x:hidden;overflow-x:clip}
+/* wide screens: the book grows from 1180px at a 1600px viewport to 1440px at 2200px; the margin column stays put, the main column takes the width */
+@media (min-width:1600px){.book{max-width:min(1440px,calc(1180px + (100vw - 1600px) * .4333))}}
+@media (min-width:1800px){:root{--t-xs:14px;--t-s:16px;--t-m:18px;--t-l:21px;--t-xl:28px;--t-2xl:42px}}
 .spread{position:relative;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);column-gap:56px;align-items:baseline;padding-block:56px}
 .spread::before{content:"";position:absolute;top:0;bottom:0;left:218px;border-left:1px solid var(--rule)}
 .spread+.spread{border-top:1px dashed var(--rule)}
@@ -197,16 +200,16 @@ button.tab{-webkit-appearance:none;appearance:none}
 .sub{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.2;color:var(--ink-2);margin:-8px 0 14px}
 .stack-list{font-size:var(--t-s)}
 .stack-list h3{font-size:var(--t-l);margin:18px 0 6px}
-/* ethos: two columns read row by row on wide pages */
+/* ethos: two parallel columns on wide pages, How I work (1-5) and What I believe (6-10), each stacked under its head */
 .ethos{list-style:none;margin:6px 0 0;padding:0;max-width:66ch}
 .ethos li{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:0 16px;padding:14px 0 16px}
 .ethos .num{font-family:var(--hand);font-weight:700;font-size:var(--t-l);color:var(--mark-2);text-align:center;line-height:48px;height:40px}
 .ethos h4{font-size:var(--t-xl);margin:5px 0 4px}
 .grp{font-size:var(--t-xl);color:var(--ink-2);margin:26px 0 2px}
-.grp:first-of-type{margin-top:4px}
+.ethos-col:first-child .grp{margin-top:4px}
 .lam{font-family:var(--type)}
 .ethos p{font-size:var(--t-s);line-height:1.55;margin:0;max-width:60ch}
-@media (min-width:681px) and (max-width:860px),(min-width:931px){.ethos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;max-width:none}}
+@media (min-width:681px) and (max-width:860px),(min-width:931px){.ethos-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;align-items:start}.ethos-col .grp{margin-top:4px}}
 /* demo: the cursor that doodles */
 .demo{display:none;position:relative;width:180px;height:150px;margin-top:30px;pointer-events:none;--dur:7.2s}
 .js-demo .demo{display:block}

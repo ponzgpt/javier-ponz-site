@@ -122,9 +122,10 @@ const D={
       if(ar){const q=rel(ar,r0),x=q.cx-6,y=q.cy+5;p.grp('a'+i);p.line(x,y,x+12,y-12,W_({strokeWidth:1.5},blue()));p.lines([[x+3,y-12],[x+12,y-12],[x+12,y-3]],W_({strokeWidth:1.5},blue()));p.grp();}
       p.line(u.x,r.y+r.h,u.x+u.w,r.y+r.h,rule);});},
   thesis(p,W,el){const r0=el.getBoundingClientRect(),n=el.querySelector('.num'),c=glyph(n,r0),H=el.clientHeight,d=n.offsetWidth<40?32:40;
-    const ol=el.parentNode,cols=getComputedStyle(ol).gridTemplateColumns.split(' ').length,k=ol.children.length,i=[...ol.children].indexOf(el);
+    // each group is its own stacked list (side by side on wide pages): a rule under every thesis but the last in it
+    const ol=el.parentNode,last=el===ol.lastElementChild;
     p.ell(c.x,c.y,d,d-2,W_({strokeWidth:1.6,roughness:1.3},blue()));
-    if(i+cols<k)p.line(rel(n,r0).x+6,H-1,W-6,H-1,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});},
+    if(!last)p.line(rel(n,r0).x+6,H-1,W-6,H-1,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});},
   // p. 6: numbered circles joined by a pen line and an arrowhead
   steps(p,W,el){const r0=el.getBoundingClientRect(),ns=$$('.sn',el),c=ns.map(n=>glyph(n,r0)),d=ns[0].offsetHeight<40?32:40;
     c.forEach((q,i)=>{p.ell(q.x,q.y,d,d-2,W_({strokeWidth:1.6,roughness:1.3},blue()));if(!i)return;const a=c[i-1],dx=q.x-a.x,dy=q.y-a.y,l=Math.hypot(dx,dy)||1,u=dx/l,v=dy/l,g=d/2+6;
@@ -279,7 +280,7 @@ $$('[data-copy]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.c
 /* ---------- doodle: draw on the page with its own material; strokes fade after ~4 s ---------- */
 const DD=(function(){
   const cv=$('#doodle'),x=cv.getContext('2d'),oc=document.createElement('canvas'),ox=oc.getContext('2d');
-  const OK='html,body,.book,.spread,.main,.margin,.cover-main,.hero,.lw,.h-row,.cards,.plugs,.ruled,.notes,.ethos,.tl-wrap,.tl,.tl li,.links-row,.map,.slot,.sk,.sk *';
+  const OK='html,body,.book,.spread,.main,.margin,.cover-main,.hero,.lw,.h-row,.cards,.plugs,.ruled,.notes,.ethos-cols,.ethos-col,.ethos,.tl-wrap,.tl,.tl li,.links-row,.map,.slot,.sk,.sk *';
   const NO='a,button,input,textarea,select,label,summary,[contenteditable],.stage,.photo,.fold,nav';
   const LIFE=4000,FADE=1200;let dpr=1,strokes=[],specks=[],cur=null,pend=null,raf=0,pat=null,patKey='';
   function size(){dpr=Math.min(1.5,devicePixelRatio||1);cv.width=oc.width=Math.round(innerWidth*dpr);cv.height=oc.height=Math.round(innerHeight*dpr);}

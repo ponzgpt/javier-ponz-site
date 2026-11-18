@@ -207,7 +207,7 @@ const en = {
     ],
     made: '<b>How this was made:</b> built with AI coding agents from my spec and my tests. If I can, so can you: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">the source is on GitHub</a>.',
     earlier: 'Earlier versions of this page:',
-    versions: [['v1', '/v/v1/'], ['v2', '/v/v2/'], ['v3', '/v/v3/'], ['sketch A', '/v/sketch-a/'], ['sketch C', '/v/sketch-c/']]
+    versions: [['v1', '/v/v1/'], ['v2', '/v/v2/'], ['v3', '/v/v3/'], ['v4', '/v/v4/'], ['v5', '/v/v5/']]
   },
   notFound: {
     line: 'This page is not in the notebook.',
@@ -393,7 +393,7 @@ const es = {
     ],
     made: '<b>Cómo está hecho:</b> construido con agentes de programación con IA a partir de mi especificación y mis pruebas. Si yo puedo, tú también: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">el código está en GitHub</a>.',
     earlier: 'Versiones anteriores de esta página:',
-    versions: [['v1', '/v/v1/'], ['v2', '/v/v2/es/'], ['v3', '/v/v3/es/'], ['boceto A', '/v/sketch-a/'], ['boceto C', '/v/sketch-c/']]
+    versions: [['v1', '/v/v1/'], ['v2', '/v/v2/es/'], ['v3', '/v/v3/es/'], ['v4', '/v/v4/'], ['v5', '/v/v5/']]
   },
   notFound: {
     line: 'Esta página no está en el cuaderno.',

@@ -187,14 +187,20 @@ const cards = [
   </aside>
   <div class="main">
     <h2 id="h-ethos"><span>{e.title}</span></h2>
-    <h3 class="grp">{e.work}</h3>
-    <ol class="ethos" role="list">
-      {e.theses.slice(0, 5).map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 1}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
-    </ol>
-    <h3 class="grp">{e.believe}</h3>
-    <ol class="ethos" role="list" start="6">
-      {e.theses.slice(5).map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 6}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
-    </ol>
+    <div class="ethos-cols">
+      <div class="ethos-col">
+        <h3 class="grp">{e.work}</h3>
+        <ol class="ethos" role="list">
+          {e.theses.slice(0, 5).map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 1}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
+        </ol>
+      </div>
+      <div class="ethos-col">
+        <h3 class="grp">{e.believe}</h3>
+        <ol class="ethos" role="list" start="6">
+          {e.theses.slice(5).map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 6}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
+        </ol>
+      </div>
+    </div>
     <p class="made" set:html={e.made} />
     <p class="earlier">{e.earlier} {e.versions.map(([label, href], i) => <>{i > 0 && ' · '}<a href={href}>{label}</a></>)}</p>
   </div>
