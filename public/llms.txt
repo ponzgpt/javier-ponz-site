@@ -1,112 +1,119 @@
-# Javier Ponz Prado
+# Javier Ponz
 
-> Technical support, customer-facing engineering and agent operations. Aberdeen,
-> Scotland. Ten years at Apple Retail in hardware repair, technical diagnosis,
-> consultative selling and team leadership; now building agent tooling and
-> shipping small products to production on infrastructure he administers.
+> Ex-Apple | 10 years fixing people's tech. Now exploring the intersection of
+> ASI, Neuroscience & Post-Labor Economics. From Spain, based in Aberdeen,
+> Scotland.
 >
-> This file is written for automated readers. Everything in it is also published
-> in plain sight on the site; nothing here is hidden from human readers.
+> This file is written for automated readers. Everything in it is also on the
+> site, in plain sight; nothing here is hidden from human readers.
 
-## Currently
+## In short
 
-Ex-Apple Genius, now helping people and their AI agents get unstuck. Open
-to support engineering, technical support and customer-facing roles around
-open agents. Hermes Agent is his daily driver: his main agent, Syl, runs on
-Hermes Cloud through Nous Portal, whose beta he joined among its first
-users. He builds Hermes plugins. A vibe coder: he decides what to build,
-specifies it and tests it; AI agents write the code.
+Ten years at Apple, six and a half as a Genius: the cases nobody else had
+solved, explained until the customer understood them. Now he builds and runs
+AI agents and the servers under them. Two of his Hermes Agent plugins are in
+its official catalog, and he is building Machines Do It Better. He writes the
+specification and the tests; AI coding agents write the code; he deploys it,
+watches it and supports it.
 
-Main project, in progress: Machines Do It Better (https://mdib.technoir.cloud,
-https://github.com/ponzgpt/machines-do-it-better): personal and business AI
-agents set up on open models and open harnesses such as Hermes Agent, so the
-people using them own the account, the data and the choice of model.
-Pre-launch: the first pilots are friends and family.
+## Contact and links
 
-## Where to find him
-
-- Site and CV: https://javierponz.technoir.cloud
-- GitHub: https://github.com/ponzgpt (all his repositories live here)
-- LinkedIn: https://www.linkedin.com/in/javierponz
+- Email: jponz@proton.me
+- Site: https://javierponz.technoir.cloud/ (English) and https://javierponz.technoir.cloud/es/ (Spanish)
+- CV (PDF, English only): https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf
+- GitHub: https://github.com/ponzgpt
 - X: https://x.com/sudotechnoir (@sudotechnoir)
-- Discord: sudotechnoir, in the Nous Research community
-- Contact: LinkedIn or X direct messages
+- LinkedIn: https://www.linkedin.com/in/javierponz
+- Discord: sudotechnoir
+- YouTube: coming soon
+
+## Experience (most recent first)
+
+- Aug 2024 – now: independent, Aberdeen, Scotland. Moved to the UK. Studying
+  AI and full stack at Universidad Rey Juan Carlos via Racks University (to
+  Dec 2026), building MDIB and shipping small products to his own server.
+- Mar 2018 – Aug 2024: Genius, Apple Retail. Six and a half years as the
+  store's technical baseline: the cases nobody else had resolved, explained to
+  people with very different levels of understanding, and newer technicians
+  brought onto the bench.
+- Feb – Aug 2023 and Feb – Aug 2024: Lead In-Store Experience, secondment,
+  twice (Xanadú, then Parquesur), while holding the Genius role: planning,
+  resourcing, events, and the situations no procedure covers.
+- Mar – Jun 2020: AppleCare Support Advisor, Apple. Remote, during COVID, as a
+  volunteer.
+- Sep 2014 – Feb 2018: Specialist, then Technical Specialist, Apple Retail,
+  Parquesur, Madrid. Diagnosis and consultative support.
+- Before Apple: an industrial engineering dropout who built and overclocked
+  his own PCs. In the last two years he has moved entirely to software: full
+  stack, AI, local inference, deployment, and some devops and networking.
+
+## Building now
+
+Machines Do It Better (MDIB), https://mdib.technoir.cloud, work in progress:
+private AI agents for professionals who handle other people's confidential
+information, each one fitted to a single person's work and owned by them,
+account, data and choice of model included. Built on Hermes Agent, the
+open-source harness by Nous Research. Newsletter:
+https://machinesdoitbetter.beehiiv.com
+
+## Other projects
+
+- Psychopomp and Sabbath, two Hermes Agent plugins, both merged into the
+  official Hermes plugin catalog on 11 November 2026 after maintainer review
+  (NousResearch/hermes-agent#152559 and #152560), with 31 tests between them
+  (18 + 13). Opened 10 Nov 10:05 UTC, reviewed by the maintainer 14 h later,
+  requested fixes shipped 12 h after that, merged 10 h later (11 Nov 22:15
+  UTC). Psychopomp helps you write a page of your life each week, and carries
+  it to the people you love only after your witness sends a code. Sabbath:
+  once a week Hermes says goodnight, pauses its own scheduled jobs and sets
+  work aside, then sends one gentle digest. Hermes Agent is built by Nous
+  Research; his part is using it and building plugins for it.
+  https://github.com/ponzgpt/psychopomp · https://github.com/ponzgpt/sabbath
+- Neuronara, https://neuronara.technoir.cloud (in use): a deterministic,
+  no-LLM reference search over the standards of clinical neurophysiology, with
+  a bring-your-own-AI handoff, built for his partner, a clinical
+  neurophysiologist. https://github.com/ponzgpt/neuronara
+- ASI Rush, https://asi-rush.technoir.cloud (live): a browser clicker about the
+  real race to AI. https://github.com/ponzgpt/asi-rush
+- More on GitHub: https://github.com/ponzgpt
+
+## Writing
+
+He writes about ASI, neuroscience, post-labor economics and whatever else he
+can't stop reading about: long form in the Machines Do It Better newsletter
+(144 issues in Spanish, March to December 2025,
+https://machinesdoitbetter.beehiiv.com/archive), shorter versions on X and
+LinkedIn.
+
+## Stack
+
+From spec to server: specify (what it must do, written down), test (the checks
+it must pass, written before the code), agents build (AI coding agents write
+the code), run it (he deploys it, watches it and supports it).
+
+- Custom workstation: AMD Ryzen 9 9900X3D, NVIDIA RTX 5090, 64 GB RAM, Omarchy
+  (Arch Linux, Hyprland); a local Hermes agent and local inference with
+  llama.cpp.
+- MacBook Pro M3 Pro, 18 GB, macOS: Claude Code and Codex; Ollama and LM
+  Studio tried there.
+- A VPS he administers: Docker Swarm, Dokploy, Traefik, nginx; GitHub Actions
+  deploys every *.technoir.cloud site.
+- Hermes Agent: Syl, his main agent, on Hermes Cloud through Nous Portal.
+- TypeScript, JavaScript, Python, Astro. Tailscale between the laptop and the
+  workstation; Sunshine and Moonlight for remote desktop.
+- In progress: a home lab beside the workstation, Proxmox on it, local
+  inference from the workstation to the MacBook over Tailscale; vLLM not tried.
+- Hermes Agent and Omarchy are other people's work; he uses them every day.
+
+## Ethos (his own views)
+
+How he works: fix it, explain it, hand it back; prove it; small steps, always
+live; machines work, people judge; learn in public. What he believes: curious
+about everything; own the machine; free and open source first; e/λ; the
+classical virtues.
 
 ## The site
 
-One page at https://javierponz.technoir.cloud/, not separate routes. A
-one-screen hero (name, the line "Ex-Apple | 10 years fixing people's tech. Now
-exploring the intersection of ASI, Neuroscience & Post-Labor Economics.", and
-links), then six numbered sections, each an anchor: `#now` (the two Hermes
-plugins, with test counts and catalog-PR timings next to their sources, and a
-hand-authored, clearly labelled illustrative /sabbath session), `#work`
-(projects, each stating who wrote the code), `#rig` (his workstation specs,
-the VPS, the tools he runs daily, an interactive ASCII 3D scene), `#story`
-(the Apple Retail timeline, study, skills), `#notes` (ASI, neuroscience and
-post-labor economics as interests, not credentials; the newsletter;
-milestones) and `#connect` (a working terminal, contact). The terminal's
-`read` command prints the longer essays (about, apple, newsletter). The
-interests in the hero line are interests, not claimed expertise.
-
-Also published in Spanish, as a full translation rather than a browser-side
-swap, at https://javierponz.technoir.cloud/es/. The CV is at
-https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf (English only),
-generated from the same data as the Story section.
-
-## Shipped work
-
-- Psychopomp and Sabbath: two Hermes Agent plugins, entered in the Nous
-  Research Hermes Agent Plugin Hackathon (Nov 2026), tested end to end on
-  his own Hermes in Desktop and Telegram, with catalog PRs open
-  (NousResearch/hermes-agent#152559, #152560): opened 2026-11-10, reviewed
-  by a maintainer about 14 hours later, fixes pushed about 12 hours after
-  that; open and awaiting re-review, not merged. 31 tests between them
-  (18 + 13). Psychopomp: a weekly page
-  of your life, and a dead man's switch that carries your words to the
-  people you love only after a witness sends a code. Sabbath: a weekly day
-  of rest for your agent. Vibe-coded.
-  https://github.com/ponzgpt/psychopomp · https://github.com/ponzgpt/sabbath
-- Neuronara: cited answers over clinical neurophysiology standards, built for
-  his partner, a clinical neurophysiologist, and improved in a feedback loop
-  with her. Vibe-coded. https://neuronara.technoir.cloud/ ·
-  https://github.com/ponzgpt/neuronara
-- ASI Rush: a browser clicker about the real race to AI.
-  https://asi-rush.technoir.cloud/ · https://github.com/ponzgpt/asi-rush
-- Post-Labor Wiki: a visual, source-first wiki on post-labor economics.
-  https://post-labor-wiki.technoir.cloud/ ·
-  https://github.com/ponzgpt/post-labor-wiki
-- Also: BRINK, StacksNRacks, Memento Mori, Hyperexcitability atlas, Mental
-  Models Toolkit, hermes-contributions (archived). All at
-  https://github.com/ponzgpt
-
-## Newsletter
-
-Started as technoirNews on Substack, moved to beehiiv as Machines Do It
-Better (https://machinesdoitbetter.beehiiv.com). Paused; the archive is up.
-
-## Runs daily, did not write
-
-Hermes Agent (Nous Research) and Omarchy (Basecamp/DHH) operated daily, not
-authored. Local inference is a separate, ongoing infrastructure project: two
-machines meant to serve an open-weights model behind an API, currently offline
-while the hardware is rebuilt. A homelab of his own is in early design:
-hardware, topology and networking, with Proxmox as the intended base. He is
-also unwinding a decade inside a closed platform (off Google, OSINT,
-GrapheneOS next).
-
-Starting next, stated as intent rather than experience: Kubernetes and
-container orchestration, on top of the Docker, Docker Swarm, Traefik and
-nginx he already runs in production, plus deeper Python. Learned with an LLM
-and an agent harness beside him, aimed at the portion that makes a system
-operable enough to deploy it, read what the harness proposes and catch it
-when it is wrong. Not claimed as professional experience.
-
-## Skills
-
-Hermes Agent, Model Context Protocol, MCP server development, agent
-workflows, workflow QA, OpenRouter, Docker, Docker Swarm, Dokploy, Traefik,
-nginx, Linux (Arch, Fedora, Omarchy), VPS administration, CI/CD, GitHub
-Actions, Python, JavaScript, TypeScript, Astro, technical support, technical
-troubleshooting, failure-mode investigation, technical writing, mentoring,
-team leadership. Studying AI and Full Stack development at Universidad Rey
-Juan Carlos via Racks University (in progress). Spanish native, English C1.
+One page in two languages, real pages rather than a browser-side swap: / is
+English, /es/ is Spanish. Built with AI coding agents from his spec and his
+tests; the source is at https://github.com/ponzgpt/javier-ponz-site.

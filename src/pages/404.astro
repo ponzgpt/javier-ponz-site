@@ -1,12 +1,18 @@
 ---
-// A real 404: nginx serves this with status 404 instead of answering every
-// unknown path with the home page and a 200.
+// A real 404: nginx serves it with status 404. One bilingual line, links to both first pages; no script.
 import Layout from '../layouts/Layout.astro';
+import { copy } from '../data/copy.mjs';
+const { en, es } = copy;
 ---
-<Layout title="404 · Javier Ponz" description="Nothing here.">
-  <section class="sec"><div class="shell">
-    <p class="kicker">404</p>
-    <h1 class="sec-title">Nothing here. <em>Yet.</em></h1>
-    <p class="lede">Have you tried turning it off and on again? If that didn't help, <a href="/">the home page</a> works.</p>
-  </div></section>
+<Layout lang="en" path="/404.html" index={false}>
+  <div class="book">
+    <main class="spread lost">
+      <aside class="margin"><p class="pageno">p. 404</p></aside>
+      <div class="main">
+        <h1>404</h1>
+        <p class="lede">{en.notFound.line} <span lang="es">{es.notFound.line}</span></p>
+        <p class="links-row"><a href="/" hreflang="en">{en.notFound.home}</a><a href="/es/" hreflang="es" lang="es">{es.notFound.home}</a></p>
+      </div>
+    </main>
+  </div>
 </Layout>
