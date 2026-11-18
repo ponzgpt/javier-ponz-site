@@ -104,8 +104,32 @@ const D={
   stamp(p,W,el){const H=el.clientHeight;p.rect(1,1,W-2,H-2,W_({strokeWidth:1.8,roughness:1.4},blue()));p.rect(-2,-2,W+4,H+4,W_({strokeWidth:1,roughness:1.2},blue()));},
   card(p,W,el,it){const H=el.clientHeight,r0=el.getBoundingClientRect(),k=el.querySelector('.kind'),ds=el.querySelector('.kind+p');
     p.rect(2,2,W-4,H-4,{strokeWidth:it.hot?2.1:1.4,stroke:it.hot?C.blue:C.ink,roughness:it.hot?1.6:1.1});
-    const ky=rel(k,r0).y+rel(k,r0).h-4; p.line(10,ky,W-10,ky,{stroke:C.blue,strokeWidth:1.3,roughness:1.2});
-    const y0=rel(ds,r0).y; for(let y=y0+22;y<=H-10;y+=28)p.line(10,y,W-10,y,{stroke:C.chalk?C.faint:C.hatch,strokeWidth:.9,roughness:.5,bowing:.3});},
+    // rules start at the text column, which sits beside the sketch on tablets
+    const kx=Math.max(10,rel(k,r0).x-8),ky=rel(k,r0).y+rel(k,r0).h-4; p.line(kx,ky,W-10,ky,{stroke:C.blue,strokeWidth:1.3,roughness:1.2});
+    const y0=rel(ds,r0).y,y1=y0+rel(ds,r0).h; for(let y=y0+22;y<=y1;y+=28)p.line(kx,y,W-10,y,{stroke:C.chalk?C.faint:C.hatch,strokeWidth:.9,roughness:.5,bowing:.3});},
+  // p. 4 project cards: one small drawing each, fitted into a 220 x 112 box
+  pj(p,W,el){const o=Math.max(0,(W-220)/2),X=v=>o+v,B=W_(blue(),{strokeWidth:2}),thin={stroke:C.ink2,strokeWidth:1,roughness:.7};
+    switch(el.dataset.pj){
+      case 'nn': // a page of standards under a magnifier, with a tick in the lens
+        p.rect(X(28),6,96,102,W_(solid(),{strokeWidth:1.4}));p.line(X(40),20,X(92),20,{strokeWidth:1.6});
+        [0,1,2,3,4,5].forEach(i=>p.line(X(40),36+i*12,X(40+66-(i%3)*16),36+i*12,thin));
+        p.circ(X(132),54,58,W_(solid(),B));p.line(X(153),76,X(184),106,W_(blue(),{strokeWidth:3.2}));
+        p.lines([[X(116),54],[X(128),66],[X(148),40]],W_(blue(),{strokeWidth:2.4}));break;
+      case 'plw': // a small line chart, a citation bracket on one point and its leader
+        p.lines([[X(18),8],[X(18),102],[X(208),102]],{strokeWidth:1.5});
+        [40,64,88].forEach(y=>p.line(X(14),y,X(22),y,thin));
+        const pts=[[30,86],[62,72],[94,76],[126,54],[158,44],[194,26]].map(([x,y])=>[X(x),y]);
+        p.lines(pts,{strokeWidth:1.8});pts.forEach(q=>p.circ(q[0],q[1],7,W_(solid(),{strokeWidth:1.2})));
+        p.lines([[X(150),8],[X(145),8],[X(145),26],[X(150),26]],B);p.lines([[X(166),8],[X(171),8],[X(171),26],[X(166),26]],B);
+        p.line(X(152),17,X(164),17,W_(blue(),{strokeWidth:1.4}));p.line(X(158),28,X(158),38,W_(blue(),{strokeWidth:1.2,strokeLineDash:[3,3]}));break;
+      case 'asi': // a clicker button, and a progress bar from a garage to a data centre
+        p.rrect(X(70),4,82,40,12,W_(dotHatch(),{strokeWidth:2}));
+        p.poly([[X(140),28],[X(140),52],[X(146),47],[X(150),56],[X(154),54],[X(150),45],[X(158),45]],W_(solid(),{strokeWidth:1.3}));
+        p.poly([[X(4),104],[X(4),84],[X(17),72],[X(30),84],[X(30),104]],{strokeWidth:1.4});p.rect(X(11),91,12,13,thin);
+        p.rect(X(40),80,142,16,{strokeWidth:1.4});p.rect(X(40),80,88,16,W_(dotHatch(),{strokeWidth:1}));
+        [72,88].forEach(y=>{p.rect(X(190),y,28,14,{strokeWidth:1.3});p.circ(X(196),y+7,3,W_(blue(),{strokeWidth:1}));p.line(X(202),y+7,X(213),y+7,thin);});
+        p.line(X(188),104,X(220),104,thin);break;}
+    return 112;},
   tabs(p,W,el){const r0=el.getBoundingClientRect(),rows={};$$('.tab',el).forEach(a=>{const r=rel(a,r0),on=a.getAttribute('aria-pressed')==='true',off=a.classList.contains('off');
       p.poly([[r.x+1,r.y+r.h],[r.x+6,r.y+2],[r.x+r.w-6,r.y+2],[r.x+r.w-1,r.y+r.h]],on?W_({strokeWidth:2,fill:C.wash,fillStyle:'hachure',hachureGap:5,fine:1},blue()):off?{stroke:C.faint,strokeWidth:1.3,roughness:1.2}:{strokeWidth:1.5,roughness:1.2});
       const k=Math.round(r.y+r.h);(rows[k]=rows[k]||[]).push(r);});
@@ -359,7 +383,8 @@ function start(){
     const nio=new IntersectionObserver(es=>es.forEach(e=>{const x=anns.find(a=>a.el===e.target);annVis.set(e.target,e.isIntersecting);if(!x)return;e.isIntersecting?x.show():x.hide();}),{rootMargin:'0px 0px -12% 0px'});
     anns.forEach(x=>nio.observe(x.el));
     items.filter(it=>!['map','frame','ruled','thesis'].includes(it.kind)).forEach(it=>{
-      const wob=()=>{it.seed=1+(Math.random()*9e4|0);render(it)};
+      const sub=it.kind==='card'&&byEl.get(it.el.querySelector('[data-sketch="pj"]'));
+      const wob=()=>{it.seed=1+(Math.random()*9e4|0);render(it);if(sub){sub.seed=1+(Math.random()*9e4|0);render(sub);}};
       it.el.addEventListener('pointerenter',e=>{if(e.buttons)return;it.hot=it.kind==='card';wob()});it.el.addEventListener('focusin',()=>{if(it.hot)return;it.hot=it.kind==='card';wob()});
       if(it.kind==='card'){const off=()=>{it.hot=false;render(it)};it.el.addEventListener('pointerleave',off);it.el.addEventListener('focusout',e=>{if(!it.el.contains(e.relatedTarget))off()});}
     });

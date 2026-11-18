@@ -168,9 +168,20 @@ button.tab{-webkit-appearance:none;appearance:none}
 .plug>p:not(.src){font-size:var(--t-s);line-height:1.6;margin-bottom:6px;min-height:4.8em}
 .strip-h{margin:14px 0 0}
 .sk.strip{margin:4px 0 0}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 28px;margin-top:40px}
-.card{position:relative;padding:18px 20px 14px;background:var(--card)}
+/* three equal project cards under the ticket: side by side on wide pages, sketch beside the text on tablets, stacked on phones */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 26px;margin-top:40px}
+.card{position:relative;padding:16px 18px 14px;background:var(--card);display:flex;flex-direction:column}
 .card:nth-child(odd){transform:rotate(-.5deg)}.card:nth-child(even){transform:rotate(.45deg)}
+.pj{position:relative;height:112px;margin:2px 0 14px}
+.pj>svg{display:block;overflow:visible}
+.cd{display:flex;flex-direction:column;flex:1}
+.card .cf{margin-bottom:10px}
+.typed{list-style:none;margin:0 0 12px;padding:0;font-size:14px;line-height:1.45;color:var(--text-2)}
+.typed li{position:relative;padding-left:18px;margin-bottom:6px}
+.typed li::before{content:"›";position:absolute;left:2px;color:var(--mark-2);font-weight:700}
+.card .lnk{margin-top:auto!important}
+@media (max-width:1099px){.cards{grid-template-columns:minmax(0,1fr)}}
+@media (min-width:701px) and (max-width:1099px){.card{display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:26px;align-items:start}.pj{margin:8px 0 0}}
 .card h4{font-size:var(--t-xl);margin-bottom:2px}
 .card .kind{font-size:var(--t-xs);color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
 .card p{font-size:var(--t-s);line-height:28px;margin:0}
@@ -303,7 +314,7 @@ button.tab{-webkit-appearance:none;appearance:none}
   .links{margin-top:22px;gap:10px 8px}
   .links .tab{min-height:50px;padding:5px 6px 4px;gap:0}
   .links .tab b{font-size:var(--t-m)}
-  .cards,.plugs{grid-template-columns:minmax(0,1fr)}
+  .plugs{grid-template-columns:minmax(0,1fr)}
   .plug>p:not(.src){min-height:0}
   .steps ol{grid-template-columns:minmax(0,1fr);gap:16px}
   .steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:0 14px;align-items:start}

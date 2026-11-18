@@ -4,8 +4,8 @@
 // - an internal href/src in dist does not resolve to a file (or a same-page #anchor to an id);
 // - "nerion" or "gmail" appears anywhere in dist, or a stale fact (phone, Cambridge/CAE, the plugins as unmerged) in any text file;
 // - the Email tab does not carry jponz@proton.me;
-// - a frozen page in dist/v lacks noindex, its corner ribbon or its version switcher (v1-v6, the right one current, every link
-//   resolving), links outside its copy, or has an unresolved asset or old contact detail.
+// - a frozen page in dist/v lacks noindex or its corner ribbon with the version switcher inside (v1-v6, the right one current,
+//   every link resolving), still has the old ribbon or bottom switcher, links outside its copy, or has an unresolved asset or old contact detail.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -82,7 +82,7 @@ for (const f of files) {
   if (st) fail(`${relative(dist, f)}: stale fact "${st[0]}"`);
 }
 
-// 6. the frozen earlier versions in dist/v: noindex, the archive banner, links that stay inside their copy,
+// 6. the frozen earlier versions in dist/v: noindex, the switcher ribbon, links that stay inside their copy,
 //    asset paths in CSS url() and in scripts that resolve, and no old contact details.
 const vdir = join(dist, 'v');
 const resolves = (p) => { const abs = join(dist, p); return p.endsWith('/') ? existsSync(join(abs, 'index.html')) : existsSync(abs) && statSync(abs).isFile() || existsSync(join(abs, 'index.html')); };
@@ -98,16 +98,17 @@ for (const f of files.filter((f) => f.startsWith(vdir + '/'))) {
   if (rel === 'v/index.html') continue;
   const slug = rel.split('/')[1], es = /<html[^>]*\slang="es/i.test(s);
   const vx = (s.match(/<!--vx-->([\s\S]*?)<!--\/vx-->/) || [])[1];
-  if (!vx) { fail(`${rel}: ribbon and switcher missing`); continue; }
-  const ribbon = vx.match(/<a class="vx-ribbon" href="([^"]+)"[^>]*>([^<]+)<\/a>/);
-  if (!ribbon || ribbon[1] !== (es ? '/es/' : '/') || !ribbon[2].endsWith(` ${slug}`)) fail(`${rel}: corner ribbon wrong or missing`);
-  const nav = (vx.match(/<nav class="vx-switch"[\s\S]*?<\/nav>/) || [''])[0];
-  const links = [...nav.matchAll(/<a href="([^"]+)"([^>]*)>([^<]+)<\/a>/g)];
-  if (links.map((l) => l[3].split(' ')[0]).join() !== 'v1,v2,v3,v4,v5,v6') fail(`${rel}: switcher does not list v1-v6`);
+  if (!vx) { fail(`${rel}: version ribbon missing`); continue; }
+  if (/vx-ribbon|vx-switch|vx-corner/.test(s)) fail(`${rel}: old ribbon or bottom switcher still present`);
+  const band = (vx.match(/<nav class="vxr-band"[\s\S]*?<\/nav>/) || [''])[0];
+  const stamp = band.match(/<span class="vxr-stamp">([^<]+)<\/span>/);
+  if (!stamp || stamp[1] !== Buffer.from(`${es ? 'VERSIÓN ANTERIOR' : 'OLDER VERSION'} · ${slug}`).toString('latin1')) fail(`${rel}: ribbon stamp wrong or missing`);
+  const links = [...band.matchAll(/<a href="([^"]+)"([^>]*)>([^<]+)<\/a>/g)];
+  if (links.map((l) => l[3].split(' ')[0]).join() !== 'v1,v2,v3,v4,v5,v6') fail(`${rel}: ribbon does not link v1-v6`);
   const cur = links.filter((l) => /aria-current="page"/.test(l[2]));
-  if (cur.length !== 1 || cur[0][3] !== slug) fail(`${rel}: switcher does not mark ${slug} as current`);
-  for (const [, u] of links) if (!resolves(u)) fail(`${rel}: switcher link ${u} does not resolve`);
-  if (links[5] && links[5][1] !== (es ? '/es/' : '/')) fail(`${rel}: switcher v6 is not the ${es ? 'Spanish' : 'English'} current site`);
+  if (cur.length !== 1 || cur[0][3] !== slug) fail(`${rel}: ribbon does not mark ${slug} as current`);
+  for (const [, u] of links) if (!resolves(u)) fail(`${rel}: ribbon link ${u} does not resolve`);
+  if (links[5] && links[5][1] !== (es ? '/es/' : '/')) fail(`${rel}: ribbon v6 is not the ${es ? 'Spanish' : 'English'} current site`);
   const page = s.replace(/<!--vx-->[\s\S]*?<!--\/vx-->/, '');
   for (const [, u] of page.matchAll(/\s(?:href|src|srcset)="(\/(?!\/)[^"]*)"/g)) {
     if (!u.startsWith('/v/') && u !== '/javier-ponz-prado-cv.pdf') fail(`${rel}: ${u} leaves the frozen copy`);
@@ -115,4 +116,4 @@ for (const f of files.filter((f) => f.startsWith(vdir + '/'))) {
 }
 
 if (errors.length) { console.error('check-site failed:\n- ' + errors.join('\n- ')); process.exit(1); }
-console.log(`check-site: ok (copy parity, ${html.length} pages, hreflang, links, no stale address or facts, email tab, frozen versions with ribbon and switcher)`);
+console.log(`check-site: ok (copy parity, ${html.length} pages, hreflang, links, no stale address or facts, email tab, frozen versions with the switcher ribbon)`);

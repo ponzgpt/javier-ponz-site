@@ -56,14 +56,16 @@ const en = {
   },
   story: {
     page: 'p. 2 · people and their machines',
-    note: 'Industrial engineering dropout. Before Apple I built and overclocked my own PCs; at Apple I fixed everyone else\'s. In the last two years I have moved entirely to software: full stack, AI, local inference, deployment, and some devops and networking.',
+    note: 'Industrial engineering dropout. In the last two years I have moved entirely to software: full stack, AI, local inference, deployment, and some devops and networking.',
     title: 'Ten years between people and their machines',
     timeline: [
-      { when: 'Aug 2024 – now', title: 'Independent · Aberdeen, Scotland', text: 'Moved to the UK. Studying AI and full stack at Universidad Rey Juan Carlos via Racks University (to Dec 2026), building MDIB and shipping small products to my own server.', aside: 'same job, new kind of machine' },
-      { when: 'Mar 2018 – Aug 2024', title: 'Genius · Apple Retail', text: 'Six and a half years as the store\'s technical baseline: the cases nobody else had resolved, explained to people with very different levels of understanding, and newer technicians brought onto the bench.', aside: 'colleagues used my case notes as the example to follow' },
+      { when: '2026', title: 'Now · shipping', text: 'Two of my Hermes Agent plugins were merged into the official catalog on 11 November 2026. Neuronara is in use, MDIB is being built, and every site I publish runs on a VPS I administer.', aside: 'the learning, now running on my own server' },
+      { when: 'Aug 2024 – 2025', title: 'Independent · Aberdeen, Scotland', text: 'Moved to the UK and learned, from zero, everything between a prompt and a production server. Started studying AI and full stack at Universidad Rey Juan Carlos, via Racks University.', aside: 'from zero to a production server' },
       { when: 'Feb – Aug 2023 · Feb – Aug 2024', title: 'Lead In-Store Experience · secondment, twice', text: 'Xanadú, then Parquesur, while holding the Genius role: planning, resourcing, events, and the situations no procedure covers.', aside: 'led by removing obstacles, then went back to the bench' },
       { when: 'Mar – Jun 2020', title: 'AppleCare Support Advisor · Apple', text: 'Remote, during COVID, as a volunteer. Concurrent cases under structured troubleshooting and documentation standards.', aside: 'no shop floor around me, just the case' },
-      { when: 'Sep 2014 – Feb 2018', title: 'Specialist, then Technical Specialist · Apple Retail', text: 'Parquesur, Madrid. Diagnosis and consultative support, on the shop floor every day.', aside: 'where the habits started' }
+      { when: 'Mar 2018 – Aug 2024', title: 'Genius · Apple Retail', text: 'Six and a half years as the store\'s technical baseline: the cases nobody else had resolved, explained to people with very different levels of understanding, and newer technicians brought onto the bench.', aside: 'colleagues used my case notes as the example to follow' },
+      { when: 'Sep 2014 – Feb 2018', title: 'Specialist, then Technical Specialist · Apple Retail', text: 'Parquesur, Madrid. Diagnosis and consultative support, on the shop floor every day.', aside: 'where the habits started' },
+      { when: '2008 – 2013', title: 'Before Apple · Madrid', text: 'Industrial Engineering at Universidad Politécnica de Madrid, not finished. I built and overclocked my own PCs.', aside: 'hardware first, then everyone else\'s' }
     ]
   },
   now: {
@@ -97,8 +99,9 @@ const en = {
       ['+10 h', 'merged · 11 Nov\n22:15 UTC']
     ],
     source: 'source',
-    neuronara: { kind: 'clinical reference · in use', text: 'A deterministic, no-LLM reference search over the standards of clinical neurophysiology, with a bring-your-own-AI handoff. Built for my partner, a clinical neurophysiologist: every miss she reports is reproduced, fixed and pinned by an evaluation question.' },
-    asiRush: { kind: 'browser game · live', text: 'A clicker about the real race to AI: from beige PCs in a garage, through the AI winters, GPUs and transformers, to superintelligence, with rival labs racing you.' },
+    neuronara: { kind: 'clinical reference · in use', text: 'A deterministic, no-LLM reference search over the standards of clinical neurophysiology, built for my partner, a clinical neurophysiologist.', lines: ['says which standard applies, and whether it is current or superseded', 'hands the sources to the AI you choose for a summary', 'every miss she reports is reproduced, fixed and pinned by an evaluation question'] },
+    plw: { kind: 'source-first wiki · growing', text: 'A visual wiki on post-labor economics: what happens to income, power and meaning when machines can do most paid work.', lines: ['every number traced to primary data or a peer-reviewed paper', 'charts built from FRED and Our World in Data', 'evidence, forecasts and proposals labelled apart'] },
+    asiRush: { kind: 'browser game · live', text: 'A clicker about the real race to AI: from beige PCs in a garage, through the AI winters, GPUs and transformers, to superintelligence.', lines: ['run benchmarks, buy hardware that follows history', 'race four rival labs to five milestones', 'in English and Spanish, saved in your browser'] },
     more: 'More of what I\'m building is on GitHub:'
   },
   notes: {
@@ -244,14 +247,16 @@ const es = {
   },
   story: {
     page: 'p. 2 · las personas y sus máquinas',
-    note: 'Dejé Ingeniería Industrial a medias. Antes de Apple montaba mis propios ordenadores y les hacía overclock; en Apple arreglaba los de todos los demás. En los dos últimos años me he pasado por completo al software: full stack, IA, inferencia local, despliegue, y algo de devops y redes.',
+    note: 'Dejé Ingeniería Industrial a medias. En los dos últimos años me he pasado por completo al software: full stack, IA, inferencia local, despliegue, y algo de devops y redes.',
     title: 'Diez años entre las personas y sus máquinas',
     timeline: [
-      { when: 'ago. 2024 – hoy', title: 'Por mi cuenta · Aberdeen, Escocia', text: 'Me mudé al Reino Unido. Estudio IA y full stack en la Universidad Rey Juan Carlos a través de Racks University (hasta dic. 2026), construyo MDIB y publico pequeños productos en mi propio servidor.', aside: 'el mismo oficio, otro tipo de máquina' },
-      { when: 'mar. 2018 – ago. 2024', title: 'Genius · Apple Retail', text: 'Seis años y medio como referencia técnica de la tienda: los casos que nadie más había resuelto, explicados a personas con niveles de conocimiento muy distintos, y la formación de los técnicos que llegaban nuevos al taller.', aside: 'mis compañeros usaban mis notas de caso como ejemplo a seguir' },
+      { when: '2026', title: 'Ahora · publicando', text: 'Dos de mis plugins para Hermes Agent se integraron en el catálogo oficial el 11 de noviembre de 2026. Neuronara está en uso, MDIB está en construcción y cada sitio que publico corre en un VPS que administro.', aside: 'lo aprendido, ya funcionando en mi propio servidor' },
+      { when: 'ago. 2024 – 2025', title: 'Por mi cuenta · Aberdeen, Escocia', text: 'Me mudé al Reino Unido y aprendí desde cero todo lo que hay entre un prompt y un servidor en producción. Empecé a estudiar IA y full stack en la Universidad Rey Juan Carlos, a través de Racks University.', aside: 'de cero a un servidor en producción' },
       { when: 'feb. – ago. 2023 · feb. – ago. 2024', title: 'Lead In-Store Experience · asignación temporal, dos veces', text: 'Xanadú y después Parquesur, sin dejar el puesto de Genius: planificación, recursos, eventos y las situaciones que ningún procedimiento contempla.', aside: 'lideré quitando obstáculos y después volví al taller' },
       { when: 'mar. – jun. 2020', title: 'AppleCare Support Advisor · Apple', text: 'En remoto, durante la COVID, como voluntario. Casos simultáneos con estándares estructurados de diagnóstico y documentación.', aside: 'sin tienda alrededor, solo el caso' },
-      { when: 'sep. 2014 – feb. 2018', title: 'Specialist y después Technical Specialist · Apple Retail', text: 'Parquesur, Madrid. Diagnóstico y asesoramiento, a pie de tienda todos los días.', aside: 'donde empezaron los hábitos' }
+      { when: 'mar. 2018 – ago. 2024', title: 'Genius · Apple Retail', text: 'Seis años y medio como referencia técnica de la tienda: los casos que nadie más había resuelto, explicados a personas con niveles de conocimiento muy distintos, y la formación de los técnicos que llegaban nuevos al taller.', aside: 'mis compañeros usaban mis notas de caso como ejemplo a seguir' },
+      { when: 'sep. 2014 – feb. 2018', title: 'Specialist y después Technical Specialist · Apple Retail', text: 'Parquesur, Madrid. Diagnóstico y asesoramiento, a pie de tienda todos los días.', aside: 'donde empezaron los hábitos' },
+      { when: '2008 – 2013', title: 'Antes de Apple · Madrid', text: 'Ingeniería Industrial en la Universidad Politécnica de Madrid, sin terminar. Montaba mis propios ordenadores y les hacía overclock.', aside: 'primero el hardware, después el de los demás' }
     ]
   },
   now: {
@@ -285,8 +290,9 @@ const es = {
       ['+10 h', 'integradas · 11 nov.\n22:15 UTC']
     ],
     source: 'código',
-    neuronara: { kind: 'referencia clínica · en uso', text: 'Un buscador de referencia determinista, sin LLM, sobre los estándares de la neurofisiología clínica, con traspaso a la IA que elijas. Hecho para mi pareja, neurofisióloga clínica: cada fallo que me comunica se reproduce, se corrige y se fija con una pregunta de evaluación.' },
-    asiRush: { kind: 'juego de navegador · publicado', text: 'Un clicker sobre la carrera real hacia la IA: de los PC beis en un garaje, pasando por los inviernos de la IA, las GPU y los transformers, hasta la superinteligencia, con laboratorios rivales compitiendo contigo.' },
+    neuronara: { kind: 'referencia clínica · en uso', text: 'Un buscador de referencia determinista, sin LLM, sobre los estándares de la neurofisiología clínica, hecho para mi pareja, neurofisióloga clínica.', lines: ['dice qué estándar se aplica y si está vigente o sustituido', 'pasa las fuentes a la IA que elijas para un resumen', 'cada fallo que me comunica se reproduce, se corrige y se fija con una pregunta de evaluación'] },
+    plw: { kind: 'wiki con fuentes · en crecimiento', text: 'Una wiki visual sobre economía post-laboral: qué pasa con los ingresos, el poder y el sentido cuando las máquinas pueden hacer casi todo el trabajo remunerado.', lines: ['cada cifra remite a datos primarios o a un artículo revisado por pares', 'gráficos con datos de FRED y Our World in Data', 'evidencia, previsiones y propuestas, etiquetadas por separado'] },
+    asiRush: { kind: 'juego de navegador · publicado', text: 'Un clicker sobre la carrera real hacia la IA: de los PC beis en un garaje, pasando por los inviernos de la IA, las GPU y los transformers, hasta la superinteligencia.', lines: ['ejecuta benchmarks y compra hardware que sigue la historia', 'compite con cuatro laboratorios rivales por cinco hitos', 'en inglés y en español, guardado en tu navegador'] },
     more: 'Hay más de lo que construyo en GitHub:'
   },
   notes: {

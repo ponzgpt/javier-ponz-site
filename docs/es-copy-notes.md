@@ -14,6 +14,8 @@ everything else is a direct translation.
 - **p. 4 ticket stub:** `TIQUES · PR #152559 · #152560`. Alternatives: `PARTES`, or leave `TICKETS`.
 - **Sabbath:** "says goodnight" became `da las buenas noches`; "one gentle digest" became `un único resumen tranquilo`.
 - **Neuronara:** "bring-your-own-AI handoff" became `con traspaso a la IA que elijas`; "every miss she reports" became `cada fallo que me comunica`.
+- **p. 2, seven eras:** "Now · shipping" became `Ahora · publicando`; "Before Apple" is `Antes de Apple`; the 2008 to 2013 entry says `sin terminar`, the margin note keeps `a medias`.
+- **Post-Labor Wiki card:** "source-first wiki · growing" became `wiki con fuentes · en crecimiento`; "peer-reviewed paper" is `artículo revisado por pares`; "labelled apart" is `etiquetadas por separado`.
 - **ASI Rush:** "beige PCs" became `los PC beis`; "transformers" kept as the model name.
 - **p. 6:** title `Mi stack` and `Stack actual` keep "stack"; filters `todo · hardware · agentes y modelos · despliegue · previsto` ("serving" became `despliegue`); "In progress" became `En curso`; "home lab" became `laboratorio en casa`; "Workstation" became `Estación de trabajo` (it wraps to two lines on phones).
 - **Step 3:** "Agents build" became `Los agentes construyen`; step 4 "Run it" became `Ponerlo en marcha`.

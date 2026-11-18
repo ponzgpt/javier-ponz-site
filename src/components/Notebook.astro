@@ -17,8 +17,9 @@ const plugins = [
   ['Sabbath', w.sabbath, 13, 'https://github.com/ponzgpt/sabbath', 'https://github.com/NousResearch/hermes-agent/pull/152560', '#152560']
 ] as const;
 const cards = [
-  ['Neuronara', w.neuronara, 'https://neuronara.technoir.cloud', 'https://github.com/ponzgpt/neuronara'],
-  ['ASI Rush', w.asiRush, 'https://asi-rush.technoir.cloud', 'https://github.com/ponzgpt/asi-rush']
+  ['Neuronara', w.neuronara, 'https://neuronara.technoir.cloud', 'https://github.com/ponzgpt/neuronara', 'nn'],
+  ['Post-Labor Wiki', w.plw, 'https://post-labor-wiki.technoir.cloud', 'https://github.com/ponzgpt/post-labor-wiki', 'plw'],
+  ['ASI Rush', w.asiRush, 'https://asi-rush.technoir.cloud', 'https://github.com/ponzgpt/asi-rush', 'asi']
 ] as const;
 ---
 <script type="application/json" id="nb-copy" is:inline set:html={forScript}></script>
@@ -122,11 +123,15 @@ const cards = [
       </div>
     </article>
     <div class="cards">
-      {cards.map(([name, d, live, src]) => (
+      {cards.map(([name, d, live, src, pj]) => (
         <article class="card" data-sketch="card"><svg class="ov" aria-hidden="true"></svg>
+          <div class="pj" data-sketch="pj" data-pj={pj} aria-hidden="true"><svg></svg></div>
+          <div class="cd">
           <h4>{name}</h4><p class="kind">{d.kind}</p>
-          <p>{d.text}</p>
+          <p class="cf">{d.text}</p>
+          <ul class="typed">{d.lines.map((l) => <li>{l}</li>)}</ul>
           <p class="lnk"><a href={live} {...ext}>{live.replace('https://', '')}</a><a href={src} {...ext}>{w.source}</a></p>
+          </div>
         </article>
       ))}
     </div>
