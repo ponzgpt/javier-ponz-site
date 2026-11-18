@@ -71,7 +71,7 @@ h2 span{display:inline-block}
 .sk svg,.ov{display:block;overflow:visible}
 .ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
 .rough-annotation{width:100%!important;height:100%!important}
-.ticket,.card,.btn,.tabs,.tl-wrap,.tally,.mcard,.ruled,.ethos li,.stamp,.steps,.lang{isolation:isolate}
+.ticket,.card,.btn,.tabs,.tl-wrap,.tally,.mcard,.ruled,.ethos li,.stamp,.trio,.flow,.lang{isolation:isolate}
 .sk-blue{font-family:var(--hand);font-size:var(--t-s);fill:var(--mark-2)}
 .sk-type{font-family:var(--type);font-size:var(--t-xs);fill:var(--ink-2)}
 .sk-edge{font-family:var(--hand);font-size:var(--t-s);fill:var(--ink-2)}
@@ -205,13 +205,33 @@ button.tab{-webkit-appearance:none;appearance:none}
 .links-row.tease-links{margin-top:4px}
 .cap{font-family:var(--hand);font-size:var(--t-m);line-height:1.35;color:var(--ink-2);margin:22px 0 6px}
 .map>.cap{margin:0 0 20px}
-/* p. 6: four steps, spec to server */
-.steps{position:relative;margin:4px 0 30px}
-.steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px}
-.steps li{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.steps .sn{font-family:var(--hand);font-weight:700;font-size:var(--t-l);color:var(--mark-2);width:40px;text-align:center;line-height:44px;height:40px;margin-bottom:8px}
-.steps b{font-family:var(--hand);font-size:var(--t-l);line-height:1.2;color:var(--ink)}
-.steps li>span:last-child{font-size:var(--t-s);line-height:1.5;color:var(--text-2)}
+/* p. 3: the spine line and three points, each with a drawn mark (marks need the script, so they only take space with it) */
+.spine{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.25;color:var(--mark-2);margin:-4px 0 30px;max-width:36ch}
+.trio{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 40px}
+.trio li{display:flex;flex-direction:column;gap:12px}
+.trio .mk{display:none;width:46px;height:46px;flex:none}
+.js .trio .mk{display:block}
+.trio h3{font-size:var(--t-l);margin:0 0 6px}
+.trio p{font-size:var(--t-s);line-height:1.55;color:var(--text-2);margin:0}
+@media (max-width:1099px){.trio{grid-template-columns:minmax(0,1fr)}.js .trio li{display:grid;grid-template-columns:46px minmax(0,1fr);gap:0 18px;align-items:start}}
+/* p. 6: the contrast figure, two lanes of steps; boxes and arrows are drawn, a plain border and ✓ stand in without the script */
+.flow{position:relative;margin:8px 0 28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 64px;align-items:start}
+.lane h3{font-size:var(--t-xl);margin:0 0 16px}
+.lane ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:26px}
+.lane.mine ol{padding-right:40px}
+.box{display:flex;flex-direction:column;padding:8px 14px 7px;max-width:340px;border:1px solid var(--rule)}
+.js .box{border-color:transparent}
+.box b{font-family:var(--hand);font-size:var(--t-l);line-height:1.2;color:var(--ink)}
+.box span{font-size:var(--t-s);line-height:1.4;color:var(--text-2)}
+.cks{list-style:none;margin:10px 0 0;padding:0 0 0 40px;font-family:var(--hand);font-size:var(--t-m);line-height:1.3;color:var(--mark-2)}
+.cks li{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
+.ck-key{display:flex;gap:8px;align-items:center;font-family:var(--hand);font-size:var(--t-s);color:var(--mark-2);margin:-8px 0 16px}
+.tick{display:inline-block;width:18px;height:18px;flex:none;margin-top:1px}
+.tick::before{content:"✓";font-weight:700}
+.js .tick::before{content:none}
+.flow-lines{max-width:62ch;font-size:var(--t-s);color:var(--text-2);margin:0 0 8px}
+.flow-lines p{margin:0 0 .8em}
+@media (max-width:700px){.flow{grid-template-columns:minmax(0,1fr)}}
 .sub{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.2;color:var(--ink-2);margin:-8px 0 14px}
 .stack-list{font-size:var(--t-s)}
 .stack-list h3{font-size:var(--t-l);margin:18px 0 6px}
@@ -222,9 +242,9 @@ button.tab{-webkit-appearance:none;appearance:none}
 .ethos h4{font-size:var(--t-xl);margin:5px 0 4px}
 .grp{font-size:var(--t-xl);color:var(--ink-2);margin:26px 0 2px}
 .ethos-col:first-child .grp{margin-top:4px}
-.lam{font-family:var(--type)}
+.glyph{display:inline-block;height:1.5em;width:auto;vertical-align:-.24em;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 .ethos p{font-size:var(--t-s);line-height:1.55;margin:0;max-width:60ch}
-@media (min-width:681px) and (max-width:860px),(min-width:931px){.ethos-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;align-items:start}.ethos-col .grp{margin-top:4px}}
+@media (min-width:681px) and (max-width:860px),(min-width:931px){.ethos-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto repeat(5,auto);column-gap:44px;align-items:stretch}.ethos-col{display:grid;grid-row:1/span 6;grid-template-rows:subgrid}.ethos-col .grp{margin-top:4px;align-self:start}.ethos-col .ethos{display:grid;grid-row:2/span 5;grid-template-rows:subgrid;margin-top:6px}.ethos-col .ethos li{align-self:stretch}}
 /* demo: the cursor that doodles */
 .demo{display:none;position:relative;width:180px;height:150px;margin-top:30px;pointer-events:none;--dur:7.2s}
 .js-demo .demo{display:block}
@@ -232,7 +252,7 @@ button.tab{-webkit-appearance:none;appearance:none}
 .dp{fill:none;stroke:var(--mark);stroke-width:calc(1.7px + var(--chalk)*1.6px);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1;stroke-dashoffset:1;opacity:0;display:none}
 .demo[data-v="0"] .dp:nth-child(1),.demo[data-v="1"] .dp:nth-child(2),.demo[data-v="2"] .dp:nth-child(3){display:inline}
 .demo[data-v="0"]{--p:path('M28 104 C 40 60, 92 52, 98 84 C 104 118, 54 120, 60 88 C 66 58, 132 50, 148 74')}
-.demo[data-v="1"]{--p:path('M40 118 L 70 40 L 96 112 L 30 66 L 112 70 Z')}
+.demo[data-v="1"]{--p:path('M142 76 C 142 105, 119 130, 90 130 C 61 130, 38 105, 38 76 C 38 47, 61 22, 90 22 C 119 22, 142 47, 142 76 C 126 98, 56 100, 38 76 C 54 54, 124 52, 142 76 C 142 47, 119 22, 90 22 C 62 50, 62 104, 90 130 C 118 104, 118 50, 90 22 C 104.5 22, 117.5 28.25, 126.9 38.1 C 110 44, 70 44, 53.1 38.1 C 43.75 48, 38 61.5, 38 76 C 38 90.5, 43.75 104, 53.1 113.9 C 72 120, 108 120, 126.9 113.9')}
 .demo[data-v="2"]{--p:path('M22 72 C 34 48, 46 98, 60 72 S 86 48, 98 72 S 124 98, 136 72 S 156 52, 160 66')}
 .cur{position:absolute;left:0;top:0;width:18px;height:24px;offset-path:var(--p);offset-rotate:0deg;offset-anchor:2px 2px;offset-distance:0%;opacity:0}
 .cur svg{display:block;overflow:visible;transform-origin:2px 2px}
@@ -318,10 +338,6 @@ button.tab{-webkit-appearance:none;appearance:none}
   .links .tab b{font-size:var(--t-m)}
   .plugs{grid-template-columns:minmax(0,1fr)}
   .plug>p:not(.src){min-height:0}
-  .steps ol{grid-template-columns:minmax(0,1fr);gap:16px}
-  .steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:0 14px;align-items:start}
-  .steps .sn{grid-row:1/3;margin:0;line-height:36px;height:32px;font-size:var(--t-m)}
-  .steps b{padding-top:4px}
   .ethos li{grid-template-columns:32px minmax(0,1fr);gap:4px 10px;align-items:center;padding:10px 0 12px}
   .ethos li>div{display:contents}
   .ethos .num{grid-column:1;grid-row:1;line-height:32px;height:32px;font-size:var(--t-m)}

@@ -59,8 +59,8 @@ const en = {
     note: 'Industrial engineering dropout. In the last two years I have moved entirely to software: full stack, AI, local inference, deployment, and some devops and networking.',
     title: 'Ten years between people and their machines',
     timeline: [
-      { when: '2026', title: 'Now · shipping', text: 'Two of my Hermes Agent plugins were merged into the official catalog on 11 November 2026. Neuronara is in use, MDIB is being built, and every site I publish runs on a VPS I administer.', aside: 'the learning, now running on my own server' },
-      { when: 'Aug 2024 – 2025', title: 'Independent · Aberdeen, Scotland', text: 'Moved to the UK and learned, from zero, everything between a prompt and a production server. Started studying AI and full stack at Universidad Rey Juan Carlos, via Racks University.', aside: 'from zero to a production server' },
+      { when: '2026', title: 'Now · building', text: 'Two of my Hermes Agent plugins were merged into the official catalog on 11 November 2026. Neuronara is in use, MDIB is being built, and every site I publish runs on a VPS I administer.', aside: 'the learning, now running on my own server' },
+      { when: 'Aug 2024 – 2025', title: 'Relocation and pivot · Aberdeen, Scotland', text: 'Moved to the UK and learned, from zero, everything between a prompt and a production server. Started studying AI and full stack at Universidad Rey Juan Carlos, via Racks University.', aside: 'from zero to a production server' },
       { when: 'Feb – Aug 2023 · Feb – Aug 2024', title: 'Lead In-Store Experience · secondment, twice', text: 'Xanadú, then Parquesur, while holding the Genius role: planning, resourcing, events, and the situations no procedure covers.', aside: 'led by removing obstacles, then went back to the bench' },
       { when: 'Mar – Jun 2020', title: 'AppleCare Support Advisor · Apple', text: 'Remote, during COVID, as a volunteer. Concurrent cases under structured troubleshooting and documentation standards.', aside: 'no shop floor around me, just the case' },
       { when: 'Mar 2018 – Aug 2024', title: 'Genius · Apple Retail', text: 'Six and a half years as the store\'s technical baseline: the cases nobody else had resolved, explained to people with very different levels of understanding, and newer technicians brought onto the bench.', aside: 'colleagues used my case notes as the example to follow' },
@@ -73,7 +73,14 @@ const en = {
     note: 'Built on Hermes Agent, the open-source harness by Nous Research.',
     title: 'Building now',
     stamp: 'work in progress',
-    lede: 'After Apple I spent two years learning, from zero, everything between a prompt and a production server. <b>Machines Do It Better (MDIB)</b> is where I put it to work: private AI agents for professionals who handle other people\'s confidential information, each one fitted to a single person\'s work and owned by them, account, data and choice of model included. It is how I practise the whole job: specify, build, deploy, and support the person who uses it.',
+    lede: '<b>Machines Do It Better (MDIB)</b> is what I\'m building: private AI agents, each one fitted to a single person\'s work and owned by that person, account, data and choice of model included. The name is the idea:',
+    spine: 'Machines do the mechanical work. People keep the judgement.',
+    // three points, each with a small drawn mark (open, check, person: see the trio sketch)
+    points: [
+      ['Open, so you can check', 'My code is public under the MIT licence: the two plugins in the official Hermes catalog, the projects on the next page and this site. It stands on open tools, MIT too: Hermes Agent, llama.cpp and Omarchy.'],
+      ['Agent-first, with checks', 'The usual way is people typing code while a pipeline gates it. I never worked that way: I started when agents could already write the code. What I keep are the checks: a written spec, tests before the code, a person who reads the result, and small steps that can be undone.'],
+      ['People do the people part', 'The agent takes the typing, the boilerplate and the upkeep. That leaves a person free for the work only a person can do: deciding what to build, judging the result, and looking after whoever uses it.']
+    ],
     newsletter: 'the newsletter →',
     after: 'Alongside it, a few other things are on my bench right now.'
   },
@@ -125,12 +132,32 @@ const en = {
     note: 'My role in this stack: human in the loop, occasional meat proxy.',
     title: 'My stack',
     sub: 'Current workflow',
-    stepsAria: 'Four steps: specify, test, agents build, run it',
-    steps: [
+    // the contrast figure: two lanes; [step, what it is, (checks that never go away)]
+    flowCap: 'Two ways to get a change into production: the usual pipeline, and how I work.',
+    usualHead: 'The usual pipeline',
+    usual: [
+      ['Branch', 'a separate copy to work on'],
+      ['Pull request', 'asks to merge the change'],
+      ['Review', 'another person reads it'],
+      ['CI', 'automated build and tests'],
+      ['Staging', 'a rehearsal close to production'],
+      ['Approval', 'someone signs off'],
+      ['Production', 'live for users']
+    ],
+    mineHead: 'How I work',
+    checksKey: 'ticked: the checks that never go away',
+    mine: [
       ['Specify', 'what it must do, written down'],
-      ['Test', 'the checks it must pass, written before the code'],
-      ['Agents build', 'AI coding agents write the code'],
-      ['Run it', 'I deploy it, watch it and support it']
+      ['Agent builds', 'an AI agent writes the code'],
+      ['Check', 'one command runs every check', ['it must pass before any deploy']],
+      ['Production', 'live early, for a real person', ['the deploy refuses uncommitted changes', 'a health check before traffic moves', 'one command rolls it back']],
+      ['Iterate there', 'small steps, each one checked']
+    ],
+    loop: 'next step',
+    lines: [
+      'The usual pipeline is there for good reasons: many people change the same code, and every hand-off needs a gate. I work alone, so most of those hand-offs never happen.',
+      'So the first version goes live early and I improve it there, in small steps, with agents (Hermes Agent among them) doing the typing on Omarchy, a Linux I can reshape as I go. What never goes away is what protects the person using it.',
+      'It suits a one-person project with a real person on the other end. It would be the wrong way to run a bank.'
     ],
     currentHead: 'Current stack',
     // [map node ids this fact belongs to (none when the entry has one item), the fact]
@@ -192,7 +219,7 @@ const en = {
       ['Curious about everything', 'Neuroscience, economics, history, hardware: I follow whatever I can\'t stop reading about. The connections between fields are where my best ideas come from.'],
       ['Own the machine', 'The hardware, the account, the data and the choice of model should belong to the person who depends on them. Nothing I build is meant to lock anyone in.'],
       ['Free and open source first', 'I build on open tools and publish my own code. What can be inspected can be trusted, and what can be read can be repaired.'],
-      ['e/<span class="lam">λ</span>', 'More capable technology, sooner, in more people\'s hands. Progress is something to build, not something to wait for.'],
+      ['<svg class="glyph" role="img" aria-label="e slash lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'More capable technology, sooner, in more people\'s hands. Progress is something to build, not something to wait for.'],
       ['The classical virtues', 'Prudence, justice, fortitude and temperance: the old Mediterranean virtues are still the best checklist I know. Measure in all things, ambition included.']
     ],
     made: '<b>How this was made:</b> built with AI coding agents from my spec and my tests. If I can, so can you: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">the source is on GitHub</a>.',
@@ -237,8 +264,8 @@ const es = {
     note: 'Dejé Ingeniería Industrial a medias. En los dos últimos años me he pasado por completo al software: full stack, IA, inferencia local, despliegue, y algo de devops y redes.',
     title: 'Diez años entre las personas y sus máquinas',
     timeline: [
-      { when: '2026', title: 'Ahora · publicando', text: 'Dos de mis plugins para Hermes Agent se integraron en el catálogo oficial el 11 de noviembre de 2026. Neuronara está en uso, MDIB está en construcción y cada sitio que publico corre en un VPS que administro.', aside: 'lo aprendido, ya funcionando en mi propio servidor' },
-      { when: 'ago. 2024 – 2025', title: 'Por mi cuenta · Aberdeen, Escocia', text: 'Me mudé al Reino Unido y aprendí desde cero todo lo que hay entre un prompt y un servidor en producción. Empecé a estudiar IA y full stack en la Universidad Rey Juan Carlos, a través de Racks University.', aside: 'de cero a un servidor en producción' },
+      { when: '2026', title: 'Ahora · construyendo', text: 'Dos de mis plugins para Hermes Agent se integraron en el catálogo oficial el 11 de noviembre de 2026. Neuronara está en uso, MDIB está en construcción y cada sitio que publico corre en un VPS que administro.', aside: 'lo aprendido, ya funcionando en mi propio servidor' },
+      { when: 'ago. 2024 – 2025', title: 'Mudanza y cambio de rumbo · Aberdeen, Escocia', text: 'Me mudé al Reino Unido y aprendí desde cero todo lo que hay entre un prompt y un servidor en producción. Empecé a estudiar IA y full stack en la Universidad Rey Juan Carlos, a través de Racks University.', aside: 'de cero a un servidor en producción' },
       { when: 'feb. – ago. 2023 · feb. – ago. 2024', title: 'Lead In-Store Experience · asignación temporal, dos veces', text: 'Xanadú y después Parquesur, sin dejar el puesto de Genius: planificación, recursos, eventos y las situaciones que ningún procedimiento contempla.', aside: 'lideré quitando obstáculos y después volví al taller' },
       { when: 'mar. – jun. 2020', title: 'AppleCare Support Advisor · Apple', text: 'En remoto, durante la COVID, como voluntario. Casos simultáneos con estándares estructurados de diagnóstico y documentación.', aside: 'sin tienda alrededor, solo el caso' },
       { when: 'mar. 2018 – ago. 2024', title: 'Genius · Apple Retail', text: 'Seis años y medio como referencia técnica de la tienda: los casos que nadie más había resuelto, explicados a personas con niveles de conocimiento muy distintos, y la formación de los técnicos que llegaban nuevos al taller.', aside: 'mis compañeros usaban mis notas de caso como ejemplo a seguir' },
@@ -251,7 +278,13 @@ const es = {
     note: 'Construido sobre Hermes Agent, el agente de código abierto de Nous Research.',
     title: 'Construyendo ahora',
     stamp: 'en construcción',
-    lede: 'Después de Apple pasé dos años aprendiendo desde cero todo lo que hay entre un prompt y un servidor en producción. <b>Machines Do It Better (MDIB)</b> es donde lo pongo a trabajar: agentes de IA privados para profesionales que manejan información confidencial de otras personas, cada uno ajustado al trabajo de una sola persona y de su propiedad, con la cuenta, los datos y la elección del modelo incluidos. Así practico el oficio completo: especificar, construir, desplegar y dar soporte a quien lo usa.',
+    lede: '<b>Machines Do It Better (MDIB)</b> es lo que estoy construyendo: agentes de IA privados, cada uno ajustado al trabajo de una sola persona y de su propiedad, con la cuenta, los datos y la elección del modelo incluidos. El nombre resume la idea:',
+    spine: 'Las máquinas hacen el trabajo mecánico. Las personas conservan el criterio.',
+    points: [
+      ['Abierto, para que se pueda comprobar', 'Mi código es público con licencia MIT: los dos plugins del catálogo oficial de Hermes, los proyectos de la página siguiente y esta web. Se apoya en herramientas abiertas, también con licencia MIT: Hermes Agent, llama.cpp y Omarchy.'],
+      ['Primero el agente, con controles', 'Lo habitual es que las personas escriban el código y que una cadena de integración lo filtre. Yo nunca trabajé así: empecé cuando los agentes ya podían escribir el código. Lo que mantengo son los controles: una especificación por escrito, pruebas antes del código, una persona que lee el resultado y pasos pequeños que se pueden deshacer.'],
+      ['Lo humano, para las personas', 'El agente se queda con teclear, el código repetitivo y el mantenimiento. Así la persona queda libre para el trabajo que solo una persona puede hacer: decidir qué construir, juzgar el resultado y cuidar de quien lo usa.']
+    ],
     newsletter: 'la newsletter →',
     after: 'Junto a esto, ahora mismo tengo otras cosas en el taller.'
   },
@@ -303,12 +336,31 @@ const es = {
     note: 'Mi papel en este stack: el humano en el bucle y, a ratos, proxy de carne y hueso.',
     title: 'Mi stack',
     sub: 'Flujo de trabajo actual',
-    stepsAria: 'Cuatro pasos: especificar, probar, los agentes construyen, ponerlo en marcha',
-    steps: [
+    flowCap: 'Dos formas de llevar un cambio a producción: el flujo habitual y cómo trabajo yo.',
+    usualHead: 'El flujo habitual',
+    usual: [
+      ['Rama', 'una copia aparte para trabajar'],
+      ['Pull request', 'pide integrar el cambio'],
+      ['Revisión', 'otra persona lo lee'],
+      ['CI', 'compilación y pruebas automáticas'],
+      ['Preproducción', 'un ensayo parecido a producción'],
+      ['Aprobación', 'alguien da el visto bueno'],
+      ['Producción', 'en marcha para los usuarios']
+    ],
+    mineHead: 'Cómo trabajo yo',
+    checksKey: 'marcados: los controles que nunca desaparecen',
+    mine: [
       ['Especificar', 'lo que debe hacer, por escrito'],
-      ['Probar', 'las comprobaciones que debe superar, escritas antes del código'],
-      ['Los agentes lo construyen', 'los agentes de programación con IA escriben el código'],
-      ['Ponerlo en marcha', 'lo despliego, lo vigilo y le doy soporte']
+      ['El agente construye', 'un agente de IA escribe el código'],
+      ['Comprobar', 'un solo comando ejecuta todas las comprobaciones', ['tiene que pasar antes de cualquier despliegue']],
+      ['Producción', 'en marcha pronto, para una persona real', ['el despliegue rechaza cambios sin confirmar', 'una comprobación de salud antes de mover el tráfico', 'un solo comando lo revierte']],
+      ['Iterar ahí', 'pasos pequeños, cada uno comprobado']
+    ],
+    loop: 'siguiente paso',
+    lines: [
+      'El flujo habitual existe por buenas razones: muchas personas tocan el mismo código y cada traspaso necesita un control. Yo trabajo solo, así que la mayoría de esos traspasos no llegan a darse.',
+      'Por eso la primera versión sale pronto a producción y la mejoro ahí, en pasos pequeños, con agentes (entre ellos Hermes Agent) escribiendo el código sobre Omarchy, un Linux que puedo adaptar sobre la marcha. Lo que nunca desaparece es lo que protege a quien lo usa.',
+      'Encaja en un proyecto de una sola persona con alguien real al otro lado. Sería la forma equivocada de llevar un banco.'
     ],
     currentHead: 'Stack actual',
     current: [
@@ -368,7 +420,7 @@ const es = {
       ['Curiosidad por todo', 'Neurociencia, economía, historia, hardware: sigo todo aquello sobre lo que no puedo dejar de leer. Mis mejores ideas salen de las conexiones entre campos.'],
       ['Ser dueño de la máquina', 'El hardware, la cuenta, los datos y la elección del modelo deberían pertenecer a la persona que depende de ellos. Nada de lo que construyo está pensado para atar a nadie.'],
       ['Primero, software libre y de código abierto', 'Construyo sobre herramientas abiertas y publico mi propio código. En lo que se puede inspeccionar se puede confiar, y lo que se puede leer se puede reparar.'],
-      ['e/<span class="lam">λ</span>', 'Tecnología más capaz, antes y en manos de más gente. El progreso hay que construirlo, no esperarlo.'],
+      ['<svg class="glyph" role="img" aria-label="e barra lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'Tecnología más capaz, antes y en manos de más gente. El progreso hay que construirlo, no esperarlo.'],
       ['Las virtudes clásicas', 'Prudencia, justicia, fortaleza y templanza: las viejas virtudes mediterráneas siguen siendo la mejor lista de comprobación que conozco. Mesura en todo, también en la ambición.']
     ],
     made: '<b>Cómo está hecho:</b> construido con agentes de programación con IA a partir de mi especificación y mis pruebas. Si yo puedo, tú también: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">el código está en GitHub</a>.',

@@ -6,7 +6,7 @@ everything else is a direct translation.
 - **Email tab:** labelled `Correo` (not "Email"), small line `jponz@proton.me`.
 - **CV tab:** small line `PDF, en inglés`, so a Spanish reader knows before opening it; the link carries `hreflang="en"`. Added on the Spanish page only.
 - **p. 2 margin:** "Industrial engineering dropout" became `Dejé Ingeniería Industrial sin terminar.` "PCs" became `ordenadores`.
-- **Timeline:** "secondment" became `asignación temporal`; "Independent" became `Por mi cuenta`; dates as `ago. 2024 – hoy`, `mar. 2018 – ago. 2024`. Apple job titles left in English (`Genius`, `Specialist`, `Lead In-Store Experience`, `AppleCare Support Advisor`).
+- **Timeline:** "secondment" became `asignación temporal`; "Relocation and pivot" became `Mudanza y cambio de rumbo`; dates as `ago. 2024 – hoy`, `mar. 2018 – ago. 2024`. Apple job titles left in English (`Genius`, `Specialist`, `Lead In-Store Experience`, `AppleCare Support Advisor`).
 - **"the bench"** is `el taller` throughout (p. 2 Genius entry, p. 3 closing line, p. 5 title `Notas del taller`).
 - **p. 3 margin:** "the open-source harness" became `el entorno de agentes de código abierto`; "harness" has no settled Spanish term.
 - **"newsletter"** is `el boletín` (p. 3 link, p. 5 lede, caption and `archivo del boletín →`). The caption drops "in Spanish" on the Spanish page: `Machines Do It Better, el boletín: 144 números, de marzo a diciembre de 2025.`
@@ -19,7 +19,8 @@ everything else is a direct translation.
 - **ASI Rush:** "beige PCs" became `los PC beis`; "transformers" kept as the model name.
 - **p. 6:** title `Mi stack` and `Stack actual` keep "stack"; subtitle `Flujo de trabajo actual`; margin joke `Mi papel en este stack: el humano en el bucle y, a ratos, proxy de carne y hueso.` Map nodes `Agente en la nube`, `Mis plugins`, `Portátil`, `Workstation` (kept in English, as in the list), `Servidor`, `Mis sitios`; edges `habla con`, `ejecuta`, `red privada`, `despliega`, `sirve`. "In progress" became `En curso`; "home lab" became `homelab`. The map has no filters any more.
 - **p. 5 links:** `suscribirse →`, `archivo de la newsletter →`, `sígueme en X →`.
-- **Step 3:** "Agents build" became `Los agentes construyen`; step 4 "Run it" became `Ponerlo en marcha`.
+- **p. 3 spine and points:** "People keep the judgement" became `Las personas conservan el criterio`; "Agent-first, with checks" became `Primero el agente, con controles`; "a pipeline gates it" became `una cadena de integración lo filtre`; "boilerplate" became `el código repetitivo`.
+- **p. 6 figure:** `El flujo habitual` / `Cómo trabajo yo`; "Staging" became `Preproducción`; "Pull request" and "CI" kept in English; "Agent builds" became `El agente construye`; "Iterate there" became `Iterar ahí`; "uncommitted changes" became `cambios sin confirmar`; "health check" became `comprobación de salud`.
 - **Ethos:** "Small steps, always live" became `Pasos pequeños, siempre en producción`; "Own the machine" became `Ser dueño de la máquina`; "Free and open source first" became `Primero, software libre y de código abierto`; "Machines work, people judge" became `Las máquinas trabajan, las personas juzgan`; "checklist" became `lista de comprobación`.
 - **Footer:** `Cómo está hecho: construido con agentes de programación con IA a partir de mi especificación y mis pruebas. Si yo puedo, tú también: el código está en GitHub.`
 - **Corner fold (screen readers):** `Pasar la página: cambiar a la pizarra oscura` / `…al papel claro`.

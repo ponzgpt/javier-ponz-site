@@ -152,10 +152,27 @@ const D={
     const ol=el.parentNode,last=el===ol.lastElementChild;
     p.ell(c.x,c.y,d,d-2,W_({strokeWidth:1.6,roughness:1.3},blue()));
     if(!last)p.line(rel(n,r0).x+6,H-1,W-6,H-1,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});},
-  // p. 6: numbered circles joined by a pen line and an arrowhead
-  steps(p,W,el){const r0=el.getBoundingClientRect(),ns=$$('.sn',el),c=ns.map(n=>glyph(n,r0)),d=ns[0].offsetHeight<40?32:40;
-    c.forEach((q,i)=>{p.ell(q.x,q.y,d,d-2,W_({strokeWidth:1.6,roughness:1.3},blue()));if(!i)return;const a=c[i-1],dx=q.x-a.x,dy=q.y-a.y,l=Math.hypot(dx,dy)||1,u=dx/l,v=dy/l,g=d/2+6;
-      p.arrow([[a.x+u*g,a.y+v*g],[q.x-u*g,q.y-v*g]],{strokeWidth:1.5});});},
+  // p. 3: three points, a small mark each (open padlock, ticked box, a person), hand-ruled apart
+  trio(p,W,el){const r0=el.getBoundingClientRect(),lis=$$(':scope > li',el),B=W_(blue(),{strokeWidth:1.8}),side=lis.length>1&&Math.abs(rel(lis[0],r0).y-rel(lis[1],r0).y)<4;
+    lis.forEach((li,i)=>{const m=rel(li.querySelector('.mk'),r0),x=m.x,y=m.y,r=rel(li,r0);
+      switch(i){
+        case 0:p.rect(x+8,y+20,30,22,W_(solid(),{strokeWidth:1.6}));p.path(`M${x+14} ${y+20}V${y+11}C${x+14} ${y+1} ${x+32} ${y+1} ${x+32} ${y+9}`,B);p.circ(x+23,y+30,5,B);p.line(x+23,y+32,x+23,y+37,B);break;
+        case 1:p.rect(x+6,y+12,28,28,W_(solid(),{strokeWidth:1.6}));p.lines([[x+11,y+25],[x+19,y+33],[x+40,y+4]],W_(blue(),{strokeWidth:2.4}));break;
+        default:p.circ(x+22,y+12,16,B);p.path(`M${x+6} ${y+42}C${x+8} ${y+24} ${x+36} ${y+24} ${x+38} ${y+42}`,B);p.line(x+2,y+44,x+44,y+44,{strokeWidth:1.4});}
+      if(!i)return;
+      if(side)p.line(r.x-20,r.y+4,r.x-19,r.y+r.h-4,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});
+      else p.line(r.x+4,r.y-14,r.x+r.w-6,r.y-14,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});});},
+  // p. 6: two lanes of boxed steps joined by arrows; ticks on the checks that never go away; a loop back from the last step
+  flow(p,W,el){const r0=el.getBoundingClientRect();
+    $$('.lane',el).forEach(ln=>{const mine=ln.classList.contains('mine'),bs=$$('.box',ln).map(b=>rel(b,r0)),
+        st=mine?{strokeWidth:1.6}:{stroke:C.ink2,strokeWidth:1.3,roughness:.9};
+      bs.forEach((b,i)=>{p.rect(b.x,b.y,b.w,b.h,W_(st,i===bs.length-(mine?2:1)?{fill:C.wash,fillStyle:'hachure',hachureGap:6,fine:1}:{}));
+        if(i)p.arrow([[bs[i-1].x+18,bs[i-1].y+bs[i-1].h+3],[b.x+18,b.y-4]],W_(st,{strokeWidth:1.3}));});
+      // the loop runs in the lane's right gutter (the list's padding), clear of the check notes
+      if(mine&&bs.length>2){const a=bs[bs.length-1],t=bs[1],o=rel(ln.querySelector('ol'),r0),x=o.x+o.w-26;
+        p.arrow([[a.x+a.w+2,a.cy],[x,a.cy-10],[x,t.cy+10],[t.x+t.w+4,t.cy]],W_(blue(),{strokeWidth:1.5}));
+        const ly=(a.cy+t.cy)/2,lb=p.text(x+14,ly,el.dataset.loop,'sk-blue halo','middle');lb.setAttribute('transform',`rotate(-90 ${x+14} ${ly})`);}
+      $$('.tick',ln).forEach(k=>{const q=rel(k,r0);p.lines([[q.x+1,q.cy],[q.x+6,q.cy+5],[q.x+15,q.cy-7]],W_(blue(),{strokeWidth:2}));});});},
   // language tabs: card stock in light (CSS); chalk outlines on the slate edge in dark
   lang(p,W,el){if(!C.chalk)return;const r0=el.getBoundingClientRect(),col=getComputedStyle(el).flexDirection==='column';
     $$('a',el).forEach(a=>{const {x,y,w,h}=rel(a,r0),on=a.hasAttribute('aria-current'),

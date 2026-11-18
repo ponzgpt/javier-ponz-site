@@ -28,7 +28,7 @@ export const profile = [
 
 export const experience = [
   {
-    title: 'Independent',
+    title: 'Relocation and pivot',
     when: 'Aug 2024 – now',
     where: 'Aberdeen, Scotland',
     bullets: [
