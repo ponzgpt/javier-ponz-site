@@ -22,7 +22,7 @@ export const person = {
 };
 
 export const profile = [
-  'I came to software through hardware: I built and overclocked my own PCs, left industrial engineering unfinished, and worked at Apple until 2024, six and a half years as a Genius. Since then I have learned servers, deployment and local models from zero, directing AI coding agents that write the code from my specs and tests.'
+  'I am not a programmer. I am the person who sits between a confused user and a system that is not doing what it should. I spent years explaining broken technology to people having a bad day; then two years learning to build it, from zero, in plain English.'
 ];
 
 export const experience = [
