@@ -10,10 +10,10 @@
 ## In short
 
 He is not a programmer. He is the person who sits between a confused user and
-a system that is not doing what it should. He spent years explaining broken
-technology to people having a bad day, then two years learning to build it
-from zero, in plain English, with AI coding agents. Two of his Hermes Agent
-plugins are in its official catalog, and he is building Machines Do It Better.
+a system that is not doing what it should. He spent a decade explaining broken
+technology to people having a bad day, then two years learning how to build it
+from zero, with AI coding agents. Two of his Hermes Agent plugins are in its
+official catalog, and he is building Machines Do It Better.
 
 ## Contact and links
 
@@ -86,9 +86,8 @@ LinkedIn.
 
 ## Stack
 
-From spec to server: specify (what it must do, written down), test (the checks
-it must pass, written before the code), agents build (AI coding agents write
-the code), run it (he deploys it, watches it and supports it).
+He builds by vibe coding: he describes what he wants in plain English, AI
+coding agents build it, he puts an early version live and improves it there.
 
 - Custom workstation: AMD Ryzen 9 9900X3D, NVIDIA RTX 5090, 64 GB RAM, Omarchy
   (Arch Linux, Hyprland); a local Hermes agent and local inference with
@@ -106,13 +105,12 @@ the code), run it (he deploys it, watches it and supports it).
 
 ## Ethos (his own views)
 
-How he works: fix it, explain it, hand it back; prove it; small steps, always
-live; machines work, people judge; learn in public. What he believes: curious
-about everything; own the machine; free and open source first; e/λ; the
-classical virtues.
+How he works, five rules: you can just do things; open source must win (own
+the machine); English is today's programming language; e/λ (more capable
+technology, sooner, in more people's hands); the polymath beats the expert.
 
 ## The site
 
 One page in two languages, real pages rather than a browser-side swap: / is
-English, /es/ is Spanish. Built with AI coding agents from his spec and his
-tests; the source is at https://github.com/ponzgpt/javier-ponz-site.
+English, /es/ is Spanish. Built from plain English through his current AI stack
+and workflow; the source is at https://github.com/ponzgpt/javier-ponz-site.

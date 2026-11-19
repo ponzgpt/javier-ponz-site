@@ -22,7 +22,7 @@ export const person = {
 };
 
 export const profile = [
-  'I am not a programmer. I am the person who sits between a confused user and a system that is not doing what it should. I spent years explaining broken technology to people having a bad day; then two years learning to build it, from zero, in plain English.'
+  'I am not a programmer. I am the person who sits between a confused user and a system that is not doing what it should. I spent a decade explaining broken technology to people having a bad day; then the last two years learning how to build it, from zero.'
 ];
 
 export const experience = [
@@ -116,7 +116,7 @@ export const education = [
 export const skills = [
   { group: 'Agents and AI', items: ['Hermes Agent (Syl on Hermes Cloud through Nous Portal, plus a local Hermes)', 'MCP servers', 'Hermes skills and scheduled jobs', 'Claude Code', 'Codex', 'llama.cpp', 'Ollama', 'LM Studio', 'OpenRouter'] },
   { group: 'Infrastructure', items: ['Docker Swarm', 'Dokploy', 'Traefik', 'nginx', "Let's Encrypt", 'GitHub Actions', 'VPS administration', 'Tailscale', 'Omarchy (Arch Linux)', 'macOS'] },
-  { group: 'Building', items: ['specs and tests written before the code', 'AI coding agents', 'TypeScript', 'JavaScript', 'Python', 'Astro', 'Git and GitHub'] },
+  { group: 'Building', items: ['vibe coding with AI coding agents', 'TypeScript', 'JavaScript', 'Python', 'Astro', 'Git and GitHub'] },
   { group: 'Support', items: ['Mac, iPhone and iPad diagnosis and repair', 'case documentation and escalation', 'mentoring', 'team leadership'] },
   { group: 'In progress', items: ['Proxmox home lab', 'vLLM'] }
 ];

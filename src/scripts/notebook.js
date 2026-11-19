@@ -1,5 +1,5 @@
 // The notebook's behaviour: rough.js sketches scrubbed by scroll, Rough Notation marks, the corner fold
-// (theme), the p. 6 map, copy-to-clipboard tabs, doodles. Progressive enhancement: the page reads fully
+// (theme), copy-to-clipboard tabs, doodles. Progressive enhancement: the page reads fully
 // without it. Strings come from the page's own JSON block (#nb-copy), rendered from src/data/copy.mjs.
 import rough from 'roughjs';
 import { annotate, annotationGroup } from 'rough-notation';
@@ -9,7 +9,7 @@ const NS='http://www.w3.org/2000/svg', root=document.documentElement, $=s=>docum
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches, mqDark=matchMedia('(prefers-color-scheme: dark)');
 const clamp=v=>v<0?0:v>1?1:v, ease=t=>t*t*(3-2*t), W_=(a,b)=>Object.assign({},a,b);
 let C={};
-const T_=JSON.parse(document.getElementById("nb-copy").textContent), M_=T_.map;
+const T_=JSON.parse(document.getElementById("nb-copy").textContent);
 function readC(){const cs=getComputedStyle(root),g=n=>cs.getPropertyValue('--'+n).trim();
   C={paper:g('paper'),ink:g('sk-ink'),ink2:g('ink-2'),blue:g('mark'),wash:g('wash'),hatch:g('hatch'),card:g('card'),ghost:g('ghost'),faint:g('faint'),chalk:g('chalk')==='1'};}
 
@@ -50,27 +50,9 @@ function pen(svg,seed){
     rect:(x,y,w,h,s)=>a(rc.rectangle(x,y,w,h,o(s))), line:(x1,y1,x2,y2,s)=>a(rc.line(x1,y1,x2,y2,o(s))),
     ell:(x,y,w,h,s)=>a(rc.ellipse(x,y,w,h,o(s))), circ:(x,y,d,s)=>a(rc.circle(x,y,d,o(s))),
     poly:(p,s)=>a(rc.polygon(p,o(s))), curve:(p,s)=>a(rc.curve(p,o(s))), path:(d,s)=>a(rc.path(d,o(s))), lines:(p,s)=>a(rc.linearPath(p,o(s))),
-    arrow(p,s){const b=p[p.length-1],q=p[p.length-2],t=Math.atan2(b[1]-q[1],b[0]-q[0]);(p.length>2?this.curve(p,s):this.line(q[0],q[1],b[0],b[1],s));
-      return this.lines([[b[0]-10*Math.cos(t+.45),b[1]-10*Math.sin(t+.45)],b,[b[0]-10*Math.cos(t-.45),b[1]-10*Math.sin(t-.45)]],W_(s,{strokeLineDash:null}));},
     rrect(x,y,w,h,r,s){return this.path(`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${y+h-r}Q${x+w} ${y+h} ${x+w-r} ${y+h}H${x+r}Q${x} ${y+h} ${x} ${y+h-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`,s);},
     text(x,y,str,cls,anchor){const t=document.createElementNS(NS,'text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('class',cls);t.setAttribute('text-anchor',anchor||'start');
       str.split('\n').forEach((l,i)=>{const s=document.createElementNS(NS,'tspan');s.setAttribute('x',x);if(i)s.setAttribute('dy','1.3em');s.textContent=l;t.appendChild(s)});lab.appendChild(t);return t;},
-    // the doodles: machines (k scales the drawing, never the stroke), clouds, models
-    tower(x,y,s,k){k=k||1;const t=W_(s,{strokeWidth:1,roughness:.6}),R=(u,v,w,h,q)=>this.rect(x+u*k,y+v*k,w*k,h*k,q||t),O=(u,v,d,q)=>this.circ(x+u*k,y+v*k,d*k,q||t),L=(a,b,c,d,q)=>this.line(x+a*k,y+b*k,x+c*k,y+d*k,q||t);
-      R(0,0,64,96,s);R(8,14,48,74);O(32,7,5);L(10,7,24,7);L(40,7,54,7);
-      O(23,30,20);O(23,30,5);L(17,24,29,36);L(17,36,29,24);R(39,20,3,20);R(45,20,3,20);
-      R(12,49,40,14,W_(t,solid()));O(22,56,9);O(42,56,9);R(12,73,40,11);[19,26,33].forEach(u=>L(u,76,u,81));
-      L(8,96,8,101,s);L(56,96,56,101,s);},
-    laptop(cx,yb,s,k){k=k||1;const t=W_(s,{strokeWidth:1,roughness:.6}),X=u=>cx+u*k,Y=v=>yb+v*k;this.rect(X(-48),Y(-74),96*k,64*k,s);this.rect(X(-41),Y(-68),82*k,52*k,t);
-      [[0,30],[8,24],[8,14],[0,20]].forEach(([i,l],j)=>this.line(X(-34+i),Y(-59+j*9),X(-34+i+l),Y(-59+j*9),t));
-      this.poly([[X(-50),Y(-10)],[X(50),Y(-10)],[X(62),Y(0)],[X(-62),Y(0)]],s);this.line(X(-10),Y(-4.5),X(10),Y(-4.5),t);},
-    rack(cx,yb,w,s,k,u){k=k||1;u=u||1;const h=40*k,x=cx-w/2,top=yb-h*u,e=8*k,t=W_(s,{strokeWidth:1,roughness:.6}),bw=19*k,nb=Math.floor((w-48*k)/bw);
-      [x-e,x+w].forEach(ex=>{this.rect(ex,top,e,h*u,t);this.circ(ex+e/2,top+9*k,3*k,t);this.circ(ex+e/2,yb-9*k,3*k,t);});
-      for(let j=0;j<u;j++){const y=top+j*h;this.rect(x,y,w,h,s);for(let i=0;i<nb;i++){this.rect(x+8*k+i*bw,y+7*k,15*k,h-14*k,t);this.line(x+11*k+i*bw,y+h-12*k,x+20*k+i*bw,y+h-12*k,t);}
-        for(let i=0;i<3;i++)this.circ(x+w-24*k+i*8*k,y+13*k,4.5*k,i||j?t:W_(t,{fill:s.stroke||C.blue,fillStyle:'solid'}));this.line(x+w-28*k,y+h-12*k,x+w-8*k,y+h-12*k,t);}},
-    cloud(cx,cy,w,h,s){const x=cx-w/2,y=cy-h/2;return this.path(`M${x+w*.18} ${y+h}C${x-w*.07} ${y+h} ${x-w*.05} ${y+h*.42} ${x+w*.2} ${y+h*.46}C${x+w*.2} ${y+h*.02} ${x+w*.6} ${y-h*.1} ${x+w*.66} ${y+h*.3}C${x+w*.97} ${y+h*.14} ${x+w*1.08} ${y+h*.78} ${x+w*.84} ${y+h}Z`,s);},
-    net(x,y,s,k){k=k||1;const t=W_(s,{strokeWidth:.9,roughness:.4,strokeLineDash:null}),L=[-8,0,8].map(v=>[x,y+v*k]),R=[-4,4].map(v=>[x+16*k,y+v*k]);
-      L.forEach(a=>R.forEach(b=>this.line(a[0],a[1],b[0],b[1],t)));L.concat(R).forEach(q=>this.circ(q[0],q[1],5*k,W_(t,W_(solid(),{strokeWidth:1.1}))));},
   };
 }
 const rel=(el,r0)=>{const r=el.getBoundingClientRect();return{x:r.left-r0.left,y:r.top-r0.top,w:r.width,h:r.height,cx:r.left-r0.left+r.width/2,cy:r.top-r0.top+r.height/2}};
@@ -80,7 +62,6 @@ function glyph(el,r0){const g=document.createRange();g.selectNodeContents(el);co
   if(!m.fontBoundingBoxAscent)return{x:b.left-r0.left+b.width/2,y:b.top-r0.top+b.height*.46};
   const base=b.top+(b.height-m.fontBoundingBoxAscent-m.fontBoundingBoxDescent)/2+m.fontBoundingBoxAscent;
   return{x:b.left-r0.left+(m.actualBoundingBoxRight-m.actualBoundingBoxLeft)/2,y:base-r0.top-(m.actualBoundingBoxAscent-m.actualBoundingBoxDescent)/2};}
-function place(b,q){const s=b.style;s.left=q[0]+'px';s.top=q[1]+'px';s.width=q[2]+'px';s.height=q[3]+'px';}
 
 /* ---------- sketches: drawn in the order they should ink in ---------- */
 const D={
@@ -137,8 +118,6 @@ const D={
       const k=Math.round(r.y+r.h);(rows[k]=rows[k]||[]).push(r);});
     Object.keys(rows).forEach(k=>{const rs=rows[k],x0=Math.min(...rs.map(r=>r.x)),x1=Math.max(...rs.map(r=>r.x+r.w));p.line(x0-4,+k,x1+4,+k,{strokeWidth:2.2,stroke:C.blue});});},
   btn(p,W,el){const H=el.clientHeight;p.rect(2,2,W-4,H-4,W_(W_({strokeWidth:2},blue()),{fill:C.wash,fillStyle:'hachure',hachureGap:6,fillWeight:1}));},
-  frame(p,W,el){const H=el.clientHeight,h=el.querySelector('h3');p.rect(2,2,W-4,H-4,{strokeWidth:1.4});
-    if(h){const r=rel(h,el.getBoundingClientRect());p.line(12,r.y+r.h+5,W-12,r.y+r.h+5,{stroke:C.blue,strokeWidth:1.3});}},
   tl(p,W,el){const r0=el.getBoundingClientRect(),pts=$$('.tl-dot',el).map(d=>{const r=rel(d,r0);return[r.cx,r.cy]}),n=pts.length;
     pts.forEach((q,i)=>{p.circ(q[0],q[1],18,i===0?dotHatch():W_(solid(),{strokeWidth:1.6}));
       if(i<n-1)p.line(q[0],q[1]+10,pts[i+1][0],pts[i+1][1]-10,{strokeWidth:1.6});});},
@@ -148,117 +127,41 @@ const D={
       if(ar){const q=rel(ar,r0),x=q.cx-6,y=q.cy+5;p.grp('a'+i);p.line(x,y,x+12,y-12,W_({strokeWidth:1.5},blue()));p.lines([[x+3,y-12],[x+12,y-12],[x+12,y-3]],W_({strokeWidth:1.5},blue()));p.grp();}
       p.line(u.x,r.y+r.h,u.x+u.w,r.y+r.h,rule);});},
   thesis(p,W,el){const r0=el.getBoundingClientRect(),n=el.querySelector('.num'),c=glyph(n,r0),H=el.clientHeight,d=n.offsetWidth<40?32:40;
-    // each group is its own stacked list (side by side on wide pages): a rule under every thesis but the last in it
-    const ol=el.parentNode,last=el===ol.lastElementChild;
+    // one grid of five, 3 + 2 columns on wide pages: a rule under every rule but the last in its column
+    const nx=el.nextElementSibling,last=!nx||Math.abs(nx.offsetLeft-el.offsetLeft)>4;
     p.ell(c.x,c.y,d,d-2,W_({strokeWidth:1.6,roughness:1.3},blue()));
     if(!last)p.line(rel(n,r0).x+6,H-1,W-6,H-1,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});},
-  // p. 3: three points, a small mark each (open padlock, ticked box, a person), hand-ruled apart
+  // p. 3: three points, a small mark each (a closed padlock, a tape measure, a sunrise), hand-ruled apart
   trio(p,W,el){const r0=el.getBoundingClientRect(),lis=$$(':scope > li',el),B=W_(blue(),{strokeWidth:1.8}),side=lis.length>1&&Math.abs(rel(lis[0],r0).y-rel(lis[1],r0).y)<4;
     lis.forEach((li,i)=>{const m=rel(li.querySelector('.mk'),r0),x=m.x,y=m.y,r=rel(li,r0);
       switch(i){
-        case 0:p.rect(x+8,y+20,30,22,W_(solid(),{strokeWidth:1.6}));p.path(`M${x+14} ${y+20}V${y+11}C${x+14} ${y+1} ${x+32} ${y+1} ${x+32} ${y+9}`,B);p.circ(x+23,y+30,5,B);p.line(x+23,y+32,x+23,y+37,B);break;
-        case 1:p.rect(x+6,y+12,28,28,W_(solid(),{strokeWidth:1.6}));p.lines([[x+11,y+25],[x+19,y+33],[x+40,y+4]],W_(blue(),{strokeWidth:2.4}));break;
-        default:p.circ(x+22,y+12,16,B);p.path(`M${x+6} ${y+42}C${x+8} ${y+24} ${x+36} ${y+24} ${x+38} ${y+42}`,B);p.line(x+2,y+44,x+44,y+44,{strokeWidth:1.4});}
+        case 0:p.path(`M${x+14} ${y+21}V${y+12}C${x+14} ${y+2} ${x+32} ${y+2} ${x+32} ${y+12}V${y+21}`,B);p.rect(x+8,y+20,30,23,W_(solid(),{strokeWidth:1.6}));p.circ(x+23,y+29,5,B);p.line(x+23,y+31,x+23,y+37,B);break;
+        case 1:p.rect(x+14,y+31,32,8,W_(blue(),{strokeWidth:1.5}));[20,26,32,38].forEach((u,j)=>p.line(x+u,y+31,x+u,y+(j%2?34:36),W_(blue(),{strokeWidth:1.1})));p.line(x+46,y+29,x+46,y+41,W_(blue(),{strokeWidth:2}));
+          p.circ(x+15,y+24,28,W_(solid(),{strokeWidth:1.6}));p.circ(x+15,y+24,7,{strokeWidth:1.1});break;
+        default:p.line(x,y+36,x+46,y+36,{strokeWidth:1.5});p.path(`M${x+9} ${y+36}C${x+9} ${y+20} ${x+37} ${y+20} ${x+37} ${y+36}`,B);
+          [[23,22,23,12],[10,27,4,21],[36,27,42,21],[15,23,11,15],[31,23,35,15]].forEach(([a,b,c,d])=>p.line(x+a,y+b-2,x+c,y+d-2,W_(blue(),{strokeWidth:1.4})));
+          p.line(x+6,y+42,x+18,y+42,{stroke:C.ink2,strokeWidth:1,roughness:.7});p.line(x+26,y+42,x+40,y+42,{stroke:C.ink2,strokeWidth:1,roughness:.7});}
       if(!i)return;
       if(side)p.line(r.x-20,r.y+4,r.x-19,r.y+r.h-4,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});
       else p.line(r.x+4,r.y-14,r.x+r.w-6,r.y-14,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});});},
-  // p. 6: one loop of boxed steps, a row on wide pages and a column on phones; the checks are ticked chips under their step
-  flow(p,W,el){const r0=el.getBoundingClientRect(),bs=$$('.box',el).map(b=>rel(b,r0)),n=bs.length,row=n>1&&Math.abs(bs[0].y-bs[1].y)<4,st={strokeWidth:1.6};
-    bs.forEach((b,i)=>{p.rect(b.x,b.y,b.w,b.h,W_(st,i===n-2?{fill:C.wash,fillStyle:'hachure',hachureGap:6,fine:1}:{}));
-      if(!i)return;const a=bs[i-1];
-      p.arrow(row?[[a.x+a.w+3,a.cy],[b.x-4,b.cy]]:[[a.x+18,a.y+a.h+3],[b.x+18,b.y-4]],{strokeWidth:1.3});});
-    // the loop back to the first step: over the row (the list's top padding), or down the column's right gutter
-    if(n>2){const a=bs[n-1],t=bs[0],B=W_(blue(),{strokeWidth:1.5});
-      if(row){const y=16;p.arrow([[a.cx,a.y-3],[a.cx-16,y],[t.cx+16,y],[t.cx,t.y-4]],B);p.text((a.cx+t.cx)/2,y-6,el.dataset.loop,'sk-blue halo','middle');}
-      else{const o=rel(el.querySelector('.steps'),r0),x=o.x+o.w-20,ly=(a.cy+t.cy)/2;
-        p.arrow([[a.x+a.w+2,a.cy],[x,a.cy-10],[x,t.cy+10],[t.x+t.w+4,t.cy]],B);
-        p.text(x+12,ly,el.dataset.loop,'sk-blue halo','middle').setAttribute('transform',`rotate(-90 ${x+12} ${ly})`);}}
-    $$('.cks li',el).forEach(li=>{const r=rel(li,r0);p.rect(r.x,r.y,r.w,r.h,{stroke:C.ink2,strokeWidth:1,roughness:.7});});
-    $$('.tick',el).forEach(k=>{const q=rel(k,r0);p.lines([[q.x+1,q.cy],[q.x+6,q.cy+5],[q.x+15,q.cy-7]],W_(blue(),{strokeWidth:2}));});},
+  // p. 6: the skills sheet; a box per row (ticked, or empty for what comes next), a hand rule under each row,
+  // and the pen margin before the proof column when it sits beside the items
+  sheet(p,W,el){const r0=el.getBoundingClientRect(),rows=$$('.sheet-rows > li',el),rule={stroke:C.chalk?C.ink2:C.hatch,strokeWidth:1,roughness:.6,bowing:.4};
+    rows.forEach((li,i)=>{const r=rel(li,r0),b=rel(li.querySelector('.bx'),r0),pr=li.querySelector('.proof');
+      p.rect(b.x+1,b.y+1,b.w-2,b.h-2,W_(solid(),{strokeWidth:1.5}));
+      if(!li.classList.contains('next'))p.lines([[b.x+4,b.cy],[b.x+9,b.cy+6],[b.x+b.w+3,b.y-5]],W_(blue(),{strokeWidth:2.2}));
+      if(pr){const q=rel(pr,r0);if(q.x>r.x+W*.4)p.line(q.x-14,r.y+10,q.x-13,r.y+r.h-10,W_(blue(),{strokeWidth:1,roughness:.8}));}
+      if(i<rows.length-1)p.line(r.x,r.y+r.h,r.x+r.w,r.y+r.h,rule);});},
   // language tabs: card stock in light (CSS); chalk outlines on the slate edge in dark
   lang(p,W,el){if(!C.chalk)return;const r0=el.getBoundingClientRect(),col=getComputedStyle(el).flexDirection==='column';
     $$('a',el).forEach(a=>{const {x,y,w,h}=rel(a,r0),on=a.hasAttribute('aria-current'),
       pts=col?[[x+w+6,y+1],[x+6,y+1],[x+1,y+7],[x+1,y+h-7],[x+6,y+h-1],[x+w+6,y+h-1]]:[[x+1,y-6],[x+1,y+h-7],[x+6,y+h-1],[x+w-6,y+h-1],[x+w-1,y+h-7],[x+w-1,y-6]];
       p.poly(pts,{fill:C.paper,fillStyle:'solid',strokeWidth:on?1.3:1,roughness:.9,stroke:on?C.ink:C.ink2});if(on)p.poly(pts,{fill:C.wash,fillStyle:'solid',stroke:'none'});});},
-  map:(p,W,el,it)=>MAP.draw(p,W,el,it)
 };
 
-/* ---------- one card component, one picker: the p. 6 map ---------- */
-function card(it,d){const b=it.el.querySelector('.mc-body');it.el.classList.toggle('on',!!d);
-  b.innerHTML=d?`<h3>${d.t}</h3>${d.p.map(x=>`<p>${x}</p>`).join('')}${d.n?`<p class="small">${d.n}</p>`:''}${d.u?`<p class="go"><a href="${d.u}"${d.u[0]==='#'?'':' target="_blank" rel="noreferrer"'}>${d.ul} →</a></p>`:''}`:'';
-  if(d)render(it);}
-function picker(stage,list,on){
-  const P={sel:null,hov:null,btn:{},cur(){return this.hov||this.sel},set(k,v){if(this[k]===v)return;this[k]=v;on()}};
-  list.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='node';b.dataset.id=n.id;b.innerHTML=n.html;
-    b.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')P.set('hov',n.id)});b.addEventListener('pointerleave',()=>P.set('hov',null));
-    b.addEventListener('focus',()=>P.set('sel',n.id));b.addEventListener('click',()=>P.set('sel',n.id));stage.appendChild(b);P.btn[n.id]=b;});
-  stage.addEventListener('keydown',e=>{if(e.key==='Escape'){P.hov=null;P.set('sel',null)}});
-  document.addEventListener('pointerdown',e=>{if(P.sel&&!stage.contains(e.target)&&!(e.target.closest&&e.target.closest('.mcard')))P.set('sel',null)});
-  return P;}
+/* ---------- a quick redraw of one group of strokes (the notes arrows on hover) ---------- */
 function pop(svg,sel){if(RM)return;svg.querySelectorAll(sel).forEach((q,i)=>{if((q.getAttribute('fill')||'none')!=='none'||q.dataset.dash)return;
   q.animate([{strokeDashoffset:+q.dataset.len||0},{strokeDashoffset:q.style.strokeDashoffset||0}],{duration:420,delay:Math.min(i*14,300),easing:'cubic-bezier(.3,.6,.3,1)',fill:'backwards'});});}
-
-/* ---------- p. 6: six things and how they connect; facts are read from the no-JS list beside it ---------- */
-// node ids here; their labels come from the copy module. Six nodes read at a glance, so there are no filters.
-const NODES=['agent','plugins','mac','ws','vps','sites'].map(id=>({id,t:M_.nodes[id][0],s:M_.nodes[id][1]}));
-const N=Object.fromEntries(NODES.map(n=>[n.id,n])), SH={plugins:'tag',sites:'stack'};
-const LINK={agent:['https://github.com/NousResearch/hermes-agent',M_.hermesLink],plugins:['#work',M_.pluginsLink],sites:['#work',M_.sitesLink]};
-const EDGES=[['mac','agent'],['agent','plugins'],['mac','ws'],['mac','vps'],['vps','sites']];
-const ADJ={};NODES.forEach(n=>ADJ[n.id]=new Set());EDGES.forEach(([a,b])=>{ADJ[a].add(b);ADJ[b].add(a)});
-const MAP={
-  ns(id){const c=this.P.cur();if(!c)return'on';return id===c?'sel':ADJ[c].has(id)?'near':'dim'},
-  es(e){const c=this.P.cur();if(!c)return'on';return(e[0]===c||e[1]===c)?'hot':'dim'},
-  // wide: the cloud agent and its plugins on top; workstation, laptop and server in a row; the sites under the server
-  wide(W){const k=1.5,c1=Math.round(W*.16),c2=Math.round(W/2),c3=W-c1,yt=92,yb=390,ys=yb+176,r={},sh={},E=[],m=(c1+c2-42)/2;
-    sh.agent=['cloud',c2,yt,250,124];r.agent=[c2-95,yt-42,190,86];r.plugins=[c2+210,yt-28,210,56,'tag'];
-    sh.ws=['tower',c1-48,yb-152,k];sh.mac=['laptop',c2,yb,k];sh.vps=['rack',c3,yb,210,1.35,2];
-    [['ws',c1],['mac',c2],['vps',c3]].forEach(([id,c])=>r[id]=[c-125,yb-165,250,272,'mach']);
-    r.sites=[c3-90,ys,180,60];
-    E[0]={pts:[[c2,yb-122],[c2,yt+66]],arrow:1,lab:[[c2+12,(yb-122+yt+66)/2+6,M_.talksTo,'start']]};
-    E[1]={pts:[[c2+128,yt],[c2+206,yt]],arrow:1,lab:[[c2+167,yt-12,M_.runs,'middle']]};
-    E[2]={pts:[[c1+58,yb-80],[c2-100,yb-80]],lab:[[m,yb-114,M_.network,'middle']]};
-    E[3]={pts:[[c2+100,yb-62],[c3-124,yb-62]],arrow:1,lab:[[(c2+c3)/2,yb-74,M_.deploys,'middle']]};
-    E[4]={pts:[[c3,yb+116],[c3,ys-16]],arrow:1,lab:[[c3+12,(yb+116+ys-16)/2+6,M_.serves,'start']]};
-    return{r,sh,E,H:ys+90};},
-  // phones: one column, each doodle beside its labels; the laptop's links run down the left edge
-  tree(W){const dc=80,r={},sh={},E=[];let y=4;
-    sh.agent=['cloud',dc,y+38,124,70];r.agent=[4,y,W-8,76,'hdr'];const sy=y+38;y+=104;
-    r.plugins=[64,y,Math.min(220,W-72),48,'tag'];E[1]={pts:[[48,sy+35],[48,y+24],[62,y+24]],arrow:1,lab:[[58,y-8,M_.runs,'start']]};y+=80;
-    const mt=y,mm=y+40;sh.mac=['laptop',dc,y+76];r.mac=[4,y,W-8,84,'hdr'];y+=112;
-    const l3=y;y+=34;
-    const wm=y+48;sh.ws=['tower',dc-32,y];r.ws=[4,y,W-8,108,'hdr'];y+=128;
-    const l4=y;y+=34;
-    const vt=y,vm=y+36;sh.vps=['rack',88,y+52,84,.85];r.vps=[4,y,W-8,84,'hdr'];y+=118;
-    r.sites=[64,y,Math.min(200,W-72),56];E[4]={pts:[[dc+8,vt+60],[dc+8,y-14]],arrow:1,lab:[[dc+20,vt+94,M_.serves,'start']]};
-    E[0]={pts:[[dc-48,mm-12],[8,mm-12],[8,sy],[dc-62,sy]],arrow:1,lab:[[20,mt-10,M_.talksTo,'start']]};
-    E[2]={pts:[[dc-48,mm],[16,mm],[16,wm],[dc-34,wm]],lab:[[32,l3+20,M_.networkTree,'start']]};
-    E[3]={pts:[[dc-48,mm+12],[24,mm+12],[24,vm],[37,vm]],arrow:1,lab:[[32,l4+20,M_.deploys,'start']]};
-    return{r,sh,E,H:y+86};},
-  draw(p,W,el,it){const L=W<860?this.tree(W):this.wide(W),P=this.P;
-    if(it.lw!==W){it.lw=W;NODES.forEach(n=>place(P.btn[n.id],L.r[n.id]));}
-    NODES.forEach(n=>P.btn[n.id].className=`node ${L.r[n.id][4]||''} ${this.ns(n.id)}`);
-    const NS_={sel:{stroke:C.blue,strokeWidth:2.2},near:{stroke:C.blue,strokeWidth:1.7},on:{},dim:{stroke:C.faint,strokeWidth:1.1}};
-    const ES_={hot:{stroke:C.blue,strokeWidth:1.8},on:{stroke:C.ink2,strokeWidth:1.3},dim:{stroke:C.faint,strokeWidth:1}};
-    NODES.forEach(n=>{const st=this.ns(n.id),[x,y,w,h]=L.r[n.id],d=L.sh[n.id],hot=st==='sel'||st==='near',s=NS_[st];
-      const g=p.grp(n.id);if(hot)g.setAttribute('data-hot',1);
-      switch(d?d[0]:SH[n.id]){
-        case 'cloud':p.cloud(d[1],d[2],d[3],d[4],s);break; case 'tower':p.tower(d[1],d[2],s,d[3]);break;
-        case 'laptop':p.laptop(d[1],d[2],s,d[3]);break; case 'rack':p.rack(d[1],d[2],d[3],s,d[4],d[5]);break;
-        case 'tag':p.poly([[x+14,y],[x+w,y],[x+w,y+h],[x+14,y+h],[x,y+h/2]],s);p.circ(x+12,y+h/2,6,W_(s,{strokeWidth:1}));break;
-        case 'stack':p.rect(x+8,y-8,w,h,W_(s,{strokeWidth:1}));p.rect(x+4,y-4,w,h,W_(s,solid()));p.rect(x,y,w,h,W_(s,solid()));p.line(x+8,y+12,x+w-8,y+12,W_(s,{stroke:st==='dim'?C.faint:C.blue,strokeWidth:1}));break;}});
-    EDGES.forEach((e,i)=>{const g=L.E[i];if(!g)return;const st=this.es(e),s=ES_[st],grp=p.grp('e'+i);if(st==='hot')grp.setAttribute('data-hot',1);
-      g.arrow?p.arrow(g.pts,s):p.lines(g.pts,s);(g.lab||[]).forEach(([x,y,t,a])=>p.text(x,y,t,'sk-edge halo'+(st==='hot'?' hot':''),a));});
-    p.grp();
-    const sec=el.closest('.spread'),mp=el.closest('.map');sec.style.setProperty('--rh',Math.max(0,mp.getBoundingClientRect().top-sec.getBoundingClientRect().top-24)+'px');
-    el.style.height=L.H+'px';return L.H;},
-  update(){const key=String(this.P.cur());if(key===this.key)return;this.key=key;render(this.it);pop(this.it.svg,'.ink [data-hot] path');
-    const c=this.P.cur();if(!c)return card(this.cardIt,null);const n=N[c],u=LINK[c],T=n.t;
-    // a fact that opens with the node's own name ("Laptop: ...") drops it, since the card's title already says it
-    const facts=$$(`#stack-list [data-n~="${c}"]`).map(li=>{let f=li.textContent.trim();
-      if(f.startsWith(T+':')){f=f.slice(T.length+1).trim();f=f&&f[0].toUpperCase()+f.slice(1);}return f&&f+'.';}).filter(Boolean);
-    card(this.cardIt,{t:T,p:facts,n:M_.connected+' '+[...ADJ[c]].map(k=>N[k].t).join(', ')+'.',u:u&&u[0],ul:u&&u[1]});},
-  init(){this.P=picker($('#stage'),NODES.map(n=>({id:n.id,html:`<b>${n.t}</b>${n.s?`<small>${n.s.replace(/\n/g,'<br>')}</small>`:''}`})),()=>this.update());}
-};
 
 /* ---------- scroll-scrubbed ink: progress 0 near the bottom edge, 1 at 55% of the viewport ---------- */
 function prep(it){
@@ -283,7 +186,6 @@ $$('[data-sketch]').forEach(el=>items.push({el,kind:el.dataset.sketch,svg:el.que
 $$('[data-tabs]').forEach(el=>items.push({el,kind:'tabs',svg:el.querySelector(':scope > svg')}));
 items.forEach((it,i)=>{it.seed=3+i*17;it.prog=RM?1:0;it.shown=-1;});
 const byEl=new Map(items.map(it=>[it.el,it]));
-MAP.it=byEl.get($('#stage'));MAP.cardIt=byEl.get($('#map .mcard'));
 const vis=new Set();let raf=0;
 // sketches that start inside the first screen finish where they sit, so the first screen is complete
 const target=(it,vh)=>{if(it.kind==='lang')return 1;const t=it.el.getBoundingClientRect().top,y0=it.y0==null?(it.y0=t+scrollY):it.y0,e=y0<vh*.95?Math.max(vh*.55,y0+2):vh*.55;return clamp((e+vh*.4-t)/(vh*.4))};
@@ -292,7 +194,7 @@ function frame(){raf=0;const vh=innerHeight,arr=[...vis],T=arr.map(it=>target(it
   if(moving)kick();}
 function kick(){if(!raf&&vis.size&&!RM)raf=requestAnimationFrame(frame)}
 // inner sketches first, so the outlines around them measure their final height
-function renderAll(){for(let i=items.length-1;i>=0;i--)if(items[i].kind!=='frame'||items[i].el.classList.contains('on'))render(items[i]);}
+function renderAll(){for(let i=items.length-1;i>=0;i--)render(items[i]);}
 
 /* ---------- hero marks + heading underlines: draw on enter, erase on leave ---------- */
 let anns=[];const annVis=new Map();
@@ -317,8 +219,8 @@ $$('[data-copy]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.c
 /* ---------- doodle: draw on the page with its own material; strokes fade after ~4 s ---------- */
 const DD=(function(){
   const cv=$('#doodle'),x=cv.getContext('2d'),oc=document.createElement('canvas'),ox=oc.getContext('2d');
-  const OK='html,body,.book,.spread,.main,.margin,.cover-main,.hero,.lw,.h-row,.cards,.plugs,.ruled,.notes,.ethos-cols,.ethos-col,.ethos,.tl-wrap,.tl,.tl li,.links-row,.map,.slot,.sk,.sk *';
-  const NO='a,button,input,textarea,select,label,summary,[contenteditable],.stage,.photo,.fold,nav';
+  const OK='html,body,.book,.spread,.main,.margin,.cover-main,.hero,.lw,.h-row,.cards,.plugs,.ruled,.notes,.ethos-cols,.ethos-col,.ethos,.tl-wrap,.tl,.tl li,.links-row,.sheet,.sheet-rows,.sheet-rows>li,.sk,.sk *';
+  const NO='a,button,input,textarea,select,label,summary,[contenteditable],.photo,.fold,nav';
   const LIFE=4000,FADE=1200;let dpr=1,strokes=[],specks=[],cur=null,pend=null,raf=0,pat=null,patKey='';
   function size(){dpr=Math.min(1.5,devicePixelRatio||1);cv.width=oc.width=Math.round(innerWidth*dpr);cv.height=oc.height=Math.round(innerHeight*dpr);}
   function pattern(){const key=C.blue;if(pat&&patKey===key)return pat;const S=96,c=document.createElement('canvas');c.width=c.height=S;const g=c.getContext('2d'),im=g.createImageData(S,S),q=8,G=[];
@@ -384,7 +286,7 @@ let themeKey='';
 function onTheme(){const k=isDark()?'d':'l';syncFold();if(k===themeKey)return;themeKey=k;readC();DD.clear();renderAll();notes();}
 function start(){
   themeKey=isDark()?'d':'l';readC();syncFold();
-  root.classList.add('js');MAP.init();
+  root.classList.add('js');
   renderAll();notes();
   new MutationObserver(onTheme).observe(root,{attributes:true,attributeFilter:['data-theme']});
   mqDark.addEventListener('change',()=>{if(!root.getAttribute('data-theme'))onTheme()});
@@ -395,7 +297,7 @@ function start(){
     items.forEach(it=>io.observe(it.el));addEventListener('scroll',kick,{passive:true});
     const nio=new IntersectionObserver(es=>es.forEach(e=>{const x=anns.find(a=>a.el===e.target);annVis.set(e.target,e.isIntersecting);if(!x)return;e.isIntersecting?x.show():x.hide();}),{rootMargin:'0px 0px -12% 0px'});
     anns.forEach(x=>nio.observe(x.el));
-    items.filter(it=>!['map','frame','ruled','thesis'].includes(it.kind)).forEach(it=>{
+    items.filter(it=>!['ruled','thesis','sheet'].includes(it.kind)).forEach(it=>{
       const sub=it.kind==='card'&&byEl.get(it.el.querySelector('[data-sketch="pj"]'));
       const wob=()=>{it.seed=1+(Math.random()*9e4|0);render(it);if(sub){sub.seed=1+(Math.random()*9e4|0);render(sub);}};
       it.el.addEventListener('pointerenter',e=>{if(e.buttons)return;it.hot=it.kind==='card';wob()});it.el.addEventListener('focusin',()=>{if(it.hot)return;it.hot=it.kind==='card';wob()});

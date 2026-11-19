@@ -71,11 +71,9 @@ h2 span{display:inline-block}
 .sk svg,.ov{display:block;overflow:visible}
 .ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
 .rough-annotation{width:100%!important;height:100%!important}
-.ticket,.card,.btn,.tabs,.tl-wrap,.tally,.mcard,.ruled,.ethos li,.stamp,.trio,.flow,.lang{isolation:isolate}
+.ticket,.card,.btn,.tabs,.tl-wrap,.tally,.ruled,.ethos li,.stamp,.trio,.sheet,.lang{isolation:isolate}
 .sk-blue{font-family:var(--hand);font-size:var(--t-s);fill:var(--mark-2)}
 .sk-type{font-family:var(--type);font-size:var(--t-xs);fill:var(--ink-2)}
-.sk-edge{font-family:var(--hand);font-size:var(--t-s);fill:var(--ink-2)}
-.sk-edge.hot{fill:var(--mark-2);font-weight:700}
 .halo{paint-order:stroke;stroke:var(--paper);stroke-width:6px;stroke-linejoin:round}
 /* the folded corner */
 .fold{position:fixed;z-index:50;top:env(safe-area-inset-top,0px);right:env(safe-area-inset-right,0px);width:56px;height:56px;padding:0;margin:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -141,7 +139,6 @@ button.tab{-webkit-appearance:none;appearance:none}
 .after{margin:30px 0 0}
 .more{margin:40px 0 0;font-size:var(--t-s)}
 .tabs .tab[aria-pressed="true"]{color:var(--link);font-weight:700}
-.slot{margin-top:6px}
 /* tickets */
 .ticket{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);background:var(--card)}
 .stub{writing-mode:vertical-rl;transform:rotate(180deg);font-size:var(--t-xs);color:var(--ink-2);text-align:center;padding:16px 0;letter-spacing:.08em}
@@ -204,7 +201,6 @@ button.tab{-webkit-appearance:none;appearance:none}
 .tease li{border-bottom:1px solid var(--rule)}
 .links-row.tease-links{margin-top:4px}
 .cap{font-family:var(--hand);font-size:var(--t-m);line-height:1.35;color:var(--ink-2);margin:22px 0 6px}
-.map>.cap{margin:0 0 20px}
 /* p. 3: the spine line and three points, each with a drawn mark (marks need the script, so they only take space with it) */
 .spine{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.25;color:var(--mark-2);margin:-4px 0 30px;max-width:36ch}
 .trio{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 40px}
@@ -212,48 +208,36 @@ button.tab{-webkit-appearance:none;appearance:none}
 .trio .mk{display:none;width:46px;height:46px;flex:none}
 .js .trio .mk{display:block}
 .trio h3{font-size:var(--t-l);margin:0 0 6px}
+.trio h3 a{color:inherit;text-decoration-color:var(--mark-2)}
 .trio p{font-size:var(--t-s);line-height:1.55;color:var(--text-2);margin:0}
 @media (max-width:1099px){.trio{grid-template-columns:minmax(0,1fr)}.js .trio li{display:grid;grid-template-columns:46px minmax(0,1fr);gap:0 18px;align-items:start}}
-/* p. 6: the workflow loop, a column of steps that becomes one row when the figure is wide enough;
-   boxes, arrows and chips are drawn, a plain border and ✓ stand in without the script */
-.flow{position:relative;margin:8px 0 22px;container-type:inline-size}
-.steps{list-style:none;margin:0;padding:0 40px 0 0;max-width:420px;display:flex;flex-direction:column;gap:22px}
-.steps>li{min-width:0}
-.box{display:flex;flex-direction:column;padding:7px 12px 6px;border:1px solid var(--rule)}
-.js .box{border-color:transparent}
-.box b{font-family:var(--hand);font-size:var(--t-l);line-height:1.2;color:var(--ink)}
-.box span{font-size:var(--t-s);line-height:1.35;color:var(--text-2)}
-.cks{list-style:none;margin:8px 0 0;padding:0 0 0 28px;font-family:var(--hand);font-size:var(--t-s);line-height:1.25;color:var(--mark-2)}
-.cks li{display:flex;gap:6px;align-items:flex-start;margin-top:6px;padding:2px 8px 3px 5px}
-.ck-key{display:flex;gap:8px;align-items:center;font-family:var(--hand);font-size:var(--t-s);color:var(--mark-2);margin:12px 0 0}
-.tick{display:inline-block;width:18px;height:18px;flex:none;margin-top:1px}
-.tick::before{content:"✓";font-weight:700}
-.js .tick::before{content:none}
-/* one row: the fourth step (Production) carries three checks, so its column is wider; the top padding holds the loop */
-@container (min-width:820px){
-  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.5fr) minmax(0,1fr);grid-template-rows:auto auto;gap:0 30px;padding:34px 0 0;max-width:none}
-  .steps>li{display:grid;grid-row:span 2;grid-template-rows:subgrid}
-  .steps .box{padding-inline:10px}
-  .steps .box span{font-size:var(--t-xs);line-height:1.3}
-  .steps .cks{padding:0;margin-top:2px}
-  .steps .cks li{margin-top:4px}
-  .ck-key{position:absolute;left:0;bottom:0;max-width:calc((100% - 120px) * 2 / 5.5 + 30px);align-items:flex-start;margin:0}
-}
-.flow-lines{max-width:62ch;font-size:var(--t-s);color:var(--text-2);margin:0 0 8px}
-.flow-lines p{margin:0 0 .6em}
+/* p. 6: the skills sheet, one hand-ruled row per group: box, handwritten group, typed items, proof in the pen margin.
+   Without the script the box is a plain bordered square with a typed tick. */
 .sub{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.2;color:var(--ink-2);margin:-8px 0 14px}
-.stack-list{font-size:var(--t-s)}
-.stack-list h3{font-size:var(--t-l);margin:18px 0 6px}
-/* ethos: two parallel columns on wide pages, How I work (1-5) and What I believe (6-10), each stacked under its head */
+.sheet{position:relative;margin-top:8px}
+.sheet-rows{list-style:none;margin:0;padding:0}
+.sheet-rows>li{display:grid;grid-template-columns:24px minmax(0,190px) minmax(0,1fr) minmax(0,230px);gap:4px 22px;align-items:start;padding:16px 4px 15px}
+.bx{width:20px;height:20px;margin-top:4px;border:1px solid var(--ink-2);font-size:14px;line-height:18px;text-align:center;color:var(--mark-2);font-weight:700}
+.bx::before{content:"✓"}
+.next .bx::before{content:none}
+.js .bx{border-color:transparent}.js .bx::before{content:none}
+.sheet h3{font-size:var(--t-l);line-height:1.25;padding-top:1px}
+.items{list-style:none;margin:0;padding:0;font-size:var(--t-s);line-height:1.5;color:var(--text-2)}
+.items li{display:inline}
+.items li:not(:last-child)::after{content:" · ";color:var(--ink-2)}
+.proof{grid-column:4;margin:0;font-family:var(--hand);font-size:var(--t-m);line-height:1.3;color:var(--mark-2)}
+.proof a{color:inherit}
+@media (max-width:1099px){.sheet-rows>li{grid-template-columns:24px minmax(0,170px) minmax(0,1fr)}.proof{grid-column:3}}
+@media (max-width:640px){.sheet-rows>li{grid-template-columns:24px minmax(0,1fr);gap:6px 14px}.items,.proof{grid-column:2}}
+/* ethos: one group of five rules; on wide pages one grid of two columns, 1-3 and 4-5, rows shared so they align */
 .ethos{list-style:none;margin:6px 0 0;padding:0;max-width:66ch}
 .ethos li{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:0 16px;padding:14px 0 16px}
 .ethos .num{font-family:var(--hand);font-weight:700;font-size:var(--t-l);color:var(--mark-2);text-align:center;line-height:48px;height:40px}
 .ethos h4{font-size:var(--t-xl);margin:5px 0 4px}
-.grp{font-size:var(--t-xl);color:var(--ink-2);margin:26px 0 2px}
-.ethos-col:first-child .grp{margin-top:4px}
+.grp{font-size:var(--t-xl);color:var(--ink-2);margin:4px 0 2px}
 .glyph{display:inline-block;height:1.5em;width:auto;vertical-align:-.24em;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 .ethos p{font-size:var(--t-s);line-height:1.55;margin:0;max-width:60ch}
-@media (min-width:681px) and (max-width:860px),(min-width:931px){.ethos-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto repeat(5,auto);column-gap:44px;align-items:stretch}.ethos-col{display:grid;grid-row:1/span 6;grid-template-rows:subgrid}.ethos-col .grp{margin-top:4px;align-self:start}.ethos-col .ethos{display:grid;grid-row:2/span 5;grid-template-rows:subgrid;margin-top:6px}.ethos-col .ethos li{align-self:stretch}}
+@media (min-width:681px) and (max-width:860px),(min-width:931px){.ethos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto);grid-auto-flow:column;column-gap:44px;max-width:none}}
 /* demo: the cursor that doodles */
 .demo{display:none;position:relative;width:180px;height:150px;margin-top:30px;pointer-events:none;--dur:7.2s}
 .js-demo .demo{display:block}
@@ -288,26 +272,6 @@ button.tab{-webkit-appearance:none;appearance:none}
 .tl h3{font-family:var(--type);font-size:var(--t-m);font-weight:700;line-height:1.4;margin-bottom:4px}
 .tl p{font-size:var(--t-s);margin:0}
 .tl .aside{font-family:var(--hand);color:var(--mark-2);font-size:var(--t-m);line-height:1.3;padding-top:2px}
-/* the p. 6 map: full spread width; the margin rule stops above it */
-.spread>.map{grid-column:1/-1;align-self:start;margin-top:4px}
-#stack::before{bottom:auto;height:var(--rh,100%)}
-.stage{position:relative;width:100%}
-.stage>svg{position:absolute;left:0;top:0;width:100%}
-.node{position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:1px;background:none;border:0;margin:0;padding:4px 8px;font-family:var(--hand);color:var(--ctl);cursor:pointer;line-height:1.15;-webkit-tap-highlight-color:transparent}
-.node b{font-size:var(--t-l)}
-.node small{font-family:var(--type);font-size:var(--t-xs);color:var(--ink-2);line-height:1.3}
-/* wide map machines: the button covers the doodle, the labels start just under it (165px down, plus a gap; see MAP.wide) */
-.node.mach{justify-content:flex-start;padding-top:180px}
-.node.hdr{align-items:flex-start;text-align:left;padding:4px 2px 4px 148px}
-.node.tag{padding-left:28px}.node.tag b{font-size:var(--t-m)}
-.node.dim b{font-weight:400;color:var(--ink-2)}
-.node.sel b,.node.near b{color:var(--mark-2)}
-.mcard{position:relative;max-width:60ch;margin-top:14px;padding:16px 20px;background:var(--card)}
-.mcard:not(.on){display:none}
-.mcard h3{font-size:var(--t-xl);margin-bottom:12px}
-.mcard p{font-size:var(--t-s);margin:0 0 8px}
-.mcard p:last-child{margin:0}
-.mcard .go{font-weight:700}
 .made{max-width:62ch;font-size:var(--t-s);color:var(--ink-2);margin-top:32px}
 .earlier{max-width:62ch;font-size:var(--t-xs);color:var(--ink-2);margin-top:8px}
 @media (max-width:980px){
@@ -351,7 +315,7 @@ button.tab{-webkit-appearance:none;appearance:none}
   .ethos li>div{display:contents}
   .ethos .num{grid-column:1;grid-row:1;line-height:32px;height:32px;font-size:var(--t-m)}
   .ethos h4{grid-column:2;grid-row:1;font-size:22px;margin:0}
-  .grp{font-size:22px;margin:20px 0 0}
+  .grp{font-size:22px;margin:4px 0 0}
   .ethos p{grid-column:1/-1}
   .hermes .tk{padding:18px 16px 12px 18px}
   .hermes .tk-meta{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:20px}

@@ -47,7 +47,7 @@ const en = {
     page: 'p. 1 · whoami',
     note: 'Elder Millennial from Spain, now based near the Scottish Highlands.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 years fixing people\'s tech</span>. Now exploring the intersection of <span id="hl-c">ASI, Neuroscience &amp; Post-Labor Economics</span>.',
-    lede: 'I\'m not a programmer. I\'m the person who sits between a confused user and a system that isn\'t doing what it should. I spent years explaining broken technology to people having a bad day; then two years learning to build it, from zero, in plain English. Two of my plugins are in the official Hermes Agent catalog.',
+    lede: 'I\'m not a programmer. I\'m the person who sits between a confused user and a system that isn\'t doing what it should. I spent a decade explaining broken technology to people having a bad day; then the last two years learning how to build it, from zero.',
     photoAlt: 'Pencil sketch of Javier Ponz: long curly hair, beard, aviator sunglasses, hoodie',
     email: { name: 'Email', aria: 'Email: copy address', done: 'Email address copied', sel: 'Email address selected:' },
     discord: { name: 'Discord', aria: 'Discord sudotechnoir: copy handle', done: 'Discord handle copied', sel: 'Discord handle selected:' },
@@ -75,11 +75,11 @@ const en = {
     stamp: 'work in progress',
     lede: '<b>Machines Do It Better (MDIB)</b> builds private AI agents, each fitted to one person\'s work and owned by them: account, data and choice of model.',
     spine: 'Machines do the mechanical work. People keep the judgement.',
-    // three points, each with a small drawn mark (open, check, person: see the trio sketch)
+    // three points, each with a small drawn mark (padlock, tape measure, sunrise: see the trio sketch)
     points: [
-      ['Open, so you can check', 'My code is public under the MIT licence, and it runs on open tools: Hermes Agent, llama.cpp, Omarchy.'],
-      ['Agent-first, with checks', 'I never worked the old way. Agents write the code; I write the spec and the tests, read the result, and keep every step small enough to undo.'],
-      ['People do the people part', 'The agent types. I decide what to build, judge the result and look after whoever uses it.']
+      ['Own the machine', 'Your agent, your data, your choice of model, all in your name. Nobody can lock you in, because nothing is theirs to keep.'],
+      ['Bespoke AI, for everyone', 'Technology should mould to you, not the other way round. I start with professionals who handle other people\'s confidential information, because they have the most to lose. The aim is an agent fitted to anyone.'],
+      ['Ready for a <a href="https://post-labor-wiki.technoir.cloud" target="_blank" rel="noreferrer">post-labour</a> world', 'I expect machines to do most paid work, and sooner than most people plan for. I would rather help people prepare early, with agents they own, than meet it unprepared.']
     ],
     newsletter: 'the newsletter →',
     after: 'Alongside it, a few other things are on my bench right now.'
@@ -127,90 +127,35 @@ const en = {
     subscribe: 'subscribe →',
     onX: 'follow me on X →'
   },
-  stack: {
-    page: 'p. 6 · my stack',
-    note: 'My role in this stack: human in the loop, occasional meat proxy.',
-    title: 'My stack',
-    sub: 'Current workflow',
-    // the workflow loop: [step, what it is, (checks that never go away)]
-    flowCap: 'How I get a change into production: five steps in a loop, back to the first after each one, with the checks that never go away ticked.',
-    checksKey: 'ticked: the checks that never go away',
-    mine: [
-      ['Specify', 'what it must do, written down'],
-      ['Agent builds', 'an AI agent writes the code'],
-      ['Check', 'one command runs every check', ['it must pass before any deploy']],
-      ['Production', 'live early, for a real person', ['the deploy refuses uncommitted changes', 'a health check before traffic moves', 'one command rolls it back']],
-      ['Iterate there', 'small steps, each one checked']
-    ],
-    loop: 'next step',
-    lines: [
-      'The usual pipeline puts a branch, a review, staging and an approval between a change and production. It exists for good reasons: many people change the same code.',
-      'I work alone with a real person on the other end, so the first version goes live early and I improve it there, in small steps. The checks stay; the ceremony goes. I would not run a bank this way.'
-    ],
-    currentHead: 'Current stack',
-    // [map node ids this fact belongs to (none when the entry has one item), the fact]
-    current: [
-      ['mac', 'Laptop: MacBook Pro M3 Pro, 18 GB, on macOS, my daily machine'],
-      ['ws', 'Workstation: a custom build, Ryzen 9 9900X3D, RTX 5090, 64 GB RAM'],
-      ['ws', 'Omarchy (Arch Linux, Hyprland) on the workstation'],
-      ['ws', 'Local models with llama.cpp on the workstation'],
-      ['mac ws', 'Tailscale, a private network between the laptop and the workstation'],
-      ['vps', 'Server: a VPS I run, with Docker and Traefik'],
-      ['mac vps', 'Deploys go from the laptop to the server'],
-      ['sites', 'My sites: the live projects, served from that server'],
-      ['agent', 'Cloud agent: Hermes Agent on Hermes Cloud'],
-      ['plugins', 'My plugins: Psychopomp and Sabbath, public, in the official Hermes catalog'],
-      ['AI coding agents: Claude Code and Codex'],
-      ['TypeScript, JavaScript, Python, Astro']
-    ],
-    progressHead: 'In progress',
-    progress: [
-      ['A home lab, with Proxmox'],
-      ['Local models served from the workstation to the laptop over Tailscale'],
-      ['vLLM, not tried yet']
-    ],
-    mapCap: 'What it runs on'
-  },
-  // strings the map draws in script (src/scripts/notebook.js)
-  map: {
-    nodes: {
-      agent: ['Cloud agent', 'Hermes Agent\non Hermes Cloud'],
-      plugins: ['My plugins', 'Psychopomp · Sabbath'],
-      mac: ['Laptop', 'daily machine\nmacOS'],
-      ws: ['Workstation', 'custom build\nlocal models · llama.cpp\nOmarchy'],
-      vps: ['Server', 'a VPS I run\nDocker · Traefik'],
-      sites: ['My sites', 'live projects']
-    },
-    talksTo: 'talks to',
-    runs: 'runs',
-    network: 'private network\nTailscale',
-    networkTree: 'private network · Tailscale',
-    deploys: 'deploys',
-    serves: 'serves',
-    hermesLink: 'Hermes Agent on GitHub',
-    pluginsLink: 'the plugins, on p. 4',
-    sitesLink: 'the projects, on p. 4',
-    connected: 'Connected to:'
+  skills: {
+    page: 'p. 6 · what I can do',
+    note: 'My role in all of it: human in the loop, occasional meat proxy.',
+    title: 'What I can do',
+    sub: 'Skills, with proof',
+    proof: 'Proof:',
+    // one row per group, proof only where there is one; the last row is drawn with an empty box (learning next)
+    rows: [
+      { group: 'Support and explaining', items: ['diagnosing and repairing Mac, iPhone and iPad', 'explaining technical problems to non-technical people', 'documenting and escalating cases', 'mentoring newer technicians', 'leading a store floor'], proof: 'Apple, 2014 to 2024 (<a href="#story">p. 2</a>)' },
+      { group: 'AI agents', items: ['Hermes Agent', 'MCP servers', 'skills and scheduled jobs', 'local models with llama.cpp, Ollama and LM Studio', 'OpenRouter'], proof: 'two plugins in the official Hermes catalog (<a href="#work">p. 4</a>)' },
+      { group: 'Building', items: ['vibe coding with AI coding agents (Claude Code, Codex)', 'TypeScript, JavaScript, Python, Astro', 'Git and GitHub'], proof: '<a href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">public repositories</a>' },
+      { group: 'Infrastructure', items: ['Linux (Arch, Omarchy) and macOS', 'Docker Swarm, Dokploy, Traefik, nginx, Let\'s Encrypt', 'GitHub Actions', 'Tailscale', 'a VPS I administer'], proof: 'everything on <a href="#work">p. 4</a> runs on it' },
+      { group: 'Languages', items: ['Spanish (native)', 'English (professional working proficiency)'] },
+      { group: 'Learning next', items: ['a Proxmox home lab', 'vLLM'] }
+    ]
   },
   ethos: {
     page: 'p. 7 · ethos',
     note: 'These are my own views.',
     title: 'Ethos',
     work: 'How I work',
-    believe: 'What I believe',
     theses: [
-      ['Fix it, explain it, hand it back', 'Ten years at the Genius Bar taught me that a repair is not finished when the device works. It is finished when the person understands what happened and is still in control.'],
-      ['Prove it', 'I write the specification and the tests before I trust a result, my own included. A claim without a source is a guess.'],
       ['You can just do things', 'Steve Jobs said you can "build your own things that other people can use". Today the line goes around as "you can just do things". I could not program two years ago; I started anyway, broke a lot and kept what worked.'],
-      ['English is today\'s programming language', 'Each language was an abstraction over the one below it: assembly over microcode, C over assembly. Plain English, or Spanish, now sits on top, and agents carry it down. I would rather embrace that than argue with it.'],
-      ['Learn in public', 'I started from zero two years ago and do the learning in public repositories. Anyone can check what I can do, and how I got here.'],
-      ['Curious about everything', 'Neuroscience, economics, history, hardware: I follow whatever I can\'t stop reading about. The connections between fields are where my best ideas come from.'],
-      ['Own the machine', 'The hardware, the account, the data and the choice of model should belong to the person who depends on them. Nothing I build is meant to lock anyone in.'],
-      ['Free and open source first', 'I build on open tools and publish my own code. What can be inspected can be trusted, and what can be read can be repaired.'],
+      ['Open source must win', 'I build on open tools and publish my own code. What can be inspected can be trusted, and what you own can\'t be taken away: your hardware, your account, your data, your choice of model.'],
+      ['English is today\'s programming language', 'Each language was an abstraction over the one below it: assembly over microcode, C over assembly. Rick Rubin calls vibe coding "the punk rock of software": nobody needs a licence to make something. Plain English, or Spanish, now sits on top, and agents carry it down. I would rather embrace that than argue with it.'],
       ['<svg class="glyph" role="img" aria-label="e slash lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'More capable technology, sooner, in more people\'s hands. I would rather help build it than wait for it.'],
-      ['The classical virtues', 'Prudence, justice, fortitude and temperance: the old Mediterranean virtues are still the best checklist I know. Measure in all things, ambition included.']
+      ['The polymath beats the expert', 'I bet on range. Agents can supply narrow expertise on demand; what stays scarce is knowing what to ask for and how fields connect. I read across neuroscience, economics, history and hardware, and most of my ideas come from the joins.']
     ],
-    made: '<b>How this was made:</b> built with AI coding agents from my spec and my tests. If I can, so can you: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">the source is on GitHub</a>.',
+    made: '<b>How this was made:</b> built from plain English through my current AI stack and workflow. If I can, so can you: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">the source is on GitHub</a>.',
     earlier: 'Earlier versions of this page:',
     versions: [['v1', '/v/v1/'], ['v2', '/v/v2/'], ['v3', '/v/v3/'], ['v4', '/v/v4/'], ['v5', '/v/v5/']]
   },
@@ -240,7 +185,7 @@ const es = {
     page: 'p. 1 · whoami',
     note: 'Elder Millennial de España, ahora cerca de las Highlands escocesas.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 años arreglando la tecnología de la gente</span>. Ahora explorando la intersección entre <span id="hl-c">ASI, neurociencia y economía post-laboral</span>.',
-    lede: 'No soy programador. Soy la persona que se sitúa entre un usuario confundido y un sistema que no hace lo que debería. Pasé años explicando tecnología rota a gente que tenía un mal día; después, dos años aprendiendo a construirla desde cero, en lenguaje natural. Dos de mis plugins están en el catálogo oficial de Hermes Agent.',
+    lede: 'No soy programador. Soy la persona que se sitúa entre un usuario confundido y un sistema que no hace lo que debería. Pasé una década explicando tecnología rota a gente que tenía un mal día; después, los dos últimos años aprendiendo a construirla, desde cero.',
     photoAlt: 'Retrato a lápiz de Javier Ponz: pelo largo y rizado, barba, gafas de aviador, sudadera con capucha',
     email: { name: 'Correo', aria: 'Correo: copiar la dirección', done: 'Dirección de correo copiada', sel: 'Dirección de correo seleccionada:' },
     discord: { name: 'Discord', aria: 'Discord sudotechnoir: copiar el usuario', done: 'Usuario de Discord copiado', sel: 'Usuario de Discord seleccionado:' },
@@ -269,9 +214,9 @@ const es = {
     lede: '<b>Machines Do It Better (MDIB)</b> construye agentes de IA privados, cada uno ajustado al trabajo de una persona y de su propiedad: cuenta, datos y elección del modelo.',
     spine: 'Las máquinas hacen el trabajo mecánico. Las personas conservan el criterio.',
     points: [
-      ['Abierto, para que se pueda comprobar', 'Mi código es público con licencia MIT y corre sobre herramientas abiertas: Hermes Agent, llama.cpp, Omarchy.'],
-      ['Primero el agente, con controles', 'Yo nunca trabajé a la antigua. Los agentes escriben el código; yo escribo la especificación y las pruebas, leo el resultado y mantengo cada paso lo bastante pequeño como para deshacerlo.'],
-      ['Lo humano, para las personas', 'El agente teclea. Yo decido qué construir, juzgo el resultado y cuido de quien lo usa.']
+      ['Ser dueño de la máquina', 'Tu agente, tus datos, tu elección de modelo, todo a tu nombre. Nadie puede atarte, porque nada es suyo para quedárselo.'],
+      ['IA a medida, para todos', 'La tecnología debería adaptarse a ti, y no al revés. Empiezo por los profesionales que manejan información confidencial de otras personas, porque son quienes más tienen que perder. El objetivo es un agente a la medida de cualquiera.'],
+      ['Preparados para un mundo <a href="https://post-labor-wiki.technoir.cloud" target="_blank" rel="noreferrer">post-laboral</a>', 'Creo que las máquinas harán la mayor parte del trabajo remunerado, y antes de lo que casi nadie prevé. Prefiero ayudar a la gente a prepararse pronto, con agentes que sean suyos, que encontrarnos con ello sin estar preparados.']
     ],
     newsletter: 'la newsletter →',
     after: 'Junto a esto, ahora mismo tengo otras cosas en el taller.'
@@ -319,87 +264,34 @@ const es = {
     subscribe: 'suscribirse →',
     onX: 'sígueme en X →'
   },
-  stack: {
-    page: 'p. 6 · mi stack',
-    note: 'Mi papel en este stack: el humano en el bucle y, a ratos, proxy de carne y hueso.',
-    title: 'Mi stack',
-    sub: 'Flujo de trabajo actual',
-    flowCap: 'Cómo llevo un cambio a producción: cinco pasos en bucle, de vuelta al primero después de cada uno, con marcados los controles que nunca desaparecen.',
-    checksKey: 'marcados: los controles que nunca desaparecen',
-    mine: [
-      ['Especificar', 'lo que debe hacer, por escrito'],
-      ['El agente construye', 'un agente de IA escribe el código'],
-      ['Comprobar', 'un solo comando ejecuta todas las comprobaciones', ['tiene que pasar antes de cualquier despliegue']],
-      ['Producción', 'en marcha pronto, para una persona real', ['el despliegue rechaza cambios sin confirmar', 'una comprobación de salud antes de mover el tráfico', 'un solo comando lo revierte']],
-      ['Iterar ahí', 'pasos pequeños, cada uno comprobado']
-    ],
-    loop: 'siguiente paso',
-    lines: [
-      'El flujo habitual pone una rama, una revisión, un entorno de preproducción y una aprobación entre un cambio y producción. Existe por buenas razones: muchas personas tocan el mismo código.',
-      'Yo trabajo solo y con una persona real al otro lado, así que la primera versión sale pronto a producción y la mejoro ahí, en pasos pequeños. Los controles se quedan; la ceremonia sobra. Yo no llevaría así un banco.'
-    ],
-    currentHead: 'Stack actual',
-    current: [
-      ['mac', 'Portátil: MacBook Pro M3 Pro, 18 GB, con macOS, mi máquina de diario'],
-      ['ws', 'Workstation: hecha a medida, Ryzen 9 9900X3D, RTX 5090, 64 GB de RAM'],
-      ['ws', 'Omarchy (Arch Linux, Hyprland) en la workstation'],
-      ['ws', 'Modelos locales con llama.cpp en la workstation'],
-      ['mac ws', 'Tailscale, una red privada entre el portátil y la workstation'],
-      ['vps', 'Servidor: un VPS que administro, con Docker y Traefik'],
-      ['mac vps', 'Los despliegues van del portátil al servidor'],
-      ['sites', 'Mis sitios: los proyectos publicados, servidos desde ese servidor'],
-      ['agent', 'Agente en la nube: Hermes Agent en Hermes Cloud'],
-      ['plugins', 'Mis plugins: Psychopomp y Sabbath, públicos, en el catálogo oficial de Hermes'],
-      ['Agentes de programación con IA: Claude Code y Codex'],
-      ['TypeScript, JavaScript, Python, Astro']
-    ],
-    progressHead: 'En curso',
-    progress: [
-      ['Un homelab, con Proxmox'],
-      ['Modelos locales servidos desde la workstation al portátil por Tailscale'],
-      ['vLLM, aún sin probar']
-    ],
-    mapCap: 'Dónde corre'
-  },
-  map: {
-    nodes: {
-      agent: ['Agente en la nube', 'Hermes Agent\nen Hermes Cloud'],
-      plugins: ['Mis plugins', 'Psychopomp · Sabbath'],
-      mac: ['Portátil', 'máquina de diario\nmacOS'],
-      ws: ['Workstation', 'hecha a medida\nmodelos locales · llama.cpp\nOmarchy'],
-      vps: ['Servidor', 'un VPS que administro\nDocker · Traefik'],
-      sites: ['Mis sitios', 'proyectos publicados']
-    },
-    talksTo: 'habla con',
-    runs: 'ejecuta',
-    network: 'red privada\nTailscale',
-    networkTree: 'red privada · Tailscale',
-    deploys: 'despliega',
-    serves: 'sirve',
-    hermesLink: 'Hermes Agent en GitHub',
-    pluginsLink: 'los plugins, en la p. 4',
-    sitesLink: 'los proyectos, en la p. 4',
-    connected: 'Conectado con:'
+  skills: {
+    page: 'p. 6 · lo que sé hacer',
+    note: 'Mi papel en todo esto: el humano en el bucle y, a ratos, proxy de carne y hueso.',
+    title: 'Lo que sé hacer',
+    sub: 'Con pruebas',
+    proof: 'Prueba:',
+    rows: [
+      { group: 'Soporte y explicación', items: ['diagnóstico y reparación de Mac, iPhone y iPad', 'explicar problemas técnicos a personas sin perfil técnico', 'documentar y escalar casos', 'formar a los técnicos nuevos', 'dirigir la planta de una tienda'], proof: 'Apple, de 2014 a 2024 (<a href="#story">p. 2</a>)' },
+      { group: 'Agentes de IA', items: ['Hermes Agent', 'servidores MCP', 'skills y tareas programadas', 'modelos locales con llama.cpp, Ollama y LM Studio', 'OpenRouter'], proof: 'dos plugins en el catálogo oficial de Hermes (<a href="#work">p. 4</a>)' },
+      { group: 'Desarrollo', items: ['vibe coding con agentes de programación con IA (Claude Code, Codex)', 'TypeScript, JavaScript, Python, Astro', 'Git y GitHub'], proof: '<a href="https://github.com/ponzgpt" target="_blank" rel="noreferrer">repositorios públicos</a>' },
+      { group: 'Infraestructura', items: ['Linux (Arch, Omarchy) y macOS', 'Docker Swarm, Dokploy, Traefik, nginx, Let\'s Encrypt', 'GitHub Actions', 'Tailscale', 'un VPS que administro'], proof: 'todo lo de la <a href="#work">p. 4</a> corre en él' },
+      { group: 'Idiomas', items: ['español (nativo)', 'inglés (competencia profesional)'] },
+      { group: 'Lo siguiente que aprendo', items: ['un homelab con Proxmox', 'vLLM'] }
+    ]
   },
   ethos: {
     page: 'p. 7 · ethos',
     note: 'Son mis opiniones personales.',
     title: 'Ethos',
     work: 'Cómo trabajo',
-    believe: 'En qué creo',
     theses: [
-      ['Arréglalo, explícalo, devuélvelo', 'Diez años en el Genius Bar me enseñaron que una reparación no termina cuando el dispositivo funciona. Termina cuando la persona entiende qué ha pasado y sigue teniendo el control.'],
-      ['Demuéstralo', 'Escribo la especificación y las pruebas antes de fiarme de un resultado, también de los míos. Una afirmación sin fuente es una suposición.'],
       ['Puedes simplemente hacer cosas', 'Steve Jobs dijo que puedes construir "tus propias cosas para que otras personas las usen". Hoy la idea circula como "you can just do things". Hace dos años no sabía programar; empecé igual, rompí mucho y me quedé con lo que funcionó.'],
-      ['El lenguaje de programación de hoy es el humano', 'Cada lenguaje fue una abstracción sobre el de abajo: el ensamblador sobre el microcódigo, C sobre el ensamblador. Ahora el inglés, o el español, está arriba del todo y los agentes lo bajan hasta la máquina. Prefiero abrazarlo antes que discutirlo.'],
-      ['Aprender en público', 'Empecé desde cero hace dos años y aprendo en repositorios públicos. Cualquiera puede comprobar qué sé hacer y cómo he llegado hasta aquí.'],
-      ['Curiosidad por todo', 'Neurociencia, economía, historia, hardware: sigo todo aquello sobre lo que no puedo dejar de leer. Mis mejores ideas salen de las conexiones entre campos.'],
-      ['Ser dueño de la máquina', 'El hardware, la cuenta, los datos y la elección del modelo deberían pertenecer a la persona que depende de ellos. Nada de lo que construyo está pensado para atar a nadie.'],
-      ['Primero, software libre y de código abierto', 'Construyo sobre herramientas abiertas y publico mi propio código. En lo que se puede inspeccionar se puede confiar, y lo que se puede leer se puede reparar.'],
+      ['El código abierto tiene que ganar', 'Construyo sobre herramientas abiertas y publico mi propio código. En lo que se puede inspeccionar se puede confiar, y lo que es tuyo no te lo pueden quitar: tu hardware, tu cuenta, tus datos, tu elección de modelo.'],
+      ['El lenguaje de programación de hoy es el humano', 'Cada lenguaje fue una abstracción sobre el de abajo: el ensamblador sobre el microcódigo, C sobre el ensamblador. Rick Rubin llama al vibe coding "el punk rock del software": nadie necesita una licencia para hacer algo. Ahora el inglés, o el español, está arriba del todo y los agentes lo bajan hasta la máquina. Prefiero abrazarlo antes que discutirlo.'],
       ['<svg class="glyph" role="img" aria-label="e barra lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'Tecnología más capaz, antes y en manos de más gente. Prefiero ayudar a construirla que esperarla.'],
-      ['Las virtudes clásicas', 'Prudencia, justicia, fortaleza y templanza: las viejas virtudes mediterráneas siguen siendo la mejor lista de comprobación que conozco. Mesura en todo, también en la ambición.']
+      ['El polímata gana al experto', 'Apuesto por la amplitud. Los agentes pueden aportar conocimiento especializado cuando haga falta; lo que sigue escaseando es saber qué pedir y cómo se conectan los campos. Leo sobre neurociencia, economía, historia y hardware, y la mayoría de mis ideas salen de los puntos de unión.']
     ],
-    made: '<b>Cómo está hecho:</b> construido con agentes de programación con IA a partir de mi especificación y mis pruebas. Si yo puedo, tú también: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">el código está en GitHub</a>.',
+    made: '<b>Cómo está hecho:</b> construido desde inglés llano con mi stack y mi flujo de trabajo actuales con IA. Si yo puedo, tú también: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">el código está en GitHub</a>.',
     earlier: 'Versiones anteriores de esta página:',
     versions: [['v1', '/v/v1/'], ['v2', '/v/v2/es/'], ['v3', '/v/v3/es/'], ['v4', '/v/v4/'], ['v5', '/v/v5/']]
   },

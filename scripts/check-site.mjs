@@ -7,7 +7,7 @@
 // - a frozen page in dist/v lacks noindex or its corner ribbon with the version switcher inside (v1-v6, the right one current,
 //   every link resolving), still has the old ribbon or bottom switcher, links outside its copy, or has an unresolved asset or old contact detail.
 // - the language redirect is missing from /, present on /es/ or 404, or decides wrongly for a few browser languages and stored choices;
-// - p. 6 (or the map strings) names "Syl" or technoir.cloud.
+// - p. 6 (the skills sheet) names "Syl" or technoir.cloud.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import vm from 'node:vm';
@@ -137,11 +137,11 @@ for (const f of files.filter((f) => f.startsWith(vdir + '/'))) {
     const got = run(langs, stored, noStorage);
     if (got !== want) fail(`language redirect: ${langs[0]}, stored ${stored}: went to ${got}, expected ${want}`);
   }
-  // p. 6 and its no-JS list name no private machines or domains
+  // p. 6, the skills sheet, names no private machines or domains
   for (const f of ['index.html', 'es/index.html']) {
-    const s = page(f), sec = (s.match(/<section[^>]*id="stack"[\s\S]*?<\/section>/) || [''])[0];
-    const json = (s.match(/id="nb-copy"[^>]*>([\s\S]*?)<\/script>/) || ['', '{}'])[1], map = JSON.stringify(JSON.parse(json).map || {});
-    const m = (sec + map).match(/\bSyl\b|technoir\.cloud/);
+    const sec = (page(f).match(/<section[^>]*id="skills"[\s\S]*?<\/section>/) || [''])[0];
+    if (!sec) { fail(`${f}: p. 6 (#skills) missing`); continue; }
+    const m = sec.match(/\bSyl\b|technoir\.cloud/);
     if (m) fail(`${f}: p. 6 names "${m[0]}"`);
   }
 }

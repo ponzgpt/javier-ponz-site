@@ -7,10 +7,10 @@ import { copy, shared } from '../data/copy.mjs';
 interface Props { lang: 'en' | 'es' }
 const { lang } = Astro.props;
 const t = copy[lang];
-const c = t.cover, w = t.work, n = t.notes, s = t.stack, e = t.ethos;
+const c = t.cover, w = t.work, n = t.notes, k = t.skills, e = t.ethos;
 const ext = { target: '_blank', rel: 'noreferrer' };
 const me = { target: '_blank', rel: 'me noreferrer' };
-const forScript = JSON.stringify({ ui: t.ui, work: { review: w.review }, map: t.map }).replace(/</g, '\\u003c');
+const forScript = JSON.stringify({ ui: t.ui, work: { review: w.review } }).replace(/</g, '\\u003c');
 const shown = shared.issues.slice(0, 3), teased = shared.issues.slice(3, 5);
 const plugins = [
   ['Psychopomp', w.psychopomp, 18, 'https://github.com/ponzgpt/psychopomp', 'https://github.com/NousResearch/hermes-agent/pull/152559', '#152559'],
@@ -88,7 +88,7 @@ const cards = [
     <p class="lede" set:html={t.now.lede} />
     <p class="spine">{t.now.spine}</p>
     <ol class="trio" data-sketch="trio"><svg class="ov" aria-hidden="true"></svg>
-      {t.now.points.map(([h, p], i) => <li><span class="mk" data-mk={i} aria-hidden="true"></span><div><h3>{h}</h3><p>{p}</p></div></li>)}
+      {t.now.points.map(([h, p], i) => <li><span class="mk" data-mk={i} aria-hidden="true"></span><div><h3 set:html={h} /><p>{p}</p></div></li>)}
     </ol>
     <p class="links-row">
       <a class="btn" data-sketch="btn" href={shared.mdib} {...ext}><svg class="ov" aria-hidden="true"></svg>mdib.technoir.cloud →</a>
@@ -166,31 +166,27 @@ const cards = [
   </div>
 </section>
 
-<section class="spread" id="stack" aria-labelledby="h-stack">
+<section class="spread" id="skills" aria-labelledby="h-skills">
   <aside class="margin">
-    <p class="pageno">{s.page}</p>
-    <p class="note">{s.note}</p>
+    <p class="pageno">{k.page}</p>
+    <p class="note">{k.note}</p>
   </aside>
   <div class="main">
-    <h2 id="h-stack"><span>{s.title}</span></h2>
-    <p class="sub">{s.sub}</p>
-    <figure class="flow" data-sketch="flow" data-loop={s.loop}><svg class="ov" aria-hidden="true"></svg>
-      <figcaption class="vh">{s.flowCap}</figcaption>
-      <ol class="steps">{s.mine.map(([b, d, ck]) => <li><div class="box"><b>{b}</b><span>{d}</span></div>{ck && <ul class="cks">{(ck as readonly string[]).map((c) => <li><span class="tick" aria-hidden="true"></span>{c}</li>)}</ul>}</li>)}</ol>
-      <p class="ck-key"><span class="tick" aria-hidden="true"></span>{s.checksKey}</p>
-    </figure>
-    <div class="flow-lines">{s.lines.map((l) => <p>{l}</p>)}</div>
-    <div class="stack-list nojs" id="stack-list">
-      <h3>{s.currentHead}</h3>
-      <ul>{s.current.map((r) => <li data-n={r.length > 1 ? r[0] : undefined}>{r[r.length - 1]}</li>)}</ul>
-      <h3>{s.progressHead}</h3>
-      <ul>{s.progress.map((r) => <li data-n={r.length > 1 ? r[0] : undefined}>{r[r.length - 1]}</li>)}</ul>
+    <h2 id="h-skills"><span>{k.title}</span></h2>
+    <p class="sub">{k.sub}</p>
+    {/* the skills sheet: a ticked box per group (the last, learning next, is empty), the items typed, the proof in the pen margin */}
+    <div class="sheet" data-sketch="sheet"><svg class="ov" aria-hidden="true"></svg>
+      <ul class="sheet-rows">
+        {k.rows.map((r, i) => (
+          <li class={i === k.rows.length - 1 ? 'next' : undefined}>
+            <span class="bx" aria-hidden="true"></span>
+            <h3>{r.group}</h3>
+            <ul class="items">{r.items.map((x) => <li>{x}</li>)}</ul>
+            {'proof' in r && <p class="proof"><span class="vh">{k.proof} </span><span set:html={r.proof} /></p>}
+          </li>
+        ))}
+      </ul>
     </div>
-  </div>
-  <div class="map jsonly" id="map">
-    <p class="cap">{s.mapCap}</p>
-    <div class="stage" id="stage" data-sketch="map"><svg aria-hidden="true"></svg></div>
-    <div class="slot"><div class="mcard" data-sketch="frame" aria-live="polite"><svg class="ov" aria-hidden="true"></svg><div class="mc-body"></div></div></div>
   </div>
 </section>
 
@@ -201,20 +197,11 @@ const cards = [
   </aside>
   <div class="main">
     <h2 id="h-ethos"><span>{e.title}</span></h2>
-    <div class="ethos-cols">
-      <div class="ethos-col">
-        <h3 class="grp">{e.work}</h3>
-        <ol class="ethos" role="list">
-          {e.theses.slice(0, 5).map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 1}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
-        </ol>
-      </div>
-      <div class="ethos-col">
-        <h3 class="grp">{e.believe}</h3>
-        <ol class="ethos" role="list" start="6">
-          {e.theses.slice(5).map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 6}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
-        </ol>
-      </div>
-    </div>
+    <h3 class="grp">{e.work}</h3>
+    {/* five rules in one grid: two columns of 3 + 2 on wide pages (rows aligned across), one column on phones */}
+    <ol class="ethos" role="list">
+      {e.theses.map(([h, p], i) => <li data-sketch="thesis"><svg class="ov" aria-hidden="true"></svg><span class="num" aria-hidden="true">{i + 1}</span><div><h4 set:html={h} /><p>{p}</p></div></li>)}
+    </ol>
     <p class="made" set:html={e.made} />
     <p class="earlier">{e.earlier} {e.versions.map(([label, href], i) => <>{i > 0 && ' · '}<a href={href}>{label}</a></>)}</p>
   </div>

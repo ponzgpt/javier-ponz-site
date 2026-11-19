@@ -16,13 +16,13 @@ claims ledger).
 
 One page, seven numbered "pages" of the notebook, each an anchor: `#cover` (p. 1 whoami), `#story` (p. 2, the
 Apple years), `#now` (p. 3, MDIB), `#work` (p. 4, the Hermes plugins and other projects), `#notes` (p. 5, the
-newsletter), `#stack` (p. 6, from spec to server and the map of my machines), `#ethos` (p. 7).
+newsletter), `#skills` (p. 6, what I can do, with proof), `#ethos` (p. 7).
 
 | Where | What lives there |
 |---|---|
 | `src/data/copy.mjs` | Every visible and accessible string, as `en` and `es` objects with the same keys |
 | `src/components/Notebook.astro` | The page markup, rendered from one language of the copy module |
-| `src/scripts/notebook.js` | The behaviour: rough.js sketches scrubbed by scroll, Rough Notation marks, the corner fold, the map, copy tabs, doodles |
+| `src/scripts/notebook.js` | The behaviour: rough.js sketches scrubbed by scroll, Rough Notation marks, the corner fold, copy tabs, doodles |
 | `src/styles/notebook.css` | Tokens for both themes and the layout |
 | `src/layouts/Layout.astro` | Head (canonical, hreflang, Open Graph, JSON-LD) and the self-hosted fonts |
 | `src/pages/index.astro`, `src/pages/es/index.astro`, `src/pages/404.astro` | `/`, `/es/` and the bilingual 404 |
@@ -38,7 +38,7 @@ Light: ball-point pen on dotted technical paper. Dark: chalk on a slate. The cor
 the page to switch (for the session only). Kalam is the hand, Courier Prime the type, both self-hosted through
 Fontsource; rough.js and Rough Notation are bundled from npm, so the page makes no third-party requests. Every
 drawing is progressive enhancement: reduced motion gets everything simply drawn, and without JavaScript the page
-is plain, complete HTML (the map becomes a list).
+is plain, complete HTML.
 
 `public/og.jpg` is a 1200×630 screenshot of the built cover in the light theme, taken with headless Chrome
 (`--window-size=1200,630 --blink-settings=preferredColorScheme=1`) against `npm run preview`.
