@@ -238,7 +238,7 @@ const es = {
   },
   cover: {
     page: 'p. 1 · whoami',
-    note: 'Millennial talludo de España, ahora cerca de las Highlands escocesas.',
+    note: 'Elder Millennial de España, ahora cerca de las Highlands escocesas.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 años arreglando la tecnología de la gente</span>. Ahora explorando la intersección entre <span id="hl-c">ASI, neurociencia y economía post-laboral</span>.',
     lede: 'Llegué al software desde el hardware. Monté y overclockeé mis propios ordenadores, dejé a medias Ingeniería Industrial y trabajé en Apple hasta 2024, seis años y medio de ellos como Genius. Desde entonces he aprendido el resto desde cero: servidores, despliegue, modelos locales y cómo dirigir agentes de programación con IA que escriben el código a partir de mis especificaciones y mis pruebas. Dos plugins que hice para Hermes Agent están en su catálogo oficial.',
     photoAlt: 'Retrato a lápiz de Javier Ponz: pelo largo y rizado, barba, gafas de aviador, sudadera con capucha',
