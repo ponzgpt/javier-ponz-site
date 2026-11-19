@@ -45,7 +45,7 @@ const en = {
   },
   cover: {
     page: 'p. 1 · whoami',
-    note: 'From Spain. Based in Aberdeen, Scotland.',
+    note: 'Elder Millennial from Spain, now based near the Scottish Highlands.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 years fixing people\'s tech</span>. Now exploring the intersection of <span id="hl-c">ASI, Neuroscience &amp; Post-Labor Economics</span>.',
     lede: 'I came to software through hardware. I built and overclocked my own PCs, left industrial engineering unfinished, then worked at Apple until 2024, six and a half years of it as a Genius. Since then I have learned the rest from zero: servers, deployment, local models, and how to direct AI coding agents that write the code from my specs and tests. Two plugins I built for Hermes Agent are in its official catalog.',
     photoAlt: 'Pencil sketch of Javier Ponz: long curly hair, beard, aviator sunglasses, hoodie',
@@ -238,7 +238,7 @@ const es = {
   },
   cover: {
     page: 'p. 1 · whoami',
-    note: 'De España. Vivo en Aberdeen, Escocia.',
+    note: 'Millennial talludo de España, ahora cerca de las Highlands escocesas.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 años arreglando la tecnología de la gente</span>. Ahora explorando la intersección entre <span id="hl-c">ASI, neurociencia y economía post-laboral</span>.',
     lede: 'Llegué al software desde el hardware. Monté y overclockeé mis propios ordenadores, dejé a medias Ingeniería Industrial y trabajé en Apple hasta 2024, seis años y medio de ellos como Genius. Desde entonces he aprendido el resto desde cero: servidores, despliegue, modelos locales y cómo dirigir agentes de programación con IA que escriben el código a partir de mis especificaciones y mis pruebas. Dos plugins que hice para Hermes Agent están en su catálogo oficial.',
     photoAlt: 'Retrato a lápiz de Javier Ponz: pelo largo y rizado, barba, gafas de aviador, sudadera con capucha',
