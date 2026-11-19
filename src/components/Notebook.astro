@@ -176,15 +176,8 @@ const cards = [
     <p class="sub">{s.sub}</p>
     <figure class="flow" data-sketch="flow" data-loop={s.loop}><svg class="ov" aria-hidden="true"></svg>
       <figcaption class="vh">{s.flowCap}</figcaption>
-      <div class="lane usual">
-        <h3>{s.usualHead}</h3>
-        <ol>{s.usual.map(([b, d]) => <li><div class="box"><b>{b}</b><span>{d}</span></div></li>)}</ol>
-      </div>
-      <div class="lane mine">
-        <h3>{s.mineHead}</h3>
-        <p class="ck-key"><span class="tick" aria-hidden="true"></span>{s.checksKey}</p>
-        <ol>{s.mine.map(([b, d, ck]) => <li><div class="box"><b>{b}</b><span>{d}</span></div>{ck && <ul class="cks">{(ck as readonly string[]).map((c) => <li><span class="tick" aria-hidden="true"></span>{c}</li>)}</ul>}</li>)}</ol>
-      </div>
+      <ol class="steps">{s.mine.map(([b, d, ck]) => <li><div class="box"><b>{b}</b><span>{d}</span></div>{ck && <ul class="cks">{(ck as readonly string[]).map((c) => <li><span class="tick" aria-hidden="true"></span>{c}</li>)}</ul>}</li>)}</ol>
+      <p class="ck-key"><span class="tick" aria-hidden="true"></span>{s.checksKey}</p>
     </figure>
     <div class="flow-lines">{s.lines.map((l) => <p>{l}</p>)}</div>
     <div class="stack-list nojs" id="stack-list">

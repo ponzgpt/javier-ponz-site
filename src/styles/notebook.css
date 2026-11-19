@@ -214,24 +214,33 @@ button.tab{-webkit-appearance:none;appearance:none}
 .trio h3{font-size:var(--t-l);margin:0 0 6px}
 .trio p{font-size:var(--t-s);line-height:1.55;color:var(--text-2);margin:0}
 @media (max-width:1099px){.trio{grid-template-columns:minmax(0,1fr)}.js .trio li{display:grid;grid-template-columns:46px minmax(0,1fr);gap:0 18px;align-items:start}}
-/* p. 6: the contrast figure, two lanes of steps; boxes and arrows are drawn, a plain border and ✓ stand in without the script */
-.flow{position:relative;margin:8px 0 28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 64px;align-items:start}
-.lane h3{font-size:var(--t-xl);margin:0 0 16px}
-.lane ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:26px}
-.lane.mine ol{padding-right:40px}
-.box{display:flex;flex-direction:column;padding:8px 14px 7px;max-width:340px;border:1px solid var(--rule)}
+/* p. 6: the workflow loop, a column of steps that becomes one row when the figure is wide enough;
+   boxes, arrows and chips are drawn, a plain border and ✓ stand in without the script */
+.flow{position:relative;margin:8px 0 22px;container-type:inline-size}
+.steps{list-style:none;margin:0;padding:0 40px 0 0;max-width:420px;display:flex;flex-direction:column;gap:22px}
+.steps>li{min-width:0}
+.box{display:flex;flex-direction:column;padding:7px 12px 6px;border:1px solid var(--rule)}
 .js .box{border-color:transparent}
 .box b{font-family:var(--hand);font-size:var(--t-l);line-height:1.2;color:var(--ink)}
-.box span{font-size:var(--t-s);line-height:1.4;color:var(--text-2)}
-.cks{list-style:none;margin:10px 0 0;padding:0 0 0 40px;font-family:var(--hand);font-size:var(--t-m);line-height:1.3;color:var(--mark-2)}
-.cks li{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
-.ck-key{display:flex;gap:8px;align-items:center;font-family:var(--hand);font-size:var(--t-s);color:var(--mark-2);margin:-8px 0 16px}
+.box span{font-size:var(--t-s);line-height:1.35;color:var(--text-2)}
+.cks{list-style:none;margin:8px 0 0;padding:0 0 0 28px;font-family:var(--hand);font-size:var(--t-s);line-height:1.25;color:var(--mark-2)}
+.cks li{display:flex;gap:6px;align-items:flex-start;margin-top:6px;padding:2px 8px 3px 5px}
+.ck-key{display:flex;gap:8px;align-items:center;font-family:var(--hand);font-size:var(--t-s);color:var(--mark-2);margin:12px 0 0}
 .tick{display:inline-block;width:18px;height:18px;flex:none;margin-top:1px}
 .tick::before{content:"✓";font-weight:700}
 .js .tick::before{content:none}
+/* one row: the fourth step (Production) carries three checks, so its column is wider; the top padding holds the loop */
+@container (min-width:820px){
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.5fr) minmax(0,1fr);grid-template-rows:auto auto;gap:0 30px;padding:34px 0 0;max-width:none}
+  .steps>li{display:grid;grid-row:span 2;grid-template-rows:subgrid}
+  .steps .box{padding-inline:10px}
+  .steps .box span{font-size:var(--t-xs);line-height:1.3}
+  .steps .cks{padding:0;margin-top:2px}
+  .steps .cks li{margin-top:4px}
+  .ck-key{position:absolute;left:0;bottom:0;max-width:calc((100% - 120px) * 2 / 5.5 + 30px);align-items:flex-start;margin:0}
+}
 .flow-lines{max-width:62ch;font-size:var(--t-s);color:var(--text-2);margin:0 0 8px}
-.flow-lines p{margin:0 0 .8em}
-@media (max-width:700px){.flow{grid-template-columns:minmax(0,1fr)}}
+.flow-lines p{margin:0 0 .6em}
 .sub{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.2;color:var(--ink-2);margin:-8px 0 14px}
 .stack-list{font-size:var(--t-s)}
 .stack-list h3{font-size:var(--t-l);margin:18px 0 6px}

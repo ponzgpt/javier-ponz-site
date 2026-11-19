@@ -32,7 +32,7 @@ const en = {
   ogLocale: 'en_GB',
   meta: {
     title: 'Javier Ponz',
-    description: 'Javier Ponz: ten years at Apple, six and a half as a Genius. Now I build and run AI agents and the servers under them. Two of my Hermes Agent plugins are in its official catalog.'
+    description: 'Javier Ponz: from hardware to software. Ten years at Apple, six and a half as a Genius, then two years learning servers, deployment and AI coding agents from zero. Two of his Hermes Agent plugins are in its official catalog.'
   },
   ui: {
     foldToDark: 'Turn the page: switch to the dark slate',
@@ -47,7 +47,7 @@ const en = {
     page: 'p. 1 · whoami',
     note: 'From Spain. Based in Aberdeen, Scotland.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 years fixing people\'s tech</span>. Now exploring the intersection of <span id="hl-c">ASI, Neuroscience &amp; Post-Labor Economics</span>.',
-    lede: 'I spent ten years making other people\'s broken technology make sense, six and a half of them as an Apple Genius. Today I do the same for AI agents: two of my plugins for Hermes Agent are in its official catalog, and I run my own servers.',
+    lede: 'I came to software through hardware. I built and overclocked my own PCs, left industrial engineering unfinished, then worked at Apple until 2024, six and a half years of it as a Genius. Since then I have learned the rest from zero: servers, deployment, local models, and how to direct AI coding agents that write the code from my specs and tests. Two plugins I built for Hermes Agent are in its official catalog.',
     photoAlt: 'Pencil sketch of Javier Ponz: long curly hair, beard, aviator sunglasses, hoodie',
     email: { name: 'Email', aria: 'Email: copy address', done: 'Email address copied', sel: 'Email address selected:' },
     discord: { name: 'Discord', aria: 'Discord sudotechnoir: copy handle', done: 'Discord handle copied', sel: 'Discord handle selected:' },
@@ -73,13 +73,13 @@ const en = {
     note: 'Built on Hermes Agent, the open-source harness by Nous Research.',
     title: 'Building now',
     stamp: 'work in progress',
-    lede: '<b>Machines Do It Better (MDIB)</b> is what I\'m building: private AI agents, each one fitted to a single person\'s work and owned by that person, account, data and choice of model included. The name is the idea:',
+    lede: '<b>Machines Do It Better (MDIB)</b> builds private AI agents, each fitted to one person\'s work and owned by them: account, data and choice of model.',
     spine: 'Machines do the mechanical work. People keep the judgement.',
     // three points, each with a small drawn mark (open, check, person: see the trio sketch)
     points: [
-      ['Open, so you can check', 'My code is public under the MIT licence: the two plugins in the official Hermes catalog, the projects on the next page and this site. It stands on open tools, MIT too: Hermes Agent, llama.cpp and Omarchy.'],
-      ['Agent-first, with checks', 'The usual way is people typing code while a pipeline gates it. I never worked that way: I started when agents could already write the code. What I keep are the checks: a written spec, tests before the code, a person who reads the result, and small steps that can be undone.'],
-      ['People do the people part', 'The agent takes the typing, the boilerplate and the upkeep. That leaves a person free for the work only a person can do: deciding what to build, judging the result, and looking after whoever uses it.']
+      ['Open, so you can check', 'My code is public under the MIT licence, and it runs on open tools: Hermes Agent, llama.cpp, Omarchy.'],
+      ['Agent-first, with checks', 'I never worked the old way. Agents write the code; I write the spec and the tests, read the result, and keep every step small enough to undo.'],
+      ['People do the people part', 'The agent types. I decide what to build, judge the result and look after whoever uses it.']
     ],
     newsletter: 'the newsletter →',
     after: 'Alongside it, a few other things are on my bench right now.'
@@ -132,19 +132,8 @@ const en = {
     note: 'My role in this stack: human in the loop, occasional meat proxy.',
     title: 'My stack',
     sub: 'Current workflow',
-    // the contrast figure: two lanes; [step, what it is, (checks that never go away)]
-    flowCap: 'Two ways to get a change into production: the usual pipeline, and how I work.',
-    usualHead: 'The usual pipeline',
-    usual: [
-      ['Branch', 'a separate copy to work on'],
-      ['Pull request', 'asks to merge the change'],
-      ['Review', 'another person reads it'],
-      ['CI', 'automated build and tests'],
-      ['Staging', 'a rehearsal close to production'],
-      ['Approval', 'someone signs off'],
-      ['Production', 'live for users']
-    ],
-    mineHead: 'How I work',
+    // the workflow loop: [step, what it is, (checks that never go away)]
+    flowCap: 'How I get a change into production: five steps in a loop, back to the first after each one, with the checks that never go away ticked.',
     checksKey: 'ticked: the checks that never go away',
     mine: [
       ['Specify', 'what it must do, written down'],
@@ -155,9 +144,8 @@ const en = {
     ],
     loop: 'next step',
     lines: [
-      'The usual pipeline is there for good reasons: many people change the same code, and every hand-off needs a gate. I work alone, so most of those hand-offs never happen.',
-      'So the first version goes live early and I improve it there, in small steps, with agents (Hermes Agent among them) doing the typing on Omarchy, a Linux I can reshape as I go. What never goes away is what protects the person using it.',
-      'It suits a one-person project with a real person on the other end. It would be the wrong way to run a bank.'
+      'The usual pipeline puts a branch, a review, staging and an approval between a change and production. It exists for good reasons: many people change the same code.',
+      'I work alone with a real person on the other end, so the first version goes live early and I improve it there, in small steps. The checks stay; the ceremony goes. I would not run a bank this way.'
     ],
     currentHead: 'Current stack',
     // [map node ids this fact belongs to (none when the entry has one item), the fact]
@@ -214,12 +202,12 @@ const en = {
       ['Fix it, explain it, hand it back', 'Ten years at the Genius Bar taught me that a repair is not finished when the device works. It is finished when the person understands what happened and is still in control.'],
       ['Prove it', 'I write the specification and the tests before I trust a result, my own included. A claim without a source is a guess.'],
       ['Small steps, always live', 'Everything I build goes live on day one and then changes in small steps, each one checked before it ships. Agents make code cheap to write; they don\'t make checking it optional.'],
-      ['Machines work, people judge', 'Agents can carry the repetitive load. Deciding what matters, and answering for it, stays with a person.'],
+      ['A person answers for it', 'Agents can carry the repetitive load. What gets built, and whether it was right, is still on a person.'],
       ['Learn in public', 'I started from zero two years ago and do the learning in public repositories. Anyone can check what I can do, and how I got here.'],
       ['Curious about everything', 'Neuroscience, economics, history, hardware: I follow whatever I can\'t stop reading about. The connections between fields are where my best ideas come from.'],
       ['Own the machine', 'The hardware, the account, the data and the choice of model should belong to the person who depends on them. Nothing I build is meant to lock anyone in.'],
       ['Free and open source first', 'I build on open tools and publish my own code. What can be inspected can be trusted, and what can be read can be repaired.'],
-      ['<svg class="glyph" role="img" aria-label="e slash lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'More capable technology, sooner, in more people\'s hands. Progress is something to build, not something to wait for.'],
+      ['<svg class="glyph" role="img" aria-label="e slash lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'More capable technology, sooner, in more people\'s hands. I would rather help build it than wait for it.'],
       ['The classical virtues', 'Prudence, justice, fortitude and temperance: the old Mediterranean virtues are still the best checklist I know. Measure in all things, ambition included.']
     ],
     made: '<b>How this was made:</b> built with AI coding agents from my spec and my tests. If I can, so can you: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">the source is on GitHub</a>.',
@@ -237,7 +225,7 @@ const es = {
   ogLocale: 'es_ES',
   meta: {
     title: 'Javier Ponz',
-    description: 'Javier Ponz: diez años en Apple, seis y medio como Genius. Ahora construyo y opero agentes de IA y los servidores que los sostienen. Dos de mis plugins para Hermes Agent están en su catálogo oficial.'
+    description: 'Javier Ponz: del hardware al software. Diez años en Apple, seis y medio como Genius, y dos años aprendiendo desde cero servidores, despliegue y agentes de programación con IA. Dos de sus plugins para Hermes Agent están en su catálogo oficial.'
   },
   ui: {
     foldToDark: 'Pasar la página: cambiar a la pizarra oscura',
@@ -252,7 +240,7 @@ const es = {
     page: 'p. 1 · whoami',
     note: 'De España. Vivo en Aberdeen, Escocia.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 años arreglando la tecnología de la gente</span>. Ahora explorando la intersección entre <span id="hl-c">ASI, neurociencia y economía post-laboral</span>.',
-    lede: 'Pasé diez años consiguiendo que la tecnología rota de otras personas tuviera sentido, seis y medio de ellos como Genius de Apple. Hoy hago lo mismo con agentes de IA: dos de mis plugins para Hermes Agent están en su catálogo oficial, y administro mis propios servidores.',
+    lede: 'Llegué al software desde el hardware. Monté y overclockeé mis propios ordenadores, dejé a medias Ingeniería Industrial y trabajé en Apple hasta 2024, seis años y medio de ellos como Genius. Desde entonces he aprendido el resto desde cero: servidores, despliegue, modelos locales y cómo dirigir agentes de programación con IA que escriben el código a partir de mis especificaciones y mis pruebas. Dos plugins que hice para Hermes Agent están en su catálogo oficial.',
     photoAlt: 'Retrato a lápiz de Javier Ponz: pelo largo y rizado, barba, gafas de aviador, sudadera con capucha',
     email: { name: 'Correo', aria: 'Correo: copiar la dirección', done: 'Dirección de correo copiada', sel: 'Dirección de correo seleccionada:' },
     discord: { name: 'Discord', aria: 'Discord sudotechnoir: copiar el usuario', done: 'Usuario de Discord copiado', sel: 'Usuario de Discord seleccionado:' },
@@ -278,12 +266,12 @@ const es = {
     note: 'Construido sobre Hermes Agent, el agente de código abierto de Nous Research.',
     title: 'Construyendo ahora',
     stamp: 'en construcción',
-    lede: '<b>Machines Do It Better (MDIB)</b> es lo que estoy construyendo: agentes de IA privados, cada uno ajustado al trabajo de una sola persona y de su propiedad, con la cuenta, los datos y la elección del modelo incluidos. El nombre resume la idea:',
+    lede: '<b>Machines Do It Better (MDIB)</b> construye agentes de IA privados, cada uno ajustado al trabajo de una persona y de su propiedad: cuenta, datos y elección del modelo.',
     spine: 'Las máquinas hacen el trabajo mecánico. Las personas conservan el criterio.',
     points: [
-      ['Abierto, para que se pueda comprobar', 'Mi código es público con licencia MIT: los dos plugins del catálogo oficial de Hermes, los proyectos de la página siguiente y esta web. Se apoya en herramientas abiertas, también con licencia MIT: Hermes Agent, llama.cpp y Omarchy.'],
-      ['Primero el agente, con controles', 'Lo habitual es que las personas escriban el código y que una cadena de integración lo filtre. Yo nunca trabajé así: empecé cuando los agentes ya podían escribir el código. Lo que mantengo son los controles: una especificación por escrito, pruebas antes del código, una persona que lee el resultado y pasos pequeños que se pueden deshacer.'],
-      ['Lo humano, para las personas', 'El agente se queda con teclear, el código repetitivo y el mantenimiento. Así la persona queda libre para el trabajo que solo una persona puede hacer: decidir qué construir, juzgar el resultado y cuidar de quien lo usa.']
+      ['Abierto, para que se pueda comprobar', 'Mi código es público con licencia MIT y corre sobre herramientas abiertas: Hermes Agent, llama.cpp, Omarchy.'],
+      ['Primero el agente, con controles', 'Yo nunca trabajé a la antigua. Los agentes escriben el código; yo escribo la especificación y las pruebas, leo el resultado y mantengo cada paso lo bastante pequeño como para deshacerlo.'],
+      ['Lo humano, para las personas', 'El agente teclea. Yo decido qué construir, juzgo el resultado y cuido de quien lo usa.']
     ],
     newsletter: 'la newsletter →',
     after: 'Junto a esto, ahora mismo tengo otras cosas en el taller.'
@@ -336,18 +324,7 @@ const es = {
     note: 'Mi papel en este stack: el humano en el bucle y, a ratos, proxy de carne y hueso.',
     title: 'Mi stack',
     sub: 'Flujo de trabajo actual',
-    flowCap: 'Dos formas de llevar un cambio a producción: el flujo habitual y cómo trabajo yo.',
-    usualHead: 'El flujo habitual',
-    usual: [
-      ['Rama', 'una copia aparte para trabajar'],
-      ['Pull request', 'pide integrar el cambio'],
-      ['Revisión', 'otra persona lo lee'],
-      ['CI', 'compilación y pruebas automáticas'],
-      ['Preproducción', 'un ensayo parecido a producción'],
-      ['Aprobación', 'alguien da el visto bueno'],
-      ['Producción', 'en marcha para los usuarios']
-    ],
-    mineHead: 'Cómo trabajo yo',
+    flowCap: 'Cómo llevo un cambio a producción: cinco pasos en bucle, de vuelta al primero después de cada uno, con marcados los controles que nunca desaparecen.',
     checksKey: 'marcados: los controles que nunca desaparecen',
     mine: [
       ['Especificar', 'lo que debe hacer, por escrito'],
@@ -358,9 +335,8 @@ const es = {
     ],
     loop: 'siguiente paso',
     lines: [
-      'El flujo habitual existe por buenas razones: muchas personas tocan el mismo código y cada traspaso necesita un control. Yo trabajo solo, así que la mayoría de esos traspasos no llegan a darse.',
-      'Por eso la primera versión sale pronto a producción y la mejoro ahí, en pasos pequeños, con agentes (entre ellos Hermes Agent) escribiendo el código sobre Omarchy, un Linux que puedo adaptar sobre la marcha. Lo que nunca desaparece es lo que protege a quien lo usa.',
-      'Encaja en un proyecto de una sola persona con alguien real al otro lado. Sería la forma equivocada de llevar un banco.'
+      'El flujo habitual pone una rama, una revisión, un entorno de preproducción y una aprobación entre un cambio y producción. Existe por buenas razones: muchas personas tocan el mismo código.',
+      'Yo trabajo solo y con una persona real al otro lado, así que la primera versión sale pronto a producción y la mejoro ahí, en pasos pequeños. Los controles se quedan; la ceremonia sobra. Yo no llevaría así un banco.'
     ],
     currentHead: 'Stack actual',
     current: [
@@ -415,12 +391,12 @@ const es = {
       ['Arréglalo, explícalo, devuélvelo', 'Diez años en el Genius Bar me enseñaron que una reparación no termina cuando el dispositivo funciona. Termina cuando la persona entiende qué ha pasado y sigue teniendo el control.'],
       ['Demuéstralo', 'Escribo la especificación y las pruebas antes de fiarme de un resultado, también de los míos. Una afirmación sin fuente es una suposición.'],
       ['Pasos pequeños, siempre en producción', 'Todo lo que construyo se publica el primer día y después cambia en pasos pequeños, cada uno comprobado antes de salir. Los agentes abaratan escribir código; no hacen opcional comprobarlo.'],
-      ['Las máquinas trabajan, las personas juzgan', 'Los agentes pueden cargar con lo repetitivo. Decidir qué importa, y responder por ello, sigue en manos de una persona.'],
+      ['Una persona responde de ello', 'Los agentes pueden cargar con lo repetitivo. Qué se construye, y si estuvo bien, sigue siendo cosa de una persona.'],
       ['Aprender en público', 'Empecé desde cero hace dos años y aprendo en repositorios públicos. Cualquiera puede comprobar qué sé hacer y cómo he llegado hasta aquí.'],
       ['Curiosidad por todo', 'Neurociencia, economía, historia, hardware: sigo todo aquello sobre lo que no puedo dejar de leer. Mis mejores ideas salen de las conexiones entre campos.'],
       ['Ser dueño de la máquina', 'El hardware, la cuenta, los datos y la elección del modelo deberían pertenecer a la persona que depende de ellos. Nada de lo que construyo está pensado para atar a nadie.'],
       ['Primero, software libre y de código abierto', 'Construyo sobre herramientas abiertas y publico mi propio código. En lo que se puede inspeccionar se puede confiar, y lo que se puede leer se puede reparar.'],
-      ['<svg class="glyph" role="img" aria-label="e barra lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'Tecnología más capaz, antes y en manos de más gente. El progreso hay que construirlo, no esperarlo.'],
+      ['<svg class="glyph" role="img" aria-label="e barra lambda" viewBox="0 0 56 32"><path d="M3.5 21 L15.5 21 C16 15.5 12.5 13.5 9.5 14 C5.5 14.5 3 18 3.5 22 C4 25.5 8 27.5 11 26.5 C13 26 14.5 25 15.5 23.5"/><path d="M21.5 29 L30.5 6.5"/><path d="M35 6.5 C39 7 41 10 43.5 16 C45.5 21 48 25 51 27.5"/><path d="M44 17 C42 21 39 25 35.5 27.5"/></svg>', 'Tecnología más capaz, antes y en manos de más gente. Prefiero ayudar a construirla que esperarla.'],
       ['Las virtudes clásicas', 'Prudencia, justicia, fortaleza y templanza: las viejas virtudes mediterráneas siguen siendo la mejor lista de comprobación que conozco. Mesura en todo, también en la ambición.']
     ],
     made: '<b>Cómo está hecho:</b> construido con agentes de programación con IA a partir de mi especificación y mis pruebas. Si yo puedo, tú también: <a href="https://github.com/ponzgpt/javier-ponz-site" target="_blank" rel="noreferrer">el código está en GitHub</a>.',

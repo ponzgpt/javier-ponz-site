@@ -22,8 +22,7 @@ export const person = {
 };
 
 export const profile = [
-  'Ten years at Apple, six and a half as a Genius: the cases nobody else had solved, explained until the customer understood them.',
-  'Now I build and run AI agents and the servers under them. I am a vibe coder: I specify and test, AI coding agents write the code. Two of my Hermes Agent plugins are in its official catalog.'
+  'I came to software through hardware: I built and overclocked my own PCs, left industrial engineering unfinished, and worked at Apple until 2024, six and a half years as a Genius. Since then I have learned servers, deployment and local models from zero, directing AI coding agents that write the code from my specs and tests.'
 ];
 
 export const experience = [
@@ -33,7 +32,7 @@ export const experience = [
     where: 'Aberdeen, Scotland',
     bullets: [
       'Moved to the UK and learned, from zero, everything between a prompt and a production server; building in the open.',
-      "Every site I publish runs on a VPS I administer: Docker Swarm behind Traefik with Let's Encrypt, each shipped by its own script that refuses a dirty tree and swaps tasks behind a health check."
+      "Every site I publish runs on a VPS I administer: Docker Swarm behind Traefik, deployed by a script that refuses a dirty tree."
     ]
   },
   {

@@ -162,17 +162,19 @@ const D={
       if(!i)return;
       if(side)p.line(r.x-20,r.y+4,r.x-19,r.y+r.h-4,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});
       else p.line(r.x+4,r.y-14,r.x+r.w-6,r.y-14,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});});},
-  // p. 6: two lanes of boxed steps joined by arrows; ticks on the checks that never go away; a loop back from the last step
-  flow(p,W,el){const r0=el.getBoundingClientRect();
-    $$('.lane',el).forEach(ln=>{const mine=ln.classList.contains('mine'),bs=$$('.box',ln).map(b=>rel(b,r0)),
-        st=mine?{strokeWidth:1.6}:{stroke:C.ink2,strokeWidth:1.3,roughness:.9};
-      bs.forEach((b,i)=>{p.rect(b.x,b.y,b.w,b.h,W_(st,i===bs.length-(mine?2:1)?{fill:C.wash,fillStyle:'hachure',hachureGap:6,fine:1}:{}));
-        if(i)p.arrow([[bs[i-1].x+18,bs[i-1].y+bs[i-1].h+3],[b.x+18,b.y-4]],W_(st,{strokeWidth:1.3}));});
-      // the loop runs in the lane's right gutter (the list's padding), clear of the check notes
-      if(mine&&bs.length>2){const a=bs[bs.length-1],t=bs[1],o=rel(ln.querySelector('ol'),r0),x=o.x+o.w-26;
-        p.arrow([[a.x+a.w+2,a.cy],[x,a.cy-10],[x,t.cy+10],[t.x+t.w+4,t.cy]],W_(blue(),{strokeWidth:1.5}));
-        const ly=(a.cy+t.cy)/2,lb=p.text(x+14,ly,el.dataset.loop,'sk-blue halo','middle');lb.setAttribute('transform',`rotate(-90 ${x+14} ${ly})`);}
-      $$('.tick',ln).forEach(k=>{const q=rel(k,r0);p.lines([[q.x+1,q.cy],[q.x+6,q.cy+5],[q.x+15,q.cy-7]],W_(blue(),{strokeWidth:2}));});});},
+  // p. 6: one loop of boxed steps, a row on wide pages and a column on phones; the checks are ticked chips under their step
+  flow(p,W,el){const r0=el.getBoundingClientRect(),bs=$$('.box',el).map(b=>rel(b,r0)),n=bs.length,row=n>1&&Math.abs(bs[0].y-bs[1].y)<4,st={strokeWidth:1.6};
+    bs.forEach((b,i)=>{p.rect(b.x,b.y,b.w,b.h,W_(st,i===n-2?{fill:C.wash,fillStyle:'hachure',hachureGap:6,fine:1}:{}));
+      if(!i)return;const a=bs[i-1];
+      p.arrow(row?[[a.x+a.w+3,a.cy],[b.x-4,b.cy]]:[[a.x+18,a.y+a.h+3],[b.x+18,b.y-4]],{strokeWidth:1.3});});
+    // the loop back to the first step: over the row (the list's top padding), or down the column's right gutter
+    if(n>2){const a=bs[n-1],t=bs[0],B=W_(blue(),{strokeWidth:1.5});
+      if(row){const y=16;p.arrow([[a.cx,a.y-3],[a.cx-16,y],[t.cx+16,y],[t.cx,t.y-4]],B);p.text((a.cx+t.cx)/2,y-6,el.dataset.loop,'sk-blue halo','middle');}
+      else{const o=rel(el.querySelector('.steps'),r0),x=o.x+o.w-20,ly=(a.cy+t.cy)/2;
+        p.arrow([[a.x+a.w+2,a.cy],[x,a.cy-10],[x,t.cy+10],[t.x+t.w+4,t.cy]],B);
+        p.text(x+12,ly,el.dataset.loop,'sk-blue halo','middle').setAttribute('transform',`rotate(-90 ${x+12} ${ly})`);}}
+    $$('.cks li',el).forEach(li=>{const r=rel(li,r0);p.rect(r.x,r.y,r.w,r.h,{stroke:C.ink2,strokeWidth:1,roughness:.7});});
+    $$('.tick',el).forEach(k=>{const q=rel(k,r0);p.lines([[q.x+1,q.cy],[q.x+6,q.cy+5],[q.x+15,q.cy-7]],W_(blue(),{strokeWidth:2}));});},
   // language tabs: card stock in light (CSS); chalk outlines on the slate edge in dark
   lang(p,W,el){if(!C.chalk)return;const r0=el.getBoundingClientRect(),col=getComputedStyle(el).flexDirection==='column';
     $$('a',el).forEach(a=>{const {x,y,w,h}=rel(a,r0),on=a.hasAttribute('aria-current'),
