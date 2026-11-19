@@ -211,12 +211,15 @@ button.tab{-webkit-appearance:none;appearance:none}
 .trio h3 a{color:inherit;text-decoration-color:var(--mark-2)}
 .trio p{font-size:var(--t-s);line-height:1.55;color:var(--text-2);margin:0}
 @media (max-width:1099px){.trio{grid-template-columns:minmax(0,1fr)}.js .trio li{display:grid;grid-template-columns:46px minmax(0,1fr);gap:0 18px;align-items:start}}
-/* p. 6: the skills sheet, one hand-ruled row per group: box, handwritten group, typed items, proof in the pen margin.
+/* p. 6: the skills sheet, one hand-ruled row per group: box, handwritten group, typed items.
    Without the script the box is a plain bordered square with a typed tick. */
-.sub{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.2;color:var(--ink-2);margin:-8px 0 14px}
+/* the subtitle finishes the title's sentence: same pen, set just under it, indented a little */
+.sub{font-family:var(--hand);font-weight:700;font-size:var(--t-xl);line-height:1.2;color:var(--ink-2);margin:-14px 0 18px .6em}
+.memes span{display:block}
 .sheet{position:relative;margin-top:8px}
 .sheet-rows{list-style:none;margin:0;padding:0}
-.sheet-rows>li{display:grid;grid-template-columns:24px minmax(0,190px) minmax(0,1fr) minmax(0,230px);gap:4px 22px;align-items:start;padding:16px 4px 15px}
+.sheet{max-width:900px}
+.sheet-rows>li{display:grid;grid-template-columns:24px minmax(0,230px) minmax(0,1fr);gap:4px 26px;align-items:start;padding:16px 4px 15px}
 .bx{width:20px;height:20px;margin-top:4px;border:1px solid var(--ink-2);font-size:14px;line-height:18px;text-align:center;color:var(--mark-2);font-weight:700}
 .bx::before{content:"✓"}
 .next .bx::before{content:none}
@@ -225,10 +228,8 @@ button.tab{-webkit-appearance:none;appearance:none}
 .items{list-style:none;margin:0;padding:0;font-size:var(--t-s);line-height:1.5;color:var(--text-2)}
 .items li{display:inline}
 .items li:not(:last-child)::after{content:" · ";color:var(--ink-2)}
-.proof{grid-column:4;margin:0;font-family:var(--hand);font-size:var(--t-m);line-height:1.3;color:var(--mark-2)}
-.proof a{color:inherit}
-@media (max-width:1099px){.sheet-rows>li{grid-template-columns:24px minmax(0,170px) minmax(0,1fr)}.proof{grid-column:3}}
-@media (max-width:640px){.sheet-rows>li{grid-template-columns:24px minmax(0,1fr);gap:6px 14px}.items,.proof{grid-column:2}}
+@media (max-width:1099px){.sheet-rows>li{grid-template-columns:24px minmax(0,180px) minmax(0,1fr)}}
+@media (max-width:640px){.sheet-rows>li{grid-template-columns:24px minmax(0,1fr);gap:6px 14px}.items{grid-column:2}}
 /* ethos: one group of five rules; on wide pages one grid of two columns, 1-3 and 4-5, rows shared so they align */
 .ethos{list-style:none;margin:6px 0 0;padding:0;max-width:66ch}
 .ethos li{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:0 16px;padding:14px 0 16px}
@@ -263,20 +264,26 @@ button.tab{-webkit-appearance:none;appearance:none}
 @keyframes dp-press{0%,10%{transform:scale(1)}13%,53%{transform:scale(.86)}56%,100%{transform:scale(1)}}
 @keyframes dp-fill{0%,10%{fill:var(--paper)}13%,53%{fill:var(--mark)}56%,100%{fill:var(--paper)}}
 @keyframes dp-tap{0%,10%{opacity:0;transform:scale(.3)}12%{opacity:.9;transform:scale(.6)}20%{opacity:0;transform:scale(1.4)}100%{opacity:0}}
-/* apple timeline */
-.tl-wrap{position:relative;margin-top:8px}
+/* p. 2: four acts, newest first; the act numeral and era in the pen, a drawn dot, the story typed, examples ticked */
+.tl-wrap{position:relative;margin-top:14px}
 .tl{position:relative;list-style:none;margin:0;padding:0}
-.tl li{display:grid;grid-template-columns:150px 28px minmax(0,1fr) 210px;gap:0 18px;padding-bottom:30px}
-.tl .when{font-family:var(--hand);font-size:var(--t-m);color:var(--ink-2);line-height:1.35;padding-top:2px;text-align:right}
-.tl-dot{display:block;width:18px;height:18px;margin:6px auto 0}
-.tl h3{font-family:var(--type);font-size:var(--t-m);font-weight:700;line-height:1.4;margin-bottom:4px}
-.tl p{font-size:var(--t-s);margin:0}
-.tl .aside{font-family:var(--hand);color:var(--mark-2);font-size:var(--t-m);line-height:1.3;padding-top:2px}
+.tl>li{display:grid;grid-template-columns:150px 34px minmax(0,1fr) 200px;gap:0 20px;padding-bottom:68px}
+.tl>li:last-child{padding-bottom:8px}
+.tl .era{margin:0;text-align:right;font-family:var(--hand);line-height:1.2}
+.tl .act{display:block;font-weight:700;font-size:var(--t-2xl);line-height:1;color:var(--mark-2)}
+.tl .when{display:block;font-size:var(--t-m);color:var(--ink-2);margin-top:6px}
+.tl-dot{display:block;width:26px;height:26px;margin:6px auto 0}
+.tl h3{font-family:var(--type);font-size:var(--t-l);font-weight:700;line-height:1.35;margin:4px 0 8px}
+.tl>li>div>p{font-size:var(--t-s);line-height:1.6;margin:0 0 12px;max-width:64ch}
+.ex{list-style:none;margin:0;padding:0;font-size:var(--t-s);line-height:1.5;color:var(--text-2);max-width:64ch}
+.ex li{position:relative;padding-left:22px;margin-top:5px}
+.ex li::before{content:"\2713";position:absolute;left:2px;top:0;font-weight:700;color:var(--mark-2)}
+.tl .aside{font-family:var(--hand);color:var(--mark-2);font-size:var(--t-m);line-height:1.3;padding-top:8px}
 .made{max-width:62ch;font-size:var(--t-s);color:var(--ink-2);margin-top:32px}
 .earlier{max-width:62ch;font-size:var(--t-xs);color:var(--ink-2);margin-top:8px}
 @media (max-width:980px){
-  .tl li{grid-template-columns:110px 28px minmax(0,1fr)}
-  .tl .aside{grid-column:3}
+  .tl>li{grid-template-columns:110px 34px minmax(0,1fr)}
+  .tl .aside{grid-column:3;padding-top:10px}
 }
 @media (max-width:860px){
   .spread{grid-template-columns:minmax(0,1fr);padding-block:40px;align-items:start}
@@ -323,11 +330,13 @@ button.tab{-webkit-appearance:none;appearance:none}
   .hermes h3{font-size:28px}
   .plug+.plug{margin-top:26px}
   .demo{display:none!important}
-  .tl li{grid-template-columns:22px minmax(0,1fr);gap:0 14px}
-  .tl .when{grid-column:2;grid-row:1;text-align:left}
-  .tl-dot{grid-column:1;grid-row:1}
-  .tl li>div,.tl .aside{grid-column:2}
-  .tl .aside{margin-top:6px}
+  .tl>li{grid-template-columns:26px minmax(0,1fr);gap:0 14px;padding-bottom:48px}
+  .tl .era{grid-column:2;grid-row:1;text-align:left}
+  .tl .act{display:inline;font-size:var(--t-xl);margin-right:10px}
+  .tl .when{display:inline;margin:0}
+  .tl-dot{grid-column:1;grid-row:1;width:22px;height:22px;margin-top:4px}
+  .tl>li>div,.tl .aside{grid-column:2}
+  .tl .aside{padding-top:10px}
   .tk{padding:18px 16px 16px 18px}
   .ticket{grid-template-columns:40px minmax(0,1fr)}
 }

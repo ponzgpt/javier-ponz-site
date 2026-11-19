@@ -72,7 +72,7 @@ const cards = [
     <h2 id="h-story"><span>{t.story.title}</span></h2>
     <div class="tl-wrap" data-sketch="tl"><svg class="ov" aria-hidden="true"></svg>
     <ol class="tl">
-      {t.story.timeline.map((r) => <li><span class="when">{r.when}</span><span class="tl-dot"></span><div><h3>{r.title}</h3><p>{r.text}</p></div><span class="aside">{r.aside}</span></li>)}
+      {t.story.timeline.map((r) => <li><p class="era"><span class="act">{r.act}</span><span class="when">{r.when}</span></p><span class="tl-dot"></span><div><h3>{r.title}</h3><p>{r.text}</p><ul class="ex">{r.lines.map((x) => <li>{x}</li>)}</ul></div><span class="aside">{r.aside}</span></li>)}
     </ol>
     </div>
   </div>
@@ -169,12 +169,12 @@ const cards = [
 <section class="spread" id="skills" aria-labelledby="h-skills">
   <aside class="margin">
     <p class="pageno">{k.page}</p>
-    <p class="note">{k.note}</p>
+    <p class="note memes">{k.note.map((x) => <span>{x}</span>)}</p>
   </aside>
   <div class="main">
     <h2 id="h-skills"><span>{k.title}</span></h2>
     <p class="sub">{k.sub}</p>
-    {/* the skills sheet: a ticked box per group (the last, learning next, is empty), the items typed, the proof in the pen margin */}
+    {/* the skills sheet: a ticked box per group (the last, learning next, is empty), the items typed */}
     <div class="sheet" data-sketch="sheet"><svg class="ov" aria-hidden="true"></svg>
       <ul class="sheet-rows">
         {k.rows.map((r, i) => (
@@ -182,7 +182,6 @@ const cards = [
             <span class="bx" aria-hidden="true"></span>
             <h3>{r.group}</h3>
             <ul class="items">{r.items.map((x) => <li>{x}</li>)}</ul>
-            {'proof' in r && <p class="proof"><span class="vh">{k.proof} </span><span set:html={r.proof} /></p>}
           </li>
         ))}
       </ul>

@@ -119,8 +119,9 @@ const D={
     Object.keys(rows).forEach(k=>{const rs=rows[k],x0=Math.min(...rs.map(r=>r.x)),x1=Math.max(...rs.map(r=>r.x+r.w));p.line(x0-4,+k,x1+4,+k,{strokeWidth:2.2,stroke:C.blue});});},
   btn(p,W,el){const H=el.clientHeight;p.rect(2,2,W-4,H-4,W_(W_({strokeWidth:2},blue()),{fill:C.wash,fillStyle:'hachure',hachureGap:6,fillWeight:1}));},
   tl(p,W,el){const r0=el.getBoundingClientRect(),pts=$$('.tl-dot',el).map(d=>{const r=rel(d,r0);return[r.cx,r.cy]}),n=pts.length;
-    pts.forEach((q,i)=>{p.circ(q[0],q[1],18,i===0?dotHatch():W_(solid(),{strokeWidth:1.6}));
-      if(i<n-1)p.line(q[0],q[1]+10,pts[i+1][0],pts[i+1][1]-10,{strokeWidth:1.6});});},
+    // one dot per act, as big as its box, the first (now) hatched; the line runs dot to dot
+    const ds=$$('.tl-dot',el);pts.forEach((q,i)=>{const d=ds[i].offsetWidth,g=d/2+3;p.circ(q[0],q[1],d,i===0?dotHatch():W_(solid(),{strokeWidth:1.8}));
+      if(i<n-1)p.line(q[0],q[1]+g,pts[i+1][0],pts[i+1][1]-g,{strokeWidth:1.6});});},
   // the notes list: a hand-ruled line under each row, an arrow that redraws on hover
   ruled(p,W,el){const r0=el.getBoundingClientRect(),rule={stroke:C.chalk?C.ink2:C.hatch,strokeWidth:1,roughness:.6,bowing:.4};
     $$('li',el).forEach((li,i)=>{const r=rel(li,r0),u=rel(li.parentNode,r0),ar=li.querySelector('.arr');
@@ -144,13 +145,11 @@ const D={
       if(!i)return;
       if(side)p.line(r.x-20,r.y+4,r.x-19,r.y+r.h-4,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});
       else p.line(r.x+4,r.y-14,r.x+r.w-6,r.y-14,{stroke:C.ink2,strokeWidth:1.1,roughness:.9,bowing:.6});});},
-  // p. 6: the skills sheet; a box per row (ticked, or empty for what comes next), a hand rule under each row,
-  // and the pen margin before the proof column when it sits beside the items
+  // p. 6: the skills sheet; a box per row (ticked, or empty for what comes next), a hand rule under each row
   sheet(p,W,el){const r0=el.getBoundingClientRect(),rows=$$('.sheet-rows > li',el),rule={stroke:C.chalk?C.ink2:C.hatch,strokeWidth:1,roughness:.6,bowing:.4};
-    rows.forEach((li,i)=>{const r=rel(li,r0),b=rel(li.querySelector('.bx'),r0),pr=li.querySelector('.proof');
+    rows.forEach((li,i)=>{const r=rel(li,r0),b=rel(li.querySelector('.bx'),r0);
       p.rect(b.x+1,b.y+1,b.w-2,b.h-2,W_(solid(),{strokeWidth:1.5}));
       if(!li.classList.contains('next'))p.lines([[b.x+4,b.cy],[b.x+9,b.cy+6],[b.x+b.w+3,b.y-5]],W_(blue(),{strokeWidth:2.2}));
-      if(pr){const q=rel(pr,r0);if(q.x>r.x+W*.4)p.line(q.x-14,r.y+10,q.x-13,r.y+r.h-10,W_(blue(),{strokeWidth:1,roughness:.8}));}
       if(i<rows.length-1)p.line(r.x,r.y+r.h,r.x+r.w,r.y+r.h,rule);});},
   // language tabs: card stock in light (CSS); chalk outlines on the slate edge in dark
   lang(p,W,el){if(!C.chalk)return;const r0=el.getBoundingClientRect(),col=getComputedStyle(el).flexDirection==='column';
