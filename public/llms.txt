@@ -28,9 +28,9 @@ official catalog, and he is building Machines Do It Better.
 
 ## Experience (most recent first)
 
-- Aug 2024 – now: independent, Aberdeen, Scotland. Moved to the UK. Studying
-  AI and full stack at Universidad Rey Juan Carlos via Racks University (to
-  Dec 2026), building MDIB and shipping small products to his own server.
+- Aug 2024 – now: independent, Aberdeen, Scotland. Moved to the UK. Studied
+  AI and full stack at Racks Academy, attached to IUNIT (Universidad Rey Juan
+  Carlos); final projects pending, building MDIB and shipping small products to his own server.
 - Mar 2018 – Aug 2024: Genius, Apple Retail. Six and a half years as the
   store's technical baseline: the cases nobody else had resolved, explained to
   people with very different levels of understanding, and newer technicians

@@ -96,13 +96,13 @@ export const work = [
 export const education = [
   {
     title: 'Specialist in Artificial Intelligence',
-    when: '2024 – 2026, in progress',
-    where: 'Universidad Rey Juan Carlos, via Racks University'
+    when: '2024 – 2026, final project pending',
+    where: 'Racks Academy, attached to IUNIT (Universidad Rey Juan Carlos)'
   },
   {
-    title: 'Full Stack AI Developer',
-    when: '2025 – 2026, in progress',
-    where: 'Universidad Rey Juan Carlos, via Racks University'
+    title: 'AI-Assisted Programming, Full Stack',
+    when: '2025 – 2026, final project pending',
+    where: 'Racks Academy, attached to IUNIT (Universidad Rey Juan Carlos)'
   },
   {
     title: 'Industrial Engineering',
