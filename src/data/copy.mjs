@@ -45,7 +45,7 @@ const en = {
   },
   cover: {
     page: 'p. 1 · whoami',
-    note: 'Elder Millennial from Spain, now based near the Scottish Highlands.',
+    note: 'Peak millennial (1990) from Spain, now based near the Scottish Highlands.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 years fixing people\'s tech</span>. Now exploring the intersection of <span id="hl-c">ASI, Neuroscience &amp; Post-Labor Economics</span>.',
     lede: 'I\'m not a programmer. I\'m the person who sits between a confused user and a system that isn\'t doing what it should. I spent a decade explaining broken technology to people having a bad day; then the last two years learning how to build it, from zero.',
     photoAlt: 'Pencil sketch of Javier Ponz: long curly hair, beard, aviator sunglasses, hoodie',
@@ -181,7 +181,7 @@ const es = {
   },
   cover: {
     page: 'p. 1 · whoami',
-    note: 'Elder Millennial de España. Ahora vivo cerca de las Highlands escocesas.',
+    note: 'Millennial de manual (1990), de España. Ahora vivo cerca de las Highlands escocesas.',
     heroLine: '<span id="hl-a">Ex-Apple</span> | <span id="hl-b">10 años arreglando los aparatos de la gente</span>. Ahora exploro el cruce entre <span id="hl-c">ASI, neurociencia y economía post-laboral</span>.',
     lede: 'No soy programador. Soy la persona que está entre un usuario confundido y un sistema que no hace lo que debería. Me pasé diez años explicando tecnología que no funcionaba a gente que tenía un mal día, y los dos últimos aprendiendo a construirla desde cero.',
     photoAlt: 'Retrato a lápiz de Javier Ponz: pelo largo y rizado, barba, gafas de aviador y sudadera con capucha',
