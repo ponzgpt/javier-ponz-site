@@ -19,7 +19,7 @@ official catalog, and he is building Machines Do It Better.
 
 - Email: jponz@proton.me
 - Site: https://javierponz.technoir.cloud/ (English) and https://javierponz.technoir.cloud/es/ (Spanish)
-- CV (PDF, English only): https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf
+- CV (PDF, English only): https://javierponz.technoir.cloud/javier-ponz-cv.pdf
 - GitHub: https://github.com/ponzgpt
 - X: https://x.com/sudotechnoir (@sudotechnoir)
 - LinkedIn: https://www.linkedin.com/in/javierponz

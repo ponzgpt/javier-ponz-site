@@ -1,5 +1,5 @@
 // Single source of truth for the CV: scripts/build-cv-pdf.mjs renders it to
-// public/javier-ponz-prado-cv.pdf. Nothing on the site imports it.
+// public/javier-ponz-cv.pdf. Nothing on the site imports it.
 //
 // English only, on purpose. Every fact here must be in the claims ledger or
 // on the live site; when the site changes its wording, this follows.

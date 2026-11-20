@@ -3,7 +3,7 @@
 My portfolio and CV: one page laid out as a repair notebook, in English and Spanish.
 
 **Live:** https://javierponz.technoir.cloud (English) · https://javierponz.technoir.cloud/es/ (Spanish) ·
-**CV (PDF):** https://javierponz.technoir.cloud/javier-ponz-prado-cv.pdf
+**CV (PDF):** https://javierponz.technoir.cloud/javier-ponz-cv.pdf
 
 ## How this was made
 
@@ -45,7 +45,7 @@ is plain, complete HTML.
 
 ## The CV
 
-`npm run cv:pdf` renders `src/data/cv.mjs` to `public/javier-ponz-prado-cv.pdf` with headless Chrome. It is
+`npm run cv:pdf` renders `src/data/cv.mjs` to `public/javier-ponz-cv.pdf` with headless Chrome. It is
 English only on purpose: it is the document that gets forwarded, and one canonical version keeps that trail
 clean. The site links it in a new tab, and nginx serves it inline. The phone number is not in this repository;
 a copy for sending directly is built with `CV_PHONE='…' CV_OUT=… npm run cv:pdf`.

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generates public/javier-ponz-prado-cv.pdf from src/data/cv.mjs with the
+ * Generates public/javier-ponz-cv.pdf from src/data/cv.mjs with the
  * machine's Chrome (headless print to PDF).
  *
  * The phone number is not in this public repository. The published PDF has
@@ -28,7 +28,7 @@ import { fileURLToPath } from 'node:url';
 import { person, profile, experience, work, education, skills, certsAndLanguages } from '../src/data/cv.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const out = process.env.CV_OUT || join(root, 'public', 'javier-ponz-prado-cv.pdf');
+const out = process.env.CV_OUT || join(root, 'public', 'javier-ponz-cv.pdf');
 const contact = process.env.CV_PHONE
   ? [person.contact[0], { value: process.env.CV_PHONE }, ...person.contact.slice(1)]
   : person.contact;

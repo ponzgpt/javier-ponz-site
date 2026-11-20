@@ -114,7 +114,7 @@ for (const f of files.filter((f) => f.startsWith(vdir + '/'))) {
   if (links[5] && links[5][1] !== (es ? '/es/' : '/')) fail(`${rel}: ribbon v6 is not the ${es ? 'Spanish' : 'English'} current site`);
   const page = s.replace(/<!--vx-->[\s\S]*?<!--\/vx-->/, '');
   for (const [, u] of page.matchAll(/\s(?:href|src|srcset)="(\/(?!\/)[^"]*)"/g)) {
-    if (!u.startsWith('/v/') && u !== '/javier-ponz-prado-cv.pdf') fail(`${rel}: ${u} leaves the frozen copy`);
+    if (!u.startsWith('/v/') && u !== '/javier-ponz-cv.pdf') fail(`${rel}: ${u} leaves the frozen copy`);
   }
 }
 

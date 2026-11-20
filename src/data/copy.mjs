@@ -10,7 +10,7 @@ export const shared = {
   site: 'https://javierponz.technoir.cloud',
   email: 'jponz@proton.me',
   discord: 'sudotechnoir',
-  cv: '/javier-ponz-prado-cv.pdf',
+  cv: '/javier-ponz-cv.pdf',
   github: 'https://github.com/ponzgpt',
   x: 'https://x.com/sudotechnoir',
   linkedin: 'https://www.linkedin.com/in/javierponz',
